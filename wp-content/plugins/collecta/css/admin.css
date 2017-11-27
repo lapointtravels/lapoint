@@ -1,0 +1,78 @@
+.clearfix:before, .clearfix:after {
+  content: "\0020";
+  display: block;
+  height: 0;
+  overflow: hidden; }
+.clearfix:after {
+  clear: both; }
+.clearfix {
+  zoom: 1; }
+
+/* Resets */
+ul, li, ul li {
+  margin: 0;
+  padding: 0; }
+
+.collecta-settings-title {
+  margin: 30px 0 5px;
+  padding: 0;
+  font-size: 18px; }
+
+.collecta-settings-list li {
+  margin-bottom: 6px; }
+  .collecta-settings-list li:before, .collecta-settings-list li:after {
+    content: "\0020";
+    display: block;
+    height: 0;
+    overflow: hidden; }
+  .collecta-settings-list li:after {
+    clear: both; }
+  .collecta-settings-list li {
+    zoom: 1; }
+  .collecta-settings-list li label {
+    width: 150px;
+    float: left; }
+  .collecta-settings-list li input, .collecta-settings-list li textarea {
+    float: left;
+    margin-left: 10px; }
+  .collecta-settings-list li input {
+    width: 250px; }
+  .collecta-settings-list li textarea {
+    width: 400px;
+    height: 100px; }
+
+#collect-user-table {
+  width: 100%;
+  margin-top: 10px; }
+  #collect-user-table th {
+    text-align: left;
+    padding: 5px 10px;
+    background-color: #444;
+    color: #ddd; }
+    #collect-user-table th.sort.asc:after {
+      content: url(../imgs/order-asc.png);
+      position: relative;
+      top: 3px;
+      left: 10px; }
+    #collect-user-table th.sort.desc:after {
+      content: url(../imgs/order-desc.png);
+      position: relative;
+      top: 3px;
+      left: 10px; }
+  #collect-user-table td {
+    padding: 5px 10px; }
+    #collect-user-table td.loading {
+      text-align: center;
+      height: 50px;
+      line-height: 50px;
+      background-color: #eee; }
+  #collect-user-table tbody tr:nth-child(2n+1) {
+    background-color: #eee; }
+
+#collecta-user-pagination {
+  margin-top: 20px; }
+  #collecta-user-pagination a {
+    margin: 0 5px; }
+    #collecta-user-pagination a.active {
+      font-weight: bold;
+      color: #000; }

@@ -1,0 +1,303 @@
+/*
+Theme 1
+Used for Lapoint
+*/
+
+$theme_title_size: 26;
+$theme_title_font_weight: 600;
+$theme_text_shadow: 1px 1px 5px rgba(#000, .5);
+
+$theme_info_size: 20;
+$theme_info_font_weight: 600;
+
+@import "_mixins";
+
+body .kloonslides-slideshow {
+
+
+	// ****************************** Arrows ******************************
+	.icon-link {
+		width: 32px;
+		height: 48px;
+		margin-top: -24px;
+
+		.icon {
+			display: inline-block;
+			width: 32px;
+			height: 48px;
+			background-size: 32px 48px;
+
+			&.prev-icon {
+				background-image: url('../images/arrow-left-white-shadow.png');
+			}
+
+			&.next-icon {
+				background-image: url('../images/arrow-right-white-shadow.png');
+			}
+		}
+
+		&:hover .icon {
+			&.prev-icon {
+				background-image: url('../images/arrow-left-black-shadow.png');
+			}
+
+			&.next-icon {
+				background-image: url('../images/arrow-right-black-shadow.png');
+			}
+		}
+
+		@media (max-width: 992px) {
+			.icon {
+				@include scale(.5);
+			}
+		}
+	}
+
+
+	// ****************************** Dots ******************************
+	.kloonslides-dots > li {
+		margin: 3px 1px;
+		background-color: transparent;
+		border: 2px solid #fff;
+
+		&.active {
+			background-color: #fff;
+		}
+	}
+
+
+	// ****************************** General styling ******************************
+	.presentations {
+		color: #fff;
+		max-width: 80%;
+
+		.presentation-title, .presentation-info {
+			@include opacity(0);
+			@include translate3d(0, 10px, 0);
+		}
+
+		.presentation-title {
+			line-height: 1;
+		}
+
+		.presentation-info {
+			line-height: 1.7;
+		}
+	}
+
+	.displayed .presentations {
+		.presentation-title {
+			@include transition(all 300ms 400ms ease-out);
+			@include opacity(100);
+			@include translate3d(0, 0, 0);
+		}
+
+		.presentation-info {
+			@include transition(all 300ms 800ms ease-out);
+			@include opacity(100);
+			@include translate3d(0, 0, 0);
+		}
+	}
+
+
+	// Image - Title
+	.presentation-2 {
+
+		.presentations {
+			position: absolute;
+			z-index: 100;
+			top: 20px;
+		}
+
+		&.align-left {
+			.presentations {
+				left: 20px;
+			}
+		}
+
+		&.align-right {
+			.presentations {
+				right: 20px;
+			}
+		}
+
+		&.align-center {
+			.presentations {
+				top: 49%;
+				left: 20px;
+				right: 20px;
+				text-align: center;
+			}
+		}
+	}
+
+	// Image -  Title + info + CTA
+	.presentation-3 {
+
+		.presentations {
+			position: absolute;
+			z-index: 100;
+			top: 28%;
+			min-height: 170px;
+		}
+
+		&.align-left {
+			.presentations {
+				left: 10%;
+			}
+		}
+
+		&.align-right {
+			.presentations {
+				right: 10%;
+				text-align: right;
+
+				.presentation-title:after {
+					margin-right: 0;
+					margin-left: auto;
+				}
+			}
+		}
+
+		&.align-center {
+			.presentations {
+				left: 15%;
+				right: 15%;
+				text-align: center;
+				margin: 0 auto;
+
+				.presentation-title:after {
+					margin-left: auto;
+					margin-right: auto;
+				}
+			}
+		}
+
+		.presentation-title {
+			&:after {
+				content: "";
+				display: block !important;
+				width: 0px;
+				height: 1px;
+				margin-top: 20px;
+				background-color: #fff;
+				max-width: 100%;
+			}
+		}
+
+		.presentation-info {
+			margin-top: 20px;
+		}
+
+		.cta-container {
+			margin-top: 25px;
+			@include opacity(0);
+		}
+
+		&.displayed {
+			.presentation-title {
+				&:after {
+					width: 300px;
+					@include transition(all 300ms 600ms ease-out);
+				}
+			}
+
+			.cta-container {
+				@include opacity(100);
+				@include transition(all 300ms 1200ms ease-out);
+			}
+		}
+
+		@media (max-width: 992px) {
+
+			&.align-left {
+				.presentations {
+					max-width: 70%;
+					left: 15%;
+				}
+			}
+
+			&.align-right {
+				.presentations {
+					max-width: 70%;
+					right: 15%;
+				}
+			}
+		}
+
+	}
+
+
+	// Video -  Preview
+	.presentation-101 {
+
+		.presentations {
+			position: absolute;
+			z-index: 100;
+			top: 35%;
+			left: 0;
+			right: 0;
+			text-align: center;
+			margin: 0 auto;
+		}
+
+		.presentation-info {
+			margin-top: 10px;
+			text-align: center;
+		}
+
+		.cta-container {
+			@include opacity(0);
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom: -50px;
+		}
+
+		.play-video-icon-wrapper {
+			margin-top: 5px;
+			@include opacity(0);
+
+			.play-video-icon {
+				@include scale(.8);
+				@include transition(all 200ms ease-in-out);
+
+				&:hover {
+					@include scale(1);
+				}
+			}
+		}
+
+		&.displayed {
+			.presentation-title {
+				&:after {
+					width: 300px;
+					@include transition(all 300ms 600ms ease-out);
+				}
+			}
+
+			.play-video-icon-wrapper {
+				@include transition(all 300ms 1200ms ease-out);
+				@include opacity(100);
+			}
+
+			.cta-container {
+				@include opacity(100);
+				@include transition(all 300ms 1400ms ease-out);
+				position: absolute;
+				left: 0;
+				right: 0;
+				bottom: -50px;
+			}
+		}
+
+		@media (max-width: 992px) {
+			& {
+				.presentations {
+					// bottom: 10%;
+				}
+			}
+		}
+
+	}
+}

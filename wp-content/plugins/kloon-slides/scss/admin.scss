@@ -1,0 +1,301 @@
+// I gather this file is a starting point for the project.
+@import "_mixins";
+
+/*
+.clearfix:before, .clearfix:after { content: "\0020"; display: block; height: 0; overflow: hidden; }
+.clearfix:after { clear: both; }
+.clearfix { zoom: 1; }
+*/
+
+/* Resets */
+//ul, li, ul li { margin: 0; padding: 0; }
+
+/*
+#slideshow-content {
+	&>li {
+		padding: 10px;
+		margin-bottom: 10px;
+		background-color: #fefefe;
+		border: 1px solid #bbb;
+		@include border-radius(4px);
+	}
+	&>li>div {
+		ul {
+			float: left;
+			li {
+				height: 20px;
+				span {
+					color: #888;
+					font-style: italic;
+					font-size: 12px;
+				}
+			}
+		}
+		div {
+			float: right;
+		}
+	}
+	img {
+		width: 75px;
+		height: 50px;
+	}
+	.button-primary { float: left; }
+	.button-secondary { float: right; }
+}
+*/
+
+
+
+/* Settings list */
+.kloonslides-ul-settings {
+	clear: both;
+	margin: 10px;
+
+	li {
+		clear: both;
+		height: 30px;
+		line-height: 30px;
+		list-style: none;
+	}
+
+	label {
+		width: 120px;
+		display: block;
+		float: left;
+		text-align: left;
+	}
+
+	&.lbl-lg {
+		label {
+			width: 200px;
+		}
+	}
+
+	input {
+		float: left;
+
+		&[type="number"],
+		&[type="text"] {
+			width: 200px;
+			margin-top: 2px;
+		}
+
+		&[type="checkbox"] {
+			margin-top: 8px;
+		}
+
+		&.sm {
+			width: 60px !important;
+		}
+	}
+
+	span {
+		float: left;
+		text-align: left;
+		font-size: 12px;
+		margin-left: 10px;
+	}
+}
+
+
+#slides-container {
+
+	/*
+	p {
+		float: left;
+		margin: 30px 0 30px 50px;
+
+		&.slide-updated {
+			display: none;
+			margin-top: 33px;
+			color: #006600;
+		}
+	}*/
+
+	.kloon-slide {
+		clear: both;
+		list-style: none;
+		position: relative;
+		min-height: 170px;
+		border: 1px solid #f2f2f2;
+
+		&:nth-child(odd) {
+			background-color: #f0f0f0;
+		}
+
+		.preview {
+			position: absolute;
+			top: 10px;
+			left: 10px;
+			width: 150px;
+			height: 150px;
+
+			&.youtube {
+				border: 1px solid #ccc;
+				text-align: center;
+				line-height: 150px;
+				background-color: #fff;
+			}
+		}
+
+		.slide-info {
+			padding: 20px 20px 20px 180px;
+
+			.info-list {
+				margin-bottom: 20px;
+				font-size: 12px;
+
+				li {
+					padding: 3px 8px;
+
+					&:nth-child(even) {
+						background-color: rgba(#666, .05);
+					}
+
+					:first-child {
+						margin-right: 10px;
+					}
+				}
+			}
+
+			.edit-info-list {
+				li {
+					padding: 5px;
+					margin: 0;
+    				vertical-align: text-bottom;
+
+					&:nth-child(even) {
+						background-color: rgba(#666, .05);
+					}
+
+					label {
+						display: inline-block;
+						min-width: 50px;
+					}
+				}
+
+				&.lbl-md {
+					li label {
+						min-width: 120px;
+					}
+				}
+			}
+
+			.edit-info-list + .edit-info-list {
+				margin-top: 12px;
+
+				li:first-child {
+				    border-top: 1px solid rgba(102,102,102,0.15);
+				    padding-top: 12px;
+				}
+			}
+		}
+
+
+		.btn-container {
+			margin-top: 20px;
+
+			.button-delete {
+				background: #dc4c26;
+	    		border-color: #ce3838;
+	    		-webkit-box-shadow: 0 1px 0 #920000;
+	    		box-shadow: 0 1px 0 #920000;
+	    		text-shadow: 0 -1px 1px #920000, 1px 0 1px #920000, 0 1px 1px #920000, -1px 0 1px #920000;
+			}
+		}
+
+		&:hover {
+			background-color: #dfeeff;
+
+			.ball {
+				display: initial;
+			}
+		}
+
+		&.edit-mode {
+			background-color: #dfeeff;
+
+			.sort-handle {
+				display: initial;
+			}
+		}
+
+	}
+
+	.ball {
+		display: none;
+		width: 27px;
+		height: 27px;
+		background-color: #fff;
+		border-radius: 100%;
+		background-color: #eee;
+		border: 1px solid #bbb;
+		line-height: 25px;
+		text-align: center;
+		font-size: 16px;
+		color: #222;
+		z-index: 9999;
+
+		@include border-radius(100%);
+
+		&.btn-edit {
+			position: absolute;
+			right: -5px;
+			top: -8px;
+		}
+
+		&.sort-handle {
+			position: absolute;
+			left: -5px;
+			top: -8px;
+			cursor: move;
+		}
+
+		&:hover {
+			background-color: #222;
+			color: #fff;
+			border: 1px solid #222;
+		}
+	}
+
+}
+
+
+
+// ****************************** PNotify ******************************
+.notytheme.ui-pnotify-container {
+	padding: 15px;
+	border-radius: 5px;
+	border: 2px solid #fff;
+
+	&.ui-pnotify-shadow {
+		box-shadow: 0 0px 10px 0 rgba(#000, .9);
+	}
+
+	&.notytheme-success {
+		background-color: green;
+		color: #fff;
+
+		.success-icon:before {
+			content: "\f147";
+    		font-family: dashicons;
+    		display: inline-block;
+			width: 20px;
+			height: 20px;
+			font-size: 20px;
+			line-height: 1;
+			font-family: dashicons;
+			text-decoration: inherit;
+			font-weight: 400;
+			font-style: normal;
+			vertical-align: top;
+			text-align: center;
+			-webkit-font-smoothing: antialiased;
+		}
+	}
+
+	.ui-pnotify-title {
+		font-weight: 400;
+		margin-bottom: 0;
+	}
+}

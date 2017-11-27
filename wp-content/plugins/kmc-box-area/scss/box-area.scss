@@ -1,0 +1,29 @@
+@charset "utf-8";
+@import "../../wp-module-controller/scss/mixins";
+
+
+.kmc-component-box-area {
+	margin: 0 auto;
+	max-width: 90%;
+	padding: 50px 0;
+	text-align: center;
+	h3 {
+		margin-top: 20px;
+	}
+	.box {
+		padding: 20px 20px 80px;
+		border: 1px solid #fff;
+		min-height: 300px;
+		//@include border-radius(5px);
+
+		.btn {
+			position: absolute;
+			bottom: 20px;
+			left: 40px;
+			right: 40px;
+			text-overflow: ellipsis;
+			display: block;
+			overflow: hidden;
+		}
+	}
+}

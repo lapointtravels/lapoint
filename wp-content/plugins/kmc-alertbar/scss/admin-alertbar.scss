@@ -1,0 +1,43 @@
+.module-box.alertbar  {
+	background-color: rgba(#fff, 0.1);
+	.kmc-alertbar-component {
+		.body {
+			text-align: center;
+			padding: 30px;
+			background-color: #e94739;
+			a {
+				display: inline-block;
+				margin-bottom: 0;
+				text-align: center;
+				text-transform: uppercase;
+				vertical-align: middle;
+				cursor: pointer;
+				border: 1px solid transparent;
+				white-space: nowrap;
+				padding: 12px 64px;
+				font-size: 16px;
+				line-height: 16px;
+				text-decoration: none;
+
+				border-color: #fff;
+				color: #fff;
+				background-color: transparent;
+				&:hover {
+					background-color: #fff;
+					color: #000;
+				}
+			}
+		}
+	}
+
+	&.edit .kmc-alertbar-component {
+		.body {
+			height: auto;
+			line-height: inherit;
+			background-color: inherit;
+			color: #000;
+			text-align: left;
+			padding: 10px 30px;
+		}
+	}
+}

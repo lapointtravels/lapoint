@@ -1,0 +1,96 @@
+@mixin clearfix {
+	&:before, &:after { content: "\0020"; display: block; height: 0; overflow: hidden; }
+	&:after { clear: both; }
+	& { zoom: 1; }	
+}
+.clearfix {
+	@include clearfix();
+}
+
+
+/* Resets */
+ul, li, ul li { margin: 0; padding: 0; }
+
+
+.collecta-settings-title {
+	margin: 30px 0 5px;
+	padding: 0;
+	font-size: 18px;
+}
+.collecta-settings-list {
+	li {
+		@include clearfix();
+		margin-bottom: 6px;
+		label {
+			width: 150px;
+			float: left;
+		}
+		input, textarea {
+			float: left;
+			margin-left: 10px;
+		}
+		input {
+			width: 250px;
+		}
+		textarea {
+			width: 400px;
+			height: 100px;
+		}
+	}
+}
+
+
+#collect-user-table {
+	width: 100%;
+	margin-top: 10px;
+
+	th {
+		text-align: left;
+		padding: 5px 10px;
+		background-color: #444;
+		color: #ddd;
+
+		&.sort{
+			&.asc:after {
+				content: url(../imgs/order-asc.png);
+    			position: relative;
+    			top: 3px;
+			    left: 10px;
+			}
+			&.desc:after {
+				content: url(../imgs/order-desc.png);
+    			position: relative;
+    			top: 3px;
+			    left: 10px;
+			}
+		}
+	}
+	td {
+		padding: 5px 10px;
+
+		&.loading {
+			text-align: center;
+			height: 50px;
+			line-height: 50px;
+			background-color: #eee;
+		}
+	}
+	tbody{
+		tr:nth-child(2n+1) {
+			background-color: #eee;
+		}
+	}
+}
+
+
+#collecta-user-pagination {
+	margin-top: 20px;
+	a {
+		margin: 0 5px;
+
+		&.active {
+			font-weight: bold;
+			color: #000;
+		}
+	}
+}
