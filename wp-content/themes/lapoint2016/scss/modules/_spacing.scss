@@ -1,0 +1,61 @@
+/* spacing helpers
+p,m = padding,margin
+a,t,r,b,l,h,v = all,top,right,bottom,left,horizontal,vertical
+s,m,l,n = small(5px),medium(10px),large(20px),none(0px)
+*/
+
+$noSpace: 0px;
+$smSpace: 10px;
+$mdSpace: 25px;
+$lgSpace: 30px;
+$xlSpace: 40px;
+$xxlSpace: 60px;
+
+.ptn,.pvn,.pan{padding-top:$noSpace !important}
+.pts,.pvs,.pas{padding-top:$smSpace !important}
+.ptm,.pvm,.pam{padding-top:$mdSpace !important}
+.ptl,.pvl,.pal{padding-top:$lgSpace !important}
+.ptxl,.pvxl,.paxl{padding-top:$xlSpace !important}
+.ptxxl,.pvxxl,.paxxl{padding-top:$xxlSpace !important}
+.prn,.phn,.pan{padding-right:$noSpace !important}
+.prs,.phs,.pas{padding-right:$smSpace !important}
+.prm,.phm,.pam{padding-right:$mdSpace !important}
+.prl,.phl,.pal{padding-right:$lgSpace !important}
+.prxl,.phxl,.paxl{padding-right:$xlSpace !important}
+.pbn,.pvn,.pan{padding-bottom:$noSpace !important}
+.pbs,.pvs,.pas{padding-bottom:$smSpace !important}
+.pbm,.pvm,.pam{padding-bottom:$mdSpace !important}
+.pbl,.pvl,.pal{padding-bottom:$lgSpace !important}
+.pbxl,.pvxl,.paxl{padding-bottom:$xlSpace !important}
+.pbxxl,.pvxxl,.paxl{padding-bottom:$xxlSpace !important}
+.pln,.phn,.pan{padding-left:$noSpace !important}
+.pls,.phs,.pas{padding-left:$smSpace !important}
+.plm,.phm,.pam{padding-left:$mdSpace !important}
+.pll,.phl,.pal{padding-left:$lgSpace !important}
+.plxl,.phxl,.paxl{padding-left:$xlSpace !important}
+.mtn,.mvn,.man{margin-top:$noSpace !important}
+.mts,.mvs,.mas{margin-top:$smSpace !important}
+.mtm,.mvm,.mam{margin-top:$mdSpace !important}
+.mtl,.mvl,.mal{margin-top:$lgSpace !important}
+.mtxl,.mvxl,.maxl{margin-top:$xlSpace !important}
+.mtxxl,.mvxxl,.maxxl{margin-top:$xxlSpace !important}
+.mrn,.mhn,.man{margin-right:$noSpace !important}
+.mrs,.mhs,.mas{margin-right:$smSpace !important}
+.mrm,.mhm,.mam{margin-right:$mdSpace !important}
+.mrl,.mhl,.mal{margin-right:$lgSpace !important}
+.mrxl,.mhxl,.maxl{margin-right:$xlSpace !important}
+.mrxxl,.mhxxl,.maxxl{margin-right:$xxlSpace !important}
+.mbn,.mvn,.man{margin-bottom:$noSpace !important}
+.mbs,.mvs,.mas{margin-bottom:$smSpace !important}
+.mbm,.mvm,.mam{margin-bottom:$mdSpace !important}
+.mbl,.mvl,.mal{margin-bottom:$lgSpace !important}
+.mbxl,.mvxl,.maxl{margin-bottom:$xlSpace !important}
+.mbxxl,.mvxxl,.maxxl{margin-bottom:$xxlSpace !important}
+.mln,.mhn,.man{margin-left:$noSpace !important}
+.mls,.mhs,.mas{margin-left:$smSpace !important}
+.mlm,.mhm,.mam{margin-left:$mdSpace !important}
+.mll,.mhl,.mal{margin-left:$lgSpace !important}
+.mlxl,.mhxl,.maxl{margin-left:$xlSpace !important}
+.mlxxl,.mhxxl,.maxxl{margin-left:$xxlSpace !important}
+.mra,.mha{margin-right:auto !important}
+.mla,.mha{margin-left:auto !important}

@@ -1,0 +1,37 @@
+/*
+ * Web Fonts from fontspring.com
+ *
+ * All OpenType features and all extended glyphs have been removed.
+ * Fully installable fonts can be purchased at http://www.fontspring.com
+ *
+ * The fonts included in this stylesheet are subject to the End User License you purchased
+ * from Fontspring. The fonts are protected under domestic and international trademark and 
+ * copyright law. You are prohibited from modifying, reverse engineering, duplicating, or
+ * distributing this font software.
+ *
+ * (c) 2010-2016 Fontspring
+ *
+ *
+ *
+ *
+ * The fonts included are copyrighted by the vendor listed below.
+ *
+ * Vendor:      HVD Fonts
+ * License URL: http://www.fontspring.com/licenses/hvd-fonts/webfont
+ *
+ *
+ */
+
+@font-face {
+    font-family: 'brandon_grotesquemedium';
+    src: url('hvd_fonts_-_brandongrotesque-medium-webfont.eot');
+    src: url('hvd_fonts_-_brandongrotesque-medium-webfont.eot?#iefix') format('embedded-opentype'),
+         url('hvd_fonts_-_brandongrotesque-medium-webfont.woff2') format('woff2'),
+         url('hvd_fonts_-_brandongrotesque-medium-webfont.woff') format('woff'),
+         url('hvd_fonts_-_brandongrotesque-medium-webfont.ttf') format('truetype'),
+         url('hvd_fonts_-_brandongrotesque-medium-webfont.svg#brandon_grotesquemedium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+

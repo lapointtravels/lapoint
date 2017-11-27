@@ -1,0 +1,60 @@
+@font-face{
+  font-family: 'BrandonGrotesque-light';
+  src: url('fonts/brandongrotesque-light/brandongrotesque-light.eot');
+  src: url('fonts/brandongrotesque-light/brandongrotesque-light.eot?#iefix') format('embedded-opentype'),
+       url('fonts/brandongrotesque-light/brandongrotesque-light.woff2') format('woff2'),
+       url('fonts/brandongrotesque-light/brandongrotesque-light.woff') format('woff'),
+       url('fonts/brandongrotesque-light/brandongrotesque-light.ttf') format('truetype'),
+       url('fonts/brandongrotesque-light/brandongrotesque-light.svg#brandongrotesquemedium') format('svg');
+}
+
+@mixin main-font () {
+  font-family: 'BrandonGrotesque-light';
+}
+
+
+@font-face{
+  font-family: 'BrandonGrotesque-medium';
+  src: url('fonts/brandongrotesque-medium/brandongrotesque-medium.eot');
+  src: url('fonts/brandongrotesque-medium/brandongrotesque-medium.eot?#iefix') format('embedded-opentype'),
+       url('fonts/brandongrotesque-medium/brandongrotesque-medium.woff2') format('woff2'),
+       url('fonts/brandongrotesque-medium/brandongrotesque-medium.woff') format('woff'),
+       url('fonts/brandongrotesque-medium/brandongrotesque-medium.ttf') format('truetype'),
+       url('fonts/brandongrotesque-medium/brandongrotesque-medium.svg#brandongrotesquemedium') format('svg');
+}
+
+@mixin main-font-medium () {
+  font-family: 'BrandonGrotesque-medium';
+}
+
+@font-face{
+  font-family: 'BrandonGrotesque-italic';
+  src: url('fonts/brandongrotesque-italic/brandongrotesque-regularitalic.eot');
+  src: url('fonts/brandongrotesque-italic/brandongrotesque-regularitalic.eot?#iefix') format('embedded-opentype'),
+       url('fonts/brandongrotesque-italic/brandongrotesque-regularitalic.woff2') format('woff2'),
+       url('fonts/brandongrotesque-italic/brandongrotesque-regularitalic.woff') format('woff'),
+       url('fonts/brandongrotesque-italic/brandongrotesque-regularitalic.ttf') format('truetype'),
+       url('fonts/brandongrotesque-italic/brandongrotesque-regularitalic.svg#brandongrotesqueitalic') format('svg');
+}
+
+@mixin main-font-italic () {
+  font-family: 'BrandonGrotesque-italic';
+}
+
+
+
+@font-face {
+    font-family: 'BrandonGrotesque-bold';
+    src: url('fonts/brandongrotesque-bold/brandongrotesque-bold.eot');
+    src: url('fonts/brandongrotesque-bold/brandongrotesque-bold.eot?#iefix') format('embedded-opentype'),
+         url('fonts/brandongrotesque-bold/brandongrotesque-bold.woff2') format('woff2'),
+         url('fonts/brandongrotesque-bold/brandongrotesque-bold.woff') format('woff'),
+         url('fonts/brandongrotesque-bold/brandongrotesque-bold.ttf') format('truetype'),
+         url('fonts/brandongrotesque-bold/brandongrotesque-bold.svg#brandon_grotesquebold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@mixin main-font-bold () {
+  font-family: 'BrandonGrotesque-bold';
+}

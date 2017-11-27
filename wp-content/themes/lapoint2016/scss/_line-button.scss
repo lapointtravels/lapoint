@@ -1,0 +1,98 @@
+
+	$buttonSize : 3.5rem;
+	$transition: .3s;
+	$color: #fff;
+
+	@mixin line {
+		display: inline-block;
+		width: $buttonSize;
+		height: $buttonSize/7;
+		background: $color;
+		border-radius: $buttonSize/14;
+		transition: $transition;
+	}
+
+	.lines-button {
+		display: none;
+		position: fixed;
+		top: 10px;
+		right: 10px;
+		cursor: pointer;
+		user-select: none;
+		padding: 5px;
+		background-color: #000;
+		background-color: rgba(#000, 0.5);
+		border: 0;
+		z-index: 999999;
+
+
+	    line-height: 0.1;
+	    padding: 5px;
+	    margin: 0;
+	    height: 36px;
+
+
+		//@include transition(.3s);
+		@include border-radius($buttonSize/7);
+
+		outline: 0;
+		&:focus {
+			outline: 0;
+		}
+
+		&:hover {
+			opacity: 1;
+		}
+
+		&:active {
+			transition: 0;
+			background: rgba(0, 0, 0, .1);
+		}
+
+		.lines {
+			@include line;
+			position: relative;
+
+			&:before, &:after {
+				@include line;
+				position: absolute;
+				left: 0;
+				content: '';
+				-webkit-transform-origin: $buttonSize/14 center;
+				transform-origin: $buttonSize/14 center;
+			}
+			&:before { top: $buttonSize/4; }
+			&:after { top: -$buttonSize/4; }
+		}
+
+	}
+	.lines-button.x2 .lines {
+		@include transition(background .3s .6s ease);
+
+		&:before, &:after{
+		  -webkit-transform-origin: 50% 50%;
+		  transform-origin: 50% 50%;
+		  -webkit-transition: top .3s .6s ease, transform .3s ease;
+		  transition: top .3s .6s ease, transform .3s ease;
+		}
+	}
+
+	.menu-open & .lines-button.x2 .lines {
+		transition: background .3s 0s ease;
+		background: transparent;
+
+		&:before, &:after{
+		  -webkit-transition: top .3s ease, transform .3s .5s ease;
+		  transition: top .3s ease, transform .3s .5s ease;
+		  top: 0;
+		  width: 30px;
+		}
+		&:before{
+		  -webkit-transform: rotate3d(0,0,1,45deg);
+		  transform: rotate3d(0,0,1,45deg);
+		}
+		&:after{
+		  -webkit-transform: rotate3d(0,0,1,-45deg);
+		  transform: rotate3d(0,0,1,-45deg);
+		}
+	}

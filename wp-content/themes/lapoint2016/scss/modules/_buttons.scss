@@ -1,0 +1,56 @@
+.btn {
+	display: inline-block;
+	margin-bottom: 0;
+	//font-weight: $btn-font-weight;
+	text-align: center;
+	text-transform: uppercase;
+	vertical-align: middle;
+	touch-action: manipulation;
+	cursor: pointer;
+	background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
+	border: 1px solid transparent;
+	white-space: nowrap;
+	padding: 8px 24px;
+	font-size: 14px;
+	font-size: 1.4rem;
+	line-height: 14px;
+	//border-radius: 4px;
+	text-decoration: none;
+	letter-spacing: 2px;
+
+	@include main-font-medium();
+	@include user-select(none);
+
+	&.btn-primary {
+		text-transform: uppercase;
+		background-color: $primaryCtaColor;
+		color: #fff;
+		@include transition(all 200ms ease-in-out);
+
+		&:hover {
+			background-color: darken(#2f9bd9, 20%);
+		}
+	}
+
+	&.btn-inverted {
+		border-color: #fff;
+		color: #fff;
+		background-color: transparent;
+		@include transition(all 200ms ease-in-out);
+		&:hover {
+			background-color: #fff;
+			color: #000;
+		}
+	}
+
+	&.btn-secondary {
+		border-color: #000;
+		color: #000;
+		background-color: transparent;
+		@include transition(all 200ms ease-in-out);
+		&:hover {
+			background-color: #000;
+			color: #fff;
+		}
+	}
+}

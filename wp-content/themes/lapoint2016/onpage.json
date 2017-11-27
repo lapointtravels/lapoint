@@ -1,0 +1,768 @@
+{
+	"camps": {
+		"surf": {
+			"sv": {
+				"title": "[ACCOMODATION] [DESTINATION][LOCATION] - Lapoint Surfcamp",
+				"h1": "[ACCOMODATION] - [DESTINATION][LOCATION]",
+				"keywords": ""
+			},
+			"en": {
+				"title": "[ACCOMODATION] [DESTINATION][LOCATION] - Lapoint Surf Camp",
+				"h1": "[ACCOMODATION] - [DESTINATION][LOCATION]",
+				"keywords": ""
+			},
+			"nb": {
+				"title": "[ACCOMODATION] [DESTINATION][LOCATION] - Lapoint Surfecamp",
+				"h1": "[ACCOMODATION] - [DESTINATION][LOCATION]",
+				"keywords": ""
+			},
+			"da": {
+				"title": "[ACCOMODATION] [DESTINATION][LOCATION] - Lapoint Surf Camp",
+				"h1": "[ACCOMODATION] - [DESTINATION][LOCATION]",
+				"keywords": ""
+			}
+		},
+		"kite": {
+			"sv": {
+				"title": "[ACCOMODATION] [DESTINATION][LOCATION] - Lapoint Kitecamp",
+				"h1": "[ACCOMODATION] - [DESTINATION][LOCATION]",
+				"keywords": ""
+			},
+			"en": {
+				"title": "[ACCOMODATION] [DESTINATION][LOCATION] - Lapoint Kitesurf Camp",
+				"h1": "[ACCOMODATION] - [DESTINATION][LOCATION]",
+				"keywords": ""
+			},
+			"nb": {
+				"title": "[ACCOMODATION] [DESTINATION][LOCATION] - Lapoint Kitecamp",
+				"h1": "[ACCOMODATION] - [DESTINATION][LOCATION]",
+				"keywords": ""
+			},
+			"da": {
+				"title": "[ACCOMODATION] [DESTINATION][LOCATION] - Lapoint Kitesurf Camp",
+				"h1": "[ACCOMODATION] - [DESTINATION][LOCATION]",
+				"keywords": ""
+			}
+		}
+	},
+	"destinations": {
+		"surf": {
+			"sv": {
+				"title": "Surfresa [DESTINATION] - Surfläger & Surfresor - Lapoint",
+				"h1": "Surfcamp [DESTINATION]",
+				"keywords": ""
+			},
+			"en": {
+				"title": "Surfing [DESTINATION] - Lapoint Surf Camp",
+				"h1": "Surf Camp [DESTINATION]",
+				"keywords": ""
+			},
+			"nb": {
+				"title": "Surfereise [DESTINATION] - Surfleir & Surfereiser - Lapoint",
+				"h1": "Surfecamp [DESTINATION]",
+				"keywords": ""
+			},
+			"da": {
+				"title": "Surfing [DESTINATION] - Lapoint Surf Camp",
+				"h1": "Surf Camp [DESTINATION]",
+				"keywords": ""
+			}
+		},
+		"kite": {
+			"sv": {
+				"title": "Kitesurfing [DESTINATION] - Kitesurfa - Lapoint",
+				"h1": "Kitecamp [DESTINATION]",
+				"keywords": ""
+			},
+			"en": {
+				"title": "Kitesurfing, Kiteboarding [DESTINATION] - Lapoint Kitesurf Camp",
+				"h1": "Kitesurf Camp [DESTINATION]",
+				"keywords": ""
+			},
+			"nb": {
+				"title": "Kitesurfing [DESTINATION] - Kitesurfe - Lapoint",
+				"h1": "Kitecamp [DESTINATION]",
+				"keywords": ""
+			},
+			"da": {
+				"title": "Kitesurfing, Kiteboarding [DESTINATION] - Lapoint Kitesurf Camp",
+				"h1": "Kitesurf Camp [DESTINATION]",
+				"keywords": ""
+			}
+		},
+		"youth": {
+			"sv": {
+				"title": "Ungdomsläger surfing [DESTINATION] - Lapoint Ungdomscamp",
+				"h1": "Ungdomsläger surfing - [DESTINATION]",
+				"keywords": ""
+			},
+			"en": {
+				"title": "Youth Surf Camp [DESTINATION] - Lapoint",
+				"h1": "Youth Surf Camp - [DESTINATION]",
+				"keywords": ""
+			},
+			"nb": {
+				"title": "Ungdomsleir surfing - Lapoint Ungdomscamp",
+				"h1": "Lapoint ungdomsleir - surfing",
+				"keywords": ""
+			},
+			"da": {
+				"title": "Ungdoms Surf Camps - Lapoint",
+				"h1": "Lapoint Ungdoms Surf Camps",
+				"keywords": ""
+			}
+		}
+	},
+	"misc": {
+		"surfcamp": {
+			"sv": {
+				"title": "Surfcamps & Surfresor - Lapoint Surfläger",
+				"h1": "Lapoint Surfcamps",
+				"keywords": ""
+			},
+			"en": {
+				"title": "Surf Camps & Surfing Holidays - Lapoint",
+				"h1": "Lapoint Surf Camps",
+				"keywords": ""
+			},
+			"nb": {
+				"title": "Surfecamps & Surfereiser - Lapoint Surfeleir",
+				"h1": "Lapoint Surfecamps",
+				"keywords": ""
+			},
+			"da": {
+				"title": "Surf Camps & Surf Ferier - Lapoint",
+				"h1": "Lapoint Surf Camps",
+				"keywords": ""
+			}
+		},
+		"kitecamp": {
+			"sv": {
+				"title": "Kitesurfing, Kitesurfa - Lapoint Kitecamps",
+				"h1": "Kitesurfing - Lapoint Kitecamps",
+				"keywords": ""
+			},
+			"en": {
+				"title": "Kitesurfing, Kiteboarding - Lapoint Kitesurf Camps",
+				"h1": "Kitesurfing - Lapoint Kitesurf Camps",
+				"keywords": ""
+			},
+			"nb": {
+				"title": "Kitesurfing, Kitesurfe - Lapoint Kitecamps",
+				"h1": "Kitesurfing - Lapoint Kitecamps",
+				"keywords": ""
+			},
+			"da": {
+				"title": "Kitesurfing, Kiteboarding - Lapoint Kitesurf Camps",
+				"h1": "Kitesurfing - Lapoint Kitesurf Camps",
+				"keywords": ""
+			}
+		},
+		"youthcamp": {
+			"sv": {
+				"title": "Ungdomsläger surfing - Lapoint Ungdomscamp",
+				"h1": "Kitesurfing - Lapoint Kitecamps",
+				"keywords": ""
+			},
+			"en": {
+				"title": "Youth Surf Camps - Lapoint",
+				"h1": "Lapoint Youth Surf Camps",
+				"keywords": ""
+			},
+			"nb": {
+				"title": "Ungdomsleir surfing - Lapoint Ungdomscamp",
+				"h1": "Lapoint ungdomsleir - surfing",
+				"keywords": ""
+			},
+			"da": {
+				"title": "Ungdoms Surf Camps - Lapoint",
+				"h1": "Lapoint Ungdoms Surf Camps",
+				"keywords": ""
+			}
+		},
+		"surfcamp_destinations": {
+			"sv": {
+				"title": "Surfresa - Surfläger & Surfresor - Lapoint",
+				"h1": "",
+				"keywords": ""
+			},
+			"en": {
+				"title": "Surfing - Lapoint Surf Camp",
+				"h1": "",
+				"keywords": ""
+			},
+			"nb": {
+				"title": "Surfereise - Surfleir & Surfereiser - Lapoint",
+				"h1": "",
+				"keywords": ""
+			},
+			"da": {
+				"title": "Surfing - Lapoint Surf Camp",
+				"h1": "",
+				"keywords": ""
+			}
+		},
+		"kitecamps_destinations": {
+			"sv": {
+				"title": "Kitesurfing - Kitesurfa - Lapoint",
+				"h1": "",
+				"keywords": ""
+			},
+			"en": {
+				"title": "Kitesurfing, Kiteboarding - Lapoint Kitesurf Camp",
+				"h1": "",
+				"keywords": ""
+			},
+			"nb": {
+				"title": "Kitesurfing - Kitesurfe - Lapoint",
+				"h1": "",
+				"keywords": ""
+			},
+			"da": {
+				"title": "Kitesurfing, Kiteboarding - Lapoint Kitesurf Camp",
+				"h1": "",
+				"keywords": ""
+			}
+		}
+	},
+	"packages": {
+		"surf": {
+			"basic": {
+				"sv": {
+					"title": "Basic [DESTINATION] - Lapoint Surfcamp",
+					"h1": "Basic - Självständig Surfing - [DESTINATION]",
+					"keywords": ""
+				},
+				"en": {
+					"title": "Basic - [DESTINATION] - Lapoint Surf Camp",
+					"h1": "Basic - Independent Surfing [DESTINATION]",
+					"keywords": ""
+				},
+				"nb": {
+					"title": "Basic - [DESTINATION] - Lapoint Kitecamp",
+					"h1": "Basic - Selvstending surfing - [DESTINATION]",
+					"keywords": ""
+				},
+				"da": {
+					"title": "Basic -  [DESTINATION] - Lapoint Surf Camp",
+					"h1": "Basic - Uafhængig Surfing - [DESTINATION]",
+					"keywords": ""
+				}
+			},
+			"level1": {
+				"sv": {
+					"title": "Lära sig surfa [DESTINATION] - Lapoint",
+					"h1": "Lär dig surfa [DESTINATION] - Nybörjarkurs",
+					"keywords": ""
+				},
+				"en": {
+					"title": "Learn to Surf [DESTINATION] - Lapoint Beginner Surf Camp",
+					"h1": "Learn to Surf [DESTINATION] - Beginner Surf Camp",
+					"keywords": ""
+				},
+				"nb": {
+					"title": "Lær deg å surfe [DESTINATION] - Lapoint Surfecamp",
+					"h1": "Lær deg surfe i [DESTINATION] - Nybegynnerkurs",
+					"keywords": ""
+				},
+				"da": {
+					"title": "Lær at Surfe [DESTINATION] - Lapoint Begynder Surf Camp",
+					"h1": "Lær at Surfe [DESTINATION] - Begynder Surf Camp",
+					"keywords": ""
+				}
+			},
+			"level2": {
+				"sv": {
+					"title": "Fortsättningskurs [DESTINATION] - Lapoint Surfcamp",
+					"h1": "Fortsättningskurs i surfing - [DESTINATION]",
+					"keywords": ""
+				},
+				"en": {
+					"title": "Green Wave Surf Course [DESTINATION] - Lapoint Surf Camp",
+					"h1": "Level 2 - Green Wave Surf Course - [DESTINATION]",
+					"keywords": ""
+				},
+				"nb": {
+					"title": "Fortsettelseskurs [DESTINATION] - Lapoint Surfecamp",
+					"h1": "Fortsettelseskurs i surfing - [DESTINATION]",
+					"keywords": ""
+				},
+				"da": {
+					"title": "Fortsætter Surf Kursus [DESTINATION] - Lapoint Surf Camp",
+					"h1": "Level 2 - Green Wave Surf Kursus - [DESTINATION]",
+					"keywords": ""
+				}
+			},
+			"level3": {
+				"sv": {
+					"title": "Level 3 surfkurs [DESTINATION] - Lapoint Surfcamp",
+					"h1": "Level 3 surfkurs - [DESTINATION]",
+					"keywords": ""
+				},
+				"en": {
+					"title": "Level 3 Surf Course [DESTINATION] - Lapoint Surf Camp",
+					"h1": "Level 3 - Surf Course - [DESTINATION]",
+					"keywords": ""
+				},
+				"nb": {
+					"title": "Level 3 surfekurs [DESTINATION] - Lapoint Surfecamp",
+					"h1": "Level 3 surfekurs - [DESTINATION]",
+					"keywords": ""
+				},
+				"da": {
+					"title": "Level 3 Surf Kursus [DESTINATION] - Lapoint Surf Camp",
+					"h1": "Level 3 - Surf Kursus - [DESTINATION]",
+					"keywords": ""
+				}
+			},
+			"coaching": {
+				"sv": {
+					"title": "Surfcoaching [DESTINATION] - Coaching i surfing - Lapoint Surfcamp",
+					"h1": "Surfcoaching - [DESTINATION]",
+					"keywords": ""
+				},
+				"en": {
+					"title": "Surf Coaching [DESTINATION] - Lapoint Surf Camp",
+					"h1": "Surf Coaching - [DESTINATION]",
+					"keywords": ""
+				},
+				"nb": {
+					"title": "Surfecoaching [DESTINATION] - Coaching i surfing - Lapoint Surfecamp",
+					"h1": "Surfecoaching - [DESTINATION]",
+					"keywords": ""
+				},
+				"da": {
+					"title": "Surf Træning [DESTINATION] - Lapoint Surf Camp",
+					"h1": "Surf Coaching - [DESTINATION]",
+					"keywords": ""
+				}
+			},
+			"coaching_advanced": {
+				"sv": {
+					"title": "Advanced surfcoaching [DESTINATION] - Lapoint Surfcamp",
+					"h1": "Surfcoaching [DESTINATION] - Advanced",
+					"keywords": ""
+				},
+				"en": {
+					"title": "Advanced Surf Coaching [DESTINATION] - Lapoint Surf Camp",
+					"h1": "Surf Coaching [DESTINATION] - Advanced",
+					"keywords": ""
+				},
+				"nb": {
+					"title": "Avansert surfecoaching [DESTINATION] - Lapoint Surfecamp",
+					"h1": "Surfcoaching [DESTINATION] - Avansert",
+					"keywords": ""
+				},
+				"da": {
+					"title": "Advanceret Surf Træning [DESTINATION] - Lapoint Surf Camp",
+					"h1": "Surf Coaching [DESTINATION] - Advanced",
+					"keywords": ""
+				}
+			},
+			"coaching_intermediate": {
+				"sv": {
+					"title": "Intermediate surfcoaching [DESTINATION] - Lapoint Surfcamp",
+					"h1": "Surfcoaching [DESTINATION] - Intermediate",
+					"keywords": ""
+				},
+				"en": {
+					"title": "Intermediate Surf Coaching [DESTINATION] - Lapoint Surf Camp",
+					"h1": "Surf Coaching [DESTINATION] - Intermediate",
+					"keywords": ""
+				},
+				"nb": {
+					"title": "Viderekommende surfecoaching [DESTINATION] - Lapoint Surfecamp",
+					"h1": "Surfecoaching [DESTINATION] - Viderekommende",
+					"keywords": ""
+				},
+				"da": {
+					"title": "Videreudviklet Surf Træning [DESTINATION] - Lapoint Surf Camp",
+					"h1": "Surf Coaching [DESTINATION] - Intermediate",
+					"keywords": ""
+				}
+			},
+			"coaching_elite": {
+				"sv": {
+					"title": "Elite Surf Coaching [DESTINATION] - Lapoint Surf Camp",
+					"h1": "Surf Coaching [DESTINATION] - Elite",
+					"keywords": ""
+				},
+				"en": {
+					"title": "",
+					"h1": "Surf Coaching [DESTINATION] - Elite",
+					"keywords": ""
+				},
+				"nb": {
+					"title": "",
+					"h1": "Surf Coaching [DESTINATION] - Elite",
+					"keywords": ""
+				},
+				"da": {
+					"title": "",
+					"h1": "Surf Coaching [DESTINATION] - Elite",
+					"keywords": ""
+				}
+			}
+		},
+		"kite": {
+			"basic": {
+				"sv": {
+					"title": "Basic kitesurfing [DESTINATION] - Lapoint Kitecamp",
+					"h1": "Basic kitesurfing - [DESTINATION]",
+					"keywords": ""
+				},
+				"en": {
+					"title": "Independent Kitesurfing [DESTINATION] - Lapoint Kitesurf Camp",
+					"h1": "Basic - Independent Kitesurfing [DESTINATION]",
+					"keywords": ""
+				},
+				"nb": {
+					"title": "Basic - [DESTINATION] - Lapoint Kitecamp",
+					"h1": "Basic - Selvstending surfing - [DESTINATION]",
+					"keywords": ""
+				},
+				"da": {
+					"title": "Uafhængig Kitesurfing [DESTINATION] - Lapoint Kitesurf Camp",
+					"h1": "Basic - Uafhængig Kitesurfing [DESTINATION]",
+					"keywords": ""
+				}
+			},
+			"level1": {
+				"sv": {
+					"title": "Lära sig kitesurfing [DESTINATION] - Lapoint Kitecamp",
+					"h1": "Lär dig kitesurfa i [DESTINATION] - Nybörjarkurs",
+					"keywords": ""
+				},
+				"en": {
+					"title": "Learn to Kitesurf [DESTINATION] - Lapoint Beginners Kite Camp",
+					"h1": "Learn to Kitesurf [DESTINATION] - Beginners Kitesurf Camp",
+					"keywords": ""
+				},
+				"nb": {
+					"title": "Lær deg kitesurfing [DESTINATION] - Lapoint Kitecamp",
+					"h1": "Lær deg kitesurfe i [DESTINATION] - Nybegynnerkurs",
+					"keywords": ""
+				},
+				"da": {
+					"title": "Lær at Kitesurfe [DESTINATION] - Lapoint Begynder Kite Camp",
+					"h1": "Lær at Kitesurfe [DESTINATION] - Begynder Kitesurf Camp",
+					"keywords": ""
+				}
+			},
+			"level2": {
+				"sv": {
+					"title": "Kitesurfing kurs privat [DESTINATION] - Lapoint Kitecamp",
+					"h1": "Privatkurs i kitesurfing [DESTINATION]",
+					"keywords": ""
+				},
+				"en": {
+					"title": "Private Kitesurf Coaching [DESTINATION] - Lapoint Kitesurf Camp",
+					"h1": "Level 2 - Private Kitesurf Coaching - [DESTINATION]",
+					"keywords": ""
+				},
+				"nb": {
+					"title": "Kitesurfing kurs privat [DESTINATION] - Lapoint Kitecamp",
+					"h1": "Privatkurs i kitesurfing [DESTINATION]",
+					"keywords": ""
+				},
+				"da": {
+					"title": "Privat Kitesurf Kursus [DESTINATION] - Lapoint Kitesurf Camp",
+					"h1": "Level 2 - Privat Kitesurf Kursus - [DESTINATION]",
+					"keywords": ""
+				}
+			},
+			"girlcamp": {
+				"sv": {
+					"title": "Tjejläger kitesurfing [DESTINATION] - Lapoint Kitecamp",
+					"h1": "Tjejläger kitesurfing - [DESTINATION]",
+					"keywords": ""
+				},
+				"en": {
+					"title": "Girl Camp Kitesurfing [DESTINATION] - Lapoint Kite Camp",
+					"h1": "Girl Camp Kitesurfing - [DESTINATION]",
+					"keywords": ""
+				},
+				"nb": {
+					"title": "Jenteleir kitesurfing [DESTINATION] - Lapoint Kitecamp",
+					"h1": "Jenteleir kitesurfing - [DESTINATION]",
+					"keywords": ""
+				},
+				"da": {
+					"title": "Pigecamp Kitesurfing [DESTINATION] - Lapoint Kite Camp",
+					"h1": "Pigecamp Kitesurfing - [DESTINATION]",
+					"keywords": ""
+				}
+			},
+			"wintercamp": {
+				"sv": {
+					"title": "Vinterläger kitesurfing [DESTINATION] - Lapoint Kitecamp",
+					"h1": "Vinterläger kitesurfing - [DESTINATION]",
+					"keywords": ""
+				},
+				"en": {
+					"title": "Winter Camp Kitesurfing [DESTINATION] - Lapoint Kite Camp",
+					"h1": "Winter Camp Kitesurfing - [DESTINATION]",
+					"keywords": ""
+				},
+				"nb": {
+					"title": "Vinterleir kitesurfing [DESTINATION] - Lapoint Kitecamp",
+					"h1": "Vinterleir kitesurfing - [DESTINATION]",
+					"keywords": ""
+				},
+				"da": {
+					"title": "Vintercamp Kitesurfing [DESTINATION] - Lapoint Kite Camp",
+					"h1": "Vintercamp Kitesurfing - [DESTINATION]",
+					"keywords": ""
+				}
+			}
+		}
+	},
+	"levels": {
+		"surf": {
+			"basic": {
+				"sv": {
+					"title": "",
+					"h1": "",
+					"keywords": ""
+				},
+				"en": {
+					"title": "",
+					"h1": "",
+					"keywords": ""
+				},
+				"nb": {
+					"title": "",
+					"h1": "",
+					"keywords": ""
+				},
+				"da": {
+					"title": "",
+					"h1": "",
+					"keywords": ""
+				}
+			},
+			"level1": {
+				"sv": {
+					"title": "Lära sig surfa - Lapoint Surfcamps",
+					"h1": "Lär dig surfa - Nybörjarkurser",
+					"keywords": ""
+				},
+				"en": {
+					"title": "Learn to Surf - Lapoint Beginner Surf Camps",
+					"h1": "Learn to Surf - Beginner Surf Camps",
+					"keywords": ""
+				},
+				"nb": {
+					"title": "Lær deg å surfe - Lapoint Surfecamps",
+					"h1": "Lær deg surfe - Nybegynnerkurs",
+					"keywords": ""
+				},
+				"da": {
+					"title": "Lær at surfe - Lapoint Begynder Surf Camps",
+					"h1": "Lær at Surfe - Begynder Surf Camps",
+					"keywords": ""
+				}
+			},
+			"level2": {
+				"sv": {
+					"title": "Fortsättningskurser i surfing - Lapoint Surfcamps",
+					"h1": "Fortsättningskurser i surfing",
+					"keywords": ""
+				},
+				"en": {
+					"title": "Green Wave Surf Courses - Lapoint Surf Camps",
+					"h1": "Level 2 - Green Wave Surf Courses",
+					"keywords": ""
+				},
+				"nb": {
+					"title": "Fortsettelseskurs i surfing - Lapoint Surfecamps",
+					"h1": "Fortsettelseskurs i surfing",
+					"keywords": ""
+				},
+				"da": {
+					"title": "Fortsætter Surf Kursus - Lapoint Surf Camps",
+					"h1": "Level 2 - Green Wave Surf Kursus",
+					"keywords": ""
+				}
+			},
+			"level3": {
+				"sv": {
+					"title": "Level 3 surfkurser - Lapoint Surfcamps",
+					"h1": "Level 3 - surfkurser",
+					"keywords": ""
+				},
+				"en": {
+					"title": "Independent Surf Courses - Lapoint Surf Camps",
+					"h1": "Level 3 - Independent Surf Courses",
+					"keywords": ""
+				},
+				"nb": {
+					"title": "Level 3 surfekurs - Lapoint Surfecamps",
+					"h1": "Level 3 - surfekurs",
+					"keywords": ""
+				},
+				"da": {
+					"title": "Level 3 Surf Kursus - Lapoint Surf Camps",
+					"h1": "Level 3 - Independent Surf Kursus",
+					"keywords": ""
+				}
+			},
+			"coaching": {
+				"sv": {
+					"title": "Surfcoaching - Coaching i surfing - Lapoint Surfcamp",
+					"h1": "Lapoint surfcoaching",
+					"keywords": ""
+				},
+				"en": {
+					"title": "Surf Coaching - Lapoint Surf Camp",
+					"h1": "Lapoint Surf Coaching",
+					"keywords": ""
+				},
+				"nb": {
+					"title": "Surfecoaching - Coaching i surfing - Lapoint Surfecamp",
+					"h1": "Lapoint surfecoaching",
+					"keywords": ""
+				},
+				"da": {
+					"title": "Surf Træning - Lapoint Surf Camp",
+					"h1": "Lapoint Surf Coaching",
+					"keywords": ""
+				}
+			},
+			"coaching_advanced": {
+				"sv": {
+					"title": "Advanced surfcoaching - Lapoint Surfcamp",
+					"h1": "Surfcoaching - Advanced",
+					"keywords": ""
+				},
+				"en": {
+					"title": "Advanced Surf Coaching - Lapoint Surf Camp",
+					"h1": "Surf Coaching - Advanced",
+					"keywords": ""
+				},
+				"nb": {
+					"title": "Avansert surfcoaching - Lapoint Surfecamp",
+					"h1": "Surfecoaching - Avansert",
+					"keywords": ""
+				},
+				"da": {
+					"title": "Advanceret Surf Træning - Lapoint Surf Camp",
+					"h1": "Surf Coaching - Advanced",
+					"keywords": ""
+				}
+			},
+			"coaching_intermediate": {
+				"sv": {
+					"title": "Intermediate surfcoaching - Lapoint Surfcamp",
+					"h1": "Surfcoaching - Intermediate",
+					"keywords": ""
+				},
+				"en": {
+					"title": "Intermediate Surf Coaching - Lapoint Surf Camp",
+					"h1": "Surf Coaching - Intermediate",
+					"keywords": ""
+				},
+				"nb": {
+					"title": "Viderekommende surfecoaching - Lapoint Surfecamp",
+					"h1": "Surfecoaching - Viderekommende",
+					"keywords": ""
+				},
+				"da": {
+					"title": "Videreudviklet Surf Træning - Lapoint Surf Camp",
+					"h1": "Surf Coaching - Intermediate",
+					"keywords": ""
+				}
+			},
+			"coaching_elite": {
+				"sv": {
+					"title": "Elite surfcoaching - Lapoint Surfcamp",
+					"h1": "Surfcoaching - Elite",
+					"keywords": ""
+				},
+				"en": {
+					"title": "Elite Surf Coaching - Lapoint Surf Camp",
+					"h1": "Surf Coaching - Elite",
+					"keywords": ""
+				},
+				"nb": {
+					"title": "Elite surfecoaching - Lapoint Surfecamp",
+					"h1": "Surfecoaching - Elite",
+					"keywords": ""
+				},
+				"da": {
+					"title": "Elite Surf Træning - Lapoint Surf Camp",
+					"h1": "Surf Coaching - Elite",
+					"keywords": ""
+				}
+			}
+		},
+		"kite": {
+			"basic": {
+				"sv": {
+					"title": "",
+					"h1": "",
+					"keywords": ""
+				},
+				"en": {
+					"title": "",
+					"h1": "",
+					"keywords": ""
+				},
+				"nb": {
+					"title": "",
+					"h1": "",
+					"keywords": ""
+				},
+				"da": {
+					"title": "",
+					"h1": "",
+					"keywords": ""
+				}
+			},
+			"level1": {
+				"sv": {
+					"title": "Lära sig kitesurfing - Lapoint Kitecamps",
+					"h1": "Lär dig kitesurfa - Nybörjarkurs",
+					"keywords": ""
+				},
+				"en": {
+					"title": "Learn to Kitesurf - Lapoint Beginners Kite Camps",
+					"h1": "Learn to Kitesurf - Beginners Kitesurf Camp",
+					"keywords": ""
+				},
+				"nb": {
+					"title": "Lær deg kitesurfing - Lapoint Kitecamps",
+					"h1": "Lær deg å kitesurfe - Nybegynnerkurs",
+					"keywords": ""
+				},
+				"da": {
+					"title": "Lær at kitesurfe - Lapoint Begynder Kite Camps",
+					"h1": "Lær at Kitesurfe - Begynder Kitesurf Camp",
+					"keywords": ""
+				}
+			},
+			"level2": {
+				"sv": {
+					"title": "Kitesurfing kurs privat - Lapoint Kitecamps",
+					"h1": "Privatkurs i kitesurfing",
+					"keywords": ""
+				},
+				"en": {
+					"title": "Private Kitesurf Coaching [DESTINATION] - Lapoint Kitesurf Camp",
+					"h1": "Level 2 - Private Kitesurf Coaching - [DESTINATION]",
+					"keywords": ""
+				},
+				"nb": {
+					"title": "Kitesurfing kurs privat - Lapoint Kitecamps",
+					"h1": "Privatkurs i kitesurfing",
+					"keywords": ""
+				},
+				"da": {
+					"title": "Privat Kitesurf Kursus - Lapoint Kitesurf Camps",
+					"h1": "Level 2 - Privat Kitesurf Kursus",
+					"keywords": ""
+				}
+			}
+		}
+	}
+}

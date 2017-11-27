@@ -1,0 +1,504 @@
+.main-header {
+	@import "line-button";
+
+	position: absolute;
+	z-index: 9999;
+	width: 100%;
+
+	& > .container {
+		position: relative;
+	}
+
+	.lapoint-logo {
+		float: inherit;
+		position: absolute;
+		left: 0;
+		top: 45px;
+		z-index: 2000;
+		background-image: url('img/logo.png');
+		width: 123px;
+		height: 48px;
+		@include retina-device () {
+			background-image: url('img/logo@2x.png');
+			background-size: 123px 48px;
+		}
+	}
+
+	.secondary-menu {
+		//position: absolute;
+		//top: 0;
+		//right: 0;
+		text-align: right;
+		margin-right: 8px;
+		@include main-font-medium();
+
+		li {
+			display: inline-block;
+			margin-left: 20px;
+		}
+		a {
+			color: #fff;
+			@include font-size(14);
+
+			&.active {
+				text-decoration: underline;
+			}
+		}
+
+		.select-language {
+			position: relative;
+			margin-left: 20px;
+			.code {
+				display: none;
+			}
+			& > a {
+				&:after {
+					content: "";
+					display: inline-block;
+					width: 6px;
+					height: 6px;
+					border-right: 1px solid #fff;
+					border-bottom: 1px solid #fff;
+					@include rotate(45deg);
+					position: relative;
+					left: 7px;
+					top: -2px;
+				}
+			}
+			.dropdown {
+				max-height: 0;
+				top: 25px;
+				right: -10px;
+				position: absolute;
+				color: #fff;
+				padding: 0;
+				width: 103px;
+				text-align: left;
+				z-index: 100;
+				overflow: hidden;
+				background-color: #fff; //rgba(#000, 0.75);
+				@include transition(all 500ms ease-in-out);
+				@include border-radius($borderRadius);
+
+				li {
+					display: block;
+					margin-left: 5px;
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					color: #000;
+					&.active {
+						text-decoration: underline;
+					}
+				}
+				a {
+					color: #333;
+					&:hover {
+						color: #000;
+					}
+				}
+			}
+			&:hover {
+				.dropdown {
+					display: block;
+					max-height: 400px;
+				}
+			}
+		}
+	}
+
+	.menu-icon {
+		position: absolute;
+		right: 15px;
+		top: 22px;
+	}
+
+
+
+
+
+
+	#menu-container {
+		position: absolute;
+		top: 10px;
+		width: 100%;
+		text-align: right;
+		@include main-font-medium();
+
+		.primary-menu {
+			position: absolute;
+			top: 52px;
+			right: 0;
+			left: 0;
+
+			ul.menu {
+				list-style: none;
+				margin: 0;
+				& > li {
+					display: inline-block;
+					padding: 0 20px;
+					margin-left: -5px;
+
+					&:last-child {
+						margin-right: 0;
+						padding-right: 0;
+					}
+
+					& > .drop-wrapper {
+						cursor: pointer;
+						height: 40px;
+						display: inline-block;
+					}
+					& > a, & > .drop-wrapper {
+						text-transform: uppercase;
+						@include font-size(16);
+						letter-spacing: 0.5px;
+						color: #fff;
+						&:hover, &:focus, &:active {
+							text-decoration: none;
+						}
+					}
+				}
+			}
+		}
+
+		li:hover, li.open {
+			.select-menu-dropdown {
+				display: block;
+			}
+			& > div {
+				&:after {
+					content: "";
+					width: 100%;
+					height: 1px;
+					background-color: #fff;
+					display: block;
+				}
+			}
+		}
+
+		.select-menu-dropdown {
+			display: none;
+			//background-color: rgba(#000, 0.75);
+			background-color: #fff;
+			color: #000;
+			text-align: left;
+			overflow: hidden;
+			position: absolute;
+			top: 35px;
+			left: 0;
+			right: 0;
+			width: 100%;
+			padding: 50px 30px;
+			min-height: 370px;
+			@include font-size(15);
+			//@include border-radius($borderRadius);
+
+			.row {
+				max-width: 900px;
+				margin: 0 auto;
+				h4 {
+					border-bottom: 1px solid #aaa;
+					padding: 0 0 10px;
+				}
+				a {
+					white-space: nowrap;
+				}
+			}
+
+			.destination-nav {
+				color: #000;
+				line-height: 30px;
+				a {
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					overflow: hidden;
+					display: block;
+					width: 170px;
+					&:hover {
+						text-decoration: underline;
+					}
+				}
+			}
+		}
+
+		.main-booking {
+			display: none;
+			//max-height: 0;
+			//background-color: rgba(#000, 0.75);
+			background-color: #fff;
+			color: #000;
+			text-align: left;
+			overflow: hidden;
+			position: absolute;
+			top: 35px;
+			left: 0;
+			right: 0;
+			width: 100%;
+			padding: 70px 30px;
+			@include font-size(15);
+			//@include transition(all 300ms ease-in-out);
+
+			&.open {
+				//display: block;
+				//max-height: 150px;
+			}
+		}
+	}
+
+	@media (max-width: 800px) {
+		.lines-button {
+			display: inline-block;
+			right: 20px;
+		}
+
+		.menu-open & {
+			.menu-icon {
+				position: fixed;
+	    		right: 15px;
+	    		top: 27px;
+			}
+		}
+		.menu-open.admin-bar & {
+			.menu-icon {
+				top: 67px;
+			}
+		}
+
+		$menuWidth: 100%;
+		$menuColor: rgba(0, 0, 0, 0.9);
+		#menu-container {
+			position: fixed;
+			top: 0;
+			right: -$menuWidth;
+			width: $menuWidth;
+			max-width: 100%;
+			z-index: 99999;
+			background-color: $menuColor;
+			bottom: 0;
+			padding-left: 10px;
+			overflow-y: scroll;
+			overflow-x: hidden;
+
+			@include transition(right .3s ease-out);
+
+			.menu-open & {
+				right: 0;
+			}
+
+			.main-booking {
+				position: relative;
+				left: -35px;
+				top: 0;
+				background-color: transparent;
+				padding: 0;
+			}
+
+			.primary-menu {
+				position: initial;
+				padding-top: 90px;
+				margin-top: 26px;
+
+				.admin-bar & {
+					margin-top: 66px;
+				}
+
+				background-image: url('img/logga-vit.png');
+				@include retina-device () {
+					background-image: url('img/logga-vit@2x.png');
+				}
+				background-repeat: no-repeat;
+				background-size: 123px 48px;
+				background-position: 50% 0px;
+
+				ul.menu {
+					list-style: none;
+					margin: 0;
+					text-align: left;
+					li {
+						width: 100%;
+						display: block;
+						margin: 0 20px 5px;
+						a {
+							padding: 2px;
+							&:hover {
+								text-decoration: none;
+							}
+						}
+						.drop-wrapper {
+							height: 20px;
+							.drop-inner:after {
+								content: "";
+								display: inline-block;
+								width: 6px;
+								height: 6px;
+								border-right: 1px solid #fff;
+								border-bottom: 1px solid #fff;
+								@include rotate(45deg);
+								position: relative;
+								left: 8px;
+								top: -4px;
+							}
+							.select-menu-dropdown {
+								display: none;
+
+								.destination-nav {
+									display: none;
+								}
+
+								h4:after {
+									content: "";
+									display: inline-block;
+									width: 6px;
+									height: 6px;
+									border-right: 1px solid #fff;
+									border-bottom: 1px solid #fff;
+									@include rotate(45deg);
+									position: relative;
+									left: 7px;
+									top: -2px;
+								}
+
+								.col.open {
+									.destination-nav {
+										display: block;
+									}
+									h4:after {
+										@include rotate(225deg);
+										top: -1px;
+									}
+								}
+							}
+							&.open {
+								.select-menu-dropdown {
+									display: block;
+								}
+								.drop-inner:after {
+									@include rotate(225deg);
+									top: -1px;
+								}
+							}
+						}
+
+						/*&:hover, &.current-menu-item {
+							border-bottom: 1px solid transparent;
+							a {
+								border-bottom: 1px solid #fff;
+							}
+						}*/
+						/*&:hover {
+							span:after {
+								display: none;
+							}
+						}*/
+						&:hover, &.open {
+							/*.select-menu-dropdown {
+								display: block;
+							}*/
+							& > div {
+								&:after {
+									display: none;/*
+									content: "";
+									width: 100%;
+									height: 1px;
+									background-color: #fff;
+									display: block;*/
+								}
+							}
+						}
+					}
+				}
+			}
+			.secondary-menu {
+				position: initial;
+				margin-top: 20px;
+
+				.pull-right {
+					float: initial;
+					text-align: left;
+				}
+
+				.select-language {
+					position: absolute;
+					left: 5px;
+					top: 27px;
+					.admin-bar & {
+						top: 67px;
+					}
+
+					.label {
+						display: none;
+					}
+					.code {
+						display: inline-block;
+						text-transform: uppercase;
+					}
+					.dropdown {
+						display: none;
+						width: 175px;
+						max-height: 500px;
+						right: initial;
+					}
+					&.open {
+						.dropdown {
+							display: block;
+						}
+					}
+				}
+
+				ul {
+					li {
+						margin-left: 41px;
+						margin-bottom: 10px;
+						display: block;
+						text-transform: uppercase;
+						@include font-size(14);
+					}
+				}
+			}
+
+			.main-header #menu-container > div {
+				margin-top: 0px;
+			}
+			.select-menu-dropdown {
+				position: initial;
+				display: block;
+				padding: 0;
+				background-color: transparent;
+				min-height: 0;
+				a {
+					color: #fff;
+				}
+				ul li {
+					margin: 0 15px 2px;
+				}
+				.row {
+					margin: 5px 0 0 0;
+					@include font-size(14);
+					h4 {
+						@include font-size(15);
+						border-bottom: 0;
+						padding-bottom: 0;
+					}
+					.col {
+						float: none;
+						margin-bottom: 10px;
+					}
+				}
+			}
+
+			/*.secondary-menu {
+				position: relative;
+				top: 10px;
+				margin-right: 10px;
+				line-height: 1.5;
+
+				ul li {
+					margin-left: 5px;
+				}
+
+			}*/
+		}
+
+	}
+}

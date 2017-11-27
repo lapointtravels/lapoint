@@ -1,0 +1,320 @@
+@charset "utf-8";
+
+
+@import "variables";
+
+@import "modules/bootstrap";
+
+@import "modules/responsive-mixins";
+@import "modules/mixins";
+@import "modules/fonts";
+@import "modules/buttons";
+
+
+
+// ****************************** Custom Reset ******************************
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+
+
+.ingress, .col-sm-4, .col-sm-6, .col-sm-8 {
+	border: 1px dashed #eee;
+}
+
+
+.section-container {
+	h1 {
+	    @include main-font-bold;
+	    font-size: 46px !important;
+	    line-height: 1.3 !important;
+	    letter-spacing: 4px !important;
+	  	text-transform: uppercase !important;
+	}
+
+	h2 {
+		@include main-font-bold();
+		font-size: 25px !important;
+		line-height: 1.2 !important;
+		margin: 10px 0 20px !important;
+		text-transform: uppercase !important;
+	}
+
+	h3 {
+		@include main-font-bold();
+		font-size: 20px !important;
+		line-height: 1.2 !important;
+		margin: 2px 0 8px !important;
+		text-transform: uppercase !important;
+	}
+
+	h4 {
+	  @include main-font-bold();
+	  font-size: 18px !important;
+	  line-height: 1.2 !important;
+	  margin: 2px 0 8px !important;
+	  text-transform: uppercase !important;
+	}
+}
+
+
+// ****************************** Btn ******************************
+.btn {
+	font-size: 14px;
+}
+
+
+// ****************************** Info Box ******************************
+.info-box-element {
+	box-sizing: border-box;
+	width: 500px;
+	padding: 100px;
+	h1 {
+		@include main-font-bold;
+		font-size: 40px;
+		line-height: 50px;
+		letter-spacing: 2px;
+		text-transform: uppercase;
+		padding-bottom: 10px;
+		color: inherit;
+	}
+	p {
+    	margin: 14px 20px 30px 0;
+	}
+	.divider {
+		position: relative;
+		top: 0px;
+		&:before {
+			content: "";
+			display: block;
+			height: 1px;
+			width: 90%;
+			background-color: #fff;
+		}
+		&:after {
+			content: "";
+			display: block;
+			background-image: url("img/icons/surfer.png");
+			background-size: contain;
+			width: 41px;
+			height: 58px;
+			position: absolute;
+			right: -40px;
+			top: -33px;
+			@include retina-device () {
+				background-image: url("img/icons/surfer@2x.png");
+			}
+		}
+	}
+	&.icon-kitesurfer {
+		.divider:after {
+			background-image: url("img/icons/info/kitesurfer.png");
+			width: 52px;
+			height: 58px;
+			right: -49px;
+			@include retina-device () {
+				background-image: url("img/icons/info/kitesurfer@2x.png");
+			}
+		}
+	}
+	&.icon-surfer2 {
+		.divider:after {
+			background-image: url("img/icons/info/surfer2.png");
+			width: 66px;
+			height: 59px;
+			right: -64px;
+			@include retina-device () {
+				background-image: url("img/icons/info/surfer2@2x.png");
+			}
+		}
+	}
+	&.icon-longboarder {
+		.divider:after {
+			background-image: url("img/icons/info/longboarder.png");
+			width: 41px;
+			height: 85px;
+			right: -40px;
+			top: -47px;
+			@include retina-device () {
+				background-image: url("img/icons/info/longboarder@2x.png");
+			}
+		}
+	}
+	&.icon-palmtree {
+		.divider:after {
+			background-image: url("img/icons/info/palmtree.png");
+			width: 44px;
+			height: 49px;
+			right: -41px;
+			top: -29px;
+			@include retina-device () {
+				background-image: url("img/icons/info/palmtree@2x.png");
+			}
+		}
+	}
+	&.icon-sandals {
+		.divider:after {
+			background-image: url("img/icons/info/sandals.png");
+			width: 47px;
+			height: 53px;
+			right: -43px;
+			top: -31px;
+			@include retina-device () {
+				background-image: url("img/icons/info/sandals@2x.png");
+			}
+		}
+	}
+	&.icon-sun {
+		.divider:after {
+			background-image: url("img/icons/info/sun.png");
+			width: 51px;
+			height: 51px;
+			right: -45px;
+			top: -29px;
+			@include retina-device () {
+				background-image: url("img/icons/info/sun@2x.png");
+			}
+		}
+	}
+}
+
+
+// ****************************** Box views ******************************
+.module-box.levels,
+.module-box.destination_boxes,
+.module-box.packages {
+	.kmc-component {
+		header {
+			text-align: left;
+		}
+
+		text-align: center;
+		.box-info {
+			background-color: #eee;
+			color: #000;
+		}
+	}
+}
+
+
+// ****************************** Camps row ******************************
+.camps-row-preview, .locations-row-preview {
+	text-align: center;
+	.box-info {
+		background-color: #eee;
+		color: #000;
+	}
+}
+
+
+// ****************************** Booking bar ******************************
+.module-box {
+	.kmc-booking-bar-component {
+
+		.body {
+			padding: 0;
+			background-color: #eee;
+			text-align: center;
+			position: relative;
+			color: #000;
+			padding: 20px 30px;
+			h2 {
+				margin-top: 0 !important;
+				padding-top: 0 !important;
+				margin-bottom: 10px !important;
+				padding-bottom: 0 !important;
+			}
+			p {
+				margin: 0;
+				padding: 0;
+			}
+		}
+	}
+	&.edit {
+		.body {
+			padding: 10px 30px;
+			background-color: #fff;
+			text-align: left;
+		}
+	}
+}
+
+
+
+// ****************************** Header ******************************
+.module-box .kmc-header-component {
+	padding: 0;
+
+	.body {
+		height: 70px;
+		padding: 0;
+		background-color: #eee;
+		text-align: center;
+		position: relative;
+		color: #000;
+		p {
+			margin: 0;
+			padding: 0;
+			line-height: 70px;
+		}
+	}
+	&.edit {
+		.body {
+			background-color: #fff;
+		}
+	}
+}
+
+
+
+// ****************************** Booking overview ******************************
+#booking-overview-container {
+	.booking-info {
+		@include border-radius(5px);
+		background-color: #eaeaea;
+		padding: 20px;
+		margin-bottom: 50px;
+	}
+	.center {
+		text-align: center;
+	}
+	#booking_overview .inside {
+		padding: 10px 50px 20px;
+	}
+	.booking-table {
+		th {
+			text-align: left;
+			padding: 4px 8px;
+		}
+		tbody {
+			td {
+				padding: 4px 8px;
+			}
+			tr:nth-child(odd) {
+				td {
+					background-color: #f1f1f1;
+				}
+			}
+		}
+		.booking-labels-container {
+			label {
+				display: none;
+			}
+			&.open {
+				label {
+					display: initial;
+				}
+				.override-label-link {
+					display: none;
+				}
+			}
+			.booking-label {
+				width: 50px;
+			}
+		}
+	}
+}
+
