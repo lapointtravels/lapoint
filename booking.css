@@ -1,0 +1,261 @@
+*, html {
+	font-size: 13px;
+}
+h2 {
+	font-size: 16px !important;
+}
+
+
+#sidebar p {
+	font-size: 13px;
+}
+
+.BookingLabel, .booking-info, .booking-rightbox, .bookingbox-row, .validationerror {
+	font-size: 13px;
+}
+
+
+#poweredbytravelize {
+	display: none;
+}
+
+#footer {
+	padding: 0px;
+}
+
+#footer .widget {
+	background: #575656 !important;
+}
+
+#footer h2 {
+	font-size: 16px !important;
+}
+
+.lobster {
+	font-family: 'Lobster', 'Source Sans Pro', sans-serif !important;
+}
+
+.booking-payinfo {
+	padding-bottom: 70px;
+}
+
+.sidebar-booking a {
+	margin-left: 70px !important;
+	margin-top: -10px !important;
+}
+
+.bookingbox input {
+	height: auto;
+}
+
+.bookingbox h2 {
+	font-size: 16px;
+	margin: 0px;
+	padding: 4px;
+	padding-left: 10px;
+}
+
+.bookingbox h2.bookformmain {
+	padding-left: 0px;
+}
+
+
+
+@font-face{
+  font-family: 'BrandonGrotesque-light';
+  src: url('https://www.lapointcamps.com/wp-content/themes/lapoint2016/fonts/brandongrotesque-light/brandongrotesque-light.eot');
+  src: url('https://www.lapointcamps.com/wp-content/themes/lapoint2016/fonts/brandongrotesque-light/brandongrotesque-light.eot?#iefix') format('embedded-opentype'),
+       url('https://www.lapointcamps.com/wp-content/themes/lapoint2016/fonts/brandongrotesque-light/brandongrotesque-light.woff2') format('woff2'),
+       url('https://www.lapointcamps.com/wp-content/themes/lapoint2016/fonts/brandongrotesque-light/brandongrotesque-light.woff') format('woff'),
+       url('https://www.lapointcamps.com/wp-content/themes/lapoint2016/fonts/brandongrotesque-light/brandongrotesque-light.ttf') format('truetype'),
+       url('https://www.lapointcamps.com/wp-content/themes/lapoint2016/fonts/brandongrotesque-light/brandongrotesque-light.svg#brandongrotesquemedium') format('svg');
+}
+
+@font-face {
+    font-family: 'BrandonGrotesque-bold';
+    src: url('https://www.lapointcamps.com/wp-content/themes/lapoint2016/fonts/brandongrotesque-bold/brandongrotesque-bold.eot');
+    src: url('https://www.lapointcamps.com/wp-content/themes/lapoint2016/fonts/brandongrotesque-bold/brandongrotesque-bold.eot?#iefix') format('embedded-opentype'),
+         url('https://www.lapointcamps.com/wp-content/themes/lapoint2016/fonts/brandongrotesque-bold/brandongrotesque-bold.woff2') format('woff2'),
+         url('https://www.lapointcamps.com/wp-content/themes/lapoint2016/fonts/brandongrotesque-bold/brandongrotesque-bold.woff') format('woff'),
+         url('https://www.lapointcamps.com/wp-content/themes/lapoint2016/fonts/brandongrotesque-bold/brandongrotesque-bold.ttf') format('truetype'),
+         url('https://www.lapointcamps.com/wp-content/themes/lapoint2016/fonts/brandongrotesque-bold/brandongrotesque-bold.svg#brandon_grotesquebold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.booking-steps {
+    font-family: 'BrandonGrotesque-light';
+    padding-bottom: 40px;
+}
+
+.booking-steps h1 {
+    text-align: center !important;
+    font-family: 'BrandonGrotesque-bold';
+    text-transform: uppercase;
+    font-size: 24px !important;
+    color: #424242;
+    width: 100% !important;
+}
+
+.booking-steps h1 + hr {
+    display: none;
+}
+
+.bookingbox h2 {
+    display: inline-block;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -20px;
+    background-color: #fff;
+    padding: 0 20px !important;
+    text-align: center;
+    font-family: 'BrandonGrotesque-bold';
+    text-transform: uppercase;
+    font-size: 14px !important;
+    color: #424242;
+}
+
+
+.bookingbox h2.validationerror {
+    top: 0;
+    border: 0;
+    color: red;
+    margin-top: 19px;
+}
+
+.bookingbox {
+    background-color: #fff !important;
+	margin-bottom: 40px;
+    padding: 10px 20px 30px;
+    border: 4px solid #e5e5e5;
+    line-height: 1.5;
+    width: auto;
+}
+
+.bookingbox-row {
+    margin: 0 0 13px 0;
+    line-height: 30px;
+}
+.bookingbox-row .bookingbox-row {
+    margin-top: 10px;
+}
+
+.booking-steps .classinput {
+    border: 1px solid #a9a9a9;
+    padding: 6px;
+    border-radius: 1px;
+}
+
+.booking-steps .classinput.form-item-error {
+    border: 1px solid red;
+}
+
+.BookingLabel {
+    width: 26%;
+    padding-right: 5%;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+p.BookingLabel {
+    padding-right: 30px;
+}
+
+@media screen and (max-width: 545px) {
+    .BookingLabel {
+        width: 100%;
+    }
+}
+
+
+.bookingbox-row .validationerror {
+    margin-left: 27%;
+}
+
+.booking-steps .button {
+    display: inline-block;
+    margin-bottom: 0;
+    text-align: center;
+    text-transform: uppercase;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 8px 24px;
+    font-size: 14px;
+    font-size: 1.4rem;
+    line-height: 14px;
+    text-decoration: none;
+    letter-spacing: 2px;
+    font-family: 'BrandonGrotesque-light';
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    background-color: #e94739;
+    color: #fff;
+    box-shadow: none;
+    text-shadow: none;
+    font-size: 12px;
+    padding: 6px 30px !important;
+}
+
+.booking-steps .button:hover {
+    background-color: #196089;
+}
+
+.booking-steps #content {
+    box-sizing: border-box;
+}
+
+input[type='radio'] {
+    margin-right: 11px;
+    margin-bottom: 10px;
+}
+
+.bookingbox-row-indent {
+    line-height: 1.5;
+}
+
+
+.bookingbox-grid-container {
+	background-color: #fff;
+    margin-top: 55px !important;
+    line-height: 1.5 !important;
+}
+
+.bookingbox-grid5-cell {
+	padding: 5px 0.5%;
+}
+
+#sidebar {
+    margin: 0 10px;
+    box-sizing: border-box;
+}
+
+@media screen and (max-width: 545px) {
+    .BookingLabel {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 980px) {
+    #content {
+        width: 100%;
+        padding: 20px 50px;
+    }
+
+    #sidebar {
+        width: 100%;
+        margin: 0;
+        padding: 20px 50px;
+    }
+
+    #sidebar .widget {
+        padding: 20px 50px;
+        margin-bottom: 10px;
+    }
+}
