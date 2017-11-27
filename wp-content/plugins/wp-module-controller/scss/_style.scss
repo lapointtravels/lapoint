@@ -1,0 +1,39 @@
+/*
+Default styling to be included in the theme
+@import "../../../plugins/wp-module-controller/scss/style";
+*/
+
+.kmc-section {
+	position: relative;
+
+	&.dark {
+		color: #000;
+	}
+
+	&.light {
+		color: #fff;
+	}
+
+	&.has-bgr-img, &.has-bgr-video {
+		background-color: #000;
+		.section-background {
+			position: absolute;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			right: 0;
+			background-position: top center;
+			z-index: 0;
+			@include opacity(0);
+			@include transition(opacity 500ms ease-out);
+
+			&.has-image {
+				@include opacity(100);
+			}
+		}
+		.kmc-component {
+			z-index: 10;
+			position: relative;
+		}
+	}
+}

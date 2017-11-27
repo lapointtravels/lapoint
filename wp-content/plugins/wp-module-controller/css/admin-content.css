@@ -1,0 +1,49 @@
+.module-box .kmc-content-module {
+  overflow: hidden;
+  min-height: 20px;
+  background-color: transparent;
+  -webkit-transition: min-height 400ms ease-in-out;
+  -moz-transition: min-height 400ms ease-in-out;
+  -ms-transition: min-height 400ms ease-in-out;
+  -o-transition: min-height 400ms ease-in-out;
+  transition: min-height 400ms ease-in-out;
+}
+.module-box .kmc-content-module .content-container {
+  background-color: transparent;
+}
+.module-box .kmc-content-module .edit-container {
+  display: none;
+  padding: 55px 25px 25px;
+  background-color: #fff;
+}
+.module-box .kmc-content-module .body {
+  padding: 20px;
+  min-height: 60px;
+}
+.module-box .kmc-content-module .body .module-textarea {
+  width: 100%;
+  height: 400px;
+}
+.module-box.edit > .kmc-content-module {
+  min-height: 500px;
+}
+.module-box.edit > .kmc-content-module > .content-container > header .sort-handle {
+  margin-top: 12px;
+}
+.module-box.edit > .kmc-content-module > .content-container > .body {
+  display: none;
+}
+.module-box.edit > .kmc-content-module > .edit-container {
+  display: inherit;
+}
+
+#poststuff .module-box.edit .kmc-theme-component .body {
+  height: auto;
+  line-height: inherit;
+  background-color: inherit;
+  color: #000;
+  text-align: left;
+  padding: 10px 30px;
+}
+
+/*# sourceMappingURL=admin-content.css.map */

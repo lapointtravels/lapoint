@@ -61,6 +61,7 @@ wp-content/mysql.sql
 /wp-content/themes/twentyten
 /wp-content/themes/index.php
 /wp-content/plugins/index.php
+/wp-content/plugins/wpml-*
 
 # large/disallowed file types
 # a CDN should be used for these

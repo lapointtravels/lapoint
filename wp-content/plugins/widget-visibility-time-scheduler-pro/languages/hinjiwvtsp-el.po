@@ -1,0 +1,273 @@
+# Copyright (C) 2014
+# This file is distributed under the same license as the plugin package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Widget Visibility Time Scheduler Pro\n"
+"POT-Creation-Date: 2017-03-01 15:48+0100\n"
+"PO-Revision-Date: 2017-03-01 15:49+0100\n"
+"Last-Translator: Martin Stehle <m.stehle@gmx.de>\n"
+"Language-Team: m.stehle@gmx.de\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.11\n"
+"X-Poedit-KeywordsList: __;_e;_n;_x;esc_html_e;esc_html__;esc_attr_e;"
+"esc_attr__;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_x:1,2c;_n:1,2\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: admin/class-hinjiwvtsp-admin.php:281
+msgid ""
+"Control the visibility of each widget based on date, time and weekday easily."
+msgstr ""
+"Ρυθμίστε εύκολα την ορατότητα κάθε μικροεφαρμογής βάσει ημερομηνίας, ώρας "
+"και ημέρας εβδομάδας."
+
+#: admin/class-hinjiwvtsp-admin.php:316 admin/partials/fieldsets.php:66
+msgid "Open scheduler"
+msgstr "Άνοιγμα χρονοδιάγραμμα"
+
+#: admin/class-hinjiwvtsp-admin.php:317
+msgid "Close scheduler"
+msgstr "Κλείσιμο χρονοδιάγραμμα"
+
+#: admin/class-hinjiwvtsp-admin.php:335
+#, php-format
+msgid "License Activation for %s"
+msgstr ""
+
+#: admin/class-hinjiwvtsp-admin.php:336
+#, php-format
+msgid "%s License"
+msgstr ""
+
+#: admin/class-hinjiwvtsp-admin.php:356 admin/class-hinjiwvtsp-admin.php:388
+#: admin/class-hinjiwvtsp-admin.php:409
+msgid "License Activation"
+msgstr ""
+
+#: admin/class-hinjiwvtsp-admin.php:417
+#, php-format
+msgid ""
+"Welcome to Widget Visibility Time Scheduler Pro! You can set the time based "
+"visibility in each widget on the page %s."
+msgstr ""
+"Καλώς ορίσατε στο Widget Visibility Time Scheduler Pro! Μπορείτε να ορίσετε "
+"την ορατότητα βάσει χρόνου κάθε μικροεφαρμογής στην σελίδα %s."
+
+#: admin/class-hinjiwvtsp-admin.php:421
+#, php-format
+msgid "To manage the license go to the page %s."
+msgstr ""
+
+#: admin/class-hinjiwvtsp-admin.php:694 admin/partials/fieldsets.php:33
+msgid "from"
+msgstr "από"
+
+#: admin/class-hinjiwvtsp-admin.php:698 admin/partials/fieldsets.php:37
+msgid "to"
+msgstr "έως"
+
+#: admin/class-hinjiwvtsp-admin.php:1217
+msgid "The license is disabled."
+msgstr ""
+
+#: admin/class-hinjiwvtsp-admin.php:1219
+msgid "The license is expired."
+msgstr ""
+
+#: admin/class-hinjiwvtsp-admin.php:1221
+msgid "The license is inactive."
+msgstr ""
+
+#: admin/class-hinjiwvtsp-admin.php:1223
+msgid "The license is invalid."
+msgstr ""
+
+#: admin/class-hinjiwvtsp-admin.php:1225
+msgid "This appears to be an invalid product for this license key."
+msgstr ""
+
+#: admin/class-hinjiwvtsp-admin.php:1227
+msgid "The license key does not match."
+msgstr ""
+
+#: admin/class-hinjiwvtsp-admin.php:1229
+msgid "This appears to be an invalid product name for this license key."
+msgstr ""
+
+#: admin/class-hinjiwvtsp-admin.php:1231
+msgid "The license is not activatable."
+msgstr ""
+
+#: admin/class-hinjiwvtsp-admin.php:1233
+msgid "The license key does not exist."
+msgstr ""
+
+#: admin/class-hinjiwvtsp-admin.php:1235
+msgid "The license has reached its activation limit."
+msgstr ""
+
+#: admin/class-hinjiwvtsp-admin.php:1237
+msgid "The license has been revoked."
+msgstr ""
+
+#: admin/class-hinjiwvtsp-admin.php:1239
+#, php-format
+msgid "The license is not active for the site address %s."
+msgstr ""
+
+#: admin/class-hinjiwvtsp-admin.php:1241
+msgid "The license is valid and active."
+msgstr ""
+
+#: admin/class-hinjiwvtsp-admin.php:1243
+#, php-format
+msgid "The license status is: %s."
+msgstr ""
+
+#: admin/partials/fieldsets.php:17
+msgid "Visibility Time Scheduler"
+msgstr "Visibility Time Scheduler"
+
+#: admin/partials/fieldsets.php:43
+msgid ""
+"Why only up to end of 2037? Read <a href=\"http://en.wikipedia.org/wiki/"
+"Year_2038_problem\" lang=\"en\">Wikipedia: Year 2038 problem</a>."
+msgstr ""
+"Γιατί μόνο μέχρι το τέλος του 2037; Διαβάστε  <a href=\"http://en.wikipedia."
+"org/wiki/Year_2038_problem\" lang=\"en\">Wikipedia: Year 2038 problem</a>."
+
+#: admin/partials/fieldsets.php:50
+msgid "on"
+msgstr "στις"
+
+#: admin/partials/page-license.php:22
+msgid "License Settings"
+msgstr ""
+
+#: admin/partials/page-license.php:29
+msgid "License Key"
+msgstr ""
+
+#: admin/partials/page-license.php:33
+msgid "Enter your license key. Then click on the button."
+msgstr ""
+
+#: admin/partials/page-license.php:41
+msgid "Licence Status"
+msgstr ""
+
+#: admin/partials/page-license.php:51
+#, php-format
+msgid "The license will expire on %1$s at %2$s."
+msgstr ""
+
+#: admin/partials/page-license.php:55 admin/partials/page-license.php:69
+#, php-format
+msgid "There are %d activations left"
+msgstr ""
+
+#: admin/partials/page-license.php:56
+msgid "Deactivate License"
+msgstr ""
+
+#: admin/partials/page-license.php:58
+msgid ""
+"Click to deactivate the license if you do not want to use it on this server."
+msgstr ""
+
+#: admin/partials/page-license.php:65
+#, php-format
+msgid "The license expired on %1$s at %2$s."
+msgstr ""
+
+#: admin/partials/page-license.php:70
+msgid "Click here for a new license"
+msgstr ""
+
+#: admin/partials/page-license.php:75
+msgid "Activate License"
+msgstr ""
+
+#: admin/partials/page-license.php:77
+msgid "Click to activate the license after you have entered your license key."
+msgstr ""
+
+#: admin/partials/page-license.php:90
+msgid "Important advices about the license"
+msgstr ""
+
+#: admin/partials/page-license.php:91
+msgid "Why a license?"
+msgstr ""
+
+#: admin/partials/page-license.php:92
+msgid ""
+"With activating the license you will receive automatic upgrades of the "
+"plugin for 365 days since the day of the purchase. Each license key is valid "
+"for one installation of the plugin only."
+msgstr ""
+
+#: admin/partials/page-license.php:93
+msgid "Terms of the license"
+msgstr ""
+
+#: admin/partials/page-license.php:95
+msgid ""
+"By activating this license you are also confirming your agreement to be "
+"bound by the terms of the license associated with this plugin which you "
+"acknowledged at the time of the purchase checkout."
+msgstr ""
+
+#: admin/partials/page-license.php:96
+msgid "https://shop.stehle-internet.de/informations/terms-licence-withdrawal/"
+msgstr ""
+
+#: admin/partials/page-license.php:96
+msgid "Read the terms of the license (in new window)"
+msgstr ""
+
+#: admin/partials/page-license.php:98
+msgid ""
+"This includes that the warranty offered by the plugin author is limited to "
+"correcting any defects and that the plugin author will not be held liable "
+"for any actions or financial loss occurring as a result of using this plugin."
+msgstr ""
+
+#: admin/partials/page-license.php:99
+msgid "Contact"
+msgstr ""
+
+#: admin/partials/page-license.php:101
+msgid ""
+"If you have any issues and problems with activating you can contact the "
+"plugin author for solutions."
+msgstr ""
+
+#: admin/partials/page-license.php:102
+msgid "https://shop.stehle-internet.de/contact/"
+msgstr ""
+
+#: admin/partials/page-license.php:102
+msgid "Contact page (in new window)"
+msgstr ""
+
+#: admin/partials/section-footer.php:19
+msgid "Helpful Links"
+msgstr ""
+
+#: admin/partials/section-footer.php:21
+msgid "Reviews"
+msgstr ""
+
+#: admin/partials/section-footer.php:22
+msgid "Do you like the plugin?"
+msgstr ""
+
+#: admin/partials/section-footer.php:23
+#, php-format
+msgid "Rate it on %s."
+msgstr ""

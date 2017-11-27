@@ -1,0 +1,221 @@
+@import "_variables";
+@import "_mixins";
+
+.imsl-slide-show {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	height: 575px;
+	background-color: #000;
+	&.ani {
+		@include transition(all 200ms ease-in-out);
+	}
+
+	&.fixed-height {
+		width: 100% !important;
+		height: 575px !important;
+		ul .slide, ul .slide .image {
+			width: 100% !important;
+			height: 575px !important;
+		}
+	}
+
+	ul {
+		z-index: 100;
+		margin: 0;
+		list-style: none;
+
+		.slide {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 575px;
+
+			.image {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 575px;
+				background-size: cover;
+				background-position: center center;
+			}
+
+			.title, .text1, .text2, .text3 {
+				@include opacity(0);
+				z-index: 999999;
+			}
+
+			.main-divider {
+				display: none;
+			}
+		}
+	}
+
+
+	// ****************************** Arrows ******************************
+	.icon-link {
+		position: absolute;
+		top: 50%;
+		z-index: 999;
+		cursor: pointer;
+
+		&.prev-link {
+			left: -50px;
+		}
+		&.next-link {
+			right: -50px;
+		}
+
+		@include transition(all 600ms ease-out);
+	}
+	&.default {
+		.icon-link {
+			width: 34px;
+			height: 34px;
+			margin-top: -17px;
+			.icon {
+				display: inline-block;
+				width: 34px;
+				height: 34px;
+				background-size: 34px 34px;
+				background-repeat: no-repeat;
+				&.prev-icon {
+					background-image: url('../images/icon-prev.png');
+				}
+				&.next-icon {
+					background-image: url('../images/icon-next.png');
+				}
+			}
+			&:hover .icon {
+				&.prev-icon {
+					background-image: url('../images/icon-prev-over.png');
+				}
+				&.next-icon {
+					background-image: url('../images/icon-next-over.png');
+				}
+			}
+		}
+	}
+	&.simple {
+		.icon-link {
+			width: 23px;
+			height: 43px;
+			margin-top: -12px;
+			.icon {
+				display: inline-block;
+				width: 23px;
+				height: 43px;
+				background-size: 23px 43px;
+				background-repeat: no-repeat;
+				&.prev-icon {
+					background-image: url('../images/arrow-left.png');
+					@include retina-device() {
+						background-image: url('../images/arrow-left@2x.png');
+					}
+				}
+				&.next-icon {
+					background-image: url('../images/arrow-right.png');
+					@include retina-device() {
+						background-image: url('../images/arrow-right@2x.png');
+					}
+				}
+			}
+			/*
+			&:hover .icon {
+				&.prev-icon {
+					background-image: url('../images/arrow-left-over.png');
+				}
+				&.next-icon {
+					background-image: url('../images/icon-next-over.png');
+				}
+			}
+			*/
+		}
+	}
+
+
+	// ****************************** Dots ******************************
+	.imsl-dots {
+		position: absolute;
+		bottom: -80px;
+		left: 0;
+		right: 0;
+		z-index: 900 !important;
+		height: auto !important;
+		text-align: center;
+		@include transition(all 1000ms ease-out);
+
+		 > li {
+			width: 15px;
+			height: 15px;
+			overflow: hidden;
+			display: inline-block;
+			margin: 3px;
+			border-radius: 50%;
+			background-color: rgba(0, 0, 0, 0.6);
+
+			&.active {
+				background-color: #fff;
+			}
+		}
+	}
+	&.default {
+		.imsl-dots {
+			margin: 0 auto 15px;
+			> li {
+				border: 2px solid #fff;
+				background-color: rgba(#000, 0.6);
+				@include box-shadow(0px 0px 5px 0px rgba(0,0,0,0.75));
+
+				&.active {
+					background-color: #fff;
+
+				}
+			}
+		}
+	}
+	&.simple {
+		.imsl-dots {
+			margin: 0 auto;
+			> li {
+				background-color: rgba(#fff, 0.4);
+
+				&.active {
+					background-color: #fff;
+				}
+			}
+		}
+	}
+
+
+
+	// ****************************** Animated ******************************
+	&.enabled {
+		.icon-link {
+			&.prev-link { left: 10px; }
+			&.next-link { right: 10px; }
+		}
+		.imsl-dots {
+			bottom: 0;
+			// Make sure they don't cover the vimeo play button
+			left: 80px;
+			right: 80px;
+		}
+	}
+	&.simple.enabled {
+		.icon-link {
+			&.prev-link { left: 20px; }
+			&.next-link { right: 20px; }
+		}
+	}
+}
+
+
+
+@media (max-width: 560px) {
+	.imsl-dots {
+		bottom: -80px !important;
+	}
+}

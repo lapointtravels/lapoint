@@ -1,0 +1,48 @@
+div.wvtsp-collapsed .wvtsp-scheduler {
+	display: none;
+}
+div.wvtsp-expanded .wvtsp-scheduler {
+	display: block;
+}
+div.wvtsp-container p {
+	margin-top: 0;
+	overflow: hidden;
+}
+div.wvtsp-container fieldset legend {
+	padding: 0;
+	font-weight: bold;
+}
+div.wvtsp-container br {
+    display: none;
+}
+span.wvtsp-weekday {
+    display: block;
+    /*float: left;
+*/    width: 120px;
+}
+span.wvtsp-daytime {
+    display: block;
+    float: left;
+    /*text-align: right;*/
+    width: 270px;
+}
+span.wvtsp-daytime input {
+    width: 3em;
+	text-align: center;
+}
+.customize-control .wvtsp-container input {
+	width: auto;
+}
+.customize-control .wvtsp-container select {
+	min-width: 0;
+}
+/* license page styles */
+.wvtsp_valid {
+	color: green;
+	font-weight: bold;
+}
+.wvtsp_invalid {
+	color: red;
+	font-weight: bold;
+}
+	
