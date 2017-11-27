@@ -1,0 +1,48 @@
+#poststuff .module-box.kmcslides  {
+
+	&.edit .kmc-kmcslides-component {
+		.body {
+			height: auto;
+			line-height: inherit;
+			background-color: inherit;
+			color: #000;
+			text-align: left;
+			padding: 10px 30px;
+		}
+	}
+
+	.kmc-preview {
+		padding: 30px;
+		background-color: #ddd;
+		text-align: center;
+		position: relative;
+		color: #000;
+
+		p {
+			position: relative;
+			margin: 0;
+			top: 44%;
+		}
+	}
+	.slides {
+		.slides-label {
+			display: block;
+			font-size: 12px;
+			font-style: italic;
+			margin-bottom: 20px;
+			color: #000;
+		}
+
+		.kmc-kloon-slide {
+			width: 150px;
+			height: 150px;
+			background-repeat: no-repeat;
+			background-size: cover;
+			display: inline-block;
+		    background-color: #888;
+		    color: #fff;
+		    line-height: 150px;
+		    vertical-align: top;
+		}
+	}
+}

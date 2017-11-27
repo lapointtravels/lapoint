@@ -1,0 +1,31 @@
+.kmc-component-quote {
+
+	.quote-section-box {
+		height: 500px;
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center center;
+		color: #fff;
+		position: relative;
+
+		.inner {
+			position: relative;
+			top: 45%;
+
+			.quote {
+				display: block;
+				margin: 0;
+				font-size: 30px;
+				text-transform: uppercase;
+				line-height: 1.1;
+				&:before, &:after {
+					content: '"';
+				}
+			}
+			.quote-name {
+				font-size: 14px;
+				margin: 0;
+			}
+		}
+	}
+}

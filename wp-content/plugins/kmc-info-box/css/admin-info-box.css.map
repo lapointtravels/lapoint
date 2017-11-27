@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,oBAAsB,CACrB,gBAAgB,CAAE,qBAAe,CAGhC,uDAAM,CACL,MAAM,CAAE,IAAI,CACZ,WAAW,CAAE,OAAO,CACpB,gBAAgB,CAAE,OAAO,CACzB,KAAK,CAAE,IAAI,CACX,UAAU,CAAE,IAAI,CAChB,OAAO,CAAE,SAAS",
+"sources": ["../scss/admin-info-box.scss"],
+"names": [],
+"file": "admin-info-box.css"
+}

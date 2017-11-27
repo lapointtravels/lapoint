@@ -1,0 +1,77 @@
+.module-box .kmc-tabs-component .tab-body {
+  padding: 40px 10px 0px;
+  position: relative;
+}
+.module-box .kmc-tabs-component .tab-body p {
+  position: relative;
+  margin: 0;
+  top: 50%;
+}
+.module-box .kmc-tabs-component .tab-body h2 {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  text-align: center;
+}
+.module-box .kmc-tabs-component .tabs .add-btn-container {
+  display: inline-block;
+  padding: 3px 7px 2px;
+  background-color: #333;
+  color: #fff;
+  margin-top: 8px;
+  font-size: 11px;
+}
+.module-box.edit .kmc-tabs-component .tab-body {
+  height: auto;
+  line-height: inherit;
+  padding-top: 30px;
+  background-color: #fff;
+  color: #000;
+  text-align: left;
+  padding: 45px 30px 1px;
+}
+.module-box .remove-tab {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+}
+.module-box .ui-tabs-panel {
+  background-color: #eee;
+  border: 1px solid #ccc;
+  padding: 3px 15px 0 20px;
+}
+
+.ui-tabs .ui-tabs-nav {
+  margin: 0 0 0 20px;
+}
+.ui-tabs .ui-tabs-nav li {
+  list-style: none;
+  float: left;
+  position: relative;
+  top: 0;
+  margin: 1px .2em -1px 0;
+  border-bottom-width: 0;
+  white-space: nowrap;
+  border: 1px solid #ccc;
+  background-color: #efefef;
+}
+.ui-tabs .ui-tabs-nav li a {
+  display: inline-block;
+  padding: 6px 15px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #000;
+  font-size: 11px;
+}
+.ui-tabs .ui-tabs-nav li.ui-tabs-active {
+  background-color: #fff;
+  border-bottom-color: #fff;
+}
+.ui-tabs .ui-tabs-panel {
+  border-top: 1px solid #ccc;
+  display: block;
+  padding: 1em 1.4em;
+  background: none;
+}
+
+/*# sourceMappingURL=admin-tabs.css.map */

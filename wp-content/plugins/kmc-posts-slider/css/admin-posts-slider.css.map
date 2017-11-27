@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAEE,6CAAM,CACL,UAAU,CAAE,MAAM,CAClB,QAAQ,CAAE,QAAQ,CAClB,uDAAU,CACT,gBAAgB,CAAE,IAAI,CACtB,KAAK,CAAE,IAAI,CAMb,kDAAM,CACL,OAAO,CAAE,MAAM",
+"sources": ["../scss/admin-posts-slider.scss"],
+"names": [],
+"file": "admin-posts-slider.css"
+}

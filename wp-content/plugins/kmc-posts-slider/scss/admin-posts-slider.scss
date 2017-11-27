@@ -1,0 +1,18 @@
+.module-box  {
+	.kmc-posts-slider-component {
+		.body {
+			text-align: center;
+			position: relative;
+			.box-info {
+				background-color: #eee;
+				color: #000;
+			}
+		}
+	}
+
+	&.edit .kmc-posts-slider-component {
+		.body {
+			padding: 10px 0;
+		}
+	}
+}

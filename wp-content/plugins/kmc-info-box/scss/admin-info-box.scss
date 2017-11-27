@@ -1,0 +1,14 @@
+.module-box.info-box  {
+	background-color: rgba(#fff, 0.1);
+
+	&.edit .kmc-info-box-component {
+		.body {
+			height: auto;
+			line-height: inherit;
+			background-color: inherit;
+			color: #000;
+			text-align: left;
+			padding: 10px 30px;
+		}
+	}
+}
