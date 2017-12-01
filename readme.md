@@ -65,7 +65,17 @@ In order to be able to push to the WP engine environment you need to [add your p
 
 ###### ENVIRONMENTS
 **Staging:** http://lapoint.staging.wpengine.com
+
 **Production:** http://lapoint.wpengine.com
+
+To access the admin console locally use the same credentials as in the production environment.
+
+###### WPML
+The WMPL plugins needs to be installed locally. Currently following plugins are used:
+- wpml-sticky-links
+- wmpl-string-translation
+- wpml-translation-management
+- wpml-widgets
 
 
 
