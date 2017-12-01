@@ -11,7 +11,7 @@ In order to handle WordPress installs easily, install the `wp-cli`. Follow the i
 **Note:** You don't need to have WordPress installed before.
 
 ##### 2. Clone the Lapoint repository
-Run `git clone git@github.com:lisarutan/Lapoint.git` to clone the Lapoint Web project.
+Run `git clone git@github.com:lapointtravels/Lapoint.git` to clone the Lapoint Web project.
 
 ##### 3. Install the WordPress core
 Enter the project directory and run `wp core download`. This will install the WordPress core for the project (the WordPress core is git ignored).
