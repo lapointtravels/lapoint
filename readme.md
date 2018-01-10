@@ -28,14 +28,21 @@ Visit WPEngine to download a MySQL dump to import to your development DB.
 3. Open the `wp-config.php` in the project root. Update the DB config to match your setup -  `DB_NAME`, `DB_USER`, `DB_PASSWORD`.
 
 ##### 3. Get the project images
+
 Since the `/uploads` directory is huge in this project it is currently git ignored. This means you have to get it yourself manually if you want things to look neat, preferably accessing WP Engine with SFTP. The `/uploads` directory is available in `/wp-content`. Get it and move it to the corresponding place in the project.
 
 ##### 4. Run the project
-To run the project successfully in a local environment we need to use ngrok.
-[Download ngrok](https://ngrok.com/), unzip it and move it to your `/usr/local/bin` directory.
+
+Run `wp server` in the console to run the project.
+
+To run the project with full capability in a local environment we need to use ngrok. It creates a local domain name proxy so you can test language sub-domains, SSL and other coolio stuff in your development environment.
+
+[Download ngrok](https://ngrok.com/), install as per instructions in their docs.
+
 [Sign in](https://dashboard.ngrok.com/user/login) using your GitHub account and add the auth token as instructed.
 
-Run `wp server` in the console to run the project. In another tab, run `ngrok http 8080`. Once ngrok is initiated you will receive the url to use.
+In a new console tab, run `ngrok http 8080` to proxy your WP server to nrok.
+Once ngrok is initiated you will receive the url to use.
 
 ... and you're done! :)
 
