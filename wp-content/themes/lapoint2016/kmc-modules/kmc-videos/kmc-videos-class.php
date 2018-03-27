@@ -99,7 +99,7 @@ class KMC_Videos_Component extends Kloon_Component {
 		$this->videos = $videoObjects;
 	}
 
-	public function update ($data) {
+	public function update ($data, $is_revision=false) {
 		parent::update($data);
 		update_post_meta($this->post->ID, 'videos', json_encode($data->videos));
 	}

@@ -60,7 +60,7 @@ class KMC_Box_Area extends Kloon_Module {
 	}
 
 
-	public function create_instance ($data) {
+	public function create_instance ($data, $is_preview=false) {
 		$post_id = parent::create_instance($data);
 		$instance = $this->get_instance($post_id);
 		$instance->update($data);
@@ -175,7 +175,7 @@ class KMC_Box_Area_Component extends Kloon_Component {
 		$this->boxes = $this->get_all_boxes();
 	}
 
-	public function update ($data) {
+	public function update ($data, $is_revision=false) {
 		parent::update($data);
 
 		update_post_meta($this->id, 'label', $data->label);

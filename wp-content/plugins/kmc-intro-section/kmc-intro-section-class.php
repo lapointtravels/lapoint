@@ -44,7 +44,7 @@ class KMC_Intro_Section extends Kloon_Module {
 		return "<div class='select-module-box'>Intro Section</div>";
 	}
 
-	public function create_instance ($data) {
+	public function create_instance ($data, $is_preview=false) {
 		$post_id = parent::create_instance($data);
 		$instance = $this->get_instance($post_id);
 		$instance->update($data);
@@ -72,7 +72,7 @@ class KMC_Intro_Section_Component extends Kloon_Component {
 		return "intro-section";
 	}
 
-	public function update ($data) {
+	public function update ($data, $is_revision=false) {
 		parent::update($data);
 
 		update_post_meta($this->id, 'col1_title', $data->col1_title);

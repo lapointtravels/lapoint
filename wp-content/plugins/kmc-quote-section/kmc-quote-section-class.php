@@ -44,7 +44,7 @@ class KMC_Quote_Section extends Kloon_Module {
 		return "<div class='select-module-box'>Quote Section</div>";
 	}
 
-	public function create_instance ($data) {
+	public function create_instance ($data, $is_preview=false) {
 		$post_id = parent::create_instance($data);
 		$instance = $this->get_instance($post_id);
 		$instance->update($data);
@@ -66,7 +66,7 @@ class KMC_Quote_Section_Component extends Kloon_Component {
 		$this->name = $meta_data["name"][0];
 	}
 
-	public function update ($data) {
+	public function update ($data, $is_revision=false) {
 		parent::update($data);
 
 		update_post_meta($this->id, 'image', json_encode($data->image));
