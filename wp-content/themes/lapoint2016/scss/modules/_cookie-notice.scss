@@ -1,0 +1,74 @@
+
+#cookie-notice {
+	display: inline;
+	padding: 0;
+	background-color: rgba(33, 33, 33, 0.96)!important;
+	@media screen and (min-width: 1280px) {
+		padding: 8px 0;
+	}
+}
+
+#cookie-notice .cookie-notice-container {	
+	width: 96%;
+	text-align: left;
+	margin: 0 auto;
+
+	@media screen and (min-width: 600px) {
+		max-width: 555px;
+	}
+	@media screen and (min-width: 1280px) {
+		text-align: center;
+		max-width: none;
+	}
+}
+
+#cookie-notice span {
+	display: inline-block;
+	vertical-align: middle;
+	width: 100%;
+
+	@media screen and (min-width: 900px) {
+		width: auto;
+		max-width: 426px;
+	}
+
+	@media screen and (min-width: 1280px) {
+		width: auto;
+		max-width: none;
+	}
+}
+
+#cookie-notice .cn-set-cookie.button {
+	text-transform: uppercase;
+	background-color: #196089;
+	color: #fff;
+	transition: all 200ms ease-in-out;	
+
+	display: inline-block;
+
+  vertical-align: middle;
+  touch-action: manipulation;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 8px 24px;
+  font-size: 14px;
+  font-size: 1.4rem;
+  line-height: 14px;
+  text-decoration: none;
+  letter-spacing: 2px;
+  font-family: 'BrandonGrotesque-medium';    
+  user-select: none;
+
+  margin-top: 10px;
+  margin-left: 0px;
+
+  @media screen and (min-width: 900px) {
+	  margin-top: 0px;
+	  margin-left: 20px;
+	}
+}
+
+#cookie-notice .cn-set-cookie.button:hover {  
+  background-color: #e94739;
+}
+

@@ -66,6 +66,7 @@ wp-content/mysql.sql
 
 
 # rickard adding
+/node_modules
 /wp-content/plugins/akismet
 /wp-content/themes/twentyfifteen
 wp-content/themes/twentyseventeen

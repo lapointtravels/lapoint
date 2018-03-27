@@ -1,0 +1,606 @@
+*, html {
+  font-size: 18px;
+}
+
+body {
+  margin-top: 70px;
+}
+
+#wrapper #content * {
+  box-sizing: border-box;
+}
+
+*:focus {
+  outline: 0;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+#wrapper {
+  width: auto;
+  max-width: 1170px;
+}
+
+#content, .booking-confirm {
+  float: left;
+  width: 70%;
+  box-sizing: border-box;
+}
+
+
+#sidebar {
+  width: 30%;
+  background: #fff;
+  margin: 20px 0px 20px 0px;
+  padding: 5px 20px 20px 20px;
+  box-sizing: border-box;
+  margin-top: 20px !important;
+}
+
+#sidebar .widget {
+  padding: 0;
+}
+
+h2 {
+  font-size: 18px !important;
+}
+
+.block-skin-a span {
+  font-size: 22px !important;
+}
+
+
+#sidebar p {
+  font-size: 18px;
+}
+
+.BookingLabel, .booking-info, .booking-rightbox, .bookingbox-row, .validationerror, .bookformmain {
+  font-size: 18px;
+}
+
+
+#poweredbytravelize {
+  display: none;
+}
+
+#footer {
+  padding: 0px;
+}
+
+#footer .widget {
+  background: #575656 !important;
+}
+
+#footer h2 {
+  font-size: 16px !important;
+}
+
+.lobster {
+  font-family: 'Lobster', 'Source Sans Pro', sans-serif !important;
+}
+
+.booking-payinfo {
+  padding-bottom: 70px;
+}
+
+.sidebar-booking {
+  text-align: center;
+}
+
+.sidebar-booking a {
+  margin-left: 70px !important;
+  margin-top: -10px !important;
+}
+
+.sidebar-booking a.button {
+  display: inline-block !important;
+  margin-left: 0 !important;
+  margin-top: 0 !important;
+  border: 1px solid black;
+  background: white;
+  color: black;
+}
+
+.sidebar-booking a.button:hover,
+.sidebar-booking a.button:focus {
+  background: black;
+  color: white;
+}
+
+.bookingbox input {
+  height: auto;
+}
+
+.bookingbox h2 {
+  font-size: 18px;
+  margin: 0px;
+  padding: 4px;
+  padding-left: 10px;
+}
+
+.bookingbox h2.bookformmain {
+  padding-left: 0px;
+}
+
+
+
+@font-face{
+  font-family: 'BrandonGrotesque-light';
+  src: url('https://www.lapointcamps.com/wp-content/themes/lapoint2016/fonts/brandongrotesque-light/brandongrotesque-light.eot');
+  src: url('https://www.lapointcamps.com/wp-content/themes/lapoint2016/fonts/brandongrotesque-light/brandongrotesque-light.eot?#iefix') format('embedded-opentype'),
+       url('https://www.lapointcamps.com/wp-content/themes/lapoint2016/fonts/brandongrotesque-light/brandongrotesque-light.woff2') format('woff2'),
+       url('https://www.lapointcamps.com/wp-content/themes/lapoint2016/fonts/brandongrotesque-light/brandongrotesque-light.woff') format('woff'),
+       url('https://www.lapointcamps.com/wp-content/themes/lapoint2016/fonts/brandongrotesque-light/brandongrotesque-light.ttf') format('truetype'),
+       url('https://www.lapointcamps.com/wp-content/themes/lapoint2016/fonts/brandongrotesque-light/brandongrotesque-light.svg#brandongrotesquemedium') format('svg');
+}
+
+@font-face {
+    font-family: 'BrandonGrotesque-bold';
+    src: url('https://www.lapointcamps.com/wp-content/themes/lapoint2016/fonts/brandongrotesque-bold/brandongrotesque-bold.eot');
+    src: url('https://www.lapointcamps.com/wp-content/themes/lapoint2016/fonts/brandongrotesque-bold/brandongrotesque-bold.eot?#iefix') format('embedded-opentype'),
+         url('https://www.lapointcamps.com/wp-content/themes/lapoint2016/fonts/brandongrotesque-bold/brandongrotesque-bold.woff2') format('woff2'),
+         url('https://www.lapointcamps.com/wp-content/themes/lapoint2016/fonts/brandongrotesque-bold/brandongrotesque-bold.woff') format('woff'),
+         url('https://www.lapointcamps.com/wp-content/themes/lapoint2016/fonts/brandongrotesque-bold/brandongrotesque-bold.ttf') format('truetype'),
+         url('https://www.lapointcamps.com/wp-content/themes/lapoint2016/fonts/brandongrotesque-bold/brandongrotesque-bold.svg#brandon_grotesquebold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.booking-steps {
+    font-family: 'BrandonGrotesque-light';
+    padding-bottom: 40px;
+}
+
+.booking-steps h1 {
+  display: none;
+    text-align: center !important;
+    font-family: 'BrandonGrotesque-bold';
+    text-transform: uppercase;
+    font-size: 24px !important;
+    color: #424242;
+    width: 100% !important;
+}
+
+.booking-steps h1 + hr {
+    display: none;
+}
+
+.bookingbox h2 {
+  padding: 30px 20px 25px !important;
+  margin-left: -20px;
+  margin-right: -20px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  text-align: center;
+  border-bottom: 0;
+  font-family: 'BrandonGrotesque-bold';
+  text-transform: uppercase;
+  font-size: 16px !important;
+  background: white;
+  color: black;
+  border-radius: 10px 10px 0 0;
+}
+
+.bookingbox h2.validationerror {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.bookingbox-row h2 {
+  background-color: #fff;
+  margin-bottom: 0;
+  margin-left: -1px;
+  margin-right: -1px;
+  border-bottom: 1px solid #cdcdcd;
+}
+
+
+.bookingbox h2.validationerror {
+  top: 0;
+  border: 0;
+  color: red;
+}
+
+.bookingbox {
+  margin-bottom: 40px;
+  padding: 10px 25px 30px;
+  border: 0;
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  line-height: 1.5;
+  width: auto;
+}
+
+.bookingbox-row {
+  position: relative;
+  margin: 0 0 20px 0;
+}
+
+.bookingbox-row:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.bokingbox-row .classinput {
+  width: 70%;
+  float: left;
+}
+
+.bookingbox-row:last-child {
+  margin-bottom: 0;
+}
+
+.bookingbox-row .bookingbox-row {
+  margin-top: 10px;
+}
+
+.booking-rightbox {
+  width: 70%;
+  float: right;
+  margin-left: 0;
+}
+
+.booking-steps .classinput {
+  padding: 10px;
+}
+
+.requiredfield-asterisk {
+  position: absolute;
+  display: block;
+  padding: 0;
+  color: #333;
+  padding: 0;    
+  z-index: 10;
+  
+  top: 0px;
+  right: 7%;
+  left: auto;  
+}
+.form-item-required.form-item-error + .requiredfield-asterisk {
+  color: #ff0000;
+}
+
+.booking-steps .classinput:not(input[type="checkbox"]):not(input[type="radio"]) {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  border-radius: 0;
+  font-family: "BrandonGrotesque-light";
+}
+
+.booking-steps select.classinput,
+.paxselect.form-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 10px;
+  font-family: "BrandonGrotesque-light";
+  background: white url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6"><polygon fill-rule="evenodd" points="6 0 12 6 0 6" transform="matrix(1 0 0 -1 0 6)"/></svg>') no-repeat top 18px right 15px;
+  cursor: pointer;
+}
+
+.booking-steps select.classinput:hover,
+.booking-steps select.classinput:focus,
+.paxselect.form-select:hover,
+.paxselect.form-select:focus {
+  background-color: black;
+  color: white;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6"><polygon fill="#FFF" fill-rule="evenodd" points="6 0 12 6 0 6" transform="matrix(1 0 0 -1 0 6)"/></svg>');
+}
+
+.booking-steps .classinput.form-item-error {
+  border: 1px solid red;
+}
+
+.BookingLabel {
+  width: 30%;
+  float: left;
+  padding-top: 10px;
+  padding-right: 20px;
+  font-weight: normal;
+  font-family: "BrandonGrotesque-bold";
+  box-sizing: border-box;
+}
+
+p.BookingLabel {
+  align-self: flex-start;
+  padding-right: 20px;
+  margin-right: 0;
+}
+
+.bookingbox-row .validationerror {
+  margin-left: 30%;
+}
+
+.booking-steps .button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: inline-block;
+  margin-bottom: 0;
+  text-align: center;
+  text-transform: uppercase;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  line-height: 14px;
+  text-decoration: none;
+  letter-spacing: 2px;
+  font-family: 'BrandonGrotesque-light';
+  font-weight: normal;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  background-color: #e94739;
+  border: 0;
+  color: #fff;
+  box-shadow: none;
+  text-shadow: none;
+  font-size: 16px;
+  padding: 12px 20px 10px !important;
+}
+
+#bookformhelp-button {
+  border: 1px solid black;
+  background: white;
+  color: black;
+}
+
+#bookformhelp-button:hover,
+#bookformhelp-button:focus {
+  background: black;
+  color: white;
+}
+
+.booking-steps .button:hover {
+  background-color: #196089;
+}
+
+.booking-steps #content {
+  box-sizing: border-box;
+}
+
+input[type='radio'] {
+  margin-right: 11px;
+  margin-bottom: 10px;
+}
+
+.bookingbox-row-indent {
+  margin-left: 30%;
+  padding-left: 15px;
+  line-height: 1.5;
+  width: 100%;
+  font-size: 14px;
+}
+
+.instruction-copy {
+  font-size: 14px; 
+}
+
+// hide the 'continue' button on the last step as it is just an undefined button
+.content-extra-row.booking-payment.booking-confirm + #poweredbytravelize + #sidebar + .submit-footer {
+  display: none;
+}
+
+.bookingbox-grid-container {
+  display: block;
+  padding: 0;
+  background-color: #fff;
+  margin-top: 55px !important;
+  line-height: 1.5 !important;
+  border-radius: 0;
+}
+
+.bookingbox-grid-container .bookingbox-grid5-header-row {
+  background-color: #f3f3f3;
+}
+
+.bookingbox-grid5-cell {
+  padding: 5px 0.5%;
+}
+
+.bookingbox-grid-container .bookingbox-grid5-cell.bookingbox-grid5-cell-1 {
+  width: 5%;
+}
+.bookingbox-grid-container .bookingbox-grid5-cell.bookingbox-grid5-cell-2 {
+  width: 45%; 
+}
+.bookingbox-grid-container .bookingbox-grid5-cell.bookingbox-grid5-cell-3 {
+  width: 15%;
+  text-align: left;
+}
+.bookingbox-grid-container .bookingbox-grid5-cell.bookingbox-grid5-cell-4 {
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  label {
+    display: none;    
+  }
+  input {
+    text-align: center;
+    width: 80%;
+    max-width: 60px;
+  }
+}
+.bookingbox-grid-container .bookingbox-grid5-cell.bookingbox-grid5-cell-5 {
+  width: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  label {
+    display: none;    
+  }
+  input {
+    width: auto;
+  }
+}
+
+.pricesummary {
+  font-weight: normal;
+  font-family: "BrandonGrotesque-bold"
+}
+
+.booking-priceinformation {
+  margin-bottom: 0;
+  background-color: #fff !important;
+}
+
+.booking-priceinformation table {
+  text-transform: capitalize;
+}
+
+.booking-payinfo {
+  margin-bottom: 40px;
+}
+
+.submit-footer {
+  background: #fff;
+  margin-top: -40px;
+  padding: 5px 20px 20px 20px;
+  float: left;
+  width: 70%;
+  box-sizing: border-box;
+  clear: both;
+  text-align: right;
+}
+
+@media screen and (max-width: 980px) {
+
+  #content, #sidebar, .booking-confirm, .submit-footer {
+    width: 100%;
+    float: none;
+  }
+
+  #sidebar, .booking-confirm {
+    margin-top: -20px !important;
+  }
+
+  .submit-footer {
+    margin-top: 30px;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 545px) {
+  *, html {
+    font-size: 16px;
+  }
+
+  #sidebar, .submit-footer {
+    padding: 5px 3% 3% 3%;
+  }
+
+  .BookingLabel, .booking-info, .booking-rightbox, .bookingbox-row, .validationerror, .bookformmain {
+    font-size: 16px;
+  }
+
+  .bookingbox {
+    padding: 15px;
+  }
+  .bookingbox h2 {
+    background-color: transparent;
+    padding: 20px !important;
+    margin-bottom: 0 !important;
+  }
+  .booking-rightbox {
+    width: 100%;
+    float: none;
+  }
+  .BookingLabel {
+    width: 100%;
+  }
+  
+  .stepsubmit {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding-top: 20px ;
+  }
+  .submit-footer .button {
+    display: block;
+    width: 100%;
+  }
+  
+  .bookingbox .bookingbox-row input[type="text"],
+  .bookingbox .bookingbox-row input[type="tel"],
+  .bookingbox .bookingbox-row input[type="email"],
+  .bookingbox .bookingbox-row select,
+  .bookingbox .bookingbox-row label,
+  .bookingbox .bookingbox-row textarea {
+    width: 100%;
+  }
+
+  .requiredfield-asterisk {
+    padding: 0;
+    color: #333;
+    left: -9px;
+    right: auto;
+    z-index: 10;
+    top: 12px;
+    position: absolute;
+    display: block;
+    cursor: none;
+  }
+
+  #bookformhelp-button {
+    margin-right: 0 !important;
+    margin-bottom: 10px;
+  }
+  .sidebar-booking a.button {
+    display: block !important;
+  }
+  .bookingbox-row .validationerror {
+    margin-left: 0;
+  }
+
+  .bookingbox-grid-container .bookingbox-grid5-cell.bookingbox-grid5-cell-1 {
+    width: 0;
+  }
+  .bookingbox-grid-container .bookingbox-grid5-cell.bookingbox-grid5-cell-2 {
+    width: 100%; 
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .bookingbox-grid-container .bookingbox-grid5-cell.bookingbox-grid5-cell-3 {
+    width: 33%;
+    text-align: left;
+    padding-left: 10px;
+  }
+  .bookingbox-grid-container .bookingbox-grid5-cell.bookingbox-grid5-cell-4 {
+    width: 33%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    label {
+      display: block;
+      flex-basis: 100%;
+      text-align: center;
+    }
+  }
+  .bookingbox-grid-container .bookingbox-grid5-cell.bookingbox-grid5-cell-5 {
+    width: 33%;
+    display: flex;
+    flex-wrap: wrap;
+    padding-right: 10px;
+    text-align: right;
+    justify-content: flex-end;
+    align-items: right;
+
+    label {
+      display: block;
+      flex-basis: 100%;      
+    }
+
+    input {
+      width: auto;
+    }
+  }
+}
