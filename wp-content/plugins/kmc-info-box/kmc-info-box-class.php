@@ -44,7 +44,7 @@ class KMC_Info_Box extends Kloon_Module {
 		return "<div class='select-module-box'>Info Box</div>";
 	}
 
-	public function create_instance ($data) {
+	public function create_instance ($data, $is_preview=false) {
 		$post_id = parent::create_instance($data);
 		$instance = $this->get_instance($post_id);
 		$instance->update($data);
@@ -71,7 +71,7 @@ class KMC_Info_Box_Component extends Kloon_Component {
 		return "info-box";
 	}
 
-	public function update ($data) {
+	public function update ($data, $is_revision=false) {
 		parent::update($data);
 
 		update_post_meta($this->id, 'icon', $data->icon);

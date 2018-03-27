@@ -44,7 +44,7 @@ class KMC_Image_Section extends Kloon_Module {
 		return "<div class='select-module-box'>Image Section</div>";
 	}
 
-	public function create_instance ($data) {
+	public function create_instance ($data, $is_preview=false) {
 		$post_id = parent::create_instance($data);
 		$instance = $this->get_instance($post_id);
 		$instance->update($data);
@@ -65,7 +65,7 @@ class KMC_Image_Section_Component extends Kloon_Component {
 		$this->image = json_decode($meta_data["image"][0]);
 	}
 
-	public function update ($data) {
+	public function update ($data, $is_revision=false) {
 		parent::update($data);
 
 
