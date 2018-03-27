@@ -67,6 +67,30 @@
 }
 
 
+
+// ****************************** Video slider ******************************
+.kmc-videos-component {
+	.videos-list {
+		margin-top: 10px;
+
+		&:empty:before {
+			content: "No videos added";
+			display: list-item;
+		}
+
+		li {
+			padding: 8px 15px;
+			margin: 0;
+			background-color: #eee;
+
+			&:nth-child(odd) {
+				background-color: #fafafa;
+			}
+		}
+	}
+}
+
+
 // ****************************** Info Box ******************************
 .info-box-element {
 	box-sizing: border-box;
@@ -317,4 +341,3 @@
 		}
 	}
 }
-
