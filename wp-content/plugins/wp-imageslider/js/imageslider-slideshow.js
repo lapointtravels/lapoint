@@ -1,5 +1,7 @@
 ;(function ($, window, document, undefined) {
 
+	$.detectSwipe.threshold = 30;
+
 	if (!Date.now) {
 	    Date.now = function() { return new Date().getTime(); }
 	}
@@ -18,7 +20,7 @@
 			$container = $el.parent(),
 			isFullScreen = $el.hasClass('fullscreen');
 
-
+		
 		var win_width = $container.width();
 
 		$('.slide', this).each(function(i){
@@ -339,6 +341,18 @@
 			console.log(position);
 			show_slide(position);
 		})
+
+		$("ul", this).on('swipeleft', function(e){
+			e.preventDefault();
+			show_next_slide();
+		});
+
+		$("ul", this).on('swiperight', function(e){
+			e.preventDefault();
+			var next_id = (current_id > 0) ? current_id - 1 : slides.length - 1;
+			show_slide(next_id);
+		});
+			
 
 		return this;
 	};

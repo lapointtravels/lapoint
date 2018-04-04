@@ -114,7 +114,9 @@ class Kloon_Slides_Slideshow extends Kloon_Slides_Abstract_Model {
 
 		global $kloon_slides;
 		$version = $kloon_slides->version;
-		wp_enqueue_script('kloonslides-detect-swipe', KLOON_SLIDES__URL . "/js/jquery.detect_swipe.js", array(), $version);
+		// detect swipe is now enqued in functions.php
+//		wp_enqueue_script('kloonslides-detect-swipe', KLOON_SLIDES__URL . "/js/jquery.detect_swipe.js", array(), $version);
+
 		wp_enqueue_script('kloonslides-slideshow', KLOON_SLIDES__URL . "/js/kloonslides-slideshow.js", array(), $version);
 		wp_enqueue_style('kloonslides-style', KLOON_SLIDES__URL . "/css/kloonslides.css", array(), $version);
 		wp_enqueue_style('kloonslides-theme', KLOON_SLIDES__URL . "/css/theme-1.css", array(), $version);

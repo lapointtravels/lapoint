@@ -973,6 +973,7 @@ class Lapoint_Framework {
 	public function lapoint_scripts () {
 		wp_enqueue_script('jquery');
 		wp_enqueue_script('jquery-ui-datepicker');
+		wp_enqueue_script('jquery-detect-swipe', THEME_URL . '/js/vendor/jquery.detect_swipe.js');
 		wp_enqueue_script('underscore');
 		wp_enqueue_script('backbone');
 

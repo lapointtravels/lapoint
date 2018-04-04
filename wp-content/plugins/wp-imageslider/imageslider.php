@@ -645,6 +645,7 @@ class Kloon_Image_Slider {
 				'jquery',
 				'jquery-effects-core'
 			));
+
 			wp_enqueue_script('imageslider-slideshow', plugins_url('js/imageslider-slideshow.js', __FILE__));
 			wp_enqueue_style('imageslider-style', plugins_url('css/imageslider.css', __FILE__));
 

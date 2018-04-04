@@ -1,5 +1,7 @@
 define(['jquery', 'underscore', 'backbone', 'TweenLite', 'CSSPlugin'], function($, _, Backbone, TweenLite, CSSPlugin) {
 
+	$.detectSwipe.threshold = 30;
+
 	var VideoModal = Backbone.View.extend({
 		className: 'modal-video-container',
 		template: _.template($('#modal-video-template').html()),
@@ -90,6 +92,9 @@ define(['jquery', 'underscore', 'backbone', 'TweenLite', 'CSSPlugin'], function(
 				$(elem).find('img').css('transition-delay', (i * 200) + 'ms');
 			});
 			this.$container.addClass('active');
+
+			this.$container.on('swipeleft', this.onNextClick.bind(this));
+			this.$container.on('swiperight', this.onPrevClick.bind(this));
 		},
 
 		events: {
@@ -109,7 +114,7 @@ define(['jquery', 'underscore', 'backbone', 'TweenLite', 'CSSPlugin'], function(
 		},
 
 		onPrevClick: function () {
-			this.position += 300;
+			this.position += 330;
 			if (this.position > 0) {
 				this.position = 0;
 			}
@@ -117,7 +122,7 @@ define(['jquery', 'underscore', 'backbone', 'TweenLite', 'CSSPlugin'], function(
 		},
 
 		onNextClick: function () {
-			this.position -= 300;
+			this.position -= 330;
 			this.checkSideLimit();
 			this.$wrapper.css('transform', 'translateX(' + this.position + 'px)');
 		},
