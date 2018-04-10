@@ -60,12 +60,14 @@ $(document).ready(function(){
 	"<hr style='margin-left: 15px;width: 965px;margin-top: 10px;margin-bottom: 10px;' />"+
 	"</center>").insertBefore("#wrapper");
 
+	/*
 	if($("#sidebar").length == 0) {
 		$("<div id='sidebar' style='margin-top: 24px'><div class='bookingbox booking-priceinformation' style='background-color: rgb(230, 230, 230);'>"+
 		"<h2 class='bookformmain'>"+sidebar_header[lang]+"</h2>"+
 		"<p>"+sidebar_body[lang]+"</p>"+
     		"</div></div>").appendTo("#wrapper");
 	}
+	*/
 
 	window.checkScrollActivation = function() {
 		return false;
