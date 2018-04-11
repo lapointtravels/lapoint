@@ -2293,3 +2293,19 @@ body .imsl-slide-show {
 	}
 
 }
+
+.is-mobile .kmc-component-intro-section .inner p {
+	display: none;
+}
+
+.is-mobile .kmc-component-intro-section.show .inner p {
+	display: block;
+}
+
+.is-mobile .kmc-component-intro-section.show .inner span {
+	cursor: pointer;
+	//font-weight: bold;
+	color: #349AD6;
+	text-transform: lowercase;
+	//font-size: 12px;
+}

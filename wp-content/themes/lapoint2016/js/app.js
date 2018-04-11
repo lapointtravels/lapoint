@@ -29,3 +29,4 @@ requirejs.config({
 
 
 requirejs(['app/main']);
+//requirejs(['app/mobile']);
