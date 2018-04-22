@@ -40,7 +40,7 @@
 
 #cookie-notice .cn-set-cookie.button {
 	text-transform: uppercase;
-	background-color: #349AD6;
+	background: #349AD6;
 	color: #fff;
 	transition: all 200ms ease-in-out;	
 
@@ -64,6 +64,8 @@
   margin-top: 10px;
   margin-left: 0px;
 
+  border: none!important;
+
   @media screen and (min-width: 900px) {
 	  margin-top: 0px;
 	  margin-left: 20px;
@@ -71,7 +73,8 @@
 }
 
 #cookie-notice .cn-set-cookie.button:hover {  
-  background-color: #fff;
+  background: #fff;
   color: #349AD6;
+  border: none!important;
 }
 
