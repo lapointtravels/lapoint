@@ -1,6 +1,7 @@
 ;(function ($, window, document, undefined) {
 
 	$.detectSwipe.threshold = 30;
+	$.detectSwipe.preventDefault = false; // or up and down is active and site doesnt scroll well
 
 	if (!Date.now) {
 	    Date.now = function() { return new Date().getTime(); }
@@ -335,7 +336,6 @@
 
 		$(".imsl-dots", this).find("li").css("cursor", "pointer").on("click", function (e) {
 			e.preventDefault();
-			console.log("!!!!");
 			var $el = $(e.currentTarget),
 				position = parseInt($el.attr("data-slide-position"));
 			console.log(position);
