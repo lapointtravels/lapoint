@@ -184,8 +184,8 @@
 
 			// not exactly sure about the logic or in what case we want to change the height of the slideshow.
 			// if it's a video where keep_proportions is false or fullscreen it will return a different value
-			if ($slide.slide_height < slides[current_slide_id].slide_height) {
-				$el.height(get_height_for_slide($slide));
+			if (slides[slide_id].slide_height < slides[current_slide_id].slide_height) {
+				$el.height(get_height_for_slide(slides[slide_id]));
 			}
 
 			preload_slide( slides[slide_id], function($slide) {
@@ -309,7 +309,7 @@
 			}
 			// also preload next slide
 			if( current_slide_id < slides.length - 1 ) {
-				
+
 			}
 		}
 
@@ -463,7 +463,7 @@
 			}
 
 			//$el.height(height);
-			$el.height( get_height_for_slide(slides[current_id]));
+			$el.height( get_height_for_slide(slides[current_slide_id]));
 		}
 
 		this.iFrameLoaded = function () {
