@@ -2294,15 +2294,10 @@ body .imsl-slide-show {
 
 }
 
-.is-mobile .kmc-component-intro-section .inner p {
-	display: none;
-}
 
-.is-mobile .kmc-component-intro-section.show .inner p {
-	display: block;
-}
-
-.is-mobile .kmc-component-intro-section.show .inner span {
+.is-mobile .kmc-component-packages header .ingress span,
+.is-mobile .kmc-component-camps header .ingress span,
+.is-mobile .kmc-component-intro-section .inner span {
 	cursor: pointer;
 	//font-weight: bold;
 	color: #349AD6;
