@@ -93,6 +93,7 @@ class Kloon_Slides_Slideshow extends Kloon_Slides_Abstract_Model {
 				'order' => 'ASC'
 			));
 
+			
 			if ($slides) {
 				$this->_slides = array_map(function ($slide) {
 					return new Kloon_Slides_Slide($slide);

@@ -1300,7 +1300,7 @@ body .imsl-slide-show {
 	&.fixed-height {
 		height: 575px !important;
 		ul .slide, ul .slide .image {
-			width: 100% !important;
+			//width: 100% !important;
 			height: 575px !important;
 			// Default max container width: 1170px = 49%;
 		}
