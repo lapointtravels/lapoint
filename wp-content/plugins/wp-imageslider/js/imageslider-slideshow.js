@@ -87,7 +87,7 @@
 		if( slides.length == 1 ) {
 			preload_slide(slides[0], function ($slide) {
 				$slide.addClass("open");
-			});
+			}, false);
 			stop_timer();
 		// if it is a slideshow
 		} else {
@@ -107,7 +107,7 @@
 				reset_timer();
 				// preload the last slide
 				preload_slide(slides[slides.length-1], null, true);
-			});
+			}, false);
 
 		}
 
@@ -168,12 +168,12 @@
 				});
 
 			} else {
-				show_slide( slide_id, slide_pos );
+				show_slide( slide_id, slide_pos, false );
 			}
 
 		}
 
-		function show_slide( slide_id, slide_pos, callback=false ) {
+		function show_slide( slide_id, slide_pos, callback ) {
 
 			if( animating ) {
 				return;
@@ -214,7 +214,7 @@
 						animating = false;
 					}, 100);
 
-				});
+				},false);
 
 				$(".imsl-dots").find("li").removeClass("active");
 				$("[data-slide-position='" + slide_id + "']").addClass("active");
@@ -244,14 +244,14 @@
 	
 		
 		// if silent then don't call the callback when preload is done
-		function preload_slide ($slide, callback, silent=false) {
+		function preload_slide ($slide, callback, silent) {
 			
 			if (!$slide) {
 				return;
 			}
 
 			if( $slide.preloaded ) {
-				if( silent || !callback ) {
+				if( silent || callback==null ) {
 					return;
 				}
 				callback($slide);
@@ -310,7 +310,7 @@
 			}
 			// also preload next slide
 			if( current_slide_id < slides.length - 1 ) {
-				preload_slide( slides[current_slide_id+1], null, false );
+				preload_slide( slides[current_slide_id+1], null, true );
 			}
 		}
 
@@ -415,7 +415,7 @@
 			e.preventDefault();
 			var $el = $(e.currentTarget),
 				position = parseInt($el.attr("data-slide-position"));
-			show_slide(position, position+1);
+			show_slide(position, position+1, false);
 		})
 
 		$el.on('swipeleft', function(e){
@@ -438,7 +438,7 @@
 					for (var i=0; i<slides.length; i++) {
 						slides[i].preloaded = false;
 					}
-					preload_slide(slides[current_slide_id], function ($slide) {});
+					preload_slide(slides[current_slide_id], null, true);
 				}
 				current_size = size;
 			}
