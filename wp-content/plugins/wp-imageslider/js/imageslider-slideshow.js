@@ -104,6 +104,7 @@
 				$slide.addClass("open");
 				$el.addClass("enabled"); // animates arrows and dot's into view
 				transitionsOn();
+				reset_timer();
 				// preload the last slide
 				preload_slide(slides[slides.length-1], null, true);
 			});
@@ -250,7 +251,7 @@
 			}
 
 			if( $slide.preloaded ) {
-				if( silent ) {
+				if( silent || !callback ) {
 					return;
 				}
 				callback($slide);
@@ -309,7 +310,7 @@
 			}
 			// also preload next slide
 			if( current_slide_id < slides.length - 1 ) {
-
+				preload_slide( slides[current_slide_id+1], null, false );
 			}
 		}
 
