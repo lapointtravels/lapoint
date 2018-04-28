@@ -13,6 +13,7 @@
 
 	&.transitions .slides-container {
 		@include transition(transform 300ms ease-out);
+		transform: translateZ(0);
 	}
 
 	&.fixed-height {
