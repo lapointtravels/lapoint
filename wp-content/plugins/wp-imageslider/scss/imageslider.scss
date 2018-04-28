@@ -6,14 +6,13 @@
 	overflow: hidden;
 	width: 100%;
 	height: 575px;
-	background-color: #000;
+	//background-color: #000;
 	&.ani {
 		@include transition(all 200ms ease-in-out);
 	}
 
 	&.transitions .slides-container {
 		@include transition(transform 300ms ease-out);
-		transform: translateZ(0);
 	}
 
 	&.fixed-height {
@@ -25,12 +24,15 @@
 		}
 	}
 
-	ul {
+	ul.slides-container {
 		z-index: 100;
 		margin: 0;
 		list-style: none;
+		transform: translate3d(0,0,0);
+		-webkit-backface-visibility: hidden;
 
 		.slide {
+			-webkit-backface-visibility: hidden;
 			//position: absolute;
 			//top: 0;
 			//left: 0;

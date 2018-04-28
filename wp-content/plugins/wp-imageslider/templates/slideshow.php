@@ -33,7 +33,7 @@ if (!window.KloonImageSliderSizes) {
 	data-transition-time="300<?php /*echo $slideshow->meta->transition_time */ ?>"
 	data-easing="<?php /*echo $slideshow->easing */ ?>"
 	>
-	<ul class="slides-container" style="width: <?php echo sizeof($slides) * 200; ?>%; height:100%; transform: translate3d(0, 0, 0);">
+	<ul class="slides-container" style="width: <?php echo sizeof($slides) * 200; ?>%; height:100%;">
 		<?php foreach ($slides as $slide) { ?>
 
 			<?php if ($slide->is_youtube()) : ?>
