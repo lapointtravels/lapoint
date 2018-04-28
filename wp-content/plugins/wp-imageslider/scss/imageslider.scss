@@ -24,15 +24,12 @@
 		}
 	}
 
-	ul.slides-container {
+	ul {
 		z-index: 100;
 		margin: 0;
 		list-style: none;
-		transform: translate3d(0,0,0);
-		-webkit-backface-visibility: hidden;
-
+		
 		.slide {
-			-webkit-backface-visibility: hidden;
 			//position: absolute;
 			//top: 0;
 			//left: 0;
