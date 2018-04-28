@@ -85,7 +85,7 @@
 
 		// if it's not a slide show
 		if( slides.length == 1 ) {
-			preload_slide(slides[0], function ($slide) {
+			preload_slide( 0, function ($slide) {
 				$slide.addClass("open");
 			}, false);
 			stop_timer();
@@ -100,13 +100,14 @@
 			$slides_container.css('transform', 'translate3d(' + (-win_width) + 'px, 0, 0)');
 
 			// preload the first slide.
-			preload_slide(slides[0], function ($slide) {
+			preload_slide(0, function ($slide) {
+
 				$slide.addClass("open");
 				$el.addClass("enabled"); // animates arrows and dot's into view
 				transitionsOn();
 				reset_timer();
 				// preload the last slide
-				preload_slide(slides[slides.length-1], null, true);
+				preload_slide(slides.length-1, null, true);
 			}, false);
 
 		}
@@ -189,7 +190,7 @@
 				$el.height(get_height_for_slide(slides[slide_id]));
 			}
 
-			preload_slide( slides[slide_id], function($slide) {
+			preload_slide( slide_id, function($slide) {
 
 				animate_slide(slide_pos, function() {
 
@@ -244,41 +245,70 @@
 	
 		
 		// if silent then don't call the callback when preload is done
-		function preload_slide ($slide, callback, silent) {
+		function preload_slide (slide_id, callback, silent) {
+
+			if( !slides[slide_id] ) {
+				//console.log( "No slide with id: " + slide_id );
+				return;
+			}
+
+			var $slide = slides[slide_id];
 			
 			if (!$slide) {
 				return;
 			}
 
 			if( $slide.preloaded ) {
-				if( silent || callback==null ) {
+
+				// don't pre preload if silent
+				if( silent ) {
+					//console.log( "slide: " + slide_id + " is already loaded. returning silent");
 					return;
 				}
+
+				//console.log( "slide: " + slide_id + " is already loaded. calling callback");
 				callback($slide);
+
+				// also preload next slide
+				if( slide_id < slides.length - 1 ) {
+					//console.log( "preload_slide - loading next slide:" + (slide_id + 1));
+					preload_slide( slide_id+1, null, true );
+				}
+
+				return;
 			}
 
 			// preloading videos in silent mode is not possible
 			if ( ($slide.is_youtube || $slide.is_vimeo) && silent ) {
+				//console.log( "slide: " + slide_id + " is video. returning.");
+				// also preload next slide
+				if( slide_id < slides.length - 1 ) {
+					//console.log( "preload_slide - loading next slide:" + (slide_id + 1));
+					preload_slide( slide_id+1, null, true );
+				}
 				return;
 			}
 
 			var size = get_size();
+			// current_size is global
 			current_size = size;
 
 			if ($slide.is_youtube) {				
 				$slide.find(".video-container").append(
 					//'<iframe width="100%" height="640" src="http://www.youtube.com/embed/' + $slide.youtube_id + '?autoplay=' + $slide.autoplay + '&rel=0&showinfo=0&controls=0&autohide=1&color=white" frameborder="0" allowfullscreen onload="imsl_slide_shows[' + imslID + '].iFrameLoaded(true,\'' + $slide.youtube_id + '\');"></iframe>'
-					'<iframe width="100%" height="640" src="http://www.youtube.com/embed/' + $slide.youtube_id + '?autoplay=' + $slide.autoplay + '&rel=0&showinfo=0&controls=0&autohide=1&color=white" frameborder="0" allowfullscreen onload="imsl_slide_shows[' + imslID + '].iFrameLoaded();"></iframe>'
+					'<iframe width="100%" height="640" src="//www.youtube.com/embed/' + $slide.youtube_id + '?autoplay=' + $slide.autoplay + '&rel=0&showinfo=0&controls=0&autohide=1&color=white" frameborder="0" allowfullscreen onload="imsl_slide_shows[' + imslID + '].iFrameLoaded();"></iframe>'
 				);
 				callback($slide);
 			} else if ($slide.is_vimeo) {
 				$slide.find(".video-container").append(
 					//'<iframe width="100%" height="640" src="https://player.vimeo.com/video/' + $slide.video_id + '?title=0&byline=0&portrait=0&badge=0&autoplay=' + $slide.autoplay + '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen onload="imsl_slide_shows[' + imslID + '].iFrameLoaded(false,\'' + $slide.video_id + '\');"></iframe>'
-					'<iframe width="100%" height="640" src="https://player.vimeo.com/video/' + $slide.video_id + '?title=0&byline=0&portrait=0&badge=0&autoplay=' + $slide.autoplay + '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen onload="imsl_slide_shows[' + imslID + '].iFrameLoaded();"></iframe>'
+					'<iframe width="100%" height="640" src="//player.vimeo.com/video/' + $slide.video_id + '?title=0&byline=0&portrait=0&badge=0&autoplay=' + $slide.autoplay + '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen onload="imsl_slide_shows[' + imslID + '].iFrameLoaded();"></iframe>'
 				);
 				callback($slide);
 			} else {
-				// console.log("PRELOAD", size);
+
+				//console.log("preloading slide: " + slide_id + " with size: ", size);
+
 				var src = $slide.attr("data-src-" + size);
 				if ($slide.preloaded) {
 					if (silent) {
@@ -290,15 +320,23 @@
 					var img = new Image();
 					img.src = src;
 					img.onload = function(){
+						console.log("slide: " + slide_id + " loaded with size: ", size);
 						$slide.find(".image").css("background-image", "url('" + src + "')");
 						// add to the clone if it has one
 						if( $slide.cloneRef ) {
 							$slide.cloneRef.find(".image").css("background-image", "url('" + src + "')");
 						}
 						if( silent ) {
+							//console.log( "preload_slide returning silent for slide: " + slide_id );
 							return;
 						}
 						callback($slide);
+
+						// also preload next slide
+						if( slide_id < slides.length - 1 ) {
+							//console.log( "preload_slide - loading next slide:" + (slide_id + 1));
+							preload_slide( slide_id+1, null, true );
+						}
 					}
 					img.onerror = function () {
 						if(silent) {
@@ -307,10 +345,6 @@
 						callback($slide);
 					}
 				}
-			}
-			// also preload next slide
-			if( current_slide_id < slides.length - 1 ) {
-				preload_slide( slides[current_slide_id+1], null, true );
 			}
 		}
 
@@ -429,17 +463,23 @@
 		});
 
 		this.update_size = function () {
-			
-			win_width = $container.width();
+
+			var new_width = $container.width();
+			var tweakSliderPos = win_width != new_width ? true : false;
+			win_width = new_width;
+
 			var size = get_size();
+
 			if (size != current_size) {
+
 				// don't downsize 
 				if( window.KloonImageSliderSizes[size][0] > window.KloonImageSliderSizes[current_size][0] ) {
 					for (var i=0; i<slides.length; i++) {
 						slides[i].preloaded = false;
 					}
-					preload_slide(slides[current_slide_id], null, true);
+					preload_slide(current_slide_id, null, true);
 				}
+
 				current_size = size;
 			}
 
@@ -452,19 +492,49 @@
 					.width(win_width)
 					.height(height);
 
+				if( $slide.cloneRef ) {
+					$slide.cloneRef
+						.width(win_width)
+						.height(height);
+					}
+
 				if ($slide.is_youtube || $slide.is_vimeo) {
 					$slide.find("iframe")
 						.width(win_width)
-						.height(height);
+						.height(height);		
+					if( $slide.cloneRef ) {			
+						$slide.cloneRef.find("iframe")
+							.width(win_width)
+							.height(height);
+					}
+
 				} else {
 					$slide.find(".image")
 						.width(win_width)
 						.height(height);
+					if( $slide.cloneRef ) {
+						$slide.cloneRef.find(".image")
+							.width(win_width)
+							.height(height);
+					}
 				}
 			}
 
 			//$el.height(height);
 			$el.height( get_height_for_slide(slides[current_slide_id]));
+
+			if( tweakSliderPos ) {
+				stop_timer();
+				transitionsOff();
+				animate_slide( current_slide, false );
+				setTimeout(transitionsOn, 10);
+				if (($slide.is_youtube || $slide.is_vimeo) && $slide.autoplay == "1") {
+					
+				} else {
+					reset_timer();
+				}
+			}
+
 		}
 
 		this.iFrameLoaded = function () {
@@ -490,7 +560,7 @@
 		if (itv_resize) {
 			clearInterval(itv_resize);
 		}
-		itv_resize = setTimeout(handle_resize, 200);
+		itv_resize = setTimeout(handle_resize, 500);
 	}
 
 	$(document).ready(function($){
