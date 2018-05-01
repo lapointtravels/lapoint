@@ -97,8 +97,8 @@
 			$lastSlideClone = setupClone(slides[slides.length-1]);
 			$slides_container.prepend($lastSlideClone);
 			// move so we show the first slide and not the appended lastSlideCLone
-			$slides_container.css('-webkit-transform', 'translate3d(' + (-win_width) + 'px, 0, 0)');
-			animate_slide(1 , false);
+			//$slides_container.css('-webkit-transform', 'translate3d(' + (-win_width) + 'px, 0, 0)');
+			animate_slide(current_slide , false);
 
 			// preload the first slide.
 			preload_slide(0, function ($slide) {
