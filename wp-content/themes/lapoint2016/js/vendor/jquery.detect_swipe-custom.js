@@ -35,7 +35,6 @@
     //this.removeEventListener('touchend', onTouchEnd);
     isMoving = false;
     hasMoved = false;
-    console.log( "touchend" );
   }
 
   function onTouchMove(e) {
@@ -60,7 +59,7 @@
         if( !hasMoved ) {
           $(this).trigger('swipe', dir).trigger('swipe' + dir);
           hasMoved = true;
-        } else {
+        } else if( e.cancelable ){
           e.preventDefault();
         }
       }
