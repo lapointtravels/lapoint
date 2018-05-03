@@ -27,49 +27,21 @@
 
   var startX,
     startY,
-    isMoving = false;
+    isMoving = false,
+    hasMoved = false;
 
   function onTouchEnd() {
-    this.removeEventListener('touchmove', onTouchMove);
-    this.removeEventListener('touchend', onTouchEnd);
+    //this.removeEventListener('touchmove', onTouchMove);
+    //this.removeEventListener('touchend', onTouchEnd);
     isMoving = false;
-  }
-
-  function swipeDirection( touchObject ) {
-    //console.log( touchObject );
-    var xDist, yDist, r, swipeAngle;
-
-    xDist = startX - touchObject.pageX;
-    yDist = startY - touchObject.pageY;
-    r = Math.atan2(yDist, xDist);
-
-    swipeAngle = Math.round(r * 180 / Math.PI);
-    if (swipeAngle < 0) {
-        swipeAngle = 360 - Math.abs(swipeAngle);
-    }
-
-    if ((swipeAngle <= 45) && (swipeAngle >= 0)) {
-      return 'left';
-        return (_.options.rtl === false ? 'left' : 'right');
-    }
-    if ((swipeAngle <= 360) && (swipeAngle >= 315)) {
-      return 'left';
-        return (_.options.rtl === false ? 'left' : 'right');
-    }
-    if ((swipeAngle >= 135) && (swipeAngle <= 225)) {
-      return 'right';
-        return (_.options.rtl === false ? 'right' : 'left');
-    }
-
-    return 'vertical';
+    hasMoved = false;
+    console.log( "touchend" );
   }
 
   function onTouchMove(e) {
-    //console.log( e );
-    var dir = swipeDirection( e.touches[0] );
-    console.log( dir );
 
     if ($.detectSwipe.preventDefault) { e.preventDefault(); }
+    
     if(isMoving) {
       var x = e.touches[0].pageX;
       var y = e.touches[0].pageY;
@@ -78,16 +50,21 @@
       var dir;
       var ratio = window.devicePixelRatio || 1;
       if(Math.abs(dx) * ratio >= $.detectSwipe.threshold) {
-        dir = dx > 0 ? 'left' : 'right'
+        dir = dx > 0 ? 'left' : 'right';
       }
       else if(Math.abs(dy) * ratio >= $.detectSwipe.threshold) {
-        dir = dy > 0 ? 'up' : 'down'
+        dir = dy > 0 ? 'up' : 'down';
       }
       if(dir) {
-        onTouchEnd.call(this);
-        $(this).trigger('swipe', dir).trigger('swipe' + dir);
+        //onTouchEnd.call(this);
+        if( !hasMoved ) {
+          $(this).trigger('swipe', dir).trigger('swipe' + dir);
+          hasMoved = true;
+        } else {
+          e.preventDefault();
+        }
       }
-    }
+    } 
   }
 
   function onTouchStart(e) {
@@ -95,22 +72,25 @@
       startX = e.touches[0].pageX;
       startY = e.touches[0].pageY;
       isMoving = true;
-      this.addEventListener('touchmove', onTouchMove, false);
-      this.addEventListener('touchend', onTouchEnd, false);
+      hasMoved = false;
     }
   }
 
   function setup() {
     this.addEventListener && this.addEventListener('touchstart', onTouchStart, false);
+    this.addEventListener('touchmove', onTouchMove, false);
+    this.addEventListener('touchend', onTouchEnd, false);
   }
 
   function teardown() {
     this.removeEventListener('touchstart', onTouchStart);
+    this.removeEventListener('touchend', onTouchEnd);
+    this.removeEventListener('touchend', onTouchEnd);
   }
 
   $.event.special.swipe = { setup: setup };
 
-  $.each(['left', 'up', 'down', 'right'], function () {
+  $.each(['left', 'right'], function () {
     $.event.special['swipe' + this] = { setup: function(){
       $(this).on('swipe', $.noop);
     } };

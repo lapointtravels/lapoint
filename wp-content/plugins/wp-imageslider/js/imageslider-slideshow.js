@@ -480,13 +480,13 @@
 		*/
 		$el.on('swipeleft', function(e){
 			e.preventDefault();
-			console.log( "swipe left" );
+			//console.log( "swipe left" );
 			show_next_slide();
 		});
 
 		$el.on('swiperight', function(e){
 			e.preventDefault();
-			console.log( "swipe right" );
+			//console.log( "swipe right" );
 			show_previous_slide();
 		});
 
