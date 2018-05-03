@@ -1,7 +1,7 @@
 ;(function ($, window, document, undefined) {
 
 	$.detectSwipe.threshold = 30;
-	$.detectSwipe.preventDefault = false; // or up and down is active and site doesnt scroll well
+	//$.detectSwipe.preventDefault = false; // or up and down is active and site doesnt scroll well
 
 	if (!Date.now) {
 	    Date.now = function() { return new Date().getTime(); }
