@@ -3,6 +3,7 @@ global $kloon_image_slider;
 $settings = $kloon_image_slider->get_settings();
 $sizes = $settings["sizes"];
 $slides = $slide_show->get_slides();
+
 ?>
 
 <script>
@@ -12,7 +13,7 @@ if (!window.KloonImageSliderSizes) {
 		lg: [<?php echo $sizes["lg"][0] . ", " . $sizes["lg"][1]; ?>],
 		md: [<?php echo $sizes["md"][0] . ", " . $sizes["md"][1]; ?>],
 		sm: [<?php echo $sizes["sm"][0] . ", " . $sizes["sm"][1]; ?>],
-		xs: [<?php echo $sizes["xs"][0] . ", " . $sizes["xs"][1]; ?>],
+		//xs: [<?php echo $sizes["xs"][0] . ", " . $sizes["xs"][1]; ?>],
 		thumb: [<?php echo $sizes["thumb"][0] . ", " . $sizes["thumb"][1]; ?>]
 	}
 }
@@ -32,7 +33,8 @@ if (!window.KloonImageSliderSizes) {
 	data-transition-time="300<?php /*echo $slideshow->meta->transition_time */ ?>"
 	data-easing="<?php /*echo $slideshow->easing */ ?>"
 	>
-	<ul>
+	<!-- <ul class="slides-container" style="width: <?php echo sizeof($slides) * 200; ?>%; height:100%; transform: translate3d(0, 0, 0);"> -->
+	<ul class="slides-container" style="width: <?php echo sizeof($slides) * 200; ?>%; height:100%; transform: translateX(0);">
 		<?php foreach ($slides as $slide) { ?>
 
 			<?php if ($slide->is_youtube()) : ?>

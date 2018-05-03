@@ -635,6 +635,7 @@ class Kloon_Image_Slider {
 	}
 
 	public function get_slideshow_output_for_id ($id) {
+
 		$slideshow_html = "";
 		$slide_show = $this->get_slideshow($id);
 		if ($slide_show) {
@@ -648,7 +649,7 @@ class Kloon_Image_Slider {
 
 			wp_enqueue_script('imageslider-slideshow', plugins_url('js/imageslider-slideshow.js', __FILE__));
 			wp_enqueue_style('imageslider-style', plugins_url('css/imageslider.css', __FILE__));
-
+			
 			// Construct output
 			ob_start();
 			include("templates/slideshow.php");

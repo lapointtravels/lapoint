@@ -1,6 +1,7 @@
 ;(function ($, window, document, undefined) {
 
 	$.detectSwipe.threshold = 30;
+	$.detectSwipe.preventDefault = false; // or up and down is active and site doesnt scroll well
 
 	var TRANSITION_TIME = 600;
 
@@ -166,8 +167,20 @@
 			var throttledResizeSize = _.throttle(this.onResize.bind(this), 100);
 			this.$win.on('resize', throttledResizeSize);
 
-			this.$container.on('swipeleft', this.showNextSlide.bind(this));
-			this.$container.on('swiperight', this.showPrevSlide.bind(this));
+			/*
+			this.$container.on('swipeleft', function(e){
+				e.preventDefault();
+				this.showNextSlide.bind(this);
+			});
+			this.$container.on('swiperight',  function(e){
+				e.preventDefault();
+				this.showPrevSlide.bind(this);
+			});
+			*/
+			//this.$container.on('swipeleft', this.showNextSlide.bind(this));
+			//this.$container.on('swiperight', this.showPrevSlide.bind(this));
+			this.$container.on('swipeleft', this.onNextClick.bind(this));
+			this.$container.on('swiperight', this.onPrevClick.bind(this));
 		},
 
 		events: {
@@ -186,12 +199,12 @@
 
 		onNextClick: function (e) {
 			e.preventDefault();
-			this.showNextSlide();
+			this.showNextSlide(e);
 		},
 
 		onPrevClick: function (e) {
 			e.preventDefault();
-			this.showPrevSlide();
+			this.showPrevSlide(e);
 		},
 
 		showNextSlide: function () {
@@ -202,7 +215,8 @@
 			this.showSlide(nextSlide, this.currentSlide + 2);
 		},
 
-		showPrevSlide: function () {
+		showPrevSlide: function (e) {
+			e.preventDefault();
 			var prevSlide = this.currentSlide - 1;
 			if (prevSlide < 0) {
 				prevSlide = this.slidesCount - 1;

@@ -12,6 +12,13 @@ $theme_info_font_weight: 600;
 
 @import "_mixins";
 
+body.is-mobile .kloonslides-slideshow .icon-link:hover .icon.prev-icon {
+	background-image: url('../images/arrow-left-white-shadow.png');
+}
+body.is-mobile .kloonslides-slideshow .icon-link:hover .icon.next-icon {
+	background-image: url('../images/arrow-right-white-shadow.png');
+}
+
 body .kloonslides-slideshow {
 
 

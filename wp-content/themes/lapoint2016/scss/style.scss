@@ -106,7 +106,7 @@ iframe {
 
 
 
-@include xs-media () {
+@include xs-media (-1) {
 	#main {
 		.col-sm-4 + .col-sm-4,
 		.col-sm-6 + .col-sm-6 {
@@ -492,7 +492,7 @@ iframe {
 	}
 
 	@include sm-media-inc () {
-		padding: 50px;
+		padding: 50px 0;
 	}
 }
 .social-box {
@@ -1300,7 +1300,7 @@ body .imsl-slide-show {
 	&.fixed-height {
 		height: 575px !important;
 		ul .slide, ul .slide .image {
-			width: 100% !important;
+			//width: 100% !important;
 			height: 575px !important;
 			// Default max container width: 1170px = 49%;
 		}
@@ -2292,4 +2292,15 @@ body .imsl-slide-show {
 		@include border-radius(4px);
 	}
 
+}
+
+
+.is-mobile .kmc-component-packages header .ingress span,
+.is-mobile .kmc-component-camps header .ingress span,
+.is-mobile .kmc-component-intro-section .inner span {
+	cursor: pointer;
+	//font-weight: bold;
+	color: #349AD6;
+	text-transform: lowercase;
+	//font-size: 12px;
 }

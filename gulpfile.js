@@ -29,7 +29,10 @@ gulp.task('sass', () => {
     { input: 'wp-content/themes/lapoint2016/scss/style.scss', output: 'wp-content/themes/lapoint2016'  },
     { input: 'wp-content/themes/lapoint2016/scss/booking.scss', output: './'  },
     { input: 'wp-content/themes/lapoint2016/scss/admin.scss', output: 'wp-content/themes/lapoint2016'  },
-    { input: 'wp-content/themes/lapoint2016/scss/admin-editor-style.scss', output: 'wp-content/themes/lapoint2016'  }
+    { input: 'wp-content/themes/lapoint2016/scss/admin-editor-style.scss', output: 'wp-content/themes/lapoint2016' },
+    { input: 'wp-content/plugins/kloon-slides/scss/kloonslides.scss', output: 'wp-content/plugins/kloon-slides/css' },
+    { input: 'wp-content/plugins/kloon-slides/scss/theme-1.scss', output: 'wp-content/plugins/kloon-slides/css' },
+    { input: 'wp-content/plugins/wp-imageslider/scss/imageslider.scss', output: 'wp-content/plugins/wp-imageslider/css' },
   ]
 
   var ret = styles.map( (el, i, arr) => {
@@ -78,6 +81,12 @@ gulp.task('sass', () => {
 gulp.task('watchsass', () => {
 
   watch( 'wp-content/themes/lapoint2016/scss/**/*.scss', () => {
+    gulp.start( 'sass' )
+  })
+  watch( 'wp-content/plugins/kloon-slides/scss/**/*.scss', () => {
+    gulp.start( 'sass' )
+  })
+  watch( 'wp-content/plugins/wp-imageslider/scss/**/*.scss', () => {
     gulp.start( 'sass' )
   })
 
