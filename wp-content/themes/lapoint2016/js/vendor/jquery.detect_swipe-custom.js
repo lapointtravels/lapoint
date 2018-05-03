@@ -35,7 +35,40 @@
     isMoving = false;
   }
 
+  function swipeDirection( touchObject ) {
+    //console.log( touchObject );
+    var xDist, yDist, r, swipeAngle;
+
+    xDist = startX - touchObject.pageX;
+    yDist = startY - touchObject.pageY;
+    r = Math.atan2(yDist, xDist);
+
+    swipeAngle = Math.round(r * 180 / Math.PI);
+    if (swipeAngle < 0) {
+        swipeAngle = 360 - Math.abs(swipeAngle);
+    }
+
+    if ((swipeAngle <= 45) && (swipeAngle >= 0)) {
+      return 'left';
+        return (_.options.rtl === false ? 'left' : 'right');
+    }
+    if ((swipeAngle <= 360) && (swipeAngle >= 315)) {
+      return 'left';
+        return (_.options.rtl === false ? 'left' : 'right');
+    }
+    if ((swipeAngle >= 135) && (swipeAngle <= 225)) {
+      return 'right';
+        return (_.options.rtl === false ? 'right' : 'left');
+    }
+
+    return 'vertical';
+  }
+
   function onTouchMove(e) {
+    //console.log( e );
+    var dir = swipeDirection( e.touches[0] );
+    console.log( dir );
+
     if ($.detectSwipe.preventDefault) { e.preventDefault(); }
     if(isMoving) {
       var x = e.touches[0].pageX;
@@ -77,7 +110,7 @@
 
   $.event.special.swipe = { setup: setup };
 
-  $.each(['left', 'right'], function () {
+  $.each(['left', 'up', 'down', 'right'], function () {
     $.event.special['swipe' + this] = { setup: function(){
       $(this).on('swipe', $.noop);
     } };
