@@ -11,8 +11,8 @@ $breakXs: 500px;
     }
   }
 }
-@mixin xs-media(){
-  @media (max-width: $breakSm) {
+@mixin xs-media($val:0){
+  @media (max-width: $breakSm + $val) {
     @content;
   }
 }

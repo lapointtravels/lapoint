@@ -25,7 +25,8 @@
 				$slides_container = $el.find('.slides-container'),
 				isFullScreen = $el.hasClass('fullscreen'),
 				$firstSlideClone = null,
-				$lastSlideClone = null;
+				$lastSlideClone = null,
+				isSwiping = false;
 
 		
 		var win_width = $container.width();
@@ -322,7 +323,7 @@
 					var img = new Image();
 					img.src = src;
 					img.onload = function(){
-						console.log("slide: " + slide_id + " loaded with size: ", size);
+						//console.log("slide: " + slide_id + " loaded with size: ", size);
 						$slide.find(".image").css("background-image", "url('" + src + "')");
 						// add to the clone if it has one
 						if( $slide.cloneRef ) {
@@ -454,15 +455,56 @@
 			show_slide(position, position+1, false);
 		})
 
+		/*
+		var isSwipingTimer = 0;
+
+		function swiping(flag) {
+			isSwiping = flag;
+			if( isSwiping ) {
+				if( isSwipingTimer ) {
+					clearInterval( isSwipingTimer );
+				}
+				isSwipingTimer = setTimeout( swiping(false), 100 );
+			}
+		}
+
+		$el.on( "touchstart", function() {
+			console.log( "thouch start" );
+			isSwiping = true;
+		});
+		$el.on( "touchend", function() {
+			console.log( "thouch end" );
+			isSwiping = false;
+		});
+
 		$el.on('swipeleft', function(e){
 			e.preventDefault();
+			console.log( "swipe left" );
 			show_next_slide();
 		});
+		*/
 
 		$el.on('swiperight', function(e){
 			e.preventDefault();
+			console.log( "swipe right" );
 			show_previous_slide();
 		});
+
+		/*
+		$el.on('swipeup', function(e){
+			if( isSwiping ) {
+				e.preventDefault();
+				console.log( "swipe up preventDefault" );				
+			}
+		});
+
+		$el.on('swipedown', function(e){
+			if( isSwiping ) {
+				e.preventDefault();
+				console.log( "swipe down preventDefault" );
+			}			
+		});
+		*/
 
 		this.update_size = function () {
 

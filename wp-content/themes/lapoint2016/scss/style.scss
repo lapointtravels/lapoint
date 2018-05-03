@@ -106,7 +106,7 @@ iframe {
 
 
 
-@include xs-media () {
+@include xs-media (-1) {
 	#main {
 		.col-sm-4 + .col-sm-4,
 		.col-sm-6 + .col-sm-6 {
