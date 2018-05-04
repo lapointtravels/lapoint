@@ -46,12 +46,23 @@ define(["jquery"], function($) {
 					});					
 				}
 			});
+		}		
+
+		function fixKmcContentComponent() {
+
+			var $content = $(".kmc-component-kmc_content");
+			if( !$content.length ) {
+				return;
+			}
+
+			// not a default set of tags so try a few
+			var $text = $content.find( ".inner ul li" );
+
 		}
 
 		function limitText( el, limit ) {
 			
 			if( el.innerHTML.length < limit ) {
-				console.log( el.innerHTML.length + " returning" );
 				return false;
 			}
 
@@ -64,8 +75,10 @@ define(["jquery"], function($) {
 
 		//$( document ).ready( function() {
 			fixKmcIntroComponent();
+			//fixKmcContentComponent();
 			fixIngressText( ".kmc-component-packages" );
 			fixIngressText( ".kmc-component-camps" );
+			fixIngressText( ".kmc-component-locations" );
 		//});
 
 	};
