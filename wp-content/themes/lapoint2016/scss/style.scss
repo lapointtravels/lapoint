@@ -2295,10 +2295,13 @@ body .imsl-slide-show {
 }
 
 
-.is-mobile .kmc-component-packages header .ingress span,
-.is-mobile .kmc-component-camps header .ingress span,
-.is-mobile .kmc-component-locations header .ingress span,
-.is-mobile .kmc-component-intro-section .inner span {
+.is-mobile .kmc-component-camps header .ingress span.read-more-fix,
+.is-mobile .kmc-component-destination_boxes header .ingress span.read-more-fix,
+.is-mobile .kmc-component-levels header .ingress span.read-more-fix,
+.is-mobile .kmc-component-locations header .ingress span.read-more-fix,
+.is-mobile .kmc-component-packages header .ingress span.read-more-fix,
+.is-mobile .kmc-component-intro-section .inner span.read-more-fix,
+.is-mobile .kmc-component-kmc_content span.read-more-fix {
 	cursor: pointer;
 	//font-weight: bold;
 	color: #349AD6;

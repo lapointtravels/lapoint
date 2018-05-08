@@ -13,9 +13,10 @@ define(["jquery"], function($) {
 
 
 		function fixKmcIntroComponent() {
+
 			var $intro = $(".kmc-component-intro-section");
 
-			if( !$intro.length ) {
+			if( !$intro.length || $intro.parent().hasClass('d-r-m')) {
 				return;
 			}
 
@@ -33,8 +34,10 @@ define(["jquery"], function($) {
 		};
 
 		function fixIngressText( componentClass ) {
+
 			var $cmp = $( componentClass );
-			if(!$cmp.length) {
+
+			if(!$cmp.length || $cmp.parent().hasClass('d-r-m')) {
 				return;
 			}
 
@@ -50,10 +53,19 @@ define(["jquery"], function($) {
 
 		function fixKmcContentComponent() {
 
-			var $content = $(".kmc-component-kmc_content");
-			if( !$content.length ) {
+			var $content = $(".kmc-component-kmc_content .e-r-m");
+			if( !$content.length || $content.parent().hasClass('d-r-m')) {
 				return;
 			}
+
+
+			$content.each( function(index, el) {
+			console.log( el );
+				limitText( el, 196 );
+				$(el).find("span").click( function(){
+					$(this).parent().text( $(this).parent()[0].original );
+				});
+			});
 
 			// not a default set of tags so try a few
 			var $text = $content.find( ".inner ul li" );
@@ -75,10 +87,12 @@ define(["jquery"], function($) {
 
 		//$( document ).ready( function() {
 			fixKmcIntroComponent();
-			//fixKmcContentComponent();
-			fixIngressText( ".kmc-component-packages" );
+			fixKmcContentComponent();
 			fixIngressText( ".kmc-component-camps" );
+			fixIngressText( ".kmc-component-destination_boxes" );
+			fixIngressText( ".kmc-component-levels" );
 			fixIngressText( ".kmc-component-locations" );
+			fixIngressText( ".kmc-component-packages" );
 		//});
 
 	};
