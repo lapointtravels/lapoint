@@ -11,7 +11,7 @@ class Locations_Manager extends Lapoint_Manager {
 
 	public $instance_class = Location;
 	public $post_type = "location";
-	public $url_struct = '%desttype%/%dest%/%postname%/';
+	public $url_struct = '%desttype%/%dest%/%postname%/%lang%';
 
 
 	public function __construct () {
@@ -54,12 +54,13 @@ class Locations_Manager extends Lapoint_Manager {
 
 	        $log = false;
 
-	        if ($log) echo "<br><br>!!!!!" . $permalink;
+	        if ($log) echo "!!!!! " . $permalink;
 
 	        $rewritecodes = array(
 	            '%desttype%',
 	            '%dest%',
-	            '%postname%'
+	            '%postname%',
+	            '%lang%'
 	        );
 
 
@@ -71,22 +72,29 @@ class Locations_Manager extends Lapoint_Manager {
 	        $dest = $destination->post_name;
 	        $desttype = get_field("destination_type", $destination->ID)->post_name;
 
-            if (empty($desttype)) {
-                $desttype = "missing-data";
-            }
-            if (empty($dest)) {
-                $dest = "missing-data";
-            }
+          if (empty($desttype)) {
+              $desttype = "missing-data";
+          }
+          if (empty($dest)) {
+              $dest = "missing-data";
+          }
+
+          // for local dev and staging WPML can be set to use query mode for translations to work.
+					parse_str( parse_url( $permalink )["query"], $parsed_query );
 
 	        $replacements = array(
 	            $desttype,
 	            $dest,
-	            ($leavename) ? '%location%' : $post->post_name
+	            ($leavename) ? '%location%' : $post->post_name,
+	            $parsed_query['lang'] ? '?lang=' . $parsed_query['lang'] : ''
 	        );
 
 	        // finish off the permalink
 	        $permalink = get_wpml_home_url($permalink) . str_replace($rewritecodes, $replacements, $this->url_struct);
-	        $permalink = user_trailingslashit($permalink, 'single');
+
+	        if( !$parsed_query['lang'] ) {
+		        $permalink = user_trailingslashit($permalink, 'single');	        	
+	        }
 
 	        if ($log) echo " --> " . $permalink. "!!!!!!<br>";
 	    }

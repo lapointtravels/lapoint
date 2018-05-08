@@ -17,6 +17,14 @@ endif;
 
 function get_wpml_home_url ($permalink) {
 
+
+	// if WPML is running in mode to add language as query parameter. This would be true for local dev and staging
+	if( wpml_get_setting_filter(false, "language_negotiation_type") == "3" ) {
+		$parsed_url = parse_url( $permalink );
+		return "https://www." . $parsed_url["host"] . "/";
+	}
+
+
 	if (strpos($permalink, "localhost")) {
 		$homeUrl = WPML_HOME_URI;
 		if (strpos($permalink, "/da/?")) {
