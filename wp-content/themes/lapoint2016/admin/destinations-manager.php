@@ -54,13 +54,14 @@ class Destinations_Manager {
 	        // we need to generate the equivalent with real data
 	        // to match the rewrite rules set up from before
 
-	        $struct = '%desttype%/%postname%/';
+	        $struct = '%desttype%/%postname%/%lang%';
 
 	        //echo "!!!!!" . $permalink;
 
 	        $rewritecodes = array(
 	            '%desttype%',
-	            '%postname%'
+	            '%postname%',
+	            '%lang%'
 	        );
 
         	$desttype = get_field("destination_type", $post->ID)->post_name;
@@ -68,16 +69,23 @@ class Destinations_Manager {
                 $desttype = "missing-data";
             }
 
+
+          // for local dev and staging WPML can be set to use query mode for translations to work.
+					parse_str( parse_url( $permalink )["query"], $parsed_query );
+
 	        $replacements = array(
 	            $desttype,
-	            ($leavename) ? '%destination%' : $post->post_name
+	            ($leavename) ? '%destination%' : $post->post_name,
+	            $parsed_query['lang'] ? '?lang=' . $parsed_query['lang'] : ''
 	        );
-
+	        
 	        // finish off the permalink
 	        $permalink = get_wpml_home_url($permalink) . str_replace($rewritecodes, $replacements, $struct);
-
-	        $permalink = user_trailingslashit($permalink, 'single');
-
+	        
+	        if( !$parsed_query['lang'] ) {
+		        $permalink = user_trailingslashit($permalink, 'single');	        	
+	        }
+	        
 	        // echo " --> " . $permalink. "!!!!!!<br>";
 	    }
 

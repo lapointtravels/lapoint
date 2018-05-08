@@ -54,7 +54,7 @@ class Levels_Manager extends Lapoint_Manager {
 	        // we need to generate the equivalent with real data
 	        // to match the rewrite rules set up from before
 
-	        $struct = '%desttype%/levels/%postname%/';
+	        $struct = '%desttype%/levels/%postname%/%lang%';
 
 	        $log = false;
 
@@ -62,41 +62,31 @@ class Levels_Manager extends Lapoint_Manager {
 
 	        $rewritecodes = array(
 	            '%desttype%',
-	            '%postname%'
+	            '%postname%',
+	            '%lang%'
 	        );
 
+	        // for local dev and staging WPML can be set to use query mode for translations to work.
+					parse_str( parse_url( $permalink )["query"], $parsed_query );
 
 	        $desttype = get_field("destination_type", $post->ID)->post_name;
-            if (empty($desttype)) {
-                $desttype = "missing-data";
-            }
-
-
-            /*
-	        $language_code = "";
-	        if (strpos($permalink, "/da/?")) {
-	        	//echo "CHECK";
-	        	//echo HOME_URI;
-	        	$language_code = "/da";
-	        } else if (strpos($permalink, "/nb/?")) {
-	        	$language_code = "/nb";
-	        } else if (strpos($permalink, "/sv/?")) {
-	        	$language_code = "/sv";
-	        } else {
-	        	//echo site_url();
-	        }
-	        */
+          if (empty($desttype)) {
+              $desttype = "missing-data";
+          }
 
 	        $replacements = array(
 	            $desttype,
-	            ($leavename) ? '%level%' : $post->post_name
+	            ($leavename) ? '%level%' : $post->post_name,
+	            $parsed_query['lang'] ? '?lang=' . $parsed_query['lang'] : ''
 	        );
 
 	        // finish off the permalink
 	        // $permalink = site_url() . $language_code . str_replace($rewritecodes, $replacements, $struct);
 	        $permalink = get_wpml_home_url($permalink) . str_replace($rewritecodes, $replacements, $struct);
 	        //$permalink = home_url( $language_code . str_replace( $rewritecodes, $replacements, $struct ) );
-	        $permalink = user_trailingslashit($permalink, 'single');
+	        if( !$parsed_query['lang'] ) {
+		        $permalink = user_trailingslashit($permalink, 'single');	        	
+	        }
 
 	        if ($log) echo " --> " . $permalink. "!!!!!!<br>";
 	    }

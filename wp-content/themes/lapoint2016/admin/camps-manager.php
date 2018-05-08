@@ -57,7 +57,7 @@ class Camps_Manager extends Lapoint_Manager {
 	        // we need to generate the equivalent with real data
 	        // to match the rewrite rules set up from before
 
-	        $struct = '%desttype%/%dest%/%loccamps%/%postname%/';
+	        $struct = '%desttype%/%dest%/%loccamps%/%postname%/%lang%';
 
 	        $log = false;
 
@@ -67,8 +67,15 @@ class Camps_Manager extends Lapoint_Manager {
 	            '%desttype%',
 	            '%dest%',
 	            '%loccamps%',
-	            '%postname%'
+	            '%postname%',
+	            '%lang%'
 	        );
+
+	        // for local dev and staging WPML can be set to use query mode for translations to work.
+					parse_str( parse_url( $permalink )["query"], $parsed_query );
+
+					// for hardcoded loc_camps below when ruuning in query moode
+					$loc_camp_lang = $parsed_query['lang'] ? $parsed_query['lang'] : false;
 
 
 	        $desttype = '';
@@ -79,36 +86,29 @@ class Camps_Manager extends Lapoint_Manager {
 	        $dest = $destination->post_name;
 	        $desttype = get_field("destination_type", $destination->ID)->post_name;
 
-            if (empty($desttype)) {
-                $desttype = "missing-data";
-            }
-            if (empty($dest)) {
-                $dest = "missing-data";
-            }
+          if (empty($desttype)) {
+              $desttype = "missing-data";
+          }
+          if (empty($dest)) {
+              $dest = "missing-data";
+          }
 
-
-            // Append location if the camp has one
+          // Append location if the camp has one
 	        $location = get_field("location", $post->ID);
-            if ($location) {
-            	$dest .= "/" . $location->post_name;
-            }
+          if ($location) {
+          	$dest .= "/" . $location->post_name;
+          }
 
-            /*if ($permalink == "") {
-            	$post_language_details = apply_filters( 'wpml_post_language_details', NULL, $post->ID ) ;
-				$permalink = "xxx/" . $post_language_details["language_code"] ."/?";
-            }*/
-
-
-            $loc_camps = "accommodations";
-            // echo "!!" . $permalink ."!!<br>";
+          $loc_camps = "accommodations";
+            
 	        // $language_code = "";
-	        if (strpos($permalink, "lapoint.dk")) {
+	        if (strpos($permalink, "lapoint.dk") || $loc_camp_lang == "da") {
 	        	$loc_camps = "indkvartering";
 	        	// $language_code = "/da";
-	        } else if (strpos($permalink, "lapoint.no")) {
+	        } else if (strpos($permalink, "lapoint.no") || $loc_camp_lang == "nb") {
 	        	// $language_code = "/nb";
 	        	$loc_camps = "overnatting";
-	        } else if (strpos($permalink, "lapoint.se")) {
+	        } else if (strpos($permalink, "lapoint.se") || $loc_camp_lang == "sv") {
 	        	// $language_code = "/sv";
 	        	$loc_camps = "boenden";
 	        }
@@ -117,12 +117,15 @@ class Camps_Manager extends Lapoint_Manager {
 	            $desttype,
 	            $dest,
 	            $loc_camps,
-	            ($leavename) ? '%camp%' : $post->post_name
+	            ($leavename) ? '%camp%' : $post->post_name,
+	            $parsed_query['lang'] ? '?lang=' . $parsed_query['lang'] : ''
 	        );
 
 	        // finish off the permalink
 	        $permalink = get_wpml_home_url($permalink) . str_replace($rewritecodes, $replacements, $struct);
-	        $permalink = user_trailingslashit($permalink, 'single');
+	        if( !$parsed_query['lang'] ) {
+		        $permalink = user_trailingslashit($permalink, 'single');	        	
+	        }
 
 	        if ($log) echo " --> " . $permalink. "!!!!!!<br>";
 	    }
