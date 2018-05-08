@@ -74,7 +74,8 @@ define(["jquery"], function($) {
 
 		function limitText( el, limit ) {
 			
-			if( el.innerHTML.length < limit ) {
+			// don't limit if we are just a bit over the limit
+			if( limit + 46 > el.innerHTML.length ) {
 				return false;
 			}
 

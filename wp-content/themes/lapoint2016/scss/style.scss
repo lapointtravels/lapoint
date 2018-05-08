@@ -1008,8 +1008,9 @@ iframe {
 			right: 0;
 			color: #fff;
 			z-index: 100;
-    		padding: 0 20px;
-    		@include font-size(24);
+  		padding: 0 20px;
+  		@include font-size(24);
+  		pointer-events: none;
 		}
 
 		.overlay {
@@ -1039,6 +1040,10 @@ iframe {
 		&:hover {
 			.overlay {
 				@include opacity(100);
+				.btn-inverted {
+					//background-color: #fff;
+					//color: #000;
+				}
 			}
 		}
 		@include sm-media-inc () {

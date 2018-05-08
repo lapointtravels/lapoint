@@ -102,7 +102,7 @@ function imsl_edit_meta_box(){
 
 				<% if (image_data) { %>
 					HAS IMAGE DATA
-					<img src="<%= image_data.thumbnail %>" />
+					<img src="<%= image_data.thumbnail.replace(/(^\w+:|^)\/\/(www.)?/, '//') %>" />
 				<% } else { %>
 					NO IMAGE DATA
 					<img src="<?php echo $slide_show->get_upload_root_url(); ?><%= filename + '-thumb.' + type %>">

@@ -312,7 +312,8 @@
 
 				//console.log("preloading slide: " + slide_id + " with size: ", size);
 
-				var src = $slide.attr("data-src-" + size);
+				// make it a relative protocol without www. i.e //host.com/etc
+				var src = $slide.attr("data-src-" + size).replace(/(^\w+:|^)\/\/(www.)?/, '//');
 				if ($slide.preloaded) {
 					if (silent) {
 						return;

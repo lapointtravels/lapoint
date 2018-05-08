@@ -36,20 +36,24 @@ endif;
 						<?php if ($camp->box_background_image) : ?>
 							<span class="image-link">
 								<img src="<?php echo $camp->box_background_image["sizes"]["rect-md"]; ?>">
-								<div class="overlay">
-									<div>
-										<a href="<?php echo $camp->link; ?>" class="btn btn-inverted"><?php echo __("Show", "lapoint"); ?></a>
+								<a href="<?php echo $camp->link; ?>">
+									<div class="overlay">
+										<div>
+											<span class="btn btn-inverted"><?php echo __("Show", "lapoint"); ?></span>
+										</div>
 									</div>
-								</div>
+								</a>
 							</span>
 						<?php elseif (has_post_thumbnail($camp->id)) : ?>
 							<span class="image-link">
 								<?php echo get_the_post_thumbnail($camp->id, 'rect-md'); ?>
-								<div class="overlay">
-									<div>
-										<a href="<?php echo $camp->link; ?>" class="btn btn-inverted"><?php echo __("Show", "lapoint"); ?></a>
+								<a href="<?php echo $camp->link; ?>">
+									<div class="overlay">
+										<div>
+											<span class="btn btn-inverted"><?php echo __("Show", "lapoint"); ?></span>
+										</div>
 									</div>
-								</div>
+								</a>
 							</span>
 						<?php endif; ?>
 					</div>

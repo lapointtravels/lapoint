@@ -88,17 +88,19 @@ endif;
 					?>>
 						<h4><?php echo $location->display_label; ?></h4>
 
-						<div class="overlay">
-							<div>
-								<a href="<?php echo $location->link; ?>" class="btn btn-inverted"><?php
-								if ($box_info->button_text == "DEFAULT" || !$box_info->button_text) :
-									echo __("Show", "lapoint");
-								else:
-									echo $box_info->button_text;
-								endif;
-								?></a>
+						<a href="<?php echo $location->link; ?>">
+							<div class="overlay">
+								<div>
+									<span ?>" class="btn btn-inverted"><?php
+									if ($box_info->button_text == "DEFAULT" || !$box_info->button_text) :
+										echo __("Show", "lapoint");
+									else:
+										echo $box_info->button_text;
+									endif;
+									?></span>
+								</div>
 							</div>
-						</div>
+						</a>
 					</div>
 
 				</div>

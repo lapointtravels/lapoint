@@ -1061,27 +1061,6 @@ class Lapoint_Framework {
 		}
 	}
 
-	# ****************************** Create Post Types ******************************
-	/*public function create_post_type () {
-		register_post_type('destination',
-			array(
-				'labels' => array(
-					'name' => __('Destinations', 'lapoint'),
-					'singular_name' => __('Destination', 'lapoint'),
-					'add_new' => __('Add destination', 'lapoint'),
-					'add_new_item' => __('Add new destination', 'lapoint')
-				),
-				'public' => true,
-				'has_archive' => true,
-				'supports' => array('title', 'editor', 'thumbnail'),
-				'menu_position' => 50,
-				'menu_icon' => 'dashicons-admin-site'
-			)
-		);
-	}*/
-
-
-
 	# ****************************** Pimp TinyMCE ******************************
 	/**
 	 * Add additional buttons to the tinyMCE editor
@@ -1109,23 +1088,6 @@ class Lapoint_Framework {
 		array_unshift( $buttons, 'styleselect', 'hr', 'sup', 'sub');
 		return $buttons;
 	}
-
-	/*function set_tiny_mce_formats( $init_array ) {
-		$style_formats = array(
-			array(
-				'title' => 'Ingress',
-				'block' => 'strong',
-				'classes' => 'ingress',
-				'wrapper' => true
-			)
-		);
-		// Insert the array, JSON ENCODED, into 'style_formats'
-		//$init_array['style_formats'] = json_encode( $style_formats );
-		$init_array['style_formats'] = false;
-		$init_array['block_formats'] = "Stycke=p; Rubrik=h2; Underrubrik=h3; Liten rubrik=h4";
-		return $init_array;
-	}*/
-
 
 
 	/******************************* Misc ******************************

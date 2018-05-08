@@ -37,6 +37,10 @@ if (strcmp($destination_type, "YOUTH_") === 0 || strcmp($destination_type, "YC_"
 	$product = $destination_type . $dest . $camp . $level;
 }
 
+/////////////////////////////////////////////////////////////////////////////
+// Set that timezone - going with Lisbon as lapoint headquarters is in portugal
+date_default_timezone_set('Europe/Lisbon');
+
 $lang = (isset($_GET['lang']) && $_GET["lang"]) ? $_GET["lang"] : "SE";
 $max_count = (isset($_GET['maxnumberfortourlist1'])) ? $_GET['maxnumberfortourlist1'] : 8;
 $start_date = (isset($_GET['startDate']) && $_GET['startDate']) ? $_GET['startDate'] : date("Y-m-d");
@@ -46,7 +50,7 @@ $data = array(
 	"lang" => $lang,
 	"startDate" => $start_date,
 	"siteLanguageVersion" => $lang,
-	"maxnumberfortourlist1" => $max_count,
+	"maxnumberfortourlist1" => $max_count * 2, // so we can remove any GROUPS from the result and most likely not run out of results to show
 	"ifFullShowOtherDates" => "yes"
 );
 
@@ -84,6 +88,9 @@ $data = file_get_contents("https://lapoint.travelize.se/clientfiles/tourlist1.as
 		$data = "Basic can be booked at following page: Surf camp Norway/Basic: <a href='http://www.lapointcamps.com/package/surf-camp-norway-basic/'>Surfcamp Stadt/basic</a><br /><br />";
 	}
 }*/
+
+// remove any GROUPS from the result
+//var_dump( $data );
 
 echo utf8_encode($data);
 //echo $data;

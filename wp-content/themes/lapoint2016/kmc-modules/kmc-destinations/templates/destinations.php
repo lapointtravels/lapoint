@@ -82,17 +82,19 @@ $tag = (isset($this->tag) && $this->tag == 'h1') ? 'h1' : 'h2';
 				?>>
 					<h4><?php echo $destination->title; ?></h4>
 
-					<div class="overlay">
-						<div>
-							<a href="<?php echo $destination->link; ?>" class="btn btn-inverted"><?php
-							if ($box_info->button_text == "DEFAULT" || !$box_info->button_text) :
-								echo __("Show", "lapoint");
-							else:
-								echo $box_info->button_text;
-							endif;
-							?></a>
+					<a href="<?php echo $destination->link; ?>">
+						<div class="overlay">
+							<div>
+								<span class="btn btn-inverted"><?php
+								if ($box_info->button_text == "DEFAULT" || !$box_info->button_text) :
+									echo __("Show", "lapoint");
+								else:
+									echo $box_info->button_text;
+								endif;
+								?></span>
+							</div>
 						</div>
-					</div>
+					</a>
 				</div>
 
 			</div>
