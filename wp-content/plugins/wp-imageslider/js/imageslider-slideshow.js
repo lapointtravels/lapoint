@@ -312,8 +312,10 @@
 
 				//console.log("preloading slide: " + slide_id + " with size: ", size);
 
-				// make it a relative protocol without www. i.e //host.com/etc
-				var src = $slide.attr("data-src-" + size).replace(/(^\w+:|^)\/\/(www.)?/, '//');
+				// remove http: or https: to make it a relative protocol i.e //host.com/ or //www.host.com/ + special for staging
+				var src = $slide.attr("data-src-" + size).replace(/(^\w+:|^)\/\//, '//').replace(/(^\/\/www.lapoint.staging)/, '//lapoint.staging');
+				
+				
 				if ($slide.preloaded) {
 					if (silent) {
 						return;
