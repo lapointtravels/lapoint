@@ -55,7 +55,7 @@
 				"change .book-camp": "on_camp_changed",
 				"change .book-level": "on_level_changed",
 				"click .btn-show": "on_show_click",
-				"click .btn-book:not(.disabled)": "on_book_click"
+				"click .btn-book": "on_book_click"
 
 			},
 
@@ -268,7 +268,10 @@
 
 			on_book_click: function( e ) {
 				e.preventDefault();
-				console.log( e );
+				
+				if( $(e.target).hasClass( "disabled" ) ) {
+					return;					
+				}
 				var $tr = $(e.currentTarget).closest("tr");
 				if ($tr.attr("data-link")) {
 					var url = $tr.attr("data-link");
@@ -402,6 +405,14 @@
 							$(el).remove();
 						}
 					});
+
+					// check if last element is a table header. if it is remove it.
+					$rows = $travelize_data.find("tr");
+					$last = $($rows[$rows.length-1]);
+					
+					if( $last.hasClass("tableheader") ) {
+						$last.remove();
+					}
 
 					_this.$el.removeClass("loading");
 					_this.$result_container.html( this );
