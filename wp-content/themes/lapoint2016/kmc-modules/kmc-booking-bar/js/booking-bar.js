@@ -54,7 +54,9 @@
 				"change .book-destination": "on_destination_changed",
 				"change .book-camp": "on_camp_changed",
 				"change .book-level": "on_level_changed",
-				"click .btn-show": "on_show_click"
+				"click .btn-show": "on_show_click",
+				"click .btn-book:not(.disabled)": "on_book_click"
+
 			},
 
 			on_destination_type_changed: function (e) {
@@ -264,6 +266,55 @@
 				});
 			},
 
+			on_book_click: function( e ) {
+				e.preventDefault();
+				console.log( e );
+				var $tr = $(e.currentTarget).closest("tr");
+				if ($tr.attr("data-link")) {
+					var url = $tr.attr("data-link");
+					//if (window.lapoint.language !== 'sv' && window.lapoint.gaClientId) {
+					if (window.lapoint.gaClientId) {
+						url += '&clientId=' + window.lapoint.gaClientId
+					}
+
+					// Hide all sections except the first (if it has an background image)
+					$('.kmc-sections .kmc-section').each(function (index, elem) {
+						var $el = $(elem);
+						if (index > 0 || !($el.hasClass('has-bgr-img') || $el.hasClass('has-bgr-video'))) {
+							$el.fadeOut();
+						}
+					});
+
+					// Add iframe
+					var $iFrame = $('<iframe src="' + url + '" height="800" width="100%" frameborder="0" id="travelize-booking-frame"></iframe>');
+					$iFrame.load(function(){
+						// jump to top of iframe
+						$(document).scrollTop($("#travelize-booking-frame").offset().top);
+					});
+					
+					$('#main').append($iFrame);
+					$iFrame.width($(window).width());					
+					$iFrame.hide().fadeIn();
+					$iFrame.iFrameResize({
+						log: false,
+						checkOrigin: false
+					});
+
+					$(window).on('resize', function(e) {
+						$iFrame.width($(window).width());
+					});
+
+					// Close menu book slider if open
+					var $main_booking = $(".main-booking");
+					if ($main_booking.hasClass("open")) {
+						$(".drop-wrapper").parent().removeClass("open");
+						$main_booking.removeClass("open");
+						$main_booking.slideUp();
+					}					
+
+				}
+			},
+
 			on_show_click: function () {
 				var _this = this;
 				var lbl_book = this.$el.closest(".kmc-booking-bar");
@@ -275,9 +326,7 @@
 				var lang = lapoint.country.substr(-2);
 				if (lang == "US") {
 					lang = "UK";
-				}/* else if (lang == "NB") {
-					lang = "NO";
-				}*/
+				}
 
 				var data = {
 					destination_type: this.$destination_type.find("option:selected").attr("data-code"),
@@ -290,6 +339,76 @@
 					maxnumberfortourlist1: 10
 				}
 
+				// load the travelize html data into a element that is not attached to the DOM
+				// Process it
+				// Attach it
+				$travelize_data = $("<div></div>");
+
+				$travelize_data.load(lapoint.travelize_wrapper + "?" + jQuery.param(data), function() {
+
+					// remove 
+					$travelize_data.find(".tableselector_header").remove();
+
+					// fix table header
+					if (!$travelize_data.find(".colNoAvailableOffers").size()) {
+						$travelize_data.find(".tableheader").append( $("<td></td>").css("width", "130px") );
+					}
+
+					// go trough each row and remove any GROUP from the result
+					$travelize_data.find("tr.row").each( function(index, el) {
+						$row = $(el);
+						
+						$colBookPrice = $row.find(".colBookPrice");
+
+						$bookingLinkEl = $colBookPrice.find(".bookingPrice a");
+
+						if( $bookingLinkEl.length > 0 ) {
+
+							var bookingLink = $colBookPrice.find(".bookingPrice a").attr("href");
+						
+							if( bookingLink.indexOf( "%5FGROUPS%5F" ) > 0 ) {
+								console.log( "removing GROUP from results" );
+								$row.remove();
+								return; // skip to next row in iteration
+							}
+
+							// get the price and remove SEK if it is in the string
+							var bookingPrice = $bookingLinkEl.text().replace("SEK ","") + ":-";
+							// add booking link as attr to the row
+							$row.attr("data-link", bookingLink);
+							// remove span.bookingPrice and span.bookingStatus from the col
+							$colBookPrice.find("span").remove();
+							// add the price and set css
+							$colBookPrice.html(bookingPrice).css("text-align","right").css("padding-right","10px");
+							// append the book button to the row
+							$row.append( $("<td></td>").css("text-align", "right").append(
+								$("<a href='#'>" + lapoint.loc.book + "</a>").addClass("btn btn-cta btn-primary btn-book")));
+						}
+							
+						// change row classes
+						$row.removeClass("row").addClass("row2");
+						// check availability
+						var available = $row.find(".colAvailability span").text();
+						if ((isNaN(available) && available.substr(0, 1) != "<"  && available.substr(0, 1) != ">") || available == "0") {
+							$row.addClass("not-available");
+							$row.find(".btn").addClass("disabled");
+						}						
+
+					});
+
+					// second sweep, limit restults to ten
+					$travelize_data.find("tr.row2").each( function(index, el) {
+						if( index + 1 > 10 ) {
+							$(el).remove();
+						}
+					});
+
+					_this.$el.removeClass("loading");
+					_this.$result_container.html( this );
+
+				});
+
+				return;
 
 				this.$result_container.load(lapoint.travelize_wrapper + "?" + jQuery.param(data), function() {
 
