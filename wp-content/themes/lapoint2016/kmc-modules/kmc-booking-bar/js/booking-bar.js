@@ -406,13 +406,18 @@
 						}
 					});
 
-					// check if last element is a table header. if it is remove it.
+					// remove last rows in the table if they are .tableheader
 					$rows = $travelize_data.find("tr");
-					$last = $($rows[$rows.length-1]);
-					
-					if( $last.hasClass("tableheader") ) {
-						$last.remove();
+					$len = $rows.length;
+					for( $i = $len ; $i > 0; $i-- ) {
+						$row = $($rows[$i - 1]);
+						if( $row.hasClass("tableheader") ) {
+							$row.remove();
+						} else {
+							break;
+						}
 					}
+					
 
 					_this.$el.removeClass("loading");
 					_this.$result_container.html( this );
