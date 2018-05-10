@@ -1,5 +1,7 @@
 <?php
 
+    if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+    
     class CPTO 
         {
             var $current_post_type = null;
@@ -32,7 +34,7 @@
                     include_once(CPTPATH . '/include/class.walkers.php');
                     
                     add_action( 'admin_init',                               array(&$this, 'registerFiles'), 11 );
-                    add_action( 'admin_init',                               array(&$this, 'checkPost'), 10 );
+                    add_action( 'admin_init',                               array(&$this, 'admin_init'), 10 );
                     add_action( 'admin_menu',                               array(&$this, 'addMenu') );
                     
                     add_action('admin_menu',                                array(&$this, 'plugin_options_menu'));
@@ -131,6 +133,10 @@
                     //check for orderby GET paramether in which case return default data
                     if (isset($_GET['orderby']) && $_GET['orderby'] !=  'menu_order')
                         return $orderBy;
+                        
+                    //Avada orderby
+                    if (isset($_GET['product_orderby']) && $_GET['product_orderby'] !=  'default')
+                        return $orderBy;
                     
                     //check to ignore
                     /**
@@ -169,12 +175,16 @@
                                 if($query->is_search())
                                     return($orderBy);
                                 
+                                $order  =   '';
+                                if ($options['use_query_ASC_DESC'] == "1")
+                                    $order  =   isset($query->query_vars['order'])  ?   " " . $query->query_vars['order'] : '';
+                                
                                 if ($options['autosort'] == "1")
                                     {
                                         if(trim($orderBy) == '')
-                                            $orderBy = "{$wpdb->posts}.menu_order ";
+                                            $orderBy = "{$wpdb->posts}.menu_order " . $order;
                                         else
-                                            $orderBy = "{$wpdb->posts}.menu_order, " . $orderBy;
+                                            $orderBy = "{$wpdb->posts}.menu_order". $order .", " . $orderBy;
                                     }
                             }
 
@@ -293,7 +303,7 @@
                     wp_enqueue_style( 'CPTStyleSheets');
                 }
             
-            function checkPost() 
+            function admin_init() 
                 {
                     if ( isset($_GET['page']) && substr($_GET['page'], 0, 17) == 'order-post-types-' ) 
                         {
@@ -303,6 +313,10 @@
                                     wp_die('Invalid post type');
                                 }
                         }
+                        
+                    //add compatibility filters and code
+                    include_once(CPTPATH . '/compatibility/LiteSpeed_Cache.php');
+                    
                 }
             
             
@@ -326,37 +340,43 @@
                     parse_str($_POST['order'], $data);
                     
                     if (is_array($data))
-                    foreach($data as $key => $values ) 
                         {
-                            if ( $key == 'item' ) 
+                            foreach($data as $key => $values ) 
                                 {
-                                    foreach( $values as $position => $id ) 
+                                    if ( $key == 'item' ) 
                                         {
-                                            
-                                            //sanitize
-                                            $id =   (int)$id;
-                                            
-                                            $data = array('menu_order' => $position);
-                                            $data = apply_filters('post-types-order_save-ajax-order', $data, $key, $id);
-                                            
-                                            $wpdb->update( $wpdb->posts, $data, array('ID' => $id) );
+                                            foreach( $values as $position => $id ) 
+                                                {
+                                                    
+                                                    //sanitize
+                                                    $id =   (int)$id;
+                                                    
+                                                    $data = array('menu_order' => $position);
+                                                    $data = apply_filters('post-types-order_save-ajax-order', $data, $key, $id);
+                                                    
+                                                    $wpdb->update( $wpdb->posts, $data, array('ID' => $id) );
+                                                } 
                                         } 
-                                } 
-                            else 
-                                {
-                                    foreach( $values as $position => $id ) 
+                                    else 
                                         {
-                                            
-                                            //sanitize
-                                            $id =   (int)$id;
-                                            
-                                            $data = array('menu_order' => $position, 'post_parent' => str_replace('item_', '', $key));
-                                            $data = apply_filters('post-types-order_save-ajax-order', $data, $key, $id);
-                                            
-                                            $wpdb->update( $wpdb->posts, $data, array('ID' => $id) );
+                                            foreach( $values as $position => $id ) 
+                                                {
+                                                    
+                                                    //sanitize
+                                                    $id =   (int)$id;
+                                                    
+                                                    $data = array('menu_order' => $position, 'post_parent' => str_replace('item_', '', $key));
+                                                    $data = apply_filters('post-types-order_save-ajax-order', $data, $key, $id);
+                                                    
+                                                    $wpdb->update( $wpdb->posts, $data, array('ID' => $id) );
+                                                }
                                         }
                                 }
+                            
                         }
+                        
+                    //trigger action completed
+                    do_action('PTO/order_update_complete');
                 }
                 
                 
@@ -426,6 +446,9 @@
                             
                             $wpdb->update( $wpdb->posts, $data, array('ID' => $id) );
                         }
+                        
+                    //trigger action completed
+                    do_action('PTO/order_update_complete');
                                     
                 }
             
@@ -449,7 +472,7 @@
                         }
                         else
                             {
-                                $capability = 'install_plugins';  
+                                $capability = 'manage_options';  
                             }
                     
                     foreach( $post_types as $post_type_name ) 
