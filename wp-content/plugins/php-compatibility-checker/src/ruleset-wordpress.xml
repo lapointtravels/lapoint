@@ -4,12 +4,19 @@
 	<description>WordPress-Core Custom</description>
 
 	<!-- Include WordPress-Core standards. -->
-	<rule ref="WordPress-Core"/>
+	<rule ref="WordPress-Core">
+		<exclude name="WordPress.Files.FileName"/>
+	</rule>
 
-	<!-- Whitelist member variables from core. -->
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="string" value="php-compatibility-checker"/>
+		</properties>
+	</rule>
+
 	<rule ref="WordPress.NamingConventions.ValidVariableName">
 		<properties>
-			<property name="whitelisted_mixed_case_member_var_names" value="Name,ID" type="array"/>
+			<property name="customPropertiesWhitelist" type="string" value="Name"/>
 		</properties>
 	</rule>
 
