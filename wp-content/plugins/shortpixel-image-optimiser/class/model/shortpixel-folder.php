@@ -76,7 +76,7 @@ class ShortPixelFolder extends ShortPixelEntity{
         }
         $ignore = array('.','..');
         if(!is_writable($path)) {
-            throw new SpFileRightsException(sprintf(__('Folder %s is not writeable. Please check permissions and try again.','shortpixel-image-optimiser'),$path));
+            throw new ShortPixelFileRightsException(sprintf(__('Folder %s is not writeable. Please check permissions and try again.','shortpixel-image-optimiser'),$path));
         }
         $files = scandir($path);
         foreach($files as $t) {
@@ -149,7 +149,7 @@ class ShortPixelFolder extends ShortPixelEntity{
     protected static function getFolderContentsChangeDateRecursive($path, $mtime, $refMtime) {
         $ignore = array('.','..');
         if(!is_writable($path)) {
-            throw new SpFileRightsException(sprintf(__('Folder %s is not writeable. Please check permissions and try again.','shortpixel-image-optimiser'),$path));
+            throw new ShortPixelFileRightsException(sprintf(__('Folder %s is not writeable. Please check permissions and try again.','shortpixel-image-optimiser'),$path));
         }
         $files = scandir($path);
         $mtime = max($mtime, filemtime($path));

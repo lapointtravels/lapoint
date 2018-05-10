@@ -1,12 +1,10 @@
 === ShortPixel Image Optimizer ===
-
 Contributors: ShortPixel 
-Tags: compress, image, compression, optimize, image optimizer, image compression, resize,  compress pdf, compress jpg, compress png, image compression
-
-
+Tags: compress, image, compression, optimize, image optimizer, image optimiser, image compression, resize, compress pdf, compress jpg, compress png, image compression
 Requires at least: 3.2.0
-Tested up to: 4.7
-Stable tag: 4.4.0
+Tested up to: 4.9
+Requires PHP: 5.2
+Stable tag: 4.10.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,35 +12,37 @@ Speed up your website and boost your SEO by compressing old & new images and PDF
 
 == Description ==
 
-**A freeemium easy to use, comprehensive, stable and frequently updated image compression plugin supported by the friendly team that created it.  :)**
+**A freemium easy to use, comprehensive, stable and frequently updated image compression plugin supported by the friendly team that created it.  :)**
 
 Increase your website's SEO ranking, number of visitors and ultimately your sales by optimizing any image or PDF document on your website.
-ShortPixel is an easy to use, lightweight, install-and-forget-about-it <a rel="friend" href="https://shortpixel.com" target="_blank">image optimization</a> plugin that can compress all your past images and PDF documents with a single click. New images are automatically resized/rescaled and optimized on the fly, in the background.
+ShortPixel is an easy to use, lightweight, install-and-forget-about-it <a href="https://shortpixel.com" target="_blank">image optimization</a> plugin that can compress all your past images and PDF documents with a single click. New images are automatically resized/rescaled and optimized on the fly, in the background.
 
 **Ready for a quick DEMO? <a href="https://addendio.com/try-plugin/?slug=shortpixel-image-optimiser" target="_blank">Test here.</a>**
 
-This plugin uses minimal resources and works well with any shared, cloud, VPS or dedicated web hosting. It can optimize any image you have on your website even the images that aren't listed in Media Library like those in galleries like NextGEN or added directly via FTP!
+Short Pixel uses minimal resources and works well with any shared, cloud, VPS or dedicated web hosting. It can optimize any image you have on your website even the images that aren't listed in Media Library like those in galleries like <a href="https://wordpress.org/plugins/nextgen-gallery/" target="_blank">NextGEN</a>, <a href="https://wordpress.org/plugins/modula-best-grid-gallery/" target="_blank">Modula</a> or added directly via FTP!
 
 Both lossy and lossless image compression is available for the most common image types (JPG, PNG, GIF and WebP) plus PDF files.
 We also offer **glossy** JPEG compression which is a very high quality lossy optimization algorithm. Specially designed for photographers!
 Optimized images mean better user experience, better PageSpeed Insights or GTmetrix results, better Google PageRank and more visitors.
 
-Make an instant <a rel="friend" href="http://shortpixel.com/image-compression-test" target="_blank">image compression test</a> on your site or <a rel="friend" href="http://shortpixel.com/online-image-compression" target="_blank">compress some images</a> to make sure they are to your liking.
+Make an instant <a href="http://shortpixel.com/image-compression-test" target="_blank">image compression test</a> on your site or <a href="http://shortpixel.com/online-image-compression" target="_blank">compress some images</a> to make sure they are to your liking.
 
 **Why is ShortPixel the best choice when it comes to image optimization or PDF compression?**
 
-* popular plugin with over 40,000 active installations according to WordPress
+* popular plugin with over 50,000 active installations according to WordPress
 * compress JPG, PNG, GIF (still or animated) images and also PDF documents
+* option to automatically convert PNG to JPG if that will result in smaller images. Ideal for large images in PNG format.
 * no file size limit
-* option to freely convert any JPEG, PNG or GIF (even animated ones!) to **WebP** for more Google love. <a rel="friend" href="http://blog.shortpixel.com/how-webp-images-can-speed-up-your-site/" target="_blank">How to enable WebP?</a>
-* compatible with WP Retina 2x - all **retina images** are automatically compressed. <a rel="friend" href="http://blog.shortpixel.com/how-to-use-optimized-retina-images-on-your-wordpress-site-for-best-user-experience-on-apple-devices/" target="_blank">How to benefit from Retina displays?</a>
-* optimize thumbnails as well as featured images
+* option to freely convert any JPEG, PNG or GIF (even animated ones!) to **WebP** for more Google love. <a href="http://blog.shortpixel.com/how-webp-images-can-speed-up-your-site/" target="_blank">How to enable WebP?</a>
+* option to include the generated WebP images into the front-end pages by using the &lt;picture&gt; tag instead of &lt;img&gt;
+* compatible with WP Retina 2x - all **retina images** are automatically compressed. <a href="http://blog.shortpixel.com/how-to-use-optimized-retina-images-on-your-wordpress-site-for-best-user-experience-on-apple-devices/" target="_blank">How to benefit from Retina displays?</a>
+* optimize thumbnails as well as featured images. You can also **select individual thumbnails to exclude** from optimization.
 * ability to optimize any image on your site including images in **NextGEN Gallery** and any other image gallery or slider
 * featured images can be automatically resized before being optimized with 2 different options. No need for additional plugins like Imsanity
 * CMYK to RGB conversion
 * **24h <a href="https://wordpress.org/support/plugin/shortpixel-image-optimiser/reviews/?filter=5" target="_blank">stellar support</a>** (24/7) directly from developers.
 * easily **test lossy/lossless** versions of the images with a single click in your Media Library
-* **great for photographers**: <a rel="friend" href="http://blog.shortpixel.com/how-much-smaller-can-be-images-without-exif-icc/" target="_blank">keep or remove EXIF</a> data from your images, compress images with lossless option
+* **great for photographers**: <a href="http://blog.shortpixel.com/how-much-smaller-can-be-images-without-exif-icc/" target="_blank">keep or remove EXIF</a> data from your images, compress images with lossless option
 * works well with both HTTPS and HTTP websites
 * you can run ShortPixel plugin on **multiple websites** or on a **multisite** with a **single API Key**
 * it is **safe to test** and use the plugin: all the original images can be restored with a click, either one by one or in bulk
@@ -55,13 +55,13 @@ Make an instant <a rel="friend" href="http://shortpixel.com/image-compression-te
 * compatible with watermarking plugins
 * option to deactivate auto-optimizing images on upload
 * images that are optimized less that 5% are bonus
-* WooCommerce compatible
+* WooCommerce, WP offload S3 compatible
 * 40 days optimization report with all image details and overall statistics
 * **free optimization credits for non-profits**, <a href="https://shortpixel.com/contact" target="_blank">contact us</a> for details
     
 **How much it costs?**
 ShortPixel comes with 100 free credits/month and additional credits can be bought with as little as $4.99 for 5,000 image credits.
-Check out <a rel="friend" href="https://shortpixel.com/pricing" target="_blank">our prices</a>
+Check out <a href="https://shortpixel.com/pricing" target="_blank">our prices</a>.
 
 > **Testimonials:**  
 > ★★★★★ **A Super Plugin works very well 62% reduction overall.** [robertvarns](https://wordpress.org/support/topic/a-super-plugin-works-very-well-62-reduction-overall/)   
@@ -71,6 +71,7 @@ Check out <a rel="friend" href="https://shortpixel.com/pricing" target="_blank">
 > ★★★★★ **Great image compression, solid plugin, equally great support.** [matters1959](https://wordpress.org/support/topic/support-shortpixel-image-optimizer/)  
 > [more testimonials](https://wordpress.org/support/plugin/shortpixel-image-optimiser/reviews/?filter=5)
 
+[youtube https://www.youtube.com/watch?v=5EbX0Hsy6j4]
 
 Help us spread a the word by recommending ShortPixel to your friends and collect 100 additional image credits for each referred sign up. Make money by promoting a great plugin with our <a href="https://shortpixel.com/free-sign-up-affiliate" target="_blank">50/50 affiliate program</a>.
 
@@ -81,9 +82,6 @@ Help us spread a the word by recommending ShortPixel to your friends and collect
 * Google+ <a href="https://www.google.com/+Shortpixelpage" target="_blank">https://www.google.com/+Shortpixelpage</a>
 * Facebook <a href="https://www.facebook.com/ShortPixel" target="_blank">https://www.facebook.com/ShortPixel</a>
 * LinkedIn <a href="https://www.linkedin.com/company/shortpixel" target="_blank">https://www.linkedin.com/company/shortpixel</a>
-
-**Keywords:** picture,  optimization, image editor, pngout, upload speed, shortpixel, compression, nextgen, nextgen gallery optimizer, jpegmini, webp, lossless, cwebp, media, jpegtran, image, image optimisation, image optimization, shrink, picture, photo, optimize photos, compress, performance, tinypng, crunch, pngquant, attachment, optimize, pictures, fast, images, image files, image quality, lossy, upload, kraken, resize, seo, smushit, optipng, kraken image optimizer, ewww, photo optimization, gifsicle, image optimizer, krakenio, png, gmagick, image optimize, pdf, pdf optimisation, pdf optimization, optimize pdf, optimise pdf, shrink pdf, jpg, jpeg, jpg optimisation, jpg optimization, optimize jpg, optimise jpg, shrink jpg, gif, animated gif, optimize gif, optimise gif, optimizer, optimiser, compresion, cruncher, image cruncher, compress png, compress jpg, compress jpeg, compress pdf, faster loading times, image optimiser, improve pagerank, optimise, optimize animated gif,  optimise jpeg, optimize jpeg, optimize png, optimise png, tinyjpg, short pixel, woocommerce compatible, wpml compatible, smush, imsanity, scale, wp smush, compress images, pdf compression, optimize images, shrink jpeg, compressor, faster website, google pagerank, imagify, prizm, optimus, zara, improve page speed, PageSpeed Insights, sitespeed, smaller images, tinyjpeg, wordpress compression, wordPress image tool, reduce image size, bandwidth, pics, keep exif, remove exif, speed up site, speed up website, compress thumbnails, optimize thumbnails
-
 
 == Installation ==
 
@@ -100,6 +98,10 @@ Let's get ShortPixel plugin running on your WordPress website:
 
 == Frequently Asked Questions ==
 
+= How does ShortPixel compare to other image optimisation plugins (e.g Smush, Imagify, TinyPNG, Kraken, EWWW)?  =
+	ShortPixel has better compression rates, more features, supports backups and has very affordable one-time plans.
+	If you are serious about making an informed decision please take 10 minutes and read this <a href="https://blog.shortpixel.com/wp-image-optimization-wordpress-plugins/">article</a>.
+	
 = Can I use the same API Key on multiple web sites? =
     Yes, you can. 
     As long as you have available credits you can use a single API Key on as many websites as you wish!
@@ -129,7 +131,7 @@ Let's get ShortPixel plugin running on your WordPress website:
 
 = Do you have one-time plans? =
     Yes we do.
-    The credits that come with our <a href="https://shortpixel.com/plans" rel="friend">one-time plans</a> never expire. Yummy! :-)
+    The credits that come with our <a href="https://shortpixel.com/plans" >one-time plans</a> never expire. Yummy! :-)
 
 = What happens to my existing images? =
     Your existing images are replaced with the optimized ones.
@@ -151,6 +153,11 @@ Let's get ShortPixel plugin running on your WordPress website:
     where ‘APIKEY’ is the API Key received upon sign up.
     If configured that way, the API key will be used for all the sites of the multisite but will only be visible on the main site’s Settings page, being hidden for the rest of the sites.
 
+= I am not the only one working in the WordPress Dashboard. How can I hide my API key? =
+    There is a simple way to hide the API key, all you need to do is to add these two lines in your wp-config.php:
+    define('SHORTPIXEL_API_KEY', '<<your api key here>>');
+    define('SHORTPIXEL_HIDE_API_KEY', true);
+
 = How much is a credit? =
     A credit is used each time ShortPixel optimizes an image or thumbnail by at least 5%. If we're not able to optimize an image or thumbnail by at least 5% then no credit will be used :-)
     Please also note that usually images in your Media Library have 3-5 thumbs associated and a credit will be used for each featured image or associated thumbnail that is optimized.
@@ -168,7 +175,7 @@ Let's get ShortPixel plugin running on your WordPress website:
 
 = Do I have to pay monthly or one time? =
     We have both options available. 
-    One-time credits never expire are a bit more expensive. Check out our prices <a href="https://shortpixel.com/pricing" rel="friend">here</a>
+    One-time credits never expire are a bit more expensive. Check out our prices <a href="https://shortpixel.com/pricing" >here</a>
 
 = When can I cancel a monthly plan? =
     Whenever you want. 
@@ -220,6 +227,166 @@ The ShortPixel team is here to help. <a href="https://shortpixel.com/contact">Co
 9. Check other optimized images status - themes or other plugins' images. (Media>Other Media)
 
 == Changelog ==
+
+= 4.10.4 =
+* replace back the PNG links when restoring a PNG converted to JPG
+* fix incompatibility with Dynamics 365 Integration plugin
+* improve restore capabilities after certain types of PNG to JPG errors which left the media item in an unconsistent state.
+* remove AUTH credentials on server too, if removed in plugin's settings.
+* more performance improvements to PNG 2 JPG conversion
+* fix replacing PNG urls having http:// instead of https:// for a SSL site. (and viceversa)
+* fix string not appearing in translations
+
+= 4.10.3 =
+* improvements to context help beacon
+* performance improvements to PNG to JPG conversion
+
+= 4.10.2 =
+* fix error when listing Other media in some circumstances
+
+= 4.10.1 =
+* fix missing file from commit
+
+= 4.10.0 =
+* option to exclude thumbnails from optimization
+* options to delete Cloudflare cache for optimized images
+* method to define affilate codes for themes
+* error message when restore could not be performed
+* better handling of situations with files with different owner but with write permissions for all
+* fix bug for inner resize when setting and unsetting the resize parameter
+* fix bug for third-party WebP thumbnails registered in the 'sizes' metadata array which were sent to optimization.
+* check if function mb_convert_encoding exists before using it
+
+= 4.9.1 =
+* fix error for older WP versions which don't have wp_raise_memory_limit
+
+= 4.9.0 =
+* inline help beacon
+* fix exclude patterns not working after last update
+* handle situations when not enough memory to convert from PNG to JPG.
+* fix particular situations where there was no 'file' property in the metadata.
+* fix slider optimized percent over the bulk warning box.
+* display the x close link for the bulk warning box.
+
+= 4.8.10 =
+* restore compatibility with PHP 5.2.x
+* finding unlisted thumbnails - don't bother if dialog dismissed.
+* force JS initialization after 10 sec. if external error on the document.load thread prevented it.
+* onboarding - small text changes
+* images added from the front-end sometimes have get_attached_file() null when hook called, delay the check and processing in this case, instead of marking as Optimization N/A.
+* compatibility with s3-offload pro plugin
+* fix to time estimate at bulk, which sometimes was displaying x hours and 60 minutes left.
+* confirm popup when deleting backups.
+
+= 4.8.9 =
+* On some multisites installed in a subdirectory, the get_home_path() doesn't return the subdirectory, fallback to ABSPATH
+* Sometimes images are not PNG even if they have .png extension. Don't try to convert them if imagecreatefrompng returns false.
+* Get an aproximate row count for InnoDB tables to optimize the speed, but fallback to normal count(*) for MyISAM
+* Fix several warnings ($thumbsMissing not an array, $found is not set, etc.)
+* Return error message when folder could not be found, when adding other media folders
+* More info to some API errors
+
+
+= 4.8.8 =
+* fix for trying to convert .png files that are not png actually
+* fix for installs which don't have PHP GD - deactivate the png 2 jpg conversion
+* fix for unserialize warnings
+* improvements in bulk speed when passing through already optimized images.
+* fix unsupported usage of const by third party punycode.js
+* fix emails with new root domains like user@domain.store
+* fix unsupported flock problem
+* hidden button pending cleanup
+* fix javascript not being able to generate the actions menu upon image being optimized while inside the image edit and displaying false instead
+
+= 4.8.7 =
+* fix bug of the resize minimum size alert not dismissing
+
+= 4.8.6 =
+* alert user when the plugin doesn't have rights to write to the uploads folder
+
+= 4.8.5 =
+* drop usage of the PHP session / wp_option for the priority queue - use a flat file instead.
+
+= 4.8.4 =
+* fix compatibility problem with WP 4.9 when editing source files with the new built-in editor
+* fix restore converted PNGs in some situations
+* fix some minor warnings
+* refactor png2jpg functions in another class
+* add compatibility with PHP 5.2
+* generate WebP urls - account for settings with different scheme (http - https)
+
+= 4.8.2 =
+* fix minified punycode.js not generated because of ECMA6 not supported by YUI...
+
+= 4.8.1 =
+* fix notice that would not dismiss
+
+= 4.8.0 =
+* propose best plans options for optimizing all images
+* option to optimize or not the found unlisted thumbs, alert the user about them.
+* convert png to jpeg also when doing bulk if option set. Also search for usages of the image and replace the URLs in the content.
+* fix compatbility problem with S3 Offload which caused sending two different sets of URLs for an image.
+* trim site_url output - found a client case where it ended with a tab...
+* all wp_options with autoload=no
+* subscribe and get the API Key directly from the plugin
+* minify all js and css files
+* performance improvements for the picture tag generation
+* retina versions of the icons
+* fix compatibility with PHP 5.3 for using class:: inside closures
+* fix "Optimize 0 thumbnails" in column menu generated from Javascript.
+
+= 4.7.2 =
+* fix wrong use of _ function which displayed warning
+
+= 4.7.1 =
+* Deactivate conversion from PNG to JPG for the previous images, until we find a solution for the posts that refer these images.
+* Minor fix to bulk (last item in Media Library sometimes was left unoptimized)
+
+= 4.7.0 =
+* convert PNG images to JPG option
+* action called upon optimizing an image: do_action('shortpixel_image_optimized', $post_id);
+* monitor Other Media folders for changes every hour
+* button to delete all ShortPixel metadata making ShortPixel forget it optimized the images in Media Library
+* plugin images at @2x
+* cleanup Other Media tables
+* fix wp-options that would not save in some circumstances
+* fix generate webp <picture> tags when post guids are absolute URLs and image URLs are changed, or when site has HTTP/HTTPS versions
+* fix problem with AMP pages when generating the <picture> tags - when using AMP for WP plugin AMP pages are not changed.
+
+= 4.6.0 =
+* add a filter option to the Other Media table
+* fixes in order to comply with WP plugin guidelines
+
+= 4.5.5 =
+* max thumbs constant - no more than this number of thumbs will be optimized in one pass
+* fix problem with webp <picture> tag when using Fusion Builder
+* really hide the API key everywhere when configured so
+
+= 4.5.3 =
+
+* fix Javascript error in bulk in some cases
+
+= 4.5.2 =
+
+* fix readme again
+
+= 4.5.1 =
+
+* fix readme
+
+= 4.5.0 =
+
+* replace img tags in front-end with picture tags, and include the webp images
+* actions menu in Media Library
+* option to compare the optimized (main) image with the original in Media Library
+
+= 4.4.2 =
+
+* fix wrong custom path in some cases
+
+= 4.4.1 =
+
+* fix warnings on PHP 7.1 for empty array settings.
 
 = 4.4.0 =
 
@@ -623,126 +790,3 @@ The ShortPixel team is here to help. <a href="https://shortpixel.com/contact">Co
 = 2.0.0 =
 
 * SP plugin uses API v2 and the processing speed is significantly improved
-
-= 1.6.10 =
-
-* Corrected a bug affecting option saving for some of the users.
-
-= 1.6.9 =
-
-* Optimize now option only appears when the image wasn't optimized
-
-= 1.6.8 =
-
-* Bulk Processing optimized to skip images that were already optimized with the same options when Bulk Processing is run multiple times
-* changed the place where original (backup) files are stored
-* extra check for missing(expired) processed images
-
-= 1.6.7 =
-
-* extra check for exif_imagetype function 
-
-= 1.6.6 =
-
-* changed method from GET to POST for API Key validation
-* bulk optimization text update
-
-= 1.6.5 =
-
-* plugin tested for WP 4.1
-
-= 1.6.4 =
-
-* API validation URL changed to v1
-
-= 1.6.3 =
-
-* fallback to http if plugin activation fails for https
-* added error mesage API Key validation fail
-
-= 1.6.2 =
-
-* extra check for images that return 3xx/4xx codes to be ignored
-* API Key validation (error) message is returned to user
-* error messages for images are displayed in the "ShortPixel Compression" column
-
-= 1.6.1 = 
-
-* fixed small upload glitch
-* added succes message upon bulk processing completion
-* improved image backup 
-* lossy option by default upon plugin installation
-
-= 1.6.0 =
-
-* images' requests for optimization are sent for all sizes upon image upload in media gallery
-* non-image (e.g. PDF files) are ignored now @ bulk processing
-* bulk optimization improved & some bugs fixed.
-* FAQ/Description small changes
-
-= 1.5.1 = 
-
-* readme changes
-
-= 1.5.0 =
-
-* pictures are removed from backup as well when deleted
-* restore backup warning/error fixed
-* fixed useless/bad AJAX requests that occured sometimes
-* added user agent to API Key validation for debugging purposes
-* Bulk Processing was freezing for some users, fixed this + added Cancel button
-
-= 1.4.1 =
-
-* optimize again overwrote the original image, fixed
-* fixed restore errors
-* changes to FAQ/Description texts
-
-= 1.4.0 =
-
-* Bulk image processing improved so it can optimize all the images in background while admin page is open
-* small changes in readme.txt description
-
-= 1.3.5 =
-
-* fixed broken link in settings page
-* updated FAQ
-* description updated
-
-= 1.3.2 =
-
-* fixed missing action link @ Bulk Processing
-* added more screenshots
-
-= 1.3.1 =
-
-* possible fix for API key validation failing
-* added backup and restore for images that are processed with shortpixel
-* optimize now feature on Media Library
-
-= 1.0.6 =
-
-* bulk processing runs in background now.
-
-= 1.0.5 =
-
-* extra check for the converted images to be safely copied from ShortPixel
-
-= 1.0.4 =
-
-* corrections and additions to readme.txt and wp-shortpixel.php
-
-= 1.0.3 =
-
-* minor bug fixes
-
-= 1.0.2 =
-
-* Updated Bulk editing to run in background
-* Updated default options
-* Added notifications on activation
-
-= 1.0 =
-
-* First working version
-

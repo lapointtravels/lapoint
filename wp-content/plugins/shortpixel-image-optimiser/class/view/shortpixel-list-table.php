@@ -175,12 +175,20 @@ class ShortPixelListTable extends WP_List_Table {
         // If no order, default to asc
         $order = ( ! empty($_GET['order'] ) ) ? $_GET['order'] : 'desc';
         
-        $this->items = $this->spMetaDao->getPaginatedMetas($this->hasNextGen, $perPage, $currentPage, $orderby, $order);
+        $this->items = $this->spMetaDao->getPaginatedMetas($this->hasNextGen, $this->getFilter(), $perPage, $currentPage, $orderby, $order);
         return $this->items;
     }    
     
+    protected function getFilter() {
+        $filter = array();
+        if(isset($_GET["s"]) && strlen($_GET["s"])) {
+            $filter['path'] = (object)array("operator" => "like", "value" =>"'%" . esc_sql($_GET["s"]) . "%'");
+        }
+        return $filter;
+    }
+    
     public function record_count() {
-        return $this->spMetaDao->getCustomMetaCount();
+        return $this->spMetaDao->getCustomMetaCount($this->getFilter());
     }
     
     public function action_optimize_image( $id ) {

@@ -1,5 +1,5 @@
 <?php
-function process_error_backtrace($errno, $errstr, $errfile, $errline, $errcontext) {
+function shortpixel_process_error_backtrace($errno, $errstr, $errfile, $errline, $errcontext) {
     if(!(error_reporting() & $errno))
         return;
     switch($errno) {
@@ -43,5 +43,5 @@ function process_error_backtrace($errno, $errstr, $errfile, $errline, $errcontex
 }
 
 if(WP_DEBUG === true) {
-    set_error_handler('process_error_backtrace');
+    set_error_handler('shortpixel_process_error_backtrace');
 }
