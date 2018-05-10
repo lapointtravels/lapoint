@@ -27,7 +27,7 @@ jQuery(document).ready(function(){
         }
 
         jQuery('#posts-filter').parent().load(ajx+url_glue+'lang='+lang + ' #posts-filter', {}, function(resp){
-            strt = resp.indexOf('<span id="icl_subsubsub">');
+            strt = resp.indexOf('<span id="icl_subsubsub" class="icl_subsubsub">');
             endd = resp.indexOf('</span>\'', strt);
             lsubsub = resp.substr(strt,endd-strt+7);
             jQuery('table.widefat').before(lsubsub);
@@ -125,6 +125,7 @@ var iclTagLangSelectBar = {
                 jQuery.ajax({
                     type:'GET',
                     url : location.href.replace(/&trid=([0-9]+)/, ''),
+                    data: '', // wpmlcore-5061
                     success: function(msg){
                         jQuery('#icl_tax_adding_notice').fadeOut();
                         jQuery('#icl_tax_'+taxonomy+'_lang .inside').html(jQuery(msg).find('#icl_tax_'+taxonomy+'_lang .inside').html());
