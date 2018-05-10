@@ -1,15 +1,14 @@
-<?php do_action('admin_menu_editor-display_header'); ?>
+<?php
+/**
+ * @var string $tabUrl Fully qualified URL of the "Plugins" tab.
+ */
+
+do_action('admin_menu_editor-display_header');
+?>
 
 <div id="ame-plugin-visibility-editor">
 		<form method="post" data-bind="submit: saveChanges" class="ame-pv-save-form" action="<?php
-		echo esc_attr(add_query_arg(
-			array(
-				'page' => 'menu_editor',
-				'noheader' => '1',
-				'sub_section' => amePluginVisibility::TAB_SLUG,
-			),
-			admin_url('options-general.php')
-		));
+		echo esc_attr(add_query_arg(array('noheader' => '1'), $tabUrl));
 		?>">
 
 			<?php submit_button('Save Changes', 'primary', 'submit', false); ?>
@@ -41,7 +40,8 @@
 				css: {
 					'active': isActive,
 					'inactive': !isActive
-				}
+				},
+				visible: !isBeingEdited()
 			">
 
 				<!--
@@ -64,9 +64,68 @@
 					<label data-bind="attr: { 'for': 'ame-plugin-visible-' + $index() }">
 						<strong data-bind="text: name"></strong>
 					</label>
+					<div class="row-actions">
+						<span class="edit">
+							<a href="#" title="Edit plugin name and description. This is a cosmetic change - the actual plugin files are not affected."
+							   data-bind="click: openInlineEditor.bind($data)">Edit</a>
+						</span>
+					</div>
 				</td>
 
 				<td><p data-bind="text: description"></p></td>
+			</tr>
+			<tr class="inline-edit-row" data-bind="if: isBeingEdited">
+				<td class="colspanchange" colspan="3">
+					<fieldset class="ame-pv-inline-edit-left">
+						<div class="inline-edit-col">
+							<label>
+								<span class="title">Name</span>
+								<input type="text" data-bind="value: editableName" class="ame-pv-custom-name">
+							</label>
+						</div>
+					</fieldset>
+					<fieldset class="ame-pv-inline-edit-right">
+						<div class="inline-edit-col">
+							<label>
+								<span class="title">Description</span>
+								<textarea name="plugin-description" cols="30" rows="5"
+								          class="ame-pv-custom-description"
+								          data-bind="value: editableDescription"></textarea>
+							</label>
+						</div>
+					</fieldset>
+
+					<p class="submit">
+						<?php
+						submit_button(
+							'Cancel',
+							'secondary cancel alignleft',
+							'pv-cancel',
+							false,
+							array(
+								'data-bind' => 'click: cancelEdit.bind($data)'
+							)
+						);
+						?>
+
+						<a class="alignleft ame-pv-inline-reset" href="#"
+						   title="Reset name and description to default values"
+						   data-bind="click: resetNameAndDescription.bind($data)">Reset to default</a>
+
+						<?php
+						submit_button(
+							'Update',
+							'primary save alignright',
+							'pv-update',
+							false,
+							array(
+								'data-bind' => 'click: confirmEdit.bind($data)'
+							)
+						);
+						?>
+						<br class="clear">
+					</p>
+				</td>
 			</tr>
 			</tbody>
 

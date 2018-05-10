@@ -7,6 +7,8 @@ abstract class ameModule {
 	protected $moduleId = '';
 	protected $moduleDir = '';
 
+	protected $settingsFormAction = '';
+
 	/**
 	 * @var WPMenuEditor
 	 */
@@ -21,6 +23,10 @@ abstract class ameModule {
 			$this->moduleId = basename($this->moduleDir);
 		}
 
+		if ( !$this->isEnabledForRequest() ) {
+			return;
+		}
+
 		add_action('admin_menu_editor-register_scripts', array($this, 'registerScripts'));
 
 		//Register the module tab.
@@ -30,7 +36,22 @@ abstract class ameModule {
 
 			add_action('admin_menu_editor-enqueue_scripts-' . $this->tabSlug, array($this, 'enqueueTabScripts'));
 			add_action('admin_menu_editor-enqueue_styles-' . $this->tabSlug, array($this, 'enqueueTabStyles'));
+
+			//Optionally, handle settings form submission.
+			if ( $this->settingsFormAction !== '' ) {
+				add_action('admin_menu_editor-header', array($this, '_processAction'), 10, 2);
+			}
 		}
+	}
+
+	/**
+	 * Does this module need to do anything for the current request?
+	 *
+	 * For example, some modules work in the normal dashboard but not in the network admin.
+	 * Other modules don't need to run during AJAX requests or when WP is running Cron jobs.
+	 */
+	protected function isEnabledForRequest() {
+		return true;
 	}
 
 	public function addTab($tabs) {
@@ -50,13 +71,10 @@ abstract class ameModule {
 
 	protected function getTabUrl($queryParameters = array()) {
 		$queryParameters = array_merge(
-			array(
-				'page' => 'menu_editor',
-				'sub_section' => $this->tabSlug
-			),
+			array('sub_section' => $this->tabSlug),
 			$queryParameters
 		);
-		return add_query_arg($queryParameters, admin_url('options-general.php'));
+		return $this->menuEditor->get_plugin_page_url($queryParameters);
 	}
 
 	protected function outputMainTemplate() {
@@ -69,11 +87,21 @@ abstract class ameModule {
 			/** @noinspection PhpUnusedLocalVariableInspection Used in some templates. */
 			$moduleTabUrl = $this->getTabUrl();
 
+			$templateVariables = $this->getTemplateVariables($name);
+			if ( !empty($templateVariables) ) {
+				extract($templateVariables, EXTR_SKIP);
+			}
+
 			/** @noinspection PhpIncludeInspection */
 			require $templateFile;
 			return true;
 		}
 		return false;
+	}
+
+	protected function getTemplateVariables(/** @noinspection PhpUnusedParameterInspection */ $templateName) {
+		//Override this method to pass variables to a template.
+		return array();
 	}
 
 	public function registerScripts() {
@@ -86,5 +114,37 @@ abstract class ameModule {
 
 	public function enqueueTabStyles() {
 		//Override this method to add stylesheets to the $this->tabSlug tab.
+	}
+
+	/**
+	 * @access private
+	 * @param string $action
+	 * @param array $post
+	 */
+	public function _processAction($action, $post = array()) {
+		if ( $action === $this->settingsFormAction ) {
+			check_admin_referer($action);
+			$this->handleSettingsForm($post);
+		}
+	}
+
+	public function handleSettingsForm($post = array()) {
+		//Override this method to process a form submitted from the module's tab.
+	}
+
+	protected function getScopedOption($name, $defaultValue = null) {
+		if ( $this->menuEditor->get_plugin_option('menu_config_scope') === 'site' ) {
+			return get_option($name, $defaultValue);
+		} else {
+			return get_site_option($name, $defaultValue);
+		}
+	}
+
+	protected function setScopedOption($name, $value, $autoload = null) {
+		if ( $this->menuEditor->get_plugin_option('menu_config_scope') === 'site' ) {
+			update_option($name, $value, $autoload);
+		} else {
+			WPMenuEditor::atomic_update_site_option($name, $value);
+		}
 	}
 }

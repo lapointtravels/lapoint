@@ -2,7 +2,7 @@
 /*
 Plugin Name: Cookie Notice
 Description: Cookie Notice allows you to elegantly inform users that your site uses cookies and to comply with the EU cookie law regulations.
-Version: 1.2.41
+Version: 1.2.42
 Author: dFactory
 Author URI: http://www.dfactory.eu/
 Plugin URI: http://www.dfactory.eu/plugins/cookie-notice/
@@ -12,7 +12,7 @@ Text Domain: cookie-notice
 Domain Path: /languages
 
 Cookie Notice
-Copyright (C) 2013-2017, Digital Factory - info@digitalfactory.pl
+Copyright (C) 2013-2018, Digital Factory - info@digitalfactory.pl
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
@@ -34,7 +34,7 @@ include_once( plugin_dir_path( __FILE__ ) . 'includes/upgrade.php' );
  * Cookie Notice class.
  *
  * @class Cookie_Notice
- * @version	1.2.41
+ * @version	1.2.42
  */
 class Cookie_Notice {
 
@@ -71,7 +71,7 @@ class Cookie_Notice {
 			'translate'						=> true,
 			'deactivation_delete'			=> 'no'
 		),
-		'version'							=> '1.2.41'
+		'version'							=> '1.2.42'
 	);
 	private $positions 			= array();
 	private $styles 			= array();
@@ -105,6 +105,7 @@ class Cookie_Notice {
 		);
 
 		// actions
+		add_action( 'init', array( $this, 'register_shortcode' ) );
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 		add_action( 'admin_menu', array( $this, 'admin_menu_options' ) );
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
@@ -156,7 +157,7 @@ class Cookie_Notice {
 			'3months'	 		=> array( __( '3 months', 'cookie-notice' ), 7862400 ),
 			'6months'	 		=> array( __( '6 months', 'cookie-notice' ), 15811200 ),
 			'year'		 		=> array( __( '1 year', 'cookie-notice' ), 31536000 ),
-			'infinity'	 		=> array( __( 'infinity', 'cookie-notice' ), PHP_INT_MAX ) 
+			'infinity'	 		=> array( __( 'infinity', 'cookie-notice' ), 2147483647 )
 		);
 
 		$this->effects = array(
@@ -192,6 +193,44 @@ class Cookie_Notice {
 			icl_register_string( 'Cookie Notice', 'Read more text', $this->options['general']['see_more_opt']['text'] );
 			icl_register_string( 'Cookie Notice', 'Custom link', $this->options['general']['see_more_opt']['link'] );
 		}
+	}
+
+	/**
+	 * Register shortcode.
+	 *
+	 * @return void
+	 */
+	public function register_shortcode() {
+		add_shortcode( 'cookies_accepted', array( $this, 'cookies_shortcode' ) );
+	}
+
+	/**
+	 * Register cookies accepted shortcode.
+	 *
+	 * @param array $args
+	 * @param mixed $content
+	 * @return mixed
+	 */
+	public function cookies_shortcode( $args, $content ) {
+		if ( $this->cookies_accepted() ) {
+			
+			$allowed_html = apply_filters( 'cn_refuse_code_allowed_html', array_merge( wp_kses_allowed_html( 'post' ), array( 
+				'script' => array(
+					'type'		 => array(),
+					'src'		 => array(),
+					'charset'	 => array(),
+					'async'		 => array()
+				),
+				'noscript' => array()
+			) ) );
+			
+			$scripts = html_entity_decode( trim( wp_kses( $content, $allowed_html ) ) );
+
+			if ( ! empty( $scripts ) )
+				return $scripts;
+		}
+
+		return '';
 	}
 
 	/**
@@ -903,9 +942,8 @@ class Cookie_Notice {
 		
 		$scripts = apply_filters( 'cn_refuse_code_scripts_html', html_entity_decode( trim( wp_kses( $this->options['general']['refuse_code'], $allowed_html ) ) ) );
 		
-		if ( $this->cookies_accepted() && ! empty( $scripts ) ) {
+		if ( $this->cookies_accepted() && ! empty( $scripts ) )
 			echo $scripts;
-		}
 	}
 	
 }
@@ -918,3 +956,4 @@ class Cookie_Notice {
 function cn_cookies_accepted() {
 	return (bool) Cookie_Notice::cookies_accepted();
 }
+?>

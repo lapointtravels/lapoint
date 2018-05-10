@@ -2,12 +2,61 @@ jQuery(document).ready(function($) {
 
 	//Autofill the token and id
 	var hash = window.location.hash,
-        token = hash.substring(14),
-        id = token.split('.')[0];
-    //If there's a hash then autofill the token and id
-    if(hash){
-        $('#sbi_config').append('<div id="sbi_config_info"><p><b>Access Token: </b><input type="text" size=58 readonly value="'+token+'" onclick="this.focus();this.select()" title="To copy, click the field then press Ctrl + C (PC) or Cmd + C (Mac)."></p><p><b>User ID: </b><input type="text" size=12 readonly value="'+id+'" onclick="this.focus();this.select()" title="To copy, click the field then press Ctrl + C (PC) or Cmd + C (Mac)."></p><p><i class="fa fa-clipboard" aria-hidden="true"></i>&nbsp; <b><span style="color: red;">Important:</span> Copy and paste</b> these into the fields below and click <b>"Save Changes"</b>.</p></div>');
-    }
+		token = hash.substring(14),
+		id = token.split('.')[0];
+
+	function sbSaveToken(token) {
+		jQuery.ajax({
+			url: sbiA.ajax_url,
+			type: 'post',
+			data: {
+				action: 'sbi_auto_save_tokens',
+				access_token: token,
+				just_tokens: true
+			},
+			success: function (data) {
+				jQuery('.sb_get_token').append('<span class="sbi-success"><i class="fa fa-check-circle"></i> saved</span>');
+				jQuery('#sb_instagram_at').after('<span class="sbi-success"><i class="fa fa-check-circle"></i> saved</span>');
+			}
+		});
+	}
+	//If there's a hash then autofill the token and id
+	if(hash && !jQuery('#sbi_just_saved').length){
+		//$('#sbi_config').append('<div id="sbi_config_info"><p><b>Access Token: </b><input type="text" size=58 readonly value="'+token+'" onclick="this.focus();this.select()" title="To copy, click the field then press Ctrl + C (PC) or Cmd + C (Mac)."></p><p><b>User ID: </b><input type="text" size=12 readonly value="'+id+'" onclick="this.focus();this.select()" title="To copy, click the field then press Ctrl + C (PC) or Cmd + C (Mac)."></p><p><i class="fa fa-clipboard" aria-hidden="true"></i>&nbsp; <b><span style="color: red;">Important:</span> Copy and paste</b> these into the fields below and click <b>"Save Changes"</b>.</p></div>');
+		$('#sbi_config').append('<div id="sbi_config_info"><p class="sb_get_token"><b>Access Token: </b><input type="text" size=58 readonly value="'+token+'" onclick="this.focus();this.select()" title="To copy, click the field then press Ctrl + C (PC) or Cmd + C (Mac)."></p><p><b>User ID: </b><input type="text" size=12 readonly value="'+id+'" onclick="this.focus();this.select()" title="To copy, click the field then press Ctrl + C (PC) or Cmd + C (Mac)."></p></div>');
+		if(jQuery('#sb_instagram_at').val() == '' && token.length > 40) {
+			jQuery('#sb_instagram_at').val(token);
+			sbSaveToken(token);
+		} else {
+			jQuery('.sb_get_token').append('<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="Use This Token"></p>');
+		}
+
+	}
+
+	$('.sb_get_token #submit').click(function(event) {
+		event.preventDefault();
+		$(this).closest('.submit').fadeOut();
+		jQuery('#sb_instagram_at').val(token);
+		sbSaveToken(token);
+	});
+
+    //clear backup caches
+    jQuery('#sbi_clear_backups').click(function(event) {
+        jQuery('.sbi-success').remove();
+        event.preventDefault();
+        jQuery.ajax({
+            url: sbiA.ajax_url,
+            type: 'post',
+            data: {
+                action: 'sbi_clear_backups',
+                access_token: token,
+                just_tokens: true
+            },
+            success: function (data) {
+                jQuery('#sbi_clear_backups').after('<span class="sbi-success"><i class="fa fa-check-circle"></i></span>');
+            }
+        });
+    });
 	
 	//Tooltips
 	jQuery('#sbi_admin .sbi_tooltip_link').click(function(){
@@ -39,7 +88,8 @@ jQuery(document).ready(function($) {
 	jQuery("#sb_instagram_user_id").change(function() {
 
 		var sbi_user_id = jQuery('#sb_instagram_user_id').val(),
-			$sbi_user_id_error = $(this).closest('td').find('.sbi_user_id_error');
+			$sbi_user_id_error = $(this).closest('td').find('.sbi_user_id_error'),
+			$sbi_other_user_error = $(this).closest('td').find('.sbi_other_user_error');
 
 		if (sbi_user_id.match(/[^0-9, _.-]/)) {
   			$sbi_user_id_error.fadeIn();
@@ -47,7 +97,21 @@ jQuery(document).ready(function($) {
   			$sbi_user_id_error.fadeOut();
   		}
 
+  		//Check whether an ID from another account is being used
+  		sbi_check_other_user_id(sbi_user_id, $sbi_other_user_error);
+
 	});
+	function sbi_check_other_user_id(sbi_user_id, $sbi_other_user_error){
+		if (jQuery('#sb_instagram_at').length && jQuery('#sb_instagram_at').val() !== '' && sbi_user_id.length) {
+            if(jQuery('#sb_instagram_at').val().indexOf(sbi_user_id) == -1 ){
+                $sbi_other_user_error.fadeIn();
+            } else {
+                $sbi_other_user_error.fadeOut();
+            }
+		}
+	}
+	//Check initially when settings load
+	sbi_check_other_user_id( jQuery('#sb_instagram_user_id').val(), $('td').find('.sbi_other_user_error') );
 
 	//Mobile width
 	var sb_instagram_feed_width = jQuery('#sbi_admin #sb_instagram_width').val(),
@@ -85,5 +149,15 @@ jQuery(document).ready(function($) {
       }
     }
   });
+
+	//Support tab show video
+	jQuery('#sbi-play-support-video').on('click', function(e){
+		e.preventDefault();
+		jQuery('#sbi-support-video').show().attr('src', jQuery('#sbi-support-video').attr('src')+'&amp;autoplay=1' );
+	});
+
+	jQuery('#sbi_admin .sbi-show-pro').on('click', function(){
+		jQuery(this).parent().next('.sbi-pro-options').toggle();
+	});
 
 });
