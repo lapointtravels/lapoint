@@ -490,6 +490,9 @@ iframe {
 		text-align: left;
 		margin-bottom: $main_margin;
 	}
+	.widget-wrapper {
+		padding: 0;
+	}
 	.footer-right-col {
 		.widget {
 			margin-bottom: 20px;
@@ -761,6 +764,10 @@ iframe {
 			margin-top: $kmc_default_vertical_margin_mobile;
 			margin-bottom: $kmc_default_vertical_margin_mobile;
 		}
+
+		&.kmc-component-headers {
+			padding-top: 0;
+		}
 	}
 
 	@include sm-media-inc () {
@@ -778,6 +785,19 @@ iframe {
 		padding-top: ($main_margin_top - $main_margin);
 	}
 	*/
+	.kmc-component-kmc_content {
+		iframe {
+			width: 100%;
+			height: 600px;
+			min-height: 600px;
+			max-height: 600px;
+			@include xxs-media-inc () {
+				height: 420px;
+				min-height: 420px;
+				max-height: 420px;
+			}
+		}
+	}
 }
 
 // ****************************** Info Box ******************************

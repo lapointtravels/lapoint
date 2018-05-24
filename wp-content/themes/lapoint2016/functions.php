@@ -860,7 +860,7 @@ class Lapoint_Framework {
 			'description' => __('Appears at the bottom of the page', 'lapoint'),
 			'before_title' => '<h3>',
 			'after_title' => '</h3>',
-			'before_widget' => '<div id="%1$s" class="widget %2$s col-sm-4 col-md-4">',
+			'before_widget' => '<div id="%1$s" class="widget %2$s col-sm-6 col-md-6">',
 			'after_widget' =>'</div>')
 		);
 		register_sidebar(array(
