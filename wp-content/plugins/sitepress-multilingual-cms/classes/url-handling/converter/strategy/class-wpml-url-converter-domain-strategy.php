@@ -59,12 +59,22 @@ class WPML_URL_Converter_Domain_Strategy extends WPML_URL_Converter_Abstract_Str
 			: trailingslashit( $original_source_url );
 
 		$converted_url = preg_replace(
-			'#^(https?://)?([^\/]*)\/?#',
+			'#^(https?://)?([^?\/]*)\/?#',
 			'${1}' . $base_url,
 			$original_source_url
 		);
 
 		return $this->slash_helper->maybe_user_trailingslashit( $converted_url, 'untrailingslashit' );
+	}
+
+	/**
+	 * @param string $url
+	 * @param string $language
+	 *
+	 * @return string
+	 */
+	public function get_home_url_relative( $url, $language ) {
+		return $url;
 	}
 
 	/**

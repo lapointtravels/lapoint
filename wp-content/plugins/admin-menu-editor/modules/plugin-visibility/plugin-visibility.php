@@ -13,12 +13,14 @@ class amePluginVisibility {
 	private $menuEditor;
 	private $settings = array();
 
+	private $dismissNoticeAction;
+
 	public function __construct($menuEditor) {
 		$this->menuEditor = $menuEditor;
 		self::$lastInstance = $this;
 
 		//Remove "hidden" plugins from the list on the "Plugins -> Installed Plugins" page.
-		add_filter('all_plugins', array($this, 'filterPluginList'));
+		add_filter('all_plugins', array($this, 'filterPluginList'), 15);
 
 		//It's not possible to completely prevent a user from (de)activating "hidden" plugins because plugin API
 		//functions like activate_plugin() and deactivate_plugins() don't provide a way to abort (de)activation.
@@ -36,10 +38,11 @@ class amePluginVisibility {
 
 		//Display a usage hint in our tab.
 		add_action('admin_notices', array($this, 'displayUsageNotice'));
-		$dismissNoticeAction = new ameAjaxAction('ws_ame_dismiss_pv_usage_notice');
-		$dismissNoticeAction
-			->setAuthCallback(array($this->menuEditor, 'current_user_can_edit_menu'))
-			->setHandler(array($this, 'ajaxDismissUsageNotice'));
+		$this->dismissNoticeAction = ajaw_v1_CreateAction('ws_ame_dismiss_pv_usage_notice')
+			->handler(array($this, 'ajaxDismissUsageNotice'))
+			->permissionCallback(array($this->menuEditor, 'current_user_can_edit_menu'))
+			->method('post')
+			->register();
 	}
 
 	public function getSettings() {
@@ -187,12 +190,29 @@ class amePluginVisibility {
 	 */
 	public function filterPluginList($plugins) {
 		$user = wp_get_current_user();
+		$settings = $this->getSettings();
 
-		//Remove all hidden plugins.
+		//Don't try to hide plugins outside the WP admin. It prevents WP-CLI from seeing all installed plugins.
+		if ( !$user->exists() || !is_admin() ) {
+			return $plugins;
+		}
+
 		$pluginFileNames = array_keys($plugins);
 		foreach($pluginFileNames as $fileName) {
+			//Remove all hidden plugins.
 			if ( !$this->isPluginVisible($fileName, $user) ) {
 				unset($plugins[$fileName]);
+				continue;
+			}
+
+			//Set custom names and descriptions.
+			$customName = ameUtils::get($settings, array('plugins', $fileName, 'customName'), '');
+			$customDescription = ameUtils::get($settings, array('plugins', $fileName, 'customDescription'), '');
+			if ( $customName !== '' ) {
+				$plugins[$fileName]['Name'] = $customName;
+			}
+			if ( $customDescription !== '' ) {
+				$plugins[$fileName]['Description'] = $customDescription;
 			}
 		}
 
@@ -273,6 +293,9 @@ class amePluginVisibility {
 	}
 
 	public function displayUi() {
+		/** @noinspection PhpUnusedLocalVariableInspection Used in the "action" attribute of the settings form. */
+		$tabUrl = $this->getTabUrl();
+
 		require dirname(__FILE__) . '/plugin-visibility-template.php';
 	}
 
@@ -284,7 +307,7 @@ class amePluginVisibility {
 			$this->settings = json_decode($post['settings'], true);
 			$this->saveSettings();
 
-			$params = array('updated' => 1);
+			$params = array('message' => 1);
 
 			//Re-select the same actor.
 			if ( !empty($post['selected_actor']) ) {
@@ -298,20 +321,20 @@ class amePluginVisibility {
 
 	private function getTabUrl($queryParameters = array()) {
 		$queryParameters = array_merge(
-			array(
-				'page' => 'menu_editor',
-				'sub_section' => self::TAB_SLUG
-			),
+			array('sub_section' => self::TAB_SLUG),
 			$queryParameters
 		);
-		return add_query_arg($queryParameters, admin_url('options-general.php'));
+		return $this->menuEditor->get_plugin_page_url($queryParameters);
 	}
 
 	public function enqueueScripts() {
 		wp_register_auto_versioned_script(
 			'ame-plugin-visibility',
 			plugins_url('plugin-visibility.js', __FILE__),
-			array('ame-lodash', 'knockout', 'ame-actor-selector', 'jquery-json',)
+			array(
+				'ame-lodash', 'knockout', 'ame-actor-selector', 'jquery-json',
+				$this->dismissNoticeAction->getScriptHandle(),
+			)
 		);
 		wp_enqueue_script('ame-plugin-visibility');
 
@@ -348,6 +371,9 @@ class amePluginVisibility {
 				'name' => $header['Name'],
 				'description' => isset($header['Description']) ? $header['Description'] : '',
 				'isActive' => $isActive || $isActiveForNetwork,
+
+				'customName' => '',
+				'customDescription' => '',
 			);
 		}
 
@@ -364,9 +390,6 @@ class amePluginVisibility {
 			'canManagePlugins' => $canManagePlugins,
 			'isMultisite' => is_multisite(),
 			'isProVersion' => $this->menuEditor->is_pro_version(),
-
-			'dismissNoticeNonce' => wp_create_nonce('ws_ame_dismiss_pv_usage_notice'),
-			'adminAjaxUrl' => admin_url('admin-ajax.php'),
 		);
 	}
 

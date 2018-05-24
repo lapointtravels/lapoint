@@ -2,39 +2,42 @@
  * Short Pixel WordPress Plugin javascript
  */
 
-jQuery(document).ready(function($){
-    //are we on media list?
-    if( jQuery('table.wp-list-table.media').length > 0) {
-        //register a bulk action
-        jQuery('select[name^="action"] option:last-child').before('<option value="short-pixel-bulk">' + _spTr.optimizeWithSP + '</option>');
-    }    
-    
-    ShortPixel.setOptions(ShortPixelConstants);
-
-    if(jQuery('#backup-folder-size').length) {
-        jQuery('#backup-folder-size').html(ShortPixel.getBackupSize());
-    }
-    
-    if( ShortPixel.MEDIA_ALERT == 'todo' && jQuery('div.media-frame.mode-grid').length > 0) {
-        //the media table is not in the list mode, alert the user
-        jQuery('div.media-frame.mode-grid').before('<div id="short-pixel-media-alert" class="notice notice-warning"><p>' 
-                + _spTr.changeMLToListMode.format('<a href="upload.php?mode=list" class="view-list"><span class="screen-reader-text">',' </span>',
-                                                  '</a><a class="alignright" href="javascript:ShortPixel.dismissMediaAlert();">','</a>') 
-                + '</p></div>');
-    }
-    //
-    jQuery(window).on('beforeunload', function(){
-        if(ShortPixel.bulkProcessor == true) {        
-            clearBulkProcessor();
-        }
-    });
-    //check if  bulk processing
-    checkQuotaExceededAlert();
-    checkBulkProgress();
-});
+jQuery(document).ready(function($){ShortPixel.init();});
 
 
 var ShortPixel = function() {
+
+    function init() {
+        if (typeof ShortPixel.API_KEY !== 'undefined') return; //was initialized by the 10 sec. setTimeout, rare but who knows, might happen on very slow connections...
+        //are we on media list?
+        if( jQuery('table.wp-list-table.media').length > 0) {
+            //register a bulk action
+            jQuery('select[name^="action"] option:last-child').before('<option value="short-pixel-bulk">' + _spTr.optimizeWithSP + '</option>');
+        }
+
+        ShortPixel.setOptions(ShortPixelConstants);
+
+        if(jQuery('#backup-folder-size').length) {
+            jQuery('#backup-folder-size').html(ShortPixel.getBackupSize());
+        }
+
+        if( ShortPixel.MEDIA_ALERT == 'todo' && jQuery('div.media-frame.mode-grid').length > 0) {
+            //the media table is not in the list mode, alert the user
+            jQuery('div.media-frame.mode-grid').before('<div id="short-pixel-media-alert" class="notice notice-warning"><p>'
+                + _spTr.changeMLToListMode.format('<a href="upload.php?mode=list" class="view-list"><span class="screen-reader-text">',' </span>',
+                    '</a><a class="alignright" href="javascript:ShortPixel.dismissMediaAlert();">','</a>')
+                + '</p></div>');
+        }
+        //
+        jQuery(window).on('beforeunload', function(){
+            if(ShortPixel.bulkProcessor == true) {
+                clearBulkProcessor();
+            }
+        });
+        //check if  bulk processing
+        checkQuotaExceededAlert();
+        checkBulkProgress();
+    }
 
     function setOptions(options) {
         for(var opt in options) {
@@ -42,8 +45,16 @@ var ShortPixel = function() {
         }
     }
     
+    function isEmailValid(email) {
+        return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{1,63})+$/.test(email);
+    }
+    
     function updateSignupEmail() {
-        jQuery('#request_key').attr('href', jQuery('#request_key').attr('href').split('?')[0] + '?pluginemail=' + jQuery('#pluginemail').val());
+        var email = jQuery('#pluginemail').val();
+        if(ShortPixel.isEmailValid(email)) {
+            jQuery('#request_key').removeClass('disabled');
+        }
+        jQuery('#request_key').attr('href', jQuery('#request_key').attr('href').split('?')[0] + '?pluginemail=' + email);
     }
     
     function validateKey(){
@@ -79,6 +90,8 @@ var ShortPixel = function() {
         jQuery("#resize").change(function(){ enableResize(this); });
         jQuery(".resize-sizes").blur(function(e){
             var elm = jQuery(this);
+            if(ShortPixel.resizeSizesAlert == elm.val()) return;
+            ShortPixel.resizeSizesAlert = elm.val();
             var minSize = jQuery("#min-" + elm.attr('name')).val();
             if(elm.val() < Math.min(minSize, 1024)) {
                 if(minSize > 1024) {
@@ -87,13 +100,12 @@ var ShortPixel = function() {
                     alert( _spTr.pleaseDoNotSetLesserSize.format(elm.attr('name'), elm.attr('name'), minSize) );
                 }
                 e.preventDefault();
-                elm.val(this.defaultValue);
+                //elm.val(this.defaultValue);
                 elm.focus();
             }
             else {
                 this.defaultValue = elm.val();
             }
-            
         });
         /*
         jQuery("#width").blur(function(e){
@@ -103,6 +115,14 @@ var ShortPixel = function() {
             jQuery(this).val(Math.max(minHeight, parseInt(jQuery(this).val())));
         });
         */
+        jQuery('.shortpixel-confirm').click(function(event){
+            var choice = confirm(event.target.getAttribute('data-confirm'));
+            if (!choice) {
+                event.preventDefault();
+                return false;
+            }
+            return true;
+        });
     }
     
     function setupAdvancedTab() {
@@ -157,6 +177,13 @@ var ShortPixel = function() {
         });
     }
     
+    function checkQuota() {
+        var data = { action  : 'shortpixel_check_quota'};
+        jQuery.get(ShortPixel.AJAX_URL, data, function() {
+            console.log("quota refreshed");
+        });
+    }
+    
     function onBulkThumbsCheck(check) {
         if(check.checked) {
             jQuery("#with-thumbs").css('display', 'inherit');
@@ -189,25 +216,33 @@ var ShortPixel = function() {
         });
     }   
     
-    function successActions(id, type, thumbsCount, thumbsTotal, backupEnabled) {
+    function successActions(id, type, thumbsCount, thumbsTotal, backupEnabled, fileName) {
         if(backupEnabled == 1) {
             
-            var otherType;
-            if(type.length == 0) {
-                otherType = ShortPixel.DEFAULT_COMPRESSION == 1 ? 'glossy' : ShortPixel.DEFAULT_COMPRESSION == 2 ? 'lossless' : 'lossy';
-            }
-            else if(ShortPixel.DEFAULT_COMPRESSION == 0 || ShortPixel.DEFAULT_COMPRESSION == 2) {
-                otherType = (type == 'lossless' ? 'glossy' : 'lossless');
-            }
-            else otherType = (type == 'lossy' ? 'lossless' : 'lossy');
+            var successActions = jQuery('.sp-column-actions-template').clone();
 
+            if(!successActions.length) return false;           
             
-            return '<div class="sp-column-actions">' 
-             + (thumbsTotal > thumbsCount ? "<a class='button button-smaller button-primary' href=\"javascript:optimizeThumbs(" + id + ");\">" 
-                                            + _spTr.optXThumbs.format(thumbsTotal - thumbsCount) + "</a>" : "")
-             + (otherType.length ? "<a class='button button-smaller' href=\"javascript:reoptimize(" + id + ", '" + otherType + "');\">" + _spTr.reOptimizeAs.format(otherType) + "</a>" : "")
-             + "<a class='button button-smaller' href=\"admin.php?action=shortpixel_restore_backup&attachment_ID=" + id + ")\">" + _spTr.restoreBackup + "</a>"
-             + "</div>";
+            var otherTypes;
+            if(type.length == 0) {
+                otherTypes = ['lossy', 'lossless'];
+            } else {
+                otherTypes = ['lossy','glossy','lossless'].filter(function(el) {return !(el == type);});
+            }        
+            
+            successActions.html(successActions.html().replace(/__SP_ID__/g, id));
+            if(fileName.substr(fileName.lastIndexOf('.') + 1).toLowerCase() == 'pdf') {
+                jQuery('.sp-action-compare', successActions).remove();
+            }
+            if(thumbsCount == 0 && thumbsTotal > 0) {
+                successActions.html(successActions.html().replace('__SP_THUMBS_TOTAL__', thumbsTotal));
+            } else {
+                jQuery('.sp-action-optimize-thumbs', successActions).remove();
+                jQuery('.sp-dropbtn', successActions).removeClass('button-primary');
+            }
+            successActions.html(successActions.html().replace(/__SP_FIRST_TYPE__/g, otherTypes[0]));
+            successActions.html(successActions.html().replace(/__SP_SECOND_TYPE__/g, otherTypes[1]));
+            return successActions.html();
         } 
         return "";
     }
@@ -266,6 +301,85 @@ var ShortPixel = function() {
         });
         return browseResponse;
     }
+
+    function newApiKey(event) {
+        jQuery('#request_key').addClass('disabled');
+        jQuery('#pluginemail_spinner').addClass('is-active');
+        ShortPixel.updateSignupEmail();
+        if (ShortPixel.isEmailValid(jQuery('#pluginemail').val())) {
+            jQuery('#pluginemail-error').css('display', 'none');
+            var browseData = { 'action': 'shortpixel_new_api_key',
+                               'email': jQuery('#pluginemail').val()};
+            jQuery.ajax({
+                type: "POST",
+                async: false,
+                url: ShortPixel.AJAX_URL, 
+                data: browseData, 
+                success: function(response) {
+                    data = JSON.parse(response);
+                    if(data["Status"] == 'success') {
+                        event.preventDefault();
+                        window.location.reload();
+                    } else if(data["Status"] == 'invalid') {
+                        jQuery('#pluginemail-error').html('<b>' + data['Details'] + '</b>');
+                        jQuery('#pluginemail-error').css('display', '');
+                        jQuery('#pluginemail-info').css('display', 'none');
+                        event.preventDefault();
+                    } else {
+                    }
+                }
+            });
+            jQuery('#request_key').removeAttr('onclick');
+        } else {
+            jQuery('#pluginemail-error').css('display', '');
+            jQuery('#pluginemail-info').css('display', 'none');
+            event.preventDefault();
+        }
+        jQuery('#request_key').removeClass('disabled');
+        jQuery('#pluginemail_spinner').removeClass('is-active');
+    }
+    
+    function proposeUpgrade() {
+        //first open the popup window with the spinner
+        jQuery("#shortPixelProposeUpgrade .sp-modal-body").addClass('sptw-modal-spinner');
+        jQuery("#shortPixelProposeUpgrade .sp-modal-body").html("");
+        jQuery("#shortPixelProposeUpgradeShade").css("display", "block");
+        jQuery("#shortPixelProposeUpgrade").removeClass('shortpixel-hide');
+        //get proposal from server
+        var browseData = { 'action': 'shortpixel_propose_upgrade'};
+        jQuery.ajax({
+            type: "POST",
+            url: ShortPixel.AJAX_URL, 
+            data: browseData, 
+            success: function(response) {
+                jQuery("#shortPixelProposeUpgrade .sp-modal-body").removeClass('sptw-modal-spinner');
+                jQuery("#shortPixelProposeUpgrade .sp-modal-body").html(response);
+            }
+        });
+    }
+        
+    function closeProposeUpgrade() {
+        jQuery("#shortPixelProposeUpgradeShade").css("display", "none");
+        jQuery("#shortPixelProposeUpgrade").addClass('shortpixel-hide');
+        if(ShortPixel.toRefresh) {
+            ShortPixel.recheckQuota();
+        }
+    }
+    
+    function includeUnlisted() {
+    jQuery("#short-pixel-notice-unlisted").hide();
+    jQuery("#optimizeUnlisted").prop('checked', true);
+    var data = { action  : 'shortpixel_dismiss_notice',
+                 notice_id: 'unlisted',
+                 notice_data: 'true'};
+    jQuery.get(ShortPixel.AJAX_URL, data, function(response) {
+        data = JSON.parse(response);
+        if(data["Status"] == ShortPixel.STATUS_SUCCESS) {
+            console.log("dismissed");
+        }
+    });
+}
+
     
     function initFolderSelector() {
         jQuery(".select-folder-button").click(function(){
@@ -277,11 +391,11 @@ var ShortPixel = function() {
                 //onlyFolders: true
             });
         });
-        jQuery(".sp-folder-picker-popup input.select-folder-cancel").click(function(){
+        jQuery(".shortpixel-modal input.select-folder-cancel").click(function(){
             jQuery(".sp-folder-picker-shade").css("display", "none");
         });
-        jQuery(".sp-folder-picker-popup input.select-folder").click(function(){
-            var subPath = jQuery("UL.jqueryFileTree LI.directory.selected A").attr("rel");
+        jQuery(".shortpixel-modal input.select-folder").click(function(){
+            var subPath = jQuery("UL.jqueryFileTree LI.directory.selected A").attr("rel").trim();
             if(subPath) {
                 var fullPath = jQuery("#customFolderBase").val() + subPath;
                 if(fullPath.slice(-1) == '/') fullPath = fullPath.slice(0, -1);
@@ -345,6 +459,15 @@ var ShortPixel = function() {
         noticeTpl.after(notice);
         notice.css("display", "block");        
     }
+    
+    function confirmBulkAction(type, e) {
+        if(!confirm(_spTr['confirmBulk' + type])) {
+            e.stopPropagation();
+            e.preventDefault();
+            return false;
+        }
+        return true;
+    }
 
     function removeBulkMsg(me) {
         jQuery(me).parent().parent().remove();
@@ -357,9 +480,110 @@ var ShortPixel = function() {
     function recheckQuota() {
         window.location.href=window.location.href+(window.location.href.indexOf('?')>0?'&':'?')+'checkquota=1';
     }
+    
+    function openImageMenu(e) {
+            e.preventDefault();
+            //install (lazily) a window click event to close the menus
+            if(!this.menuCloseEvent) {
+                jQuery(window).click(function(e){
+                    if (!e.target.matches('.sp-dropbtn')) {
+                        jQuery('.sp-dropdown.sp-show').removeClass('sp-show');
+                    }
+                });
+                this.menuCloseEvent = true;
+            }
+            var shown = e.target.parentElement.classList.contains("sp-show");
+            jQuery('.sp-dropdown.sp-show').removeClass('sp-show');
+            if(!shown) e.target.parentElement.classList.add("sp-show");
+    }
+    
+    function loadComparer(id) {
+        this.comparerData.origUrl = false;
+        
+        if(this.comparerData.cssLoaded === false) {
+            jQuery('<link>')
+                .appendTo('head')
+                .attr({
+                    type: 'text/css', 
+                    rel: 'stylesheet',
+                    href: this.WP_PLUGIN_URL + '/res/css/twentytwenty.min.css'
+                });
+            this.comparerData.cssLoaded = 2;
+        }
+        if(this.comparerData.jsLoaded === false) {
+            jQuery.getScript(this.WP_PLUGIN_URL + '/res/js/jquery.twentytwenty.min.js', function(){
+                ShortPixel.comparerData.jsLoaded = 2;
+                if(ShortPixel.comparerData.origUrl.length > 0) {
+                    ShortPixel.displayComparerPopup(ShortPixel.comparerData.width, ShortPixel.comparerData.height, ShortPixel.comparerData.origUrl, ShortPixel.comparerData.optUrl);
+                }
+            });
+            this.comparerData.jsLoaded = 1;
+            jQuery(".sp-close-button").click(ShortPixel.closeComparerPopup);
+        }
+        if(this.comparerData.origUrl === false) {
+            jQuery.ajax({
+                type: "POST",
+                url: ShortPixel.AJAX_URL, 
+                data: { action : 'shortpixel_get_comparer_data', id : id }, 
+                success: function(response) {
+                    data = JSON.parse(response);
+                    jQuery.extend(ShortPixel.comparerData, data);
+                    if(ShortPixel.comparerData.jsLoaded == 2) {
+                        ShortPixel.displayComparerPopup(ShortPixel.comparerData.width, ShortPixel.comparerData.height, ShortPixel.comparerData.origUrl, ShortPixel.comparerData.optUrl);
+                    }
+                }
+            });
+            this.comparerData.origUrl = '';
+        }
+    }
+
+    function displayComparerPopup(width, height, imgOriginal, imgOptimized) {
+        //image sizes
+        var origWidth = width;
+        //depending on the sizes choose the right modal
+        var sideBySide = (height < 150 || width < 350);
+        var modal = jQuery(sideBySide ? '#spUploadCompareSideBySide' : '#spUploadCompare');
+        if(!sideBySide) {
+            jQuery("#spCompareSlider").html('<img class="spUploadCompareOriginal"/><img class="spUploadCompareOptimized"/>');
+        }
+        //calculate the modal size
+        width = Math.max(350, Math.min(800, (width < 350 ? (width + 25) * 2 : (height < 150 ? width + 25 : width))));
+        height = Math.max(150, (sideBySide ? (origWidth > 350 ? 2 * (height + 45) : height + 45) : height * width / origWidth));
+        //set modal sizes and display
+        jQuery(".sp-modal-body", modal).css("width", width);
+        jQuery(".shortpixel-slider", modal).css("width", width);
+        modal.css("width", width);
+        jQuery(".sp-modal-body", modal).css("height", height);
+        modal.css('display', 'block');
+        modal.parent().css('display', 'block');
+        if(!sideBySide) {
+            jQuery("#spCompareSlider").twentytwenty({slider_move: "mousemove"});
+        }
+        jQuery(document).on('keyup.sp_modal_active', ShortPixel.closeComparerPopup);
+        //change images srcs
+        var imgOpt = jQuery(".spUploadCompareOptimized", modal);
+        jQuery(".spUploadCompareOriginal", modal).attr("src", imgOriginal);
+        //these timeouts are for the slider - it needs a punch to work :)
+        setTimeout(function(){
+            jQuery(window).trigger('resize');
+        }, 1000);
+        imgOpt.load(function(){
+            jQuery(window).trigger('resize');
+        });
+        imgOpt.attr("src", imgOptimized);
+    }
+    
+    function closeComparerPopup(e) {
+        jQuery("#spUploadCompareSideBySide").parent().css("display", 'none');
+        jQuery("#spUploadCompareSideBySide").css("display", 'none');
+        jQuery("#spUploadCompare").css("display", 'none');
+        jQuery(document).unbind('keyup.sp_modal_active');
+    }
 
     return {
+        init                : init,
         setOptions          : setOptions,
+        isEmailValid        : isEmailValid,
         updateSignupEmail   : updateSignupEmail,
         validateKey         : validateKey,
         enableResize        : enableResize,
@@ -370,6 +594,7 @@ var ShortPixel = function() {
         adjustSettingsTabs  : adjustSettingsTabsHeight,
         onBulkThumbsCheck   : onBulkThumbsCheck,
         dismissMediaAlert   : dismissMediaAlert,
+        checkQuota          : checkQuota,
         percentDial         : percentDial,
         successMsg          : successMsg,
         successActions      : successActions,
@@ -378,18 +603,38 @@ var ShortPixel = function() {
         initFolderSelector  : initFolderSelector,
         browseContent       : browseContent,
         getBackupSize       : getBackupSize,
+        newApiKey           : newApiKey,
+        proposeUpgrade      : proposeUpgrade,
+        closeProposeUpgrade : closeProposeUpgrade,
+        includeUnlisted     : includeUnlisted,
         bulkShowLengthyMsg  : bulkShowLengthyMsg,
         bulkHideLengthyMsg  : bulkHideLengthyMsg,
         bulkShowMaintenanceMsg  : bulkShowMaintenanceMsg,
         bulkHideMaintenanceMsg  : bulkHideMaintenanceMsg,
         bulkShowError       : bulkShowError,
+        confirmBulkAction  : confirmBulkAction,
         removeBulkMsg       : removeBulkMsg,
         isCustomImageId     : isCustomImageId,
-        recheckQuota        : recheckQuota
+        recheckQuota        : recheckQuota,
+        openImageMenu       : openImageMenu,
+        menuCloseEvent      : false,
+        loadComparer        : loadComparer,
+        displayComparerPopup: displayComparerPopup,
+        closeComparerPopup  : closeComparerPopup,
+        comparerData        : {
+            cssLoaded   : false,
+            jsLoaded    : false,
+            origUrl     : false,
+            optUrl      : false,
+            width       : 0,
+            height      : 0
+        },
+        toRefresh       : false,
+        resizeSizesAlert: false
     }
 }();
 
-function showToolBarAlert($status, $message) {
+function showToolBarAlert($status, $message, id) {
     var robo = jQuery("li.shortpixel-toolbar-processing");
     switch($status) {
         case ShortPixel.STATUS_QUOTA_EXCEEDED:
@@ -400,19 +645,18 @@ function showToolBarAlert($status, $message) {
             }
             robo.addClass("shortpixel-alert");
             robo.addClass("shortpixel-quota-exceeded");
-            //jQuery("a", robo).attr("href", "http://shortpixel.com/login/" + ShortPixel.API_KEY);
             jQuery("a", robo).attr("href", "options-general.php?page=wp-shortpixel");
             //jQuery("a", robo).attr("target", "_blank");
             //jQuery("a div", robo).attr("title", "ShortPixel quota exceeded. Click to top-up");
             jQuery("a div", robo).attr("title", "ShortPixel quota exceeded. Click for details.");
             break;
         case ShortPixel.STATUS_SKIP:        
-            robo.addClass("shortpixel-alert shortpixel-processing"); 
+        case ShortPixel.STATUS_FAIL:
+            robo.addClass("shortpixel-alert shortpixel-processing");
             jQuery("a div", robo).attr("title", $message);
-            break;
-        case ShortPixel.STATUS_FAIL:        
-            robo.addClass("shortpixel-alert shortpixel-processing"); 
-            jQuery("a div", robo).attr("title", $message);
+            if(typeof id !== 'undefined') {
+                jQuery("a", robo).attr("href", "post.php?post=" + id + "&action=edit");
+            }
             break;
         case ShortPixel.STATUS_NO_KEY:
             robo.addClass("shortpixel-alert");
@@ -537,7 +781,8 @@ function checkBulkProcessingCallApi(){
 
                 switch (data["Status"]) {
                     case ShortPixel.STATUS_NO_KEY:
-                        setCellMessage(id, data["Message"], "<a class='button button-smaller button-primary' href=\"https://shortpixel.com/wp-apikey\" target=\"_blank\">" + _spTr.getApiKey + "</a>");
+                        setCellMessage(id, data["Message"], "<a class='button button-smaller button-primary' href=\"https://shortpixel.com/wp-apikey"
+                                       + ShortPixel.AFFILIATE + "\" target=\"_blank\">" + _spTr.getApiKey + "</a>");
                         showToolBarAlert(ShortPixel.STATUS_NO_KEY);
                         break;
                     case ShortPixel.STATUS_QUOTA_EXCEEDED:
@@ -553,9 +798,9 @@ function checkBulkProcessingCallApi(){
                     case ShortPixel.STATUS_FAIL:
                         setCellMessage(id, data["Message"], "<a class='button button-smaller button-primary' href=\"javascript:manualOptimization('" + id + "', false)\">" 
                                 + _spTr.retry + "</a>");
+                        showToolBarAlert(ShortPixel.STATUS_FAIL, data["Message"], id);
                         if(isBulkPage) {
                             ShortPixel.bulkShowError(id, data["Message"], data["Filename"], data["CustomImageLink"]);
-                            showToolBarAlert(ShortPixel.STATUS_FAIL, data["Message"]);
                             if(data["BulkPercent"]) {
                                 progressUpdate(data["BulkPercent"], data["BulkMsg"]);
                             }
@@ -590,7 +835,7 @@ function checkBulkProcessingCallApi(){
                         //for now, until 4.1
                         var successActions = ShortPixel.isCustomImageId(id) 
                             ? "" 
-                            : ShortPixel.successActions(id, data["Type"], data['ThumbsCount'], data['ThumbsTotal'], data["BackupEnabled"]);
+                            : ShortPixel.successActions(id, data["Type"], data['ThumbsCount'], data['ThumbsTotal'], data["BackupEnabled"], data['Filename']);
                             
                         setCellMessage(id, ShortPixel.successMsg(id, percent, data["Type"], data['ThumbsCount'], data['RetinasCount']), successActions);
                         var actions = jQuery(['restore', 'view', 'redolossy', 'redoglossy', 'redolossless']).not(['redo'+data["Type"]]).get();
@@ -683,17 +928,39 @@ function setCellMessage(id, message, actions){
 function manualOptimization(id, cleanup) {
     setCellMessage(id, "<img src='" + ShortPixel.WP_PLUGIN_URL + "/res/img/loading.gif' class='sp-loading-small'>Image waiting to be processed", "");
     jQuery("li.shortpixel-toolbar-processing").removeClass("shortpixel-hide");
+    jQuery("li.shortpixel-toolbar-processing").removeClass("shortpixel-alert");
     jQuery("li.shortpixel-toolbar-processing").addClass("shortpixel-processing");
     var data = { action  : 'shortpixel_manual_optimization',
                  image_id: id, cleanup: cleanup};
-    jQuery.get(ShortPixel.AJAX_URL, data, function(response) {
-            data = JSON.parse(response);
-            if(data["Status"] == ShortPixel.STATUS_SUCCESS) {
+    jQuery.ajax({
+        type: "GET",
+        url: ShortPixel.AJAX_URL, //formerly ajaxurl , but changed it because it's not available in the front-end and now we have an option to run in the front-end
+        data: data,
+        success: function(response) {
+            var resp = JSON.parse(response);
+            if(resp["Status"] == ShortPixel.STATUS_SUCCESS) {
                 setTimeout(checkBulkProgress, 2000);
             } else {
-                setCellMessage(id, typeof data["Message"] !== "undefined" ? data["Message"] : _spTr.thisContentNotProcessable, "");
+                setCellMessage(id, typeof resp["Message"] !== "undefined" ? resp["Message"] : _spTr.thisContentNotProcessable, "");
             }
         //aici e aici
+        },
+        error: function(response){
+            //if error, give the ajax processor a chance to maybe find out why.
+            data.action = 'shortpixel_check_status'
+            jQuery.ajax({
+                type: "GET",
+                url: ShortPixel.AJAX_URL, //formerly ajaxurl , but changed it because it's not available in the front-end and now we have an option to run in the front-end
+                data: data,
+                success: function (response) {
+                    var resp = JSON.parse(response);
+                    if (resp["Status"] !== ShortPixel.STATUS_SUCCESS) {
+                        setCellMessage(id, typeof resp["Message"] !== "undefined" ? resp["Message"] : _spTr.thisContentNotProcessable, "");
+                    }
+                    //aici e aici
+                }
+            });
+        }
     });
 }
 

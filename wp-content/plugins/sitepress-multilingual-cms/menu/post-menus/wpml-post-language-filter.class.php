@@ -34,11 +34,6 @@ class WPML_Post_Language_Filter extends WPML_Language_Filter_Bar {
 		$post_edit_languages = array();
 		$post_edit_languages['language_links'] = $this->language_links( $type );
 
-		if(! $this->sitepress->get_setting( 'hide_how_to_translate' ) && $type === 'page') {
-			$post_edit_languages['how_to_link'] = $this->get_how_to_link();
-		}
-
-
 		wp_localize_script( 'post-edit-languages', 'post_edit_languages_data', $post_edit_languages );
 		wp_enqueue_script( 'post-edit-languages' );
 
@@ -69,20 +64,7 @@ class WPML_Post_Language_Filter extends WPML_Language_Filter_Bar {
 					ON t.element_id=p.ID
 						AND t.element_type = CONCAT('post_', p.post_type)
 				WHERE p.post_type=%s {$extra_conditions}
-				", $type, 'post_' . $type ) );
-	}
-
-	private function get_how_to_link() {
-		return array(
-			'src' => ICL_PLUGIN_URL . '/res/img/icon.png',
-			'href' => 'https://wpml.org/?page_id=3416',
-			'label' => __( 'How to translate', 'sitepress' ),
-			'hilde_label_tooltip' => __( 'hide this', 'sitepress' ),
-			'hide_label' => __( 'hide', 'sitepress' ),
-			'hide_confirm' => __( 'Are you sure you want to remove this button?', 'sitepress' ),
-			'hide_nonce' => wp_create_nonce( 'update_option_nonce' ),
-			'hide_src' => ICL_PLUGIN_URL . '/res/img/close2.png',
-		);
+				", $type ) );
 	}
 
 	private function language_links( $type ) {
@@ -92,12 +74,12 @@ class WPML_Post_Language_Filter extends WPML_Language_Filter_Bar {
 		$post_status = $this->post_status;
 		foreach ( $this->active_languages as $code => $lang ) {
 			$item = array();
-			$item['type'] = $type;
-			$item['statuses'] = $post_status;
-			$item['code'] = $code;
-			$item['name'] = $lang[ 'display_name' ];
+			$item['type'] = esc_js( $type );
+			$item['statuses'] = array_map( 'esc_js', $post_status );
+			$item['code'] = esc_js( $code );
+			$item['name'] = esc_js( $lang[ 'display_name' ] );
 			$item['current'] = $code === $this->current_language;
-			$item['count'] = isset( $languages[ $code ] ) ? $languages[ $code ] : -1;
+			$item['count'] = isset( $languages[ $code ] ) ? esc_js( $languages[ $code ] ) : -1;
 			$lang_links[ ] = $item;
 		}
 

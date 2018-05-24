@@ -241,6 +241,11 @@ iframe {
 	&.loading {
 		.loader.active {
 			display: block;
+			position: absolute;
+	    top: 50%;
+	    left: 50%;
+	    transform: translate(-50%,-50%);
+	    z-index: 100;
 		}
 	}
 	.loader {
@@ -268,7 +273,7 @@ iframe {
     			font-weight: bold;
     		}
 		}
-		.row_odd {
+		tr.row2:nth-child(odd) {
 			background-color: #4c504b;
 		}
 		.col1 {
@@ -484,6 +489,9 @@ iframe {
 	.widget {
 		text-align: left;
 		margin-bottom: $main_margin;
+	}
+	.widget-wrapper {
+		padding: 0;
 	}
 	.footer-right-col {
 		.widget {
@@ -756,6 +764,10 @@ iframe {
 			margin-top: $kmc_default_vertical_margin_mobile;
 			margin-bottom: $kmc_default_vertical_margin_mobile;
 		}
+
+		&.kmc-component-headers {
+			padding-top: 0;
+		}
 	}
 
 	@include sm-media-inc () {
@@ -773,6 +785,19 @@ iframe {
 		padding-top: ($main_margin_top - $main_margin);
 	}
 	*/
+	.kmc-component-kmc_content {
+		iframe {
+			width: 100%;
+			height: 600px;
+			min-height: 600px;
+			max-height: 600px;
+			@include xxs-media-inc () {
+				height: 420px;
+				min-height: 420px;
+				max-height: 420px;
+			}
+		}
+	}
 }
 
 // ****************************** Info Box ******************************
@@ -1008,8 +1033,9 @@ iframe {
 			right: 0;
 			color: #fff;
 			z-index: 100;
-    		padding: 0 20px;
-    		@include font-size(24);
+  		padding: 0 20px;
+  		@include font-size(24);
+  		pointer-events: none;
 		}
 
 		.overlay {
@@ -1039,6 +1065,10 @@ iframe {
 		&:hover {
 			.overlay {
 				@include opacity(100);
+				.btn-inverted {
+					//background-color: #fff;
+					//color: #000;
+				}
 			}
 		}
 		@include sm-media-inc () {
@@ -2295,10 +2325,13 @@ body .imsl-slide-show {
 }
 
 
-.is-mobile .kmc-component-packages header .ingress span,
-.is-mobile .kmc-component-camps header .ingress span,
-.is-mobile .kmc-component-locations header .ingress span,
-.is-mobile .kmc-component-intro-section .inner span {
+.is-mobile .kmc-component-camps header .ingress span.read-more-fix,
+.is-mobile .kmc-component-destination_boxes header .ingress span.read-more-fix,
+.is-mobile .kmc-component-levels header .ingress span.read-more-fix,
+.is-mobile .kmc-component-locations header .ingress span.read-more-fix,
+.is-mobile .kmc-component-packages header .ingress span.read-more-fix,
+.is-mobile .kmc-component-intro-section .inner span.read-more-fix,
+.is-mobile .kmc-component-kmc_content span.read-more-fix {
 	cursor: pointer;
 	//font-weight: bold;
 	color: #349AD6;

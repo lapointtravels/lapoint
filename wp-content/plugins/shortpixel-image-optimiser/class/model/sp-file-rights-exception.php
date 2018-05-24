@@ -1,6 +1,6 @@
 <?php
 
-class SpFileRightsException extends Exception {
+class ShortPixelFileRightsException extends Exception {
     
 }
 

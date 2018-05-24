@@ -1,5 +1,12 @@
 <?php
-require_once( __DIR__ . '/../vendor/autoload.php' );
+/**
+ * PHPCompat_Command class
+ *
+ * @package WPEngine\PHPCompat
+ * @since 1.0.0
+ */
+
+require_once dirname( dirname( __FILE__ ) ) . '/load-files.php';
 
 /**
  * PHPCompat WP-CLI command.
@@ -26,9 +33,9 @@ class PHPCompat_Command extends WP_CLI_Command {
 		// Add empty line.
 		WP_CLI::log( '' );
 
-		$root_dir = realpath( __DIR__ . '/../' );
+		$root_dir = realpath( dirname( dirname( __FILE__ ) ) . '/' );
 
-		$wpephpc = new \WPEPHPCompat( $root_dir );
+		$wpephpc = new WPEPHPCompat( $root_dir );
 
 		$wpephpc->clean_after_scan();
 
@@ -60,7 +67,7 @@ class PHPCompat_Command extends WP_CLI_Command {
  */
 WP_CLI::add_command( 'phpcompat', 'PHPCompat_Command', array(
 	'shortdesc' => 'Test compatibility with different PHP versions.',
-	'synopsis' => array(
+	'synopsis'  => array(
 		array(
 			'type'     => 'positional',
 			'name'     => 'version',

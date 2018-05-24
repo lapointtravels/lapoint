@@ -4,7 +4,9 @@
 	<footer class="main-footer">
 		<div class="container">
 			<div class="row">
-				<?php dynamic_sidebar('footer'); ?>
+				<div class="widget-wrapper col-sm-8 col-md-8">
+					<?php dynamic_sidebar('footer'); ?>
+				</div>
 				<div class="widget footer-right-col col-sm-4 col-md-4">
 					<?php dynamic_sidebar('footer-right-col'); ?>
 				</div>

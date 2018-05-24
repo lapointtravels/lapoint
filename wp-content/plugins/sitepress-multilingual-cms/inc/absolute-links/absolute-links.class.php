@@ -76,7 +76,11 @@ class AbsoluteLinks{
 			}
 			array_unshift( $this->active_languages, $current_language );
 		}
-		
+
+		$blacklist_requests = new WPML_Absolute_Links_Blacklist(
+			apply_filters( 'wpml_sl_blacklist_requests', array(), $sitepress )
+		);
+
 		foreach ( $this->active_languages as $test_language ) {
 
 			$rewrite = $this->initialize_rewrite( $current_language, $default_language, $sitepress );
@@ -153,7 +157,7 @@ class AbsoluteLinks{
 						$request = $req_uri;
 					}
 
-					if ( ! $request ) {
+					if ( ! $request || $blacklist_requests->is_blacklisted( $request ) ) {
 						continue;
 					}
 	
@@ -188,7 +192,7 @@ class AbsoluteLinks{
 					$post_name = $category_name = $tax_name = false;
 	
 					if ( isset( $permalink_query_vars[ 'pagename' ] ) ) {
-						$get_page_by_path = new WPML_Get_Page_By_Path( $wpdb, $sitepress );
+						$get_page_by_path = new WPML_Get_Page_By_Path( $wpdb, $sitepress, new WPML_Debug_BackTrace( phpversion(), 7 ) );
 						$page_by_path = $get_page_by_path->get( $permalink_query_vars[ 'pagename' ], $test_language );
 
 						$post_name = $permalink_query_vars[ 'pagename' ];
@@ -228,7 +232,7 @@ class AbsoluteLinks{
 	
 					if ( $post_name && isset( $post_type ) ) {
 
-						$get_page_by_path = new WPML_Get_Page_By_Path( $wpdb, $sitepress );
+						$get_page_by_path = new WPML_Get_Page_By_Path( $wpdb, $sitepress, new WPML_Debug_BackTrace( phpversion(), 7 ) );
 						$p = $get_page_by_path->get( $post_name, $test_language, OBJECT, $post_type );
 
 						if ( empty( $p ) ) { // fail safe
@@ -513,7 +517,7 @@ class AbsoluteLinks{
 			$exp    = explode( '/', $dir_path, 2 );
 			$lang   = $exp[ 0 ];
 			if ( $this->does_lang_exist( $lang ) ) {
-				$dir_path = $exp[ 1 ];
+				$dir_path = isset( $exp[ 1 ] ) ? $exp[ 1 ] : '';
 			} else {
 				$lang = false;
 			}
@@ -554,7 +558,6 @@ class AbsoluteLinks{
 
 		$this_post_language = $sitepress->get_language_for_element($post_id, 'post_' . $post->post_type);
 		$current_language = $sitepress->get_current_language();
-		
 		$sitepress->switch_lang($this_post_language);
 		
 		$post_content = $this->convert_text( $post->post_content );

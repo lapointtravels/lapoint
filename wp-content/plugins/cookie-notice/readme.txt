@@ -3,8 +3,8 @@ Contributors: dfactory
 Donate link: http://www.dfactory.eu/
 Tags: cookie, cookies, notice, notification, notify, cookie, cookie compliance, cookie law, eu cookie, privacy, privacy directive, consent, Bootstrap
 Requires at least: 3.3
-Tested up to: 4.9.2
-Stable tag: 1.2.41
+Tested up to: 4.9.5
+Stable tag: 1.2.42
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 
@@ -61,6 +61,10 @@ No questions yet.
 1. screenshot-1.png
 
 == Changelog ==
+
+= 1.2.42 =
+* New: Introducing [cookies_accepted][/cookies_accepted] shortcode
+* Fix: Infinite cookie expiry issue
 
 = 1.2.41 =
 * Fix: Infinite redirection loop with scroll enabled
@@ -234,5 +238,6 @@ Initial release
 
 == Upgrade Notice ==
 
-= 1.2.41 =
-* Fix: Infinite redirection loop with scroll enabled
+= 1.2.42 =
+* New: Introducing [cookies_accepted][/cookies_accepted] shortcode
+* Fix: Infinite cookie expiry issue

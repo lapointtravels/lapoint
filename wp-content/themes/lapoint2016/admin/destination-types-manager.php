@@ -56,41 +56,31 @@ class Destinations_Types_Manager {
 	        // we need to generate the equivalent with real data
 	        // to match the rewrite rules set up from before
 
-	        $struct = '%postname%/';
+	        $struct = '%postname%/%lang%';
 
 	        $log = false;
 
-	        if ($log) echo "!!!!!" . $permalink;
+	        if ($log) echo "!!!!! " . $permalink . " | ";
 
 	        $rewritecodes = array(
-	            '%postname%'
+	            '%postname%',
+	            '%lang%'
 	        );
 
-
-	        /*
-	        $language_code = "";
-	        if (strpos($permalink, "/da/?")) {
-	        	//echo "CHECK";
-	        	//echo HOME_URI;
-	        	$language_code = "/da";
-	        } else if (strpos($permalink, "/nb/?")) {
-	        	$language_code = "/nb";
-	        } else if (strpos($permalink, "/sv/?")) {
-	        	$language_code = "/sv";
-	        } else {
-	        	//echo site_url();
-	        }
-	        */
+	        // for local dev and staging WPML can be set to use query mode for translations to work.
+					parse_str( parse_url( $permalink )["query"], $parsed_query );
 
 	        $replacements = array(
-	            ($leavename) ? '%destination-type%' : $post->post_name
+	            ($leavename) ? '%destination-type%' : $post->post_name,
+	            $parsed_query['lang'] ? '?lang=' . $parsed_query['lang'] : ''
 	        );
 
-	        // finish off the permalink
-	        // $permalink = site_url() . $language_code . str_replace($rewritecodes, $replacements, $struct);
-	        $permalink = WPML_HOME_URI . str_replace($rewritecodes, $replacements, $struct);
-	        //$permalink = home_url( $language_code . str_replace( $rewritecodes, $replacements, $struct ) );
-	        $permalink = user_trailingslashit($permalink, 'single');
+	        // finish off the permalink	        
+	        $permalink = get_wpml_home_url($permalink) . str_replace($rewritecodes, $replacements, $struct);
+	        
+	        if( !$parsed_query['lang'] ) {
+		        $permalink = user_trailingslashit($permalink, 'single');	        	
+	        }
 
 	        if ($log) echo " --> " . $permalink. "!!!!!!<br>";
 	    }

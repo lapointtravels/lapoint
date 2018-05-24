@@ -7,6 +7,7 @@ class WPML_LS_Admin_UI extends WPML_Templates_Factory {
 	const RESET_UI_TEMPLATE = 'layout-reset.twig';
 	const BUTTON_TEMPLATE = 'layout-slot-edit-button.twig';
 	const SLOT_SLUG_PLACEHOLDER = '%id%';
+	const RESET_NONCE_NAME = 'wpml-language-switcher-reset';
 
 	/* @var WPML_LS_Templates $templates */
 	private $templates;
@@ -343,7 +344,6 @@ class WPML_LS_Admin_UI extends WPML_Templates_Factory {
 			'label_preview'              => _x( 'Preview', 'Language switcher preview', 'sitepress' ),
 			'label_position'             => _x( 'Position', 'Language switcher preview', 'sitepress' ),
 			'label_actions'              => _x( 'Actions', 'Language switcher preview', 'sitepress' ),
-			'label_actions'              => _x( 'Actions', 'Language switcher preview', 'sitepress' ),
 			'label_action'               => _x( 'Action', 'Language switcher preview', 'sitepress' ),
 			'button_save'                => __( 'Save', 'sitepress' ),
 			'button_cancel'              => __( 'Cancel', 'sitepress' ),
@@ -536,6 +536,7 @@ class WPML_LS_Admin_UI extends WPML_Templates_Factory {
 		return array(
 			'section_title'          => __( 'Custom language switchers', 'sitepress' ),
 			'section_description'    => sprintf( $description, $description_link ),
+			'show'                   => __( 'Enable', 'sitepress' ),
 			'customize_button_label' => __( 'Customize', 'sitepress' ),
 			'dialog_title'           => __( 'Edit Shortcode Actions Language Switcher', 'sitepress' ),
 		);
@@ -584,8 +585,8 @@ class WPML_LS_Admin_UI extends WPML_Templates_Factory {
 			'theme_config_file'    => $theme_wpml_config_file,
 			'explanation_text'     => sprintf( esc_html__( '* Your theme has a %s file, which sets the default values for WPML.', 'sitepress' ), '<strong title="' . esc_attr( $theme_wpml_config_file ) . '">wpml-config.xml</strong>' ),
 			'confirmation_message' => __( 'Are you sure you want to reset to the default settings?', 'sitepress' ),
-			'restore_page_url'     => admin_url( 'admin.php?page=' . self::get_page_hook() . '&restore_ls_settings=1' ),
-			'restore_button_label' => __( 'Restore default', 'sitepress' )
+			'restore_page_url'     => admin_url( 'admin.php?page=' . self::get_page_hook() . '&restore_ls_settings=1&nonce=' . wp_create_nonce( self::RESET_NONCE_NAME ) ),
+			'restore_button_label' => __( 'Restore default', 'sitepress' ),
 		);
 
 		return $model;

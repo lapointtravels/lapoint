@@ -88,11 +88,13 @@ endif;
 					?>>
 						<h4><?php echo $package->get_level()->display_label; ?></h4>
 
-						<div class="overlay">
-							<div>
-								<a href="<?php echo $package->link; ?>" class="btn btn-inverted"><?php echo $box_info->button_text ? $box_info->button_text : __("Show", "lapoint"); ?></a>
+						<a href="<?php echo $package->link; ?>">
+							<div class="overlay">
+								<div>
+									<span class="btn btn-inverted"><?php echo $box_info->button_text ? $box_info->button_text : __("Show", "lapoint"); ?></span>
+								</div>
 							</div>
-						</div>
+						</a>
 					</div>
 
 				</div>
