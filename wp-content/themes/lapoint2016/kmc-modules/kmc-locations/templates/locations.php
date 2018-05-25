@@ -91,7 +91,7 @@ endif;
 						<a href="<?php echo $location->link; ?>">
 							<div class="overlay">
 								<div>
-									<span ?>" class="btn btn-inverted"><?php
+									<span class="btn btn-inverted"><?php
 									if ($box_info->button_text == "DEFAULT" || !$box_info->button_text) :
 										echo __("Show", "lapoint");
 									else:
