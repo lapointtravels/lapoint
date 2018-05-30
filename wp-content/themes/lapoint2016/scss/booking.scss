@@ -371,10 +371,10 @@ input[type='radio'] {
 }
 
 .bookingbox-row-indent {
-  margin-left: 30%;
-  padding-left: 15px;
+  margin-left: 30%!important;
+  padding-left: 0;
   line-height: 1.5;
-  width: 100%;
+  //width: 100%;
   font-size: 14px;
 }
 
@@ -602,5 +602,9 @@ input[type='radio'] {
     input {
       width: auto;
     }
+  }
+
+  .bookingbox-row-indent {
+    margin-left: 0 !important;
   }
 }
