@@ -54,3 +54,30 @@
 		}
 	}
 }
+
+.close-booking-frame {
+	z-index: 10;
+	@import "line-button";
+	.lines-button {
+		display: block;
+		position: absolute;
+
+		background-color: #fff;
+		.lines {
+			background: transparent;
+			&:before, &:after {
+				background-color: #000;
+				top: 0;
+			  width: 30px;				
+			}
+			&:before{
+			  -webkit-transform: rotate3d(0,0,1,45deg);
+			  transform: rotate3d(0,0,1,45deg);
+			}
+			&:after{
+			  -webkit-transform: rotate3d(0,0,1,-45deg);
+			  transform: rotate3d(0,0,1,-45deg);
+			}
+		}
+	}
+}

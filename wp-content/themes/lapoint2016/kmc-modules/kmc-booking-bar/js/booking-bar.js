@@ -12,6 +12,8 @@
 				this.$start_date = this.$(".book-start-date");
 				this.$result_container = this.$(".result-container");
 
+				this.scrollOffsetTop = 0;
+				this.closeBookingFrameButton = $("<div class='close-booking-frame'><button class='lines-button x2' type='button'><span class='lines'></span></button></div>");
 
 				var date_format = "yy-mm-dd";
 				switch (lapoint.language) {
@@ -56,7 +58,6 @@
 				"change .book-level": "on_level_changed",
 				"click .btn-show": "on_show_click",
 				"click .btn-book": "on_book_click"
-
 			},
 
 			on_destination_type_changed: function (e) {
@@ -266,8 +267,33 @@
 				});
 			},
 
+			close_booking_frame: function( _this ) {							
+
+				$(".close-booking-frame").remove();
+				$("#travelize-booking-frame").remove();
+
+				// Unhide all sections except the first (if it has an background image)
+				$('.kmc-sections .kmc-section').each(function (index, elem) {
+					var $el = $(elem);
+					if (index > 0 || !($el.hasClass('has-bgr-img') || $el.hasClass('has-bgr-video'))) {
+						$el.fadeIn();
+					}
+				});
+
+				// scroll back last recorded position
+				$(document).scrollTop( _this.scrollOffsetTop );	
+			},
+
 			on_book_click: function( e ) {
+				var _this = this;
 				e.preventDefault();
+
+				// close any open booking frame before opening a new one. if using the booking module at the bottom of the page pressing book, then scrolling all the way
+				// up and do a search from the main menu (prices) then pressing book we have two frames..
+				if( $("#travelize-booking-frame") ) {
+					$(".close-booking-frame").remove();
+					$("#travelize-booking-frame").remove();
+				}
 				
 				if( $(e.target).hasClass( "disabled" ) ) {
 					return;					
@@ -279,6 +305,9 @@
 					if (window.lapoint.gaClientId) {
 						url += '&clientId=' + window.lapoint.gaClientId
 					}
+
+					// save scrolltop so we can get back
+					_this.scrollOffsetTop = $(window).scrollTop();
 
 					// Hide all sections except the first (if it has an background image)
 					$('.kmc-sections .kmc-section').each(function (index, elem) {
@@ -292,7 +321,17 @@
 					var $iFrame = $('<iframe src="' + url + '" height="800" width="100%" frameborder="0" id="travelize-booking-frame"></iframe>');
 					$iFrame.load(function(){
 						// jump to top of iframe
-						$(document).scrollTop($("#travelize-booking-frame").offset().top);
+						var iFrameTop = $("#travelize-booking-frame").offset().top;
+						$(document).scrollTop( iFrameTop );
+						$('#main').append( _this.closeBookingFrameButton );
+						_this.closeBookingFrameButton.css({
+							"position": "absolute",
+							"top": (iFrameTop + 25) + "px",
+							"right": "25px"
+						});
+						_this.closeBookingFrameButton.click( function() {							
+							_this.close_booking_frame( _this );
+						});
 					});
 					
 					$('#main').append($iFrame);
@@ -305,6 +344,9 @@
 
 					$(window).on('resize', function(e) {
 						$iFrame.width($(window).width());
+						_this.closeBookingFrameButton.css({
+							"top": ($("#travelize-booking-frame").offset().top + 25) + "px"
+						});
 					});
 
 					// Close menu book slider if open

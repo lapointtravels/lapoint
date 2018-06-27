@@ -17,7 +17,7 @@ $levels = $levels_manager->get_all();
 		?></h2>
 	<?php endif; ?>
 
-	<div class="kmc-booking-bar booking-bar container clearfix" data-animated="true" data-auto-search="<?php echo $this->auto_search; ?>" data-book-label="<?php _e('Book', 'lapoint'); ?>">
+	<div class="kmc-booking-bar booking-bar container clearfix" data-animated="true" data-auto-search="<?php echo 0; //$this->auto_search; ?>" data-book-label="<?php _e('Book', 'lapoint'); ?>">
 		<div class="row">
 			<div class="book-choice-container">
 				<select class="select book-destination-type book-choice">
