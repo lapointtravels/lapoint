@@ -18,9 +18,11 @@
 		background-image: url('img/logo.png');
 		width: 123px;
 		height: 48px;
+		background-size: contain;
+		background-repeat: no-repeat;
 		@include retina-device () {
 			background-image: url('img/logo@2x.png');
-			background-size: 123px 48px;
+			//	background-size: 123px 48px;
 		}
 	}
 
@@ -148,6 +150,14 @@
 						cursor: pointer;
 						height: 40px;
 						display: inline-block;
+						@media (min-width: 801px) {
+							&.highlight > .drop-inner {
+						    border: 1px solid;
+						    border-radius: 4px;
+						    padding: 4px 12px;
+						    //background-color: rgba(255,255,255,0.2);
+							}
+						}
 					}
 					& > a, & > .drop-wrapper {
 						text-transform: uppercase;
@@ -173,6 +183,15 @@
 					height: 1px;
 					background-color: #fff;
 					display: block;
+				}
+			}
+			@media (min-width: 801px) {
+				& > div.highlight {
+					& .drop-inner {
+						background-color: rgba(233,71,57,0)!important;
+						//border: 1px solid #e94739!important;
+						border: 1px solid rgba(0,0,0,0)!important;
+					}
 				}
 			}
 		}
@@ -248,6 +267,7 @@
 
 	@media (max-width: 800px) {
 		.lines-button {
+			position: fixed;
 			display: inline-block;
 			right: 20px;
 		}
@@ -263,6 +283,13 @@
 			.menu-icon {
 				top: 67px;
 			}
+		}
+
+		.lapoint-logo {
+			position: fixed;
+			top: 22px;
+			left: 25px;
+			height: 36px;
 		}
 
 		$menuWidth: 100%;

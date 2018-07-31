@@ -108,7 +108,7 @@ define(["jquery", "./animation", "./mobile"], function($, AnimationController, M
 		var $link = $("#menu-container a[href='#main-booking']");
 		var txt = $link.text();
 
-		var $drop_wrapper = $("<div></div>").addClass("drop-wrapper").append( $("<span></span>").addClass("drop-inner").text(txt) );
+		var $drop_wrapper = $("<div></div>").addClass("drop-wrapper highlight").append( $("<span></span>").addClass("drop-inner").text(txt) );
 		$link.replaceWith($drop_wrapper)
 		$drop_wrapper.parent().append($main_booking);
 		$drop_wrapper.on("click", function (e) {
