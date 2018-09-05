@@ -43,8 +43,12 @@
 		endif;
 
 		if( $post->post_type == "post" ) : ?>
-			<meta property="og:type"   content="article" /> 
+			<meta property="og:type" content="article" /> 
 		<?php
+		else : ?>
+			<meta property="og:type" content="website" /> 			
+		<?php
+		endif;
 
 		$title = get_post_meta($post->ID, '_amt_title', true);
 		if ($title) : ?>
