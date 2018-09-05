@@ -29,32 +29,37 @@
 			<?php
 		endif;
 
-		$desc = get_post_meta($post->ID, '_amt_description', true);
-		if ($desc) : ?>
-			<meta name="description" content="<?php echo $desc; ?>" />
-			<?php
-		endif;
-
 		$keywords = get_post_meta($post->ID, '_amt_keywords', true);
 		if ($keywords) : ?>
 			<meta name="keywords" content="<?php echo $keywords; ?>" />
 			<?php
 		endif;
 
+		$desc = get_post_meta($post->ID, '_amt_description', true);
+		if ($desc) : ?>
+			<meta name="description" content="<?php echo $desc; ?>" />
+			<meta property="og:description" content="<?php echo $desc; ?>" />
+			<?php
+		endif;
+
+		if( $post->post_type == "post" ) : ?>
+			<meta property="og:type"   content="article" /> 
+		<?php
+
 		$title = get_post_meta($post->ID, '_amt_title', true);
 		if ($title) : ?>
-			<meta name="og:title" content="<?php echo $title; ?>" />
+			<meta property="og:title" content="<?php echo $title; ?>" />
 			<?php
 		endif;
 
 		$thumbnail = get_post_thumbnail_id();
 		if ($thumbnail) : ?>
-			<meta name="og:image" content="<?php echo the_post_thumbnail_url('full'); ?>" />
+			<meta property="og:image" content="<?php echo the_post_thumbnail_url('full'); ?>" />
 			<?php
 		endif;
 
 		?>
-			<meta name="og:url" content="<?php echo get_permalink( $post->ID ); ?>" />
+			<meta property="og:url" content="<?php echo get_permalink( $post->ID ); ?>" />
 		<?php
 	endif;
 	?>
