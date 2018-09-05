@@ -40,6 +40,12 @@
 			<meta name="keywords" content="<?php echo $keywords; ?>" />
 			<?php
 		endif;
+
+		$thumbnail = get_post_thumbnail_id();
+		if ($thumbnail) : ?>
+			<meta name="og:image" content="<?php echo the_post_thumbnail_url('full'); ?>" />
+			<?php
+		endif;
 	endif;
 	?>
 
