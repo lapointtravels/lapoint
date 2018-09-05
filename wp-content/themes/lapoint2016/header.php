@@ -41,11 +41,21 @@
 			<?php
 		endif;
 
+		$title = get_post_meta($post->ID, '_amt_title', true);
+		if ($title) : ?>
+			<meta name="og:title" content="<?php echo $title; ?>" />
+			<?php
+		endif;
+
 		$thumbnail = get_post_thumbnail_id();
 		if ($thumbnail) : ?>
 			<meta name="og:image" content="<?php echo the_post_thumbnail_url('full'); ?>" />
 			<?php
 		endif;
+
+		?>
+			<meta name="og:url" content="<?php echo get_permalink( $post->ID ); ?>" />
+		<?php
 	endif;
 	?>
 
