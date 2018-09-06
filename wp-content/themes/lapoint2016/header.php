@@ -70,7 +70,7 @@
 		endif;
 
 		?>
-			<meta property="og:url" content="<?php echo str_replace( array('http://','https://'), '//', get_permalink( $post->ID ) ); ?>" />
+			<meta property="og:url" content="<?php echo get_permalink( $post->ID ); ?>" />
 		<?php
 	endif;
 	?>
