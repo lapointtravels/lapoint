@@ -57,13 +57,19 @@
 		endif;
 
 		$thumbnail = get_post_thumbnail_id();
-		if ($thumbnail) : ?>
-			<meta property="og:image" content="<?php echo the_post_thumbnail_url('full'); ?>" />
+		if ($thumbnail) : 
+			$thumbnail_data = wp_get_attachment_image_src($thumbnail, 'full');
+			// strip protocol
+			$thumbnail_src = str_replace( array('http://','https://'), '//', $thumbnail_data[0] );
+			?>
+			<meta property="og:image" content="<?php echo $thumbnail_src; ?>" />
+			<meta property="og:image:width" content="<?php echo $thumbnail_data[1]; ?>" />
+			<meta property="og:image:height" content="<?php echo $thumbnail_data[2]; ?>" />
 			<?php
 		endif;
 
 		?>
-			<meta property="og:url" content="<?php echo get_permalink( $post->ID ); ?>" />
+			<meta property="og:url" content="<?php echo str_replace( array('http://','https://'), '//', get_permalink( $post->ID ) ); ?>" />
 		<?php
 	endif;
 	?>
