@@ -20,7 +20,7 @@
 
 	<?php
 	/* <link rel="shortcut icon" type="image/x-icon" href="<?php echo THEME_URL; ?>/img/favicon.ico">; */
-
+	/*
 	global $post;
 	if ($post && $post->ID) :
 		$rel = get_post_meta($post->ID, 'rel_canonical', true);
@@ -73,6 +73,7 @@
 			<meta property="og:url" content="<?php echo get_permalink( $post->ID ); ?>" />
 		<?php
 	endif;
+	*/
 	?>
 
 	<?php wp_head(); ?>
