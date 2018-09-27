@@ -20,8 +20,13 @@ function get_wpml_home_url ($permalink) {
 
 	// if WPML is running in mode to add language as query parameter. This would be true for local dev and staging
 	if( wpml_get_setting_filter(false, "language_negotiation_type") == "3" ) {
-		$parsed_url = parse_url( $permalink );
-	
+		// $parsed_url = parse_url( $permalink ); 
+		// second time around this funciton is called ( yeah wp filters ) the permalink does not have a protocol 
+		// because we remove it. so parse_url dont have a host which leads to the domain not being there and links get screwed up
+		// so let's use WPML_HOME_URI and strip http or https from that
+		$url = WPML_HOME_URI;
+		return preg_replace("(^https?:)", "", $url ) . "/";
+		//return preg_replace("(^https?://)", "", $url );
 		return "//" . $parsed_url["host"] . "/";
 		//return "https://www." . $parsed_url["host"] . "/";
 	}

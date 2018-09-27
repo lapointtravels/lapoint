@@ -111,6 +111,7 @@ class Lapoint_Framework {
 		remove_action('wp_head', 'rel_canonical');
 
 		add_shortcode('destination_box', array($this, 'render_destination_box'));
+
 	}
 
 	public function set_kloonslides_settings ($settings) {

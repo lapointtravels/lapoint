@@ -72,11 +72,10 @@ class Packages_Manager extends Lapoint_Manager {
 	            '%lang%'
 	        );
 
-
 	        $desttype = '';
-	        
 	        // for local dev and staging WPML can be set to use query mode for translations to work.
 					parse_str( parse_url( $permalink )["query"], $parsed_query );
+	        
 
 	        $destination = get_field("destination", $post->ID);
 
@@ -112,7 +111,6 @@ class Packages_Manager extends Lapoint_Manager {
 
 	        if ($log) echo " --> " . $permalink. "!!!!!!<br>";
 	    }
-
 	    return $permalink;
 	}
 
