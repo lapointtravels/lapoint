@@ -266,10 +266,26 @@
 	}
 
 	@media (max-width: 800px) {
+
+		.tablet.menu-is-sticky &,
+		.mobile.menu-is-sticky & {
+			.lines-button {
+				top: 18px;
+				transition: top 0.2s linear;
+			}
+			.lapoint-logo {
+				top: 18px;
+				transition: top 0.2s linear;
+			}
+
+		}
+
 		.lines-button {
 			position: fixed;
 			display: inline-block;
+			top: 38px;
 			right: 20px;
+			transition: top 0.2s linear;
 		}
 
 		.menu-open & {
@@ -287,9 +303,10 @@
 
 		.lapoint-logo {
 			position: fixed;
-			top: 22px;
+			top: 38px;
 			left: 25px;
 			height: 36px;
+			transition: top 0.2s linear;
 		}
 
 		$menuWidth: 100%;

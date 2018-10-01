@@ -14,6 +14,8 @@
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 	<?php endif; ?>
 
+	<script src="https://unpkg.com/current-device/umd/current-device.min.js"></script>
+	
 	<!--[if lt IE 9]>
 		<script src="<?php echo THEME_URL; ?>/js/html5.js"></script>
 	<![endif]-->

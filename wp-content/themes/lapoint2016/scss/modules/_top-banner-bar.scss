@@ -1,8 +1,12 @@
-.top-banner-bar {
+.desktop .top-banner-bar,
+.tablet .top-banner-bar {
   display: inline;
+}
+.top-banner-bar {
+  //display: none;
   position: relative;
   
-  widht: 100%;
+  width: 100%;
   
   text-align: center;
 
