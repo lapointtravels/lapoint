@@ -3,13 +3,30 @@ define(["jquery"], function($) {
 
 	var MobileController = function() {
 
+		var html = $("html");
 		var lang = $("html").attr("lang").substr(0,2);
+		var $win = $(window);
+		var topBannerHeight = $(".top-banner-bar").outerHeight();
 
 		var readMoreText = [];
 		readMoreText["en"] = "read more";
 		readMoreText["no"] = "les mer";
 		readMoreText["da"] = "l&#x00E6;s mere";
 		readMoreText["sv"] = "l&#x00E4;s mer";
+
+		var throttled_func = _.throttle(check_if_sticky, 100);
+
+		$win.on('scroll', throttled_func);
+				
+		function check_if_sticky() {
+
+			if( $win.scrollTop() > topBannerHeight ) {
+				html.addClass( 'menu-is-sticky' );
+			} else {
+				html.removeClass( 'menu-is-sticky' );
+			}
+			console.log( $win.scrollTop(), topBannerHeight );
+		}
 
 
 		function fixKmcIntroComponent() {
