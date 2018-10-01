@@ -111,6 +111,88 @@ class Lapoint_Framework {
 		remove_action('wp_head', 'rel_canonical');
 
 		add_shortcode('destination_box', array($this, 'render_destination_box'));
+
+		// create 
+		add_action('admin_menu', array($this, 'top_banner_bar_create_menu'));
+
+	}
+
+	// Admin menu page for top banner bar text
+	public function top_banner_bar_create_menu() {
+		
+	 add_menu_page(
+        'Top Banner Bar',
+        'Top Banner Bar',
+        'manage_options',
+        'top_banner_bar',
+        array($this, 'top_banner_bar_page'),
+        'dashicons-archive',
+        60
+  	);
+
+	 add_action( 'admin_init', array( $this, 'register_top_banner_bar_settings') );
+		
+	}
+
+	public function register_top_banner_bar_settings() {
+		register_setting( 'top-banner-bar-settings-group', 'tbb_show_banner', array(
+			'type' => 'boolean'
+		));
+		register_setting( 'top-banner-bar-settings-group', 'tbb_banner_text_en', array(
+			'type' => 'string'
+		));
+		register_setting( 'top-banner-bar-settings-group', 'tbb_banner_text_se', array(
+			'type' => 'string'
+		));
+		register_setting( 'top-banner-bar-settings-group', 'tbb_banner_text_no', array(
+			'type' => 'string'
+		));
+		register_setting( 'top-banner-bar-settings-group', 'tbb_banner_text_dk', array(
+			'type' => 'string'
+		));
+	}
+
+	public function top_banner_bar_page () {
+		?>
+
+		<div class="wrap">
+		<h1>Your Plugin Name</h1>
+
+		<form method="post" action="options.php">
+		    <?php settings_fields( 'top-banner-bar-settings-group' ); ?>
+		    <?php do_settings_sections( 'top-banner-bar-settings-group' ); ?>
+
+		    <div>
+		    	<h4>Show Top Bar Banner</h4>
+		    	<input type="checkbox" name="tbb_show_banner" value="1" <?php checked(1, get_option('tbb_show_banner'), true); ?> /> 
+		    </div>
+
+		    <div>
+		    	<h4>English Banner Text</h4>
+		    	<input type="text" name="tbb_banner_text_en" value="<?php echo esc_attr( get_option('tbb_banner_text_en') ); ?>" style="width: 100%;" />
+		    </div>
+
+		    <div>
+		    	<h4>Swedish Banner Text</h4>
+		    	<input type="text" name="tbb_banner_text_se" value="<?php echo esc_attr( get_option('tbb_banner_text_se') ); ?>" style="width: 100%;" />
+		    </div>
+
+		    <div>
+		    	<h4>Norwegian Banner Text</h4>
+		    	<input type="text" name="tbb_banner_text_no" value="<?php echo esc_attr( get_option('tbb_banner_text_no') ); ?>" style="width: 100%;" />
+		    </div>
+
+		    <div>
+		    	<h4>Danish Banner Text</h4>
+		    	<input type="text" name="tbb_banner_text_dk" value="<?php echo esc_attr( get_option('tbb_banner_text_dk') ); ?>" style="width: 100%;" />
+		    </div>
+		    
+		    <?php submit_button(); ?>
+
+		</form>
+		</div>
+
+		<?php
 	}
 
 	public function set_kloonslides_settings ($settings) {

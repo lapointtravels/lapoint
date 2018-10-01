@@ -14,6 +14,8 @@
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 	<?php endif; ?>
 
+	<script src="https://unpkg.com/current-device/umd/current-device.min.js"></script>
+	
 	<!--[if lt IE 9]>
 		<script src="<?php echo THEME_URL; ?>/js/html5.js"></script>
 	<![endif]-->
@@ -105,6 +107,33 @@
 	</div>
 	*/ ?>
 
+	<?php
+		$show_top_banner = intval( get_option( "tbb_show_banner" ), 10 );
+	?>
+	<?php if( $show_top_banner ) : ?>
+		<div class="top-banner-bar">
+			<?php 
+				$current_lang = "en";
+				switch ( ICL_LANGUAGE_CODE ) {
+					case "sv":
+						$current_lang = "se";
+						break;
+					case "nb":
+						$current_lang = "no";
+						break;
+					case "da":
+						$current_lang = "dk";
+						break;
+					
+					default:
+						$current_lang = "en";
+						break;
+				}			
+				$banner_text = get_option( "tbb_banner_text_" . $current_lang );
+			?>
+			<span><?php echo $banner_text; ?></span>
+		</div>
+	<?php endif; ?>
 	<header class="main-header">
 		<div class="container">
 			<a class="lapoint-logo hide-text" href="<?php echo icl_get_home_url(); ?>">Lapoint</a>

@@ -1,7 +1,7 @@
 define(["jquery", "./animation", "./mobile"], function($, AnimationController, MobileController) {
 	var $win = $(window);
 	var $body = $("body");
-
+	
 	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
 		$body.addClass("is-mobile");
 		new MobileController();

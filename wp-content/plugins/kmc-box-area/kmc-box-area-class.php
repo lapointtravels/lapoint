@@ -141,8 +141,8 @@ class KMC_Box_Area_Preview_Box extends KMC_Box_Area_Box {
 		$this->cols_sm = (int) $meta_data["cols_sm"][0];
 		$this->rows_sm = (int) $meta_data["rows_sm"][0];
 
-		if ($this->button_link && is_numeric($this->button_link)) {
-			$this->formatted_button_link = get_permalink($this->button_link);
+		if ($this->button_link && is_numeric($this->button_link)) {			
+			$this->formatted_button_link = get_permalink($this->button_link);	
 		} else {
 			$this->formatted_button_link = $this->button_link;
 		}

@@ -1,0 +1,28 @@
+.desktop .top-banner-bar,
+.tablet .top-banner-bar {
+  display: inline;
+}
+.top-banner-bar {
+  //display: none;
+  position: relative;
+  
+  width: 100%;
+  
+  text-align: center;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-style: inherit;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+
+  span {
+    padding: 4px 0;
+    background-color: #2d2d2d;
+    color: #c2c2c2;
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
+  }
+}
