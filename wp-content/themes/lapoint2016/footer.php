@@ -57,5 +57,12 @@
 	<?php wp_footer(); ?>
 	<script data-main="<?php echo THEME_URL; ?>/js/app" src="<?php echo THEME_URL; ?>/js/vendor/require.js"></script>
 
+	<script>
+	  window.fcWidget.init({
+	    token: "641c4bc2-4cc6-4be2-b593-544726b9598e",
+	    host: "https://wchat.freshchat.com"
+	  });
+	</script>
+
 </body>
 </html>
