@@ -14,7 +14,7 @@
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 	<?php endif; ?>
 
-	<script src="https://unpkg.com/current-device/umd/current-device.min.js"></script>
+	<!-- <script src="https://unpkg.com/current-device/umd/current-device.min.js"></script> -->
 
 	<script src="https://wchat.freshchat.com/js/widget.js"></script>
 	

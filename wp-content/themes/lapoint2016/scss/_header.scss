@@ -269,32 +269,26 @@
 
 		.tablet.menu-is-sticky &,
 		.mobile.menu-is-sticky & {
-			.lines-button {
-				top: 18px;
-				transition: top 0.2s linear;
+			.menu-icon {
+				top: 18px!important;
+				transition: top 0.1s linear;
 			}
 			.lapoint-logo {
-				top: 18px;
-				transition: top 0.2s linear;
+				top: 18px!important;
+				transition: top 0.1s linear;
 			}
 
 		}
 
-		.lines-button {
+		.menu-icon {
 			position: fixed;
 			display: inline-block;
-			top: 38px;
+			top: 18px;
 			right: 20px;
-			transition: top 0.2s linear;
+			transition: top 0.1s linear;
 		}
 
-		.menu-open & {
-			.menu-icon {
-				position: fixed;
-	    		right: 15px;
-	    		top: 27px;
-			}
-		}
+		
 		.menu-open.admin-bar & {
 			.menu-icon {
 				top: 67px;
@@ -303,7 +297,7 @@
 
 		.lapoint-logo {
 			position: fixed;
-			top: 38px;
+			top: 18px;
 			left: 25px;
 			height: 36px;
 			transition: top 0.2s linear;

@@ -13,6 +13,7 @@ requirejs.config({
     baseUrl: theme_url + '/js/vendor',
     urlArgs: "bust=v18",
     paths: {
+        //device: './current-device.min', // we want this to load early. so we enque it in functions.php
         app: '../app',
         TweenLite: './greensock/TweenLite.min',
         CSSPlugin: './greensock/CSSPlugin.min',

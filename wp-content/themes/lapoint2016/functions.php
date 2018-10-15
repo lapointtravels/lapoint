@@ -118,6 +118,7 @@ class Lapoint_Framework {
 	}
 
 	// Admin menu page for top banner bar text
+	// Output is rendered in header.php
 	public function top_banner_bar_create_menu() {
 		
 	 add_menu_page(
@@ -156,7 +157,7 @@ class Lapoint_Framework {
 		?>
 
 		<div class="wrap">
-		<h1>Your Plugin Name</h1>
+		<h1>Top Banner Bar</h1>
 
 		<form method="post" action="options.php">
 		    <?php settings_fields( 'top-banner-bar-settings-group' ); ?>
@@ -1053,6 +1054,9 @@ class Lapoint_Framework {
 
 	# ******************************  Enqueue scripts and styles ******************************
 	public function lapoint_scripts () {
+		
+		wp_enqueue_script('current-device', THEME_URL . '/js/vendor/current-device.min.js');
+
 		wp_enqueue_script('jquery');
 		wp_enqueue_script('jquery-ui-datepicker');
 		wp_enqueue_script('jquery-detect-swipe', THEME_URL . '/js/vendor/jquery.detect_swipe-custom.js');
