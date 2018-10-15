@@ -6,7 +6,10 @@ define(["jquery"], function($) {
 		var html = $("html");
 		var lang = $("html").attr("lang").substr(0,2);
 		var $win = $(window);
-		var topBannerHeight = $(".top-banner-bar").outerHeight();
+		var topBannerBar = $(".top-banner-bar");
+		var topBannerHeight = 0;
+		var toggleBtn = $(".main-header .lines-button");
+		var lapointLogo = $(".main-header .lapoint-logo");
 
 		var readMoreText = [];
 		readMoreText["en"] = "read more";
@@ -14,18 +17,32 @@ define(["jquery"], function($) {
 		readMoreText["da"] = "l&#x00E6;s mere";
 		readMoreText["sv"] = "l&#x00E4;s mer";
 
-		var throttled_func = _.throttle(check_if_sticky, 100);
+		// handle the top banner bar but on small screens that uses the sticky menu. i.e 800 and below as set in the stylesheets
+		// but we don't want to show it on mobile. so only on .tablet (device is from script current-device.min.js that is enqued in functions.php)
+		if( topBannerBar.length && $win.width() <= 800 && device.tablet() ) {
 
-		$win.on('scroll', throttled_func);
+			topBannerBar.css( 'height', 'auto' );
+
+			topBannerHeight = $(".top-banner-bar").outerHeight();
+
+			// place the logo and toggle button			
+			toggleBtn.css( 'top', topBannerHeight + 10 );
+			lapointLogo.css( 'top', topBannerHeight + 12 );
+
+			// listen for scroll events
+			var throttled_func = _.throttle(check_if_sticky, 100);
+			$win.on('scroll', throttled_func);
+
+			// run on page load
+			check_if_sticky();
+		}
 				
 		function check_if_sticky() {
-
 			if( $win.scrollTop() > topBannerHeight ) {
 				html.addClass( 'menu-is-sticky' );
 			} else {
 				html.removeClass( 'menu-is-sticky' );
 			}
-			console.log( $win.scrollTop(), topBannerHeight );
 		}
 
 

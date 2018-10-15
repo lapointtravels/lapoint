@@ -1,6 +1,9 @@
 .desktop .top-banner-bar,
 .tablet .top-banner-bar {
-  display: inline;
+  display: block;
+}
+.mobile .top-banner-bar {
+  display: none;
 }
 .top-banner-bar {
   //display: none;
@@ -15,14 +18,27 @@
   font-style: inherit;
   font-weight: 600;
   letter-spacing: 1.2px;
+  line-height: 1.36;
   text-transform: uppercase;
 
+  background-color: #2d2d2d;
+  color: #c2c2c2;
   span {
-    padding: 4px 0;
-    background-color: #2d2d2d;
-    color: #c2c2c2;
+    padding: 8px 0;
     display: inline-block;
     vertical-align: middle;
-    width: 100%;
+    width: 96%;
+    margin: 0 auto;
+    
+    @media (max-width: 1024px) {
+      width: 80%;
+    }
   }
+
+  // initally hidden on small screens
+  @media (max-width: 800px) {
+    height: 0;
+    overflow: hidden;
+  }
+
 }
