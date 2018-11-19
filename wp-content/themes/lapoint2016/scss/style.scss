@@ -176,6 +176,7 @@ iframe {
 
 // ****************************** Booking bar ******************************
 .booking-bar {
+	position: relative;
 	min-height: 0;
 	background-color: rgba(#000, .5);
 	padding: 16px 24px;
@@ -234,7 +235,10 @@ iframe {
 	}
 
 	&.open {
-		min-height: 500px;
+		@media (max-width: 768px) {
+			min-height: 340px;
+		}
+		min-height: 196px;
 		.result-container {
 			display: block;
 		}
@@ -267,6 +271,9 @@ iframe {
 	}
 	.result-container {
 		margin: 10px -24px 0;
+		table.tourlist1 {
+			margin-bottom: 12px;
+		}
 		.tableheader {
 			background-color: #2a2f29;
     		text-transform: capitalize;
@@ -295,6 +302,16 @@ iframe {
 		.colNoAvailableOffers {
 			text-align: center;
 		}
+		tr.row2 {
+			//display: none;
+		}
+		tr.hide {
+			display: none;
+		}
+		tr.tableheader:last-child {
+			opacity: 0.6;
+		}		
+
 	}
 
 	.book-start-date {
@@ -331,6 +348,119 @@ iframe {
 		    background-color: #666;
 		    color: #999;
 		    cursor: default;
+		}
+	}
+
+	.pagination {
+    //position: relative;
+    display: none;   
+    min-height: 32px;
+
+    margin: 0 -24px 0;
+    border-top: 1px solid #676767;
+    padding: 12px 0 0;
+
+    .pagination-nav {
+	    width: calc( 100% - 48px);
+	    position: relative;
+	    margin: 0 auto;
+	    min-height: 32px;
+    }
+
+    .prev {
+    	display: block;
+    	position: absolute;
+    	left: 0px;
+    	width: 44px;
+    }
+    .next {
+    	display: block;
+    	position: absolute;
+    	right: 0px;
+    	top: 0px;
+    	width: 44px;
+    }
+
+    .prev-link, 
+    .next-link {
+    	border-radius: 4px;
+	    border: 1px solid #fff;
+	    color: #fff;
+	    background-color: transparent;
+	    transition: all 200ms ease-in-out;
+
+	    display: inline-block;
+	    margin-bottom: 0;
+	    text-align: center;
+	    text-transform: uppercase;
+	    vertical-align: middle;
+	    touch-action: manipulation;
+	    cursor: pointer;
+	    font-size: 1.4rem;
+	    line-height: 22px;
+	    text-decoration: none;
+	    letter-spacing: 2px;
+	    font-family: 'BrandonGrotesque-medium';  
+	    user-select: none;
+
+	    padding: 0px 12px;
+    }
+	}
+
+	&.has-results {
+		.pagination {
+			display: block;
+		}		
+	}
+	&.has-results.first {
+		.pagination .prev {
+			opacity: 0.5;
+			pointer-events: none;
+		}
+	}
+	&.has-results.last {
+		.pagination .next {
+			opacity: 0.5;
+			pointer-events: none;
+		}
+	}
+
+	.end-of-results {
+		display: none;
+		
+    position: relative;
+    width: calc( 100% - 88px);
+    margin: 0 auto;
+    text-align: center;
+    padding: 0 6px;
+
+		span {
+			position: relative;
+			width: 100%;
+			//top: 50%;
+			//left: 50%;
+			//transform: translate( -50%, -50% );
+	    font-weight: bold;
+	    color: #fff;
+		}
+		&.later {
+
+		}
+		&.earlier {
+
+		}
+
+	}	
+
+
+	&.no-more-later {
+		.end-of-results.later {
+			display: block;
+		}
+	}
+	&.no-more-earlier {
+		.end-of-results.earlier {
+			display: block;
 		}
 	}
 

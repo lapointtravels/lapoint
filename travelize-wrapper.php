@@ -50,7 +50,7 @@ $data = array(
 	"lang" => $lang,
 	"startDate" => $start_date,
 	"siteLanguageVersion" => $lang,
-	"maxnumberfortourlist1" => $max_count * 2, // so we can remove any GROUPS from the result and most likely not run out of results to show
+	"maxnumberfortourlist1" => $max_count, // * 2, // so we can remove any GROUPS from the result and most likely not run out of results to show
 	"ifFullShowOtherDates" => "yes"
 );
 

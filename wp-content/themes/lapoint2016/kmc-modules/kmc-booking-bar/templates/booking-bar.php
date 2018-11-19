@@ -4,6 +4,7 @@ $destination_types = $destination_types_manager->get_all();
 $destinations = $destinations_manager->get_all();
 $camps = $camps_manager->get_all();
 $levels = $levels_manager->get_all();
+$today = date('d/m/Y');
 ?>
 
 
@@ -128,14 +129,14 @@ $levels = $levels_manager->get_all();
 					<option class="option" value="4"><?php _e("4 days", "lapoint"); ?></option>
 					<option class="option" value="5"><?php _e("5 days", "lapoint"); ?></option>
 					<option class="option" value="6"><?php _e("6 days", "lapoint"); ?></option>
-
-					<option class="option" value="7"><?php _e("1 week", "lapoint"); ?></option>
+					<!-- selected="selected" -->
+					<option class="option" value="7" ><?php _e("1 week", "lapoint"); ?></option>
 					<option class="option" value="14"><?php _e("2 weeks", "lapoint"); ?></option>
 					<option class="option" value="21"><?php _e("3 weeks", "lapoint"); ?></option>
 				</select>
 			</div>
 
-			<div class="book-choice-container">
+			<div class="book-choice-container">				
 				<input class="book-start-date book-choice" type="text" placeholder="<?php echo __("Start date", "lapoint"); ?>">
 			</div>
 
@@ -153,6 +154,28 @@ $levels = $levels_manager->get_all();
 			</div>
 		</div>
 
+		<div class='pagination'>
+			
+			<div class='pagination-nav'>
+				<div class='prev'>
+					<a class='prev-link' href='javascript:void(0);'> << </a>
+				</div>
+
+				<div class='end-of-results later'>
+					<span>For later departues change the start date and seach again.</span>
+				</div>
+				<div class='end-of-results earlier'>
+					<span>For earlier departues change the start date and seach again.</span>
+				</div>
+				
+				<div class='next'>
+					<a class='next-link' href='javascript:void(0);'> >> </a>
+				</div>
+			</div>
+			
+
+		</div>
+		
 	</div>
 
 
