@@ -173,7 +173,6 @@ $today = date('d/m/Y');
 				</div>
 			</div>
 			
-
 		</div>
 		
 	</div>

@@ -356,6 +356,27 @@
 							</div>
 						</div>
 
+						<div class='pagination'>
+			
+							<div class='pagination-nav'>
+								<div class='prev'>
+									<a class='prev-link' href='javascript:void(0);'> << </a>
+								</div>
+
+								<div class='end-of-results later'>
+									<span>For later departues change the start date and seach again.</span>
+								</div>
+								<div class='end-of-results earlier'>
+									<span>For earlier departues change the start date and seach again.</span>
+								</div>
+								
+								<div class='next'>
+									<a class='next-link' href='javascript:void(0);'> >> </a>
+								</div>
+							</div>
+							
+						</div>
+
 					</div>
 
 			</div>
