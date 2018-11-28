@@ -276,10 +276,19 @@ iframe {
 		}
 		.tableheader {
 			background-color: #2a2f29;
-    		text-transform: capitalize;
-    		span {
-    			font-weight: bold;
-    		}
+  		text-transform: capitalize;
+  		height: 44px;
+  		line-height: 44px;
+  		td {
+  			padding-top: 0;
+  			padding-bottom: 0;
+  		}
+  		span {
+  			font-weight: bold;
+  		}
+		}
+		tr.row2.row_odd {
+			//background-color: #4c504b;
 		}
 		tr.row2:nth-child(odd) {
 			background-color: #4c504b;
@@ -292,7 +301,11 @@ iframe {
 			width: 80px;
 			text-align: center;
 		}
+		.col3 {
+
+		}
 		.col4 {
+			width: 140px;
 			text-align: right;
 			padding-right: 20px;
 		}

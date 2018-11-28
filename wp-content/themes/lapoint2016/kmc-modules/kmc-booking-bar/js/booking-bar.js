@@ -16,7 +16,6 @@
 				this.paginationIndex = 0;
 				this.totalPages = 1;
 				this.outputTables = Array();
-				this.hasNavigated = false;
 
 				// for pagination
 				this.nextStartDate = false;
@@ -375,7 +374,8 @@
 				var lbl_book = this.$el.closest(".kmc-booking-bar");
 
 				this.$el.addClass("open").addClass("loading");
-				this.$el.removeClass("has-results");
+				this.$el.removeClass("has-results no-more-later first last");
+				this.$el.find(".table-wrapper").remove();
 
 				setTimeout(function () {
 					_this.$(".loader").addClass("active");
@@ -409,6 +409,10 @@
 			load_travelize_data_2: function ( data ) {
 
 				var _this = this;
+				_this.paginationIndex = 0;
+				_this.paginationIndex = 0;
+				_this.totalPages = 1;
+				_this.outputTables = Array();
 
 				// load travelize html data into unattached element
 				$travelize_data = $("<div class='table-wrapper'></div>");
@@ -426,20 +430,15 @@
 						_this.$el.addClass("has-results first");
 						_this.$result_container.fadeIn( 420 );
 					});
-					//_this.$result_container.html( $travelize_data );
-
-					
 
 					$next_link = _this.$el.find(".pagination .next-link");
 					$prev_link = _this.$el.find(".pagination .prev-link");
-
-					//_this.$pagination.html( $forward_link );
 
 					$next_link.click( function() {
 
 						_this.paginationIndex++;
 
-						if( _this.paginationIndex > _this.totalPages ) {
+						if( _this.paginationIndex >= _this.totalPages ) {
 							_this.paginationIndex = _this.totalPages;
 							_this.$el.addClass( 'no-more-later last' );
 						} else {
@@ -484,8 +483,7 @@
 				}
 
 				var totalRowsInTable = $travelize_data.find( "tr" ).size();
-				console.log( totalRowsInTable );
-
+				
 				// go trough each row. 
 				// remove any GROUP from the result
 				// and do some general housekeeping so the rows are in a format we want
@@ -531,7 +529,7 @@
 				});
 
 				// reorganize into a new table displaying table header + X results
-				var nbrResultRows = 9; // becomes ten
+				var nbrResultRows = 9; // counter starts at zero
 				var injectHeader;
 				var rowsCounter = 0;								
 				var tmpRows = Array();
@@ -584,6 +582,8 @@
 				}
 				
 				this.totalPages = paginationCounter;
+
+				console.log( 'Totalpages: ' + this.totalPages );
 
 				$tableTemplate.remove();
 
