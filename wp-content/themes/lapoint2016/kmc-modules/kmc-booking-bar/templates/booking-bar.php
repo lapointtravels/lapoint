@@ -18,7 +18,7 @@ $today = date('d/m/Y');
 		?></h2>
 	<?php endif; ?>
 
-	<div class="kmc-booking-bar booking-bar container clearfix" data-animated="true" data-auto-search="<?php echo 0; //$this->auto_search; ?>" data-book-label="<?php _e('Book', 'lapoint'); ?>">
+	<div class="kmc-booking-bar booking-bar container clearfix" data-animated="true" data-auto-search="<?php echo $this->auto_search; ?>" data-book-label="<?php _e('Book', 'lapoint'); ?>">
 		<div class="row">
 			<div class="book-choice-container">
 				<select class="select book-destination-type book-choice">
@@ -130,7 +130,7 @@ $today = date('d/m/Y');
 					<option class="option" value="5"><?php _e("5 days", "lapoint"); ?></option>
 					<option class="option" value="6"><?php _e("6 days", "lapoint"); ?></option>
 					<!-- selected="selected" -->
-					<option class="option" value="7" ><?php _e("1 week", "lapoint"); ?></option>
+					<option class="option" value="7" selected="selected"><?php _e("1 week", "lapoint"); ?></option>
 					<option class="option" value="14"><?php _e("2 weeks", "lapoint"); ?></option>
 					<option class="option" value="21"><?php _e("3 weeks", "lapoint"); ?></option>
 				</select>
@@ -155,17 +155,41 @@ $today = date('d/m/Y');
 		</div>
 
 		<div class='pagination'>
-			
+			<?php
+
+				switch ( ICL_LANGUAGE_CODE ) {
+					case 'sv':
+						$eor_later_string = "För att se senare datum, ändra startdatum och gör en ny sökning";
+						$eor_earlier_string = "För att se tidigare datum, ändra startdatum och gör en ny sökning";
+						break;
+
+					case 'da':
+						$eor_later_string = "For senere afgange skal du ændre startdatoen og søge igen";
+						$eor_earlier_string = "For tidligere afgange skal du ændre startdatoen og søge igen";
+						break;
+
+					case 'nb':
+						$eor_later_string = "Vennligst endre startdatoen og søk igjen for å se senere avganger";
+						$eor_earlier_string = "Vennligst endre startdatoen og søk igjen for å se tidligere avganger";
+						break;
+					
+					default:
+						$eor_later_string = "For later departues change the start date and seach again.";
+						$eor_earlier_string = "For earlier departues change the start date and seach again.";
+						break;
+				}
+
+			?>
 			<div class='pagination-nav'>
 				<div class='prev'>
 					<a class='prev-link' href='javascript:void(0);'> << </a>
 				</div>
 
-				<div class='end-of-results later'>
-					<span>For later departues change the start date and seach again.</span>
+				<div class='end-of-results later'>					
+					<span><?php echo $eor_later_string; ?></span>
 				</div>
 				<div class='end-of-results earlier'>
-					<span>For earlier departues change the start date and seach again.</span>
+					<span><?php echo $eor_earlier_string; ?></span>
 				</div>
 				
 				<div class='next'>
