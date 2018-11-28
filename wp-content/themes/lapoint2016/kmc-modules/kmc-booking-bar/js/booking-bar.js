@@ -17,8 +17,8 @@
 				this.totalPages = 1;
 				this.outputTables = Array();
 
-				// for pagination
-				this.nextStartDate = false;
+				// so you can't search on the same date
+				this.searchDate = false;
 
 				this.scrollOffsetTop = 0;
 				this.closeBookingFrameButton = $("<div class='close-booking-frame'><button class='lines-button x2' type='button'><span class='lines'></span></button></div>");
@@ -369,6 +369,11 @@
 			},
 
 			on_show_click: function () {
+
+				if( this.searchDate != false && this.searchDate == this.$start_date.val() ) {
+					return;
+				}
+
 				var _this = this;
 
 				var lbl_book = this.$el.closest(".kmc-booking-bar");
@@ -403,6 +408,8 @@
 				}
 
 				this.load_travelize_data_2( data );
+
+				this.searchDate = this.$start_date.val();
 
 			},
 
@@ -442,7 +449,6 @@
 							_this.paginationIndex = _this.totalPages;
 							_this.$el.addClass( 'no-more-later last' );
 						} else {
-							console.log(_this.paginationIndex );
 							_this.$el.removeClass( 'no-more-later no-more-earlier first last' );
 						}
 						$travelize_data.find( "table" ).replaceWith( _this.outputTables[ _this.paginationIndex ].table );
@@ -458,7 +464,6 @@
 							_this.paginationIndex = 0;
 							_this.$el.addClass( 'no-more-earlier first' );
 						} else {
-							console.log(_this.paginationIndex );
 							_this.$el.removeClass( 'no-more-later no-more-earlier first last' );
 						}
 
@@ -583,246 +588,7 @@
 				
 				this.totalPages = paginationCounter;
 
-				console.log( 'Totalpages: ' + this.totalPages );
-
 				$tableTemplate.remove();
-
-
-				
-			},
-
-			get_start_date_from_booking_link: function(  ) {
-
-			},
-
-			load_travelize_data: function ( data ) {
-				var _this = this;
-
-				// load the travelize html data into a element that is not attached to the DOM
-				// Process it
-				// Attach it
-				$travelize_data = $("<div class='table-wrapper'></div>");
-
-				$travelize_data.load(lapoint.travelize_wrapper + "?" + jQuery.param(data), function() {
-					
-					// remove 
-					$travelize_data.find(".tableselector_header").remove();
-
-					// fix table header
-					if (!$travelize_data.find(".colNoAvailableOffers").size()) {
-						$travelize_data.find(".tableheader").append( $("<td></td>").css("width", "130px") );
-					}
-
-					// go trough each row and remove any GROUP from the result
-					$travelize_data.find("tr.row").each( function(index, el) {
-						$row = $(el);
-						
-						$colBookPrice = $row.find(".colBookPrice");
-
-						$bookingLinkEl = $colBookPrice.find(".bookingPrice a");
-
-						if( $bookingLinkEl.length > 0 ) {
-
-							var bookingLink = $colBookPrice.find(".bookingPrice a").attr("href");
-						
-							if( bookingLink.indexOf( "%5FGROUPS%5F" ) > 0 ) {
-								//console.log( "removing GROUP from results" );
-								$row.remove();
-								return; // skip to next row in iteration
-							}
-
-							// get the price and remove SEK if it is in the string
-							var bookingPrice = $bookingLinkEl.text().replace("SEK ","") + ":-";
-							// add booking link as attr to the row
-							$row.attr("data-link", bookingLink);
-							// remove span.bookingPrice and span.bookingStatus from the col
-							$colBookPrice.find("span").remove();
-							// add the price and set css
-							$colBookPrice.html(bookingPrice).css("text-align","right").css("padding-right","10px");
-							// append the book button to the row
-							$row.append( $("<td></td>").css("text-align", "right").append(
-								$("<a href='#'>" + lapoint.loc.book + "</a>").addClass("btn btn-cta btn-primary btn-book")));
-						}
-							
-						// change row classes
-						$row.removeClass("row").addClass("row2");
-						// check availability
-						var available = $row.find(".colAvailability span").text();
-						if ((isNaN(available) && available.substr(0, 1) != "<"  && available.substr(0, 1) != ">") || available == "0") {
-							$row.addClass("not-available");
-							$row.find(".btn").addClass("disabled");
-						}						
-
-					});
-
-					function startDateForRow( row ) {
-						
-						var dataLink = $(row).attr("data-link");
-						if( !dataLink ) {
-							console.log( "Attribute data-link not found for row" );
-							return false;
-						}
-
-						var startDate = dataLink.match( /startdate=(\d*\/\d*\/\d*)/ );
-
-						return startDate[1];
-						
-					}
-
-					// we fetch 80 and then display 10 at a time
-					var $rows = $travelize_data.find("tr");
-					_this.perPage = 10;
-					_this.currentPage = 1;
-					_this.nextPage = 2;
-					$rows.each( function(index, el) {
-						if( index >= _this.perPage * _this.currentPage ) {
-							
-								$(el).addClass('hide');								
-							
-						}
-					});
-
-					_this.$el.removeClass("loading");
-
-					var resultDoc = this;
-
-					_this.$result_container.fadeOut( 300, function() {
-						_this.$result_container.html( resultDoc );
-						_this.$result_container.fadeIn( 420 );
-					});
-
-					//_this.$result_container.html( this );
-
-					// pagination
-					$pagination = _this.$el.find(".pagination");
-
-					$forward_link = $("<a href='javascript:void(0);'>View later</a>");
-
-						
-					$forward_link.click( function() {
-						
-						var $rows = $travelize_data.find("tr");
-						console.log( _this.perPage * _this.currentPage, _this.perPage * (_this.currentPage + 1) );
-						$rows.each( function(index, el) {
-							console.log( index )
-							if( index <= _this.perPage * _this.currentPage ) {
-								$(el).addClass('hide');
-							}
-							if( index >= _this.perPage * _this.currentPage && index <= _this.perPage * (_this.currentPage + 1) ) {
-								console.log( 'remove hide' );
-								$(el).removeClass('hide');
-							}
-						});
-						
-						_this.currentPage++;
-
-					});
-
-					$pagination.html( $forward_link );
-
-					$pagination.show();
-
-					_this.$el.append( $pagination );
-
-
-					return;
-					
-					// TODO: Figure out how to always show ten. 
-					// second sweep, limit results
-					// keep results > 10 that have the same start date as result no 10
-					var $rows = $travelize_data.find("tr.row2");
-					var lastStartDateInDisplayedResults = startDateForRow( $rows[9] );
-					var firstStartDateInLeftOverResults = startDateForRow( $rows[10] );
-
-					if( lastStartDateInDisplayedResults == firstStartDateInLeftOverResults ) {
-
-					}
-
-					var keepStartDateInResults = startDateForRow( $rows[9] );
-					$rows.each( function(index, el) {
-						if( index + 1 > 10 ) {
-							var rowStartDate = startDateForRow( el );
-							if( keepStartDateInResults != rowStartDate ) {
-								if( _this.nextStartDate == false ) {
-									_this.nextStartDate = rowStartDate;
-								}
-								$(el).remove();								
-							}
-						}
-					});
-					
-
-					// remove last rows in the table if they are .tableheader
-					$rows = $travelize_data.find("tr");
-					$len = $rows.length;
-					for( $i = $len ; $i > 0; $i-- ) {
-						$row = $($rows[$i - 1]);
-						if( $row.hasClass("tableheader") ) {
-							$row.remove();
-						} else {
-							break;
-						}
-					}
-					
-
-					_this.$el.removeClass("loading");
-
-					var resultDoc = this;
-
-					_this.$result_container.fadeOut( 300, function() {
-						_this.$result_container.html( resultDoc );
-						_this.$result_container.fadeIn( 420 );
-					});
-
-					//_this.$result_container.html( this );
-
-					// pagination
-					$pagination = _this.$el.find(".pagination");
-
-					if( _this.nextStartDate ) {
-						
-						var nextSearchDate = _this.nextStartDate;
-						$forward_link = $("<a href='javascript:void(0);'>View later</a>");
-						$forward_link.attr("nextSearchDate", _this.nextStartDate );
-						
-						$forward_link.click( function() {
-
-							_this.$el.addClass("open").addClass("loading");
-
-							//$pagination.hide();
-
-							var lang = lapoint.country.substr(-2);
-							if (lang == "US") {
-								lang = "UK";
-							}
-							var data = {
-								destination_type: _this.$destination_type.find("option:selected").attr("data-code"),
-								destination: _this.$destination.find("option:selected").attr("data-code"),
-								camp: _this.$camp.find("option:selected").attr("data-code"),
-								level: _this.$level.find("option:selected").attr("data-code"),
-								duration: _this.$duration.val(),
-								startDate: nextSearchDate,
-								lang: lang,
-								maxnumberfortourlist1: 80
-							}
-
-							console.log( data );
-
-							_this.load_travelize_data( data );
-
-						});
-
-						$pagination.html( $forward_link );
-
-						$pagination.show();
-
-						_this.$el.append( $pagination );
-
-						// reset start
-						_this.nextStartDate = false;
-					}
-
-				});
 
 			}
 
