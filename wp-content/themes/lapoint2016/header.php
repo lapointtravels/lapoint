@@ -230,7 +230,7 @@
 
 					<div class="kmc-booking-bar booking-bar container clearfix" data-animated="true">
 						<div class="row">
-							<div class="book-choice-container">
+							<div class="book-choice-container destination-type">
 								<select class="select book-destination-type book-choice">
 									<?php
 									foreach ($destination_types as $destination_type) :
@@ -243,7 +243,7 @@
 								</select>
 							</div>
 
-							<div class="book-choice-container">
+							<div class="book-choice-container destination">
 								<select class="select book-destination book-choice">
 									<option value=""><?php echo __("Select destination", "lapoint"); ?></option>
 									<?php
@@ -276,7 +276,7 @@
 								</select>
 							</div>
 
-							<div class="book-choice-container">
+							<div class="book-choice-container camp">
 								<select class="select book-camp book-choice">
 									<option value=""><?php echo __("Select camp", "lapoint"); ?></option>
 									<?php
@@ -297,7 +297,7 @@
 								</select>
 							</div>
 
-							<div class="book-choice-container">
+							<div class="book-choice-container level">
 								<?php
 								$level_parents = array();
 								foreach ($levels as $level) :
@@ -321,7 +321,7 @@
 								</select>
 							</div>
 
-							<div class="book-choice-container">
+							<div class="book-choice-container duration">
 								<select class="select book-duration book-choice">
 								<option value=""><?php _e("Duration", "lapoint"); ?></option>
 								<option class="option" value="WE"><?php _e("Weekend", "lapoint"); ?></option>
@@ -338,11 +338,11 @@
 								</select>
 							</div>
 
-							<div class="book-choice-container">
+							<div class="book-choice-container start-date">
 								<input class="book-start-date book-choice" type="text" placeholder="<?php echo __("Start date", "lapoint"); ?>">
 							</div>
 
-							<div class="book-choice-container">
+							<div class="book-choice-container search">
 								<button type="button" class="btn btn-show btn-inverted pull-right"><?php echo __("Search", "lapoint"); ?></button>
 							</div>
 						</div>
