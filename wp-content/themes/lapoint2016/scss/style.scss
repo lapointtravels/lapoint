@@ -189,15 +189,15 @@ iframe {
 		display: none;
 	}
 	.row {
-		margin: 0 5px;
+		margin: 0 -5px;
 	}
 
 	.book-choice-container {
 		margin-top: 3px;
 		margin-bottom: 3px;
 		position: relative;
-		padding-right: 5px;
-		padding-left: 5px;
+		padding-right: 0px;
+		padding-left: 0px;
 		width: 100%;
 		float: left;
 
@@ -208,30 +208,72 @@ iframe {
 			width: 100% !important;
 		}
 
-
 		@media (max-width: 992px) {
 			&:nth-child(n+3) {
 				width: 50%;
-			}
-			&:last-child {
-				width: 100%;
+			}			
+			&.level,
+			&.start-date {
+				padding-left: 6px;
 			}
 		}
 		@media (min-width: 768px) {
 			width: 50%;
+			&.destination,
+			&.level,
+			&.start-date {
+				padding-left: 0px;
+				padding-right: 6px;
+			}
 		}
 		@media (min-width: 992px) and (max-width: 1200px) {
 			width: 28%;
 			&:nth-child(3) {
 				margin-right: 10%;
 			}
+			&.duration {
+				padding-right: 6px;
+			}
+			&.start-date {
+				padding-right: 0;
+			}
+			&.destination,
+			&.camp {
+				width: 42%;
+			}
+			&.camp {
+				margin-right: 0;
+			}
+			&.level {
+				clear: left;
+			}
 			&:last-child {
 				width: 16%;
 			}
 		}
 		@media (min-width: 1200px) {
-  			width: 14.28%;
+  			width: calc( 99% / 6 );
+  			padding-right: 6px;
 		}
+	}
+
+	.book-choice-container.destination-type {
+		display: none;
+	}
+	.book-choice-container.destination {
+	}
+	.book-choice-container.camp {
+	}
+	.book-choice-container.level {
+	}
+	.book-choice-container.duration {
+	}
+	.book-choice-container.start-date {
+	}
+	.book-choice-container.search {
+		float: right;
+		padding-right: 0;
+
 	}
 
 	&.open {
@@ -302,7 +344,7 @@ iframe {
 			text-align: center;
 		}
 		.col3 {
-
+			//width: 44%;
 		}
 		.col4 {
 			width: 140px;
@@ -314,6 +356,10 @@ iframe {
 		}
 		.colNoAvailableOffers {
 			text-align: center;
+		}
+		.colBookButton {
+			padding-right: 18px;
+			width: 130px;
 		}
 		tr.row2 {
 			//display: none;
@@ -539,6 +585,7 @@ iframe {
 #ui-datepicker-div {
 	background-color: #fff;
 	width: 300px;
+	display: none; // becuase setting the datepicker date on search using jQuery for some reason shows the datepicker
 }
 .ui-datepicker .ui-datepicker-prev {
 	left: 2px;

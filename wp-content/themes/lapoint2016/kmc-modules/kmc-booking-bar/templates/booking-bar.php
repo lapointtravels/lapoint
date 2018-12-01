@@ -5,6 +5,8 @@ $destinations = $destinations_manager->get_all();
 $camps = $camps_manager->get_all();
 $levels = $levels_manager->get_all();
 $today = date('d/m/Y');
+$default_destination_set = false;
+$default_level_set = false;
 ?>
 
 
@@ -20,7 +22,8 @@ $today = date('d/m/Y');
 
 	<div class="kmc-booking-bar booking-bar container clearfix" data-animated="true" data-auto-search="<?php echo $this->auto_search; ?>" data-book-label="<?php _e('Book', 'lapoint'); ?>">
 		<div class="row">
-			<div class="book-choice-container">
+			
+			<div class="book-choice-container destination-type">
 				<select class="select book-destination-type book-choice">
 					<?php
 					foreach ($destination_types as $destination_type) :
@@ -35,7 +38,7 @@ $today = date('d/m/Y');
 				</select>
 			</div>
 
-			<div class="book-choice-container">
+			<div class="book-choice-container destination">
 				<select class="select book-destination book-choice">
 					<option value=""><?php echo __("Select destination", "lapoint"); ?></option>
 					<?php
@@ -70,7 +73,7 @@ $today = date('d/m/Y');
 				</select>
 			</div>
 
-			<div class="book-choice-container">
+			<div class="book-choice-container camp">
 				<select class="select book-camp book-choice">
 					<option value=""><?php echo __("Select camp", "lapoint"); ?></option>
 					<?php
@@ -93,7 +96,7 @@ $today = date('d/m/Y');
 				</select>
 			</div>
 
-			<div class="book-choice-container">
+			<div class="book-choice-container level">
 				<?php
 				$level_parents = array();
 				foreach ($levels as $level) :
@@ -110,7 +113,7 @@ $today = date('d/m/Y');
 					foreach ($levels as $level) :
 						if ($level->booking_code && !in_array($level->id, $level_parents)) : ?>
 							<option value="<?php echo $level->id; ?>" data-destination-type="<?php echo $level->get_type()->id; ?>" data-code="<?php echo $level->booking_code; ?>"<?php
-							if ($this->default_level == $level->id) echo ' selected="selected"';
+							if ($this->default_level == $level->id) { echo ' selected="selected"'; $default_level_set = true; }; 
 							?>><?php echo $level->display_label; ?></option>
 							<?php
 						endif;
@@ -119,7 +122,7 @@ $today = date('d/m/Y');
 				</select>
 			</div>
 
-			<div class="book-choice-container">
+			<div class="book-choice-container duration">
 				<select class="select book-duration book-choice">
 					<option value=""><?php _e("Duration", "lapoint"); ?></option>
 					<option class="option" value="WE"><?php _e("Weekend", "lapoint"); ?></option>
@@ -129,18 +132,18 @@ $today = date('d/m/Y');
 					<option class="option" value="4"><?php _e("4 days", "lapoint"); ?></option>
 					<option class="option" value="5"><?php _e("5 days", "lapoint"); ?></option>
 					<option class="option" value="6"><?php _e("6 days", "lapoint"); ?></option>
-					<!-- selected="selected" -->
-					<option class="option" value="7" selected="selected"><?php _e("1 week", "lapoint"); ?></option>
+					<!-- selected="selected" -->					
+					<option class="option" value="7" <?php echo $default_level_set ? '' : 'selected="selected"'; ?>><?php _e("1 week", "lapoint"); ?></option>
 					<option class="option" value="14"><?php _e("2 weeks", "lapoint"); ?></option>
 					<option class="option" value="21"><?php _e("3 weeks", "lapoint"); ?></option>
 				</select>
 			</div>
 
-			<div class="book-choice-container">				
+			<div class="book-choice-container start-date">				
 				<input class="book-start-date book-choice" type="text" placeholder="<?php echo __("Start date", "lapoint"); ?>">
 			</div>
 
-			<div class="book-choice-container">
+			<div class="book-choice-container search">
 				<button type="button" class="btn btn-show btn-inverted pull-right disabled"><?php echo __("Search", "lapoint"); ?></button>
 			</div>
 		</div>

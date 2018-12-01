@@ -18,7 +18,7 @@
 				this.outputTables = Array();
 
 				// so you can't search on the same date
-				this.searchDate = false;
+				this.lastSearch = false;
 
 				this.scrollOffsetTop = 0;
 				this.closeBookingFrameButton = $("<div class='close-booking-frame'><button class='lines-button x2' type='button'><span class='lines'></span></button></div>");
@@ -46,6 +46,7 @@
 				}).on('focus', function(){
 					$(this).trigger('blur');
 				});
+
 
 				this.update_destinations(false);
 				this.update_levels(false);
@@ -95,20 +96,24 @@
 				var level = this.$level.val();
 				var camp = this.$camp.val();
 
+				
 				this.$destination.find("option[data-destination-type]").attr('disabled','disabled');
+
 				var select = "option";
 				if (destination_type) {
 					select = "[data-destination-type='" + destination_type + "']";
 				}
 				if (level) {
 					select += "[data-levels*='-" + level + "-']";
-					//this.$destination.find("option:not([data-levels*='-" + level + "-'])").removeAttr("disabled");
 				}
 
+				// If we do this then you can't change destination in the dropdown
+				/*
 				if (camp) {
 					var camp_code = this.$camp.find("option:selected").attr("data-code");
 					select += "[data-camps*='-" + camp_code + "-']";
 				}
+				*/
 
 				this.$destination.find(select).removeAttr("disabled");
 
@@ -369,31 +374,17 @@
 			},
 
 			on_show_click: function () {
-
-				if( this.searchDate != false && this.searchDate == this.$start_date.val() ) {
-					return;
-				}
-
+				
 				var _this = this;
 
-				var lbl_book = this.$el.closest(".kmc-booking-bar");
-
-				this.$el.addClass("open").addClass("loading");
-				this.$el.removeClass("has-results no-more-later first last");
-				this.$el.find(".table-wrapper").remove();
-
-				setTimeout(function () {
-					_this.$(".loader").addClass("active");
-				}, 200);
+				// if no date select set to today
+				if( !this.$start_date.val() ) {
+					this.$start_date.datepicker("setDate", new Date());					
+				} 
 
 				var lang = lapoint.country.substr(-2);
 				if (lang == "US") {
 					lang = "UK";
-				}
-
-				// if no date select set to today
-				if( !this.$start_date.val() ) {
-					this.$start_date.datepicker("setDate", new Date());
 				}
 
 				var data = {
@@ -404,12 +395,30 @@
 					duration: this.$duration.val(),
 					startDate: this.$start_date.val(),
 					lang: lang,
-					maxnumberfortourlist1: 80
+					maxnumberfortourlist1: 60
 				}
+
+				// don't allow exact same search twice
+				if( this.lastSearch ) {
+					if (JSON.stringify( this.lastSearch ) ==  JSON.stringify( data ) ) {
+						return;
+					}
+				}
+
+				var lbl_book = this.$el.closest(".kmc-booking-bar");
+				this.$el.addClass("open").addClass("loading");
+				this.$el.removeClass("has-results no-more-later first last");
+				this.$el.find(".table-wrapper").remove();
+
+				setTimeout(function () {
+					_this.$(".loader").addClass("active");
+				}, 200);
+
 
 				this.load_travelize_data_2( data );
 
-				this.searchDate = this.$start_date.val();
+				// remember and don't allow same exact search twice
+				this.lastSearch = data;
 
 			},
 
@@ -518,7 +527,7 @@
 						// add the price and set css
 						$colBookPrice.html(bookingPrice).css("text-align","right").css("padding-right","10px");
 						// append the book button to the row
-						$row.append( $("<td></td>").css("text-align", "right").append(
+						$row.append( $("<td class='colBookButton'></td>").css("text-align", "right").append(
 							$("<a href='#'>" + lapoint.loc.book + "</a>").addClass("btn btn-cta btn-primary btn-book")));
 					}
 						
