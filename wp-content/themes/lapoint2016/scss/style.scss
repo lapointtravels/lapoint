@@ -430,14 +430,14 @@ iframe {
     	display: block;
     	position: absolute;
     	left: 0px;
-    	width: 44px;
+    	width: 102px;
     }
     .next {
     	display: block;
     	position: absolute;
     	right: 0px;
     	top: 0px;
-    	width: 44px;
+    	width: 102px;
     }
 
     .prev-link, 
@@ -463,6 +463,7 @@ iframe {
 	    user-select: none;
 
 	    padding: 0px 12px;
+	    width: 100%;
     }
 	}
 

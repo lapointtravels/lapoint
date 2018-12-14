@@ -226,6 +226,7 @@
 				$destinations = $destinations_manager->get_all();
 				$camps = $camps_manager->get_all();
 				$levels = $levels_manager->get_all();
+				$default_level_set = false;
 				?>
 
 					<div class="kmc-booking-bar booking-bar container clearfix" data-animated="true">
@@ -357,21 +358,55 @@
 						</div>
 
 						<div class='pagination'>
+
+							<?php
+
+								switch ( ICL_LANGUAGE_CODE ) {
+									case 'sv':
+										$eor_later_string = "För att se senare datum, ändra startdatum och gör en ny sökning";
+										$eor_earlier_string = "För att se tidigare datum, ändra startdatum och gör en ny sökning";
+										$pagination_next_string = "Senare";
+										$pagination_prev_string = "Tidigare";
+										break;
+
+									case 'da':
+										$eor_later_string = "For senere afgange skal du ændre startdatoen og søge igen";
+										$eor_earlier_string = "For tidligere afgange skal du ændre startdatoen og søge igen";
+										$pagination_next_string = "Senere";
+										$pagination_prev_string = "Tidligere";
+										break;
+
+									case 'nb':
+										$eor_later_string = "Vennligst endre startdatoen og søk igjen for å se senere avganger";
+										$eor_earlier_string = "Vennligst endre startdatoen og søk igjen for å se tidligere avganger";
+										$pagination_next_string = "Senere";
+										$pagination_prev_string = "Tidligere";
+										break;
+									
+									default:
+										$eor_later_string = "For later departures change the start date and seach again.";
+										$eor_earlier_string = "For earlier departures change the start date and seach again.";
+										$pagination_next_string = "Later";
+										$pagination_prev_string = "Earlier";
+										break;
+								}
+
+							?>
 			
 							<div class='pagination-nav'>
 								<div class='prev'>
-									<a class='prev-link' href='javascript:void(0);'> << </a>
+									<a class='prev-link' href='javascript:void(0);'> <?php echo $pagination_prev_string; ?> </a>
 								</div>
 
-								<div class='end-of-results later'>
-									<span>For later departues change the start date and seach again.</span>
+								<div class='end-of-results later'>					
+									<span><?php echo $eor_later_string; ?></span>
 								</div>
 								<div class='end-of-results earlier'>
-									<span>For earlier departues change the start date and seach again.</span>
+									<span><?php echo $eor_earlier_string; ?></span>
 								</div>
 								
 								<div class='next'>
-									<a class='next-link' href='javascript:void(0);'> >> </a>
+									<a class='next-link' href='javascript:void(0);'> <?php echo $pagination_next_string; ?> </a>
 								</div>
 							</div>
 							
