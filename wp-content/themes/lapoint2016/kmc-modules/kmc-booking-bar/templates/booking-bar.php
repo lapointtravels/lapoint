@@ -6,8 +6,7 @@ $camps = $camps_manager->get_all();
 $levels = $levels_manager->get_all();
 $default_level_set = false;
 ?>
-
-
+	
 	<?php if ($this->post->post_title) : ?>
 		<h2 class="center"><?php
 		if ($this->post->post_title == "DEFAULT") :
@@ -77,8 +76,10 @@ $default_level_set = false;
 					<?php
 					$added_camps = array();
 					foreach ($camps as $camp) :
-						if ($camp->booking_code && !in_array($camp->booking_code, $added_camps)) :
-							$added_camps[] = $camp->booking_code;
+						// Guessing that it is for camps to have the same booking code. Currently a camp is mapped to ONE destination. So might have to create duplicate camps
+						// for different destination types. 				
+						if ($camp->booking_code ) : //&& !in_array($camp->booking_code, $added_camps)) :
+							//$added_camps[] = $camp->booking_code;
 
 							$booking_title = $camp->title;
 							if ($camp->booking_label) :

@@ -31,7 +31,7 @@ if (isset($_GET["level"]) && $_GET["level"]) {
 }*/
 
 // SPECIAL CASE: If the destination type is YOUTH skip the camp code..
-if (strcmp($destination_type, "YOUTH_") === 0 || strcmp($destination_type, "YC_") === 0) {
+if (strcmp($destination_type, "YOUTH_") === 0 ) {
 	$product = $destination_type . $dest . $level;
 } else {
 	$product = $destination_type . $dest . $camp . $level;

@@ -447,18 +447,18 @@
 						_this.$result_container.fadeIn( 420 );
 					});
 
-					$next_link = _this.$el.find(".pagination .next-link");
-					$prev_link = _this.$el.find(".pagination .prev-link");
+					$next_link = _this.$el.find(".pagination .next");
+					$prev_link = _this.$el.find(".pagination .prev");
 
 					$next_link.click( function() {
 
 						_this.paginationIndex++;
 
+						_this.$el.removeClass( 'no-more-later no-more-earlier first last' );
+
 						if( _this.paginationIndex >= _this.totalPages ) {
 							_this.paginationIndex = _this.totalPages;
 							_this.$el.addClass( 'no-more-later last' );
-						} else {
-							_this.$el.removeClass( 'no-more-later no-more-earlier first last' );
 						}
 						$travelize_data.find( "table" ).replaceWith( _this.outputTables[ _this.paginationIndex ].table );
 
@@ -469,11 +469,11 @@
 
 						_this.paginationIndex--;
 
+						_this.$el.removeClass( 'no-more-later no-more-earlier first last' );
+
 						if( _this.paginationIndex <= 0 ) {
 							_this.paginationIndex = 0;
 							_this.$el.addClass( 'no-more-earlier first' );
-						} else {
-							_this.$el.removeClass( 'no-more-later no-more-earlier first last' );
 						}
 
 						$travelize_data.find( "table" ).replaceWith( _this.outputTables[ _this.paginationIndex ].table );

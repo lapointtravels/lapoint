@@ -166,12 +166,12 @@
 			?>
 
 			<div class="select-destination select-menu-dropdown">
-				<div class="row clearfix">
-					<?php
+				<div class="row clearfix container">
+					<?php					
 					foreach ($filtered_destination_types as $destination_type) :
 						$destinations = $destination_type->get_destinations();
 						?>
-						<div class="col col-sm-4">
+						<div class="col col-sm-3">
 							<h4><a href="<?php
 							echo home_url(get_page_uri($destination_type->id)) . "/destinations";
 							?>"><?php
@@ -192,7 +192,7 @@
 			</div>
 
 			<div class="select-level select-menu-dropdown">
-				<div class="row clearfix">
+				<div class="row clearfix container">
 					<?php
 					global $level_manager;
 					foreach ($level_destination_types as $destination_type) :
@@ -283,8 +283,8 @@
 									<?php
 									$added_camps = array();
 									foreach ($camps as $camp) :
-										if ($camp->booking_code && !in_array($camp->booking_code, $added_camps)) :
-											$added_camps[] = $camp->booking_code;
+										if ($camp->booking_code ) : //&& !in_array($camp->booking_code, $added_camps)) :
+											//$added_camps[] = $camp->booking_code;
 
 											$booking_title = $camp->title;
 											if ($camp->booking_label) :
