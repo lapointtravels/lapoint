@@ -373,6 +373,17 @@ class Lapoint_Framework {
 			'top'
 		);
 
+		add_rewrite_rule(
+			'yogasurfcamp/levels/?$',
+			'index.php?pagename=yogasurfcamps-levels',
+			'top'
+		);
+
+		add_rewrite_rule(
+			'yogasurfcamp/destinations/?$',
+			'index.php?pagename=yogasurfcamps-destinations',
+			'top'
+		);
 
 		/*add_rewrite_rule(
 			'(blogg|blog)/([^/]+)/?$',
@@ -1007,8 +1018,7 @@ class Lapoint_Framework {
 		$LOCATION = false;
 
 		global $post;
-
-
+		
 		switch (get_post_type()) {
 			case 'destination-type':
 				$this->assure_correct_url();
