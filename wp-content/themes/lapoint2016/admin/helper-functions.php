@@ -43,21 +43,24 @@ function get_wpml_home_url ($permalink) {
     return $homeUrl;
 	} 
 
-	
-	//$parsed = parse_url( $permalink );
+	// If we are on production
+	if( preg_match( '/lapointcamps.com|lapoint.dk|lapoint.no|lapoint.se/i' , $permalink) ) {
 
-	//return "https://www." . $parsed["host"] . "/";
+	  $homeUrl = "lapointcamps.com";
+	  if (strpos($permalink, "lapoint.dk")) {
+	  	$homeUrl = "lapoint.dk";
+	  } else if (strpos($permalink, "lapoint.no")) {
+	  	$homeUrl = "lapoint.no";
+	  } else if (strpos($permalink, "lapoint.se")) {
+	  	$homeUrl = "lapoint.se";
+	  }
+	  $homeUrl = "https://www." . $homeUrl . "/";
+		
+		return $homeUrl;
+	}
 
-  $homeUrl = "lapointcamps.com";
-  if (strpos($permalink, "lapoint.dk")) {
-  	$homeUrl = "lapoint.dk";
-  } else if (strpos($permalink, "lapoint.no")) {
-  	$homeUrl = "lapoint.no";
-  } else if (strpos($permalink, "lapoint.se")) {
-  	$homeUrl = "lapoint.se";
-  }
-  $homeUrl = "https://www." . $homeUrl . "/";
-	
+	$parsed = parse_url( $permalink );
 
-	return $homeUrl;
+	return "https://www." . $parsed["host"] . "/";
+
 }
