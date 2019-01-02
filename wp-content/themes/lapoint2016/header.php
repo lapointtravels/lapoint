@@ -166,12 +166,12 @@
 			?>
 
 			<div class="select-destination select-menu-dropdown">
-				<div class="row clearfix">
-					<?php
+				<div class="row clearfix container">
+					<?php					
 					foreach ($filtered_destination_types as $destination_type) :
 						$destinations = $destination_type->get_destinations();
 						?>
-						<div class="col col-sm-4">
+						<div class="col col-sm-3">
 							<h4><a href="<?php
 							echo home_url(get_page_uri($destination_type->id)) . "/destinations";
 							?>"><?php
@@ -192,7 +192,7 @@
 			</div>
 
 			<div class="select-level select-menu-dropdown">
-				<div class="row clearfix">
+				<div class="row clearfix container">
 					<?php
 					global $level_manager;
 					foreach ($level_destination_types as $destination_type) :
@@ -226,11 +226,12 @@
 				$destinations = $destinations_manager->get_all();
 				$camps = $camps_manager->get_all();
 				$levels = $levels_manager->get_all();
+				$default_level_set = false;
 				?>
 
 					<div class="kmc-booking-bar booking-bar container clearfix" data-animated="true">
 						<div class="row">
-							<div class="book-choice-container">
+							<div class="book-choice-container destination-type">
 								<select class="select book-destination-type book-choice">
 									<?php
 									foreach ($destination_types as $destination_type) :
@@ -243,7 +244,7 @@
 								</select>
 							</div>
 
-							<div class="book-choice-container">
+							<div class="book-choice-container destination">
 								<select class="select book-destination book-choice">
 									<option value=""><?php echo __("Select destination", "lapoint"); ?></option>
 									<?php
@@ -276,14 +277,14 @@
 								</select>
 							</div>
 
-							<div class="book-choice-container">
+							<div class="book-choice-container camp">
 								<select class="select book-camp book-choice">
 									<option value=""><?php echo __("Select camp", "lapoint"); ?></option>
 									<?php
 									$added_camps = array();
 									foreach ($camps as $camp) :
-										if ($camp->booking_code && !in_array($camp->booking_code, $added_camps)) :
-											$added_camps[] = $camp->booking_code;
+										if ($camp->booking_code ) : //&& !in_array($camp->booking_code, $added_camps)) :
+											//$added_camps[] = $camp->booking_code;
 
 											$booking_title = $camp->title;
 											if ($camp->booking_label) :
@@ -297,7 +298,7 @@
 								</select>
 							</div>
 
-							<div class="book-choice-container">
+							<div class="book-choice-container level">
 								<?php
 								$level_parents = array();
 								foreach ($levels as $level) :
@@ -321,7 +322,7 @@
 								</select>
 							</div>
 
-							<div class="book-choice-container">
+							<div class="book-choice-container duration">
 								<select class="select book-duration book-choice">
 								<option value=""><?php _e("Duration", "lapoint"); ?></option>
 								<option class="option" value="WE"><?php _e("Weekend", "lapoint"); ?></option>
@@ -338,11 +339,11 @@
 								</select>
 							</div>
 
-							<div class="book-choice-container">
+							<div class="book-choice-container start-date">
 								<input class="book-start-date book-choice" type="text" placeholder="<?php echo __("Start date", "lapoint"); ?>">
 							</div>
 
-							<div class="book-choice-container">
+							<div class="book-choice-container search">
 								<button type="button" class="btn btn-show btn-inverted pull-right"><?php echo __("Search", "lapoint"); ?></button>
 							</div>
 						</div>
@@ -354,6 +355,61 @@
 								<div class="bounce2"></div>
 								<div class="bounce3"></div>
 							</div>
+						</div>
+
+						<div class='pagination'>
+
+							<?php
+
+								switch ( ICL_LANGUAGE_CODE ) {
+									case 'sv':
+										$eor_later_string = "För att se senare datum, ändra startdatum och gör en ny sökning";
+										$eor_earlier_string = "För att se tidigare datum, ändra startdatum och gör en ny sökning";
+										$pagination_next_string = "Senare";
+										$pagination_prev_string = "Tidigare";
+										break;
+
+									case 'da':
+										$eor_later_string = "For senere afgange skal du ændre startdatoen og søge igen";
+										$eor_earlier_string = "For tidligere afgange skal du ændre startdatoen og søge igen";
+										$pagination_next_string = "Senere";
+										$pagination_prev_string = "Tidligere";
+										break;
+
+									case 'nb':
+										$eor_later_string = "Vennligst endre startdatoen og søk igjen for å se senere avganger";
+										$eor_earlier_string = "Vennligst endre startdatoen og søk igjen for å se tidligere avganger";
+										$pagination_next_string = "Senere";
+										$pagination_prev_string = "Tidligere";
+										break;
+									
+									default:
+										$eor_later_string = "For later departures change the start date and seach again.";
+										$eor_earlier_string = "For earlier departures change the start date and seach again.";
+										$pagination_next_string = "Later";
+										$pagination_prev_string = "Earlier";
+										break;
+								}
+
+							?>
+			
+							<div class='pagination-nav'>
+								<div class='prev'>
+									<a class='prev-link' href='javascript:void(0);'> <?php echo $pagination_prev_string; ?> </a>
+								</div>
+
+								<div class='end-of-results later'>					
+									<span><?php echo $eor_later_string; ?></span>
+								</div>
+								<div class='end-of-results earlier'>
+									<span><?php echo $eor_earlier_string; ?></span>
+								</div>
+								
+								<div class='next'>
+									<a class='next-link' href='javascript:void(0);'> <?php echo $pagination_next_string; ?> </a>
+								</div>
+							</div>
+							
 						</div>
 
 					</div>

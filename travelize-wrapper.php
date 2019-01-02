@@ -31,7 +31,7 @@ if (isset($_GET["level"]) && $_GET["level"]) {
 }*/
 
 // SPECIAL CASE: If the destination type is YOUTH skip the camp code..
-if (strcmp($destination_type, "YOUTH_") === 0 || strcmp($destination_type, "YC_") === 0) {
+if (strcmp($destination_type, "YOUTH_") === 0 ) {
 	$product = $destination_type . $dest . $level;
 } else {
 	$product = $destination_type . $dest . $camp . $level;
@@ -50,7 +50,7 @@ $data = array(
 	"lang" => $lang,
 	"startDate" => $start_date,
 	"siteLanguageVersion" => $lang,
-	"maxnumberfortourlist1" => $max_count * 2, // so we can remove any GROUPS from the result and most likely not run out of results to show
+	"maxnumberfortourlist1" => $max_count, // * 2, // so we can remove any GROUPS from the result and most likely not run out of results to show
 	"ifFullShowOtherDates" => "yes"
 );
 

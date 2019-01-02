@@ -12,6 +12,14 @@
 				this.$start_date = this.$(".book-start-date");
 				this.$result_container = this.$(".result-container");
 
+				this.$pagination = this.$(".pagination");
+				this.paginationIndex = 0;
+				this.totalPages = 1;
+				this.outputTables = Array();
+
+				// so you can't search on the same date
+				this.lastSearch = false;
+
 				this.scrollOffsetTop = 0;
 				this.closeBookingFrameButton = $("<div class='close-booking-frame'><button class='lines-button x2' type='button'><span class='lines'></span></button></div>");
 
@@ -38,6 +46,7 @@
 				}).on('focus', function(){
 					$(this).trigger('blur');
 				});
+
 
 				this.update_destinations(false);
 				this.update_levels(false);
@@ -87,20 +96,24 @@
 				var level = this.$level.val();
 				var camp = this.$camp.val();
 
+				
 				this.$destination.find("option[data-destination-type]").attr('disabled','disabled');
+
 				var select = "option";
 				if (destination_type) {
 					select = "[data-destination-type='" + destination_type + "']";
 				}
 				if (level) {
 					select += "[data-levels*='-" + level + "-']";
-					//this.$destination.find("option:not([data-levels*='-" + level + "-'])").removeAttr("disabled");
 				}
 
+				// If we do this then you can't change destination in the dropdown
+				/*
 				if (camp) {
 					var camp_code = this.$camp.find("option:selected").attr("data-code");
 					select += "[data-camps*='-" + camp_code + "-']";
 				}
+				*/
 
 				this.$destination.find(select).removeAttr("disabled");
 
@@ -361,12 +374,13 @@
 			},
 
 			on_show_click: function () {
+				
 				var _this = this;
-				var lbl_book = this.$el.closest(".kmc-booking-bar");
-				this.$el.addClass("open").addClass("loading");
-				setTimeout(function () {
-					_this.$(".loader").addClass("active");
-				}, 200);
+
+				// if no date select set to today
+				if( !this.$start_date.val() ) {
+					this.$start_date.datepicker("setDate", new Date());					
+				} 
 
 				var lang = lapoint.country.substr(-2);
 				if (lang == "US") {
@@ -381,189 +395,210 @@
 					duration: this.$duration.val(),
 					startDate: this.$start_date.val(),
 					lang: lang,
-					maxnumberfortourlist1: 10
+					maxnumberfortourlist1: 60
 				}
 
-				// load the travelize html data into a element that is not attached to the DOM
-				// Process it
-				// Attach it
-				$travelize_data = $("<div></div>");
+				// don't allow exact same search twice
+				if( this.lastSearch ) {
+					if (JSON.stringify( this.lastSearch ) ==  JSON.stringify( data ) ) {
+						return;
+					}
+				}
+
+				var lbl_book = this.$el.closest(".kmc-booking-bar");
+				this.$el.addClass("open").addClass("loading");
+				this.$el.removeClass("has-results no-more-later first last");
+				this.$el.find(".table-wrapper").remove();
+
+				setTimeout(function () {
+					_this.$(".loader").addClass("active");
+				}, 200);
+
+
+				this.load_travelize_data_2( data );
+
+				// remember and don't allow same exact search twice
+				this.lastSearch = data;
+
+			},
+
+			load_travelize_data_2: function ( data ) {
+
+				var _this = this;
+				_this.paginationIndex = 0;
+				_this.paginationIndex = 0;
+				_this.totalPages = 1;
+				_this.outputTables = Array();
+
+				// load travelize html data into unattached element
+				$travelize_data = $("<div class='table-wrapper'></div>");
 
 				$travelize_data.load(lapoint.travelize_wrapper + "?" + jQuery.param(data), function() {
 
-					// remove 
-					$travelize_data.find(".tableselector_header").remove();
+					_this.parse_travelize_data( $travelize_data ); 
 
-					// fix table header
-					if (!$travelize_data.find(".colNoAvailableOffers").size()) {
-						$travelize_data.find(".tableheader").append( $("<td></td>").css("width", "130px") );
+					$travelize_data.find( "table" ).replaceWith( _this.outputTables[ _this.paginationIndex ].table );
+					
+					_this.$result_container.fadeOut( 300, function() {
+						_this.$result_container.html( $travelize_data );
+						_this.$el.removeClass("loading");
+					
+						_this.$el.addClass("has-results first");
+						_this.$result_container.fadeIn( 420 );
+					});
+
+					$next_link = _this.$el.find(".pagination .next");
+					$prev_link = _this.$el.find(".pagination .prev");
+
+					$next_link.click( function() {
+
+						_this.paginationIndex++;
+
+						_this.$el.removeClass( 'no-more-later no-more-earlier first last' );
+
+						if( _this.paginationIndex >= _this.totalPages ) {
+							_this.paginationIndex = _this.totalPages;
+							_this.$el.addClass( 'no-more-later last' );
+						}
+						$travelize_data.find( "table" ).replaceWith( _this.outputTables[ _this.paginationIndex ].table );
+
+
+					});
+
+					$prev_link.click( function() {
+
+						_this.paginationIndex--;
+
+						_this.$el.removeClass( 'no-more-later no-more-earlier first last' );
+
+						if( _this.paginationIndex <= 0 ) {
+							_this.paginationIndex = 0;
+							_this.$el.addClass( 'no-more-earlier first' );
+						}
+
+						$travelize_data.find( "table" ).replaceWith( _this.outputTables[ _this.paginationIndex ].table );
+
+
+					});
+
+				});
+
+			},	
+
+			
+			parse_travelize_data: function( $travelize_data )	{
+
+				// remove 
+				$travelize_data.find(".tableselector_header").remove();
+
+				// fix table header
+				if (!$travelize_data.find(".colNoAvailableOffers").size()) {
+					$travelize_data.find(".tableheader").append( $("<td></td>").css("width", "130px") );
+				}
+
+				var totalRowsInTable = $travelize_data.find( "tr" ).size();
+				
+				// go trough each row. 
+				// remove any GROUP from the result
+				// and do some general housekeeping so the rows are in a format we want
+				$travelize_data.find("tr.row").each( function(index, el) {
+					$row = $(el);
+					
+					$colBookPrice = $row.find(".colBookPrice");
+
+					$bookingLinkEl = $colBookPrice.find(".bookingPrice a");
+
+					if( $bookingLinkEl.length > 0 ) {
+
+						var bookingLink = $colBookPrice.find(".bookingPrice a").attr("href");
+					
+						if( bookingLink.indexOf( "%5FGROUPS%5F" ) > 0 ) {
+							//console.log( "removing GROUP from results" );
+							$row.remove();
+							return; // skip to next row in iteration
+						}
+
+						// get the price and remove SEK if it is in the string
+						var bookingPrice = $bookingLinkEl.text().replace("SEK ","") + ":-";
+						// add booking link as attr to the row
+						$row.attr("data-link", bookingLink);
+						// remove span.bookingPrice and span.bookingStatus from the col
+						$colBookPrice.find("span").remove();
+						// add the price and set css
+						$colBookPrice.html(bookingPrice).css("text-align","right").css("padding-right","10px");
+						// append the book button to the row
+						$row.append( $("<td class='colBookButton'></td>").css("text-align", "right").append(
+							$("<a href='#'>" + lapoint.loc.book + "</a>").addClass("btn btn-cta btn-primary btn-book")));
+					}
+						
+					// change row classes
+					$row.removeClass("row").addClass("row2");
+					// check availability
+					var available = $row.find(".colAvailability span").text();
+					if ((isNaN(available) && available.substr(0, 1) != "<"  && available.substr(0, 1) != ">") || available == "0") {
+						$row.addClass("not-available");
+						$row.find(".btn").addClass("disabled");
+					}						
+
+				});
+
+				// reorganize into a new table displaying table header + X results
+				var nbrResultRows = 9; // counter starts at zero
+				var injectHeader;
+				var rowsCounter = 0;								
+				var tmpRows = Array();
+
+				$travelize_data.find("tr").each( function(index, el) {
+
+					$row = $(el);
+
+					var currentIsHeader = false;
+
+					if( $row.hasClass( "tableheader" ) ) {
+						$injectHeader = $row;
+						currentIsHeader = true;
 					}
 
-					// go trough each row and remove any GROUP from the result
-					$travelize_data.find("tr.row").each( function(index, el) {
-						$row = $(el);
+					if( rowsCounter == nbrResultRows ) {
 						
-						$colBookPrice = $row.find(".colBookPrice");
-
-						$bookingLinkEl = $colBookPrice.find(".bookingPrice a");
-
-						if( $bookingLinkEl.length > 0 ) {
-
-							var bookingLink = $colBookPrice.find(".bookingPrice a").attr("href");
-						
-							if( bookingLink.indexOf( "%5FGROUPS%5F" ) > 0 ) {
-								console.log( "removing GROUP from results" );
-								$row.remove();
-								return; // skip to next row in iteration
-							}
-
-							// get the price and remove SEK if it is in the string
-							var bookingPrice = $bookingLinkEl.text().replace("SEK ","") + ":-";
-							// add booking link as attr to the row
-							$row.attr("data-link", bookingLink);
-							// remove span.bookingPrice and span.bookingStatus from the col
-							$colBookPrice.find("span").remove();
-							// add the price and set css
-							$colBookPrice.html(bookingPrice).css("text-align","right").css("padding-right","10px");
-							// append the book button to the row
-							$row.append( $("<td></td>").css("text-align", "right").append(
-								$("<a href='#'>" + lapoint.loc.book + "</a>").addClass("btn btn-cta btn-primary btn-book")));
-						}
-							
-						// change row classes
-						$row.removeClass("row").addClass("row2");
-						// check availability
-						var available = $row.find(".colAvailability span").text();
-						if ((isNaN(available) && available.substr(0, 1) != "<"  && available.substr(0, 1) != ">") || available == "0") {
-							$row.addClass("not-available");
-							$row.find(".btn").addClass("disabled");
-						}						
-
-					});
-
-					// second sweep, limit restults to ten
-					$travelize_data.find("tr.row2").each( function(index, el) {
-						if( index + 1 > 10 ) {
-							$(el).remove();
-						}
-					});
-
-					// remove last rows in the table if they are .tableheader
-					$rows = $travelize_data.find("tr");
-					$len = $rows.length;
-					for( $i = $len ; $i > 0; $i-- ) {
-						$row = $($rows[$i - 1]);
-						if( $row.hasClass("tableheader") ) {
-							$row.remove();
+						if( !currentIsHeader ) {
+							tmpRows.push( $injectHeader.clone() );
+							rowsCounter = 0;
 						} else {
-							break;
+							rowsCounter = -1;
 						}
+
+					}
+
+					tmpRows.push( $row.remove() );
+
+					rowsCounter++;
+					if( index == 0 ) {
+						rowsCounter--;
+					}
+
+				});
+
+				var paginationCounter = 0;
+				
+				$tableTemplate = $( '<table cellspacing="0" cellpadding="0" class="tourlist tourlist1"></table>' );
+
+				this.outputTables.push( {page: 0, table: $tableTemplate.clone() });
+				for( i = 0; i < tmpRows.length; i++ ) {
+
+					if( i != 0 && i % (nbrResultRows+1) == 0 ) {
+						paginationCounter++;
+						this.outputTables.push( {page: paginationCounter, table: $tableTemplate.clone() });
 					}
 					
+					tmpRows[i].appendTo( this.outputTables[paginationCounter].table );
 
-					_this.$el.removeClass("loading");
-					_this.$result_container.html( this );
+				}
+				
+				this.totalPages = paginationCounter;
 
-				});
+				$tableTemplate.remove();
 
-				return;
-
-				this.$result_container.load(lapoint.travelize_wrapper + "?" + jQuery.param(data), function() {
-
-					_this.$(".tableselector_header").remove();
-					_this.$el.removeClass("loading");
-
-
-
-					$(".bookingPrice").each(function(){
-						var $price = $(this);
-						var $a = $price.find("a");
-						var $parent = $price.parent();
-						$price.remove();
-
-						if ($a.length > 0){
-							var price = $a.text().replace("SEK ","") + ":-";
-							var $tr =  $parent.closest("tr");
-
-							// Don't show group results
-							if ($a.attr("href").indexOf("%5FGROUPS%5F") > 0) {
-								$tr.remove()
-							} else {
-								$tr.attr("data-link", $a.attr("href"));
-								$parent.html(price).css("text-align","right").css("padding-right","10px");
-							}
-
-						}
-
-					});
-
-					if (!_this.$(".colNoAvailableOffers").size()) {
-						_this.$(".tableheader").append(
-							$("<td></td>").css("width", "130px")
-						);
-						_this.$("tr:not(.tableheader)").append(
-							$("<td></td>").css("text-align", "right").append(
-								$("<a href='#'>" + lapoint.loc.book + "</a>").addClass("btn btn-cta btn-primary btn-book")
-							)
-						);
-
-						_this.$(".btn-book:not(.disabled)").on("click", function (e) {
-							e.preventDefault();
-							var $tr = $(e.currentTarget).closest("tr");
-							if ($tr.attr("data-link")) {
-								var url = $tr.attr("data-link");
-								//if (window.lapoint.language !== 'sv' && window.lapoint.gaClientId) {
-								if (window.lapoint.gaClientId) {
-									url += '&clientId=' + window.lapoint.gaClientId
-								}
-
-								// Hide all sections except the first (if it has an background image)
-								$('.kmc-sections .kmc-section').each(function (index, elem) {
-									var $el = $(elem);
-									if (index > 0 || !($el.hasClass('has-bgr-img') || $el.hasClass('has-bgr-video'))) {
-										$el.fadeOut();
-									}
-								});
-
-								// Add iframe
-								var $iFrame = $('<iframe src="' + url + '" height="800" width="100%" frameborder="0" id="travelize-booking-frame"></iframe>');
-								$('#main').append($iFrame);
-								$iFrame.width($(window).width());
-								$iFrame.hide().fadeIn();
-								$iFrame.iFrameResize({
-									log: false,
-									checkOrigin: false
-								});
-
-								$(window).on('resize', function(e) {
-									$iFrame.width($(window).width());
-								});
-
-								// Close menu book slider if open
-								var $main_booking = $(".main-booking");
-								if ($main_booking.hasClass("open")) {
-									$(".drop-wrapper").parent().removeClass("open");
-									$main_booking.removeClass("open");
-									$main_booking.slideUp();
-								}
-
-
-							}
-						});
-
-						$(this).find(".row").removeClass("row").addClass("row2").each(function (index, row) {
-							var $row = $(row);
-							var available = $row.find(".colAvailability span").text();
-							if ((isNaN(available) && available.substr(0, 1) != "<"  && available.substr(0, 1) != ">") || available == "0") {
-								$row.addClass("not-available");
-								$row.find(".btn").addClass("disabled");
-							}
-						});
-					}
-
-					$(this).find("span.bookingStatus").remove();
-
-				});
 			}
 
 		});

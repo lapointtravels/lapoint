@@ -60,7 +60,7 @@ class Destinations_Types_Manager {
 
 	        $log = false;
 
-	        if ($log) echo "!!!!! " . $permalink . " | ";
+	        if ($log) echo "!!!!! " . $permalink . " - " . $post->post_name . " - " . $leavename . " | ";
 
 	        $rewritecodes = array(
 	            '%postname%',
@@ -69,7 +69,7 @@ class Destinations_Types_Manager {
 
 	        // for local dev and staging WPML can be set to use query mode for translations to work.
 					parse_str( parse_url( $permalink )["query"], $parsed_query );
-
+					//if( $leavename ) { $leavename = false; }
 	        $replacements = array(
 	            ($leavename) ? '%destination-type%' : $post->post_name,
 	            $parsed_query['lang'] ? '?lang=' . $parsed_query['lang'] : ''

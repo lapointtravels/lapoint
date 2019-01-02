@@ -373,6 +373,17 @@ class Lapoint_Framework {
 			'top'
 		);
 
+		add_rewrite_rule(
+			'yogasurfcamp/levels/?$',
+			'index.php?pagename=yogasurfcamps-levels',
+			'top'
+		);
+
+		add_rewrite_rule(
+			'yogasurfcamp/destinations/?$',
+			'index.php?pagename=yogasurfcamps-destinations',
+			'top'
+		);
 
 		/*add_rewrite_rule(
 			'(blogg|blog)/([^/]+)/?$',
@@ -380,7 +391,7 @@ class Lapoint_Framework {
 			'top'
 		);*/
 
-		$desttype = '(surfcamp|kitecamp|youthcamps|ungdomslager|ungdomscamp)';
+		$desttype = '(surfcamp|kitecamp|youthcamps|ungdomslager|ungdomscamp|yogasurfcamp)';
 		$loccamps = '(accommodations|indkvartering|overnatting|boenden)';
 
 		add_rewrite_tag('%desttype%', $desttype);
@@ -500,6 +511,7 @@ class Lapoint_Framework {
 
 	# ****************************** Init ******************************
 	public function init () {
+
 		if (isset($_GET["page"]) && $_GET["page"] == "fix-images") {
 
 			include "scripts/fix-images.php";
@@ -531,13 +543,19 @@ class Lapoint_Framework {
 			echo "Destination types:<br>";
 			$count = 0;
 			foreach ($destinations_types as $destinations_type) {
+
 				$dest = new Destination_Type($destinations_type);
 				$post_language_details = apply_filters( 'wpml_post_language_details', NULL, $dest->id ) ;
 				$code = $post_language_details["language_code"];
-				$link = $destination_types_manager->custom_post_permalink("", $destinations_type, false, false);
-				if ($code != "en") {
-					$link = str_replace($host, $host . "/" . $code, $link);
+				
+				$link = $dest->link;
+				if( !$link ) {
+					$link = $destination_types_manager->custom_post_permalink("", $destinations_type, false, false);
+					if ($code != "en") {
+						$link = str_replace($host, $host . "/" . $code, $link);
+					}
 				}
+
 				echo $dest->title ." (". $code ."): <a href='". $link ."' target='_blank'>". $link ."</a><br>";
 				$count++;
 			}
@@ -562,9 +580,12 @@ class Lapoint_Framework {
 				$dest = new Destination($destination);
 				$post_language_details = apply_filters( 'wpml_post_language_details', NULL, $dest->id ) ;
 				$code = $post_language_details["language_code"];
-				$link = $destinations_manager->custom_post_permalink("", $destination, false, false);
-				if ($code != "en") {
-					$link = str_replace($host, $host . "/" . $code, $link);
+				$link = $dest->link;
+				if( !$link ) {
+					$link = $destinations_manager->custom_post_permalink("", $destination, false, false);
+					if ($code != "en") {
+						$link = str_replace($host, $host . "/" . $code, $link);
+					}
 				}
 				echo $dest->title ." (". $code ."): <a href='". $link ."' target='_blank'>". $link ."</a><br>";
 				$count++;
@@ -590,9 +611,12 @@ class Lapoint_Framework {
 				$ll = new Level($level);
 				$post_language_details = apply_filters( 'wpml_post_language_details', NULL, $ll->id ) ;
 				$code = $post_language_details["language_code"];
-				$link = $levels_manager->custom_post_permalink("", $level, false, false);
-				if ($code != "en") {
-					$link = str_replace($host, $host . "/" . $code, $link);
+				$link = $dest->link;
+				if( !$link ) {
+					$link = $levels_manager->custom_post_permalink("", $level, false, false);
+					if ($code != "en") {
+						$link = str_replace($host, $host . "/" . $code, $link);
+					}
 				}
 				echo $ll->title ." (". $code ."): <a href='". $link ."' target='_blank'>". $link ."</a><br>";
 				$count++;
@@ -619,9 +643,12 @@ class Lapoint_Framework {
 				$pp = new Package($package);
 				$post_language_details = apply_filters( 'wpml_post_language_details', NULL, $pp->id ) ;
 				$code = $post_language_details["language_code"];
-				$link = $packages_manager->custom_post_permalink("", $package, false, false);
-				if ($code != "en") {
-					$link = str_replace($host, $host . "/" . $code, $link);
+				$link = $dest->link;
+				if( !$link ) {
+					$link = $packages_manager->custom_post_permalink("", $package, false, false);
+					if ($code != "en") {
+						$link = str_replace($host, $host . "/" . $code, $link);
+					}
 				}
 				echo $pp->title ." (". $code ."): <a href='". $link ."' target='_blank'>". $link ."</a><br>";
 				$count++;
@@ -647,10 +674,13 @@ class Lapoint_Framework {
 				$cc = new Camp($camp);
 				$post_language_details = apply_filters( 'wpml_post_language_details', NULL, $cc->id ) ;
 				$code = $post_language_details["language_code"];
-				$link = $camps_manager->custom_post_permalink("", $camp, false, false);
-				//if ($code != "en") {
-				//	$link = str_replace($host, $host . "/" . $code, $link);
-				//}
+				$link = $dest->link;
+				if( !$link ) {
+					$link = $camps_manager->custom_post_permalink("", $camp, false, false);
+					//if ($code != "en") {
+					//	$link = str_replace($host, $host . "/" . $code, $link);
+					//}
+				}
 				echo $cc->title ." (". $code ."): <a href='". $link ."' target='_blank'>". $link ."</a><br>";
 				$count++;
 			}
@@ -844,7 +874,7 @@ class Lapoint_Framework {
 	 * @since Lapoint2016 1.0
 	 */
 	public function modify_main_query( $query ) {
-
+		
 		if ($query->is_home() && $query->is_main_query()) {
 			$query->set('post_type' ,'destination-type');
 			$query->set( 'posts_per_page', 1 );
@@ -988,13 +1018,7 @@ class Lapoint_Framework {
 		$LOCATION = false;
 
 		global $post;
-
-
-		/*
-		echo "<br>******************************<br>";
-		var_dump($post);
-		echo "******************************";
-*/
+		
 		switch (get_post_type()) {
 			case 'destination-type':
 				$this->assure_correct_url();

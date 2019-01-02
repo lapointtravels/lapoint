@@ -208,13 +208,21 @@
 			left: 0;
 			right: 0;
 			width: 100%;
-			padding: 50px 30px;
+			padding: 50px 0px;
 			min-height: 370px;
 			@include font-size(15);
 			//@include border-radius($borderRadius);
 
+			.col:first-child {
+				padding-left: 0;
+			}
+
+			.col:last-child {
+				padding-right: 0;
+			}
+
 			.row {
-				max-width: 900px;
+				//max-width: 1240px;
 				margin: 0 auto;
 				h4 {
 					border-bottom: 1px solid #aaa;
