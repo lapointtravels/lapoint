@@ -44,9 +44,9 @@ function get_wpml_home_url ($permalink) {
 	} 
 
 	
-	$parsed = parse_url( $permalink );
+	//$parsed = parse_url( $permalink );
 
-	return "https://www." . $parsed["host"] . "/";
+	//return "https://www." . $parsed["host"] . "/";
 
   $homeUrl = "lapointcamps.com";
   if (strpos($permalink, "lapoint.dk")) {
