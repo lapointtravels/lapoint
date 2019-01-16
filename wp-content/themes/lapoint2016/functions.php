@@ -385,13 +385,25 @@ class Lapoint_Framework {
 			'top'
 		);
 
+		add_rewrite_rule(
+			'yogasurfretreat/levels/?$',
+			'index.php?pagename=yogasurfretreat-levels',
+			'top'
+		);
+
+		add_rewrite_rule(
+			'yogasurfretreat/destinations/?$',
+			'index.php?pagename=yogasurfretreat-destinations',
+			'top'
+		);
+
 		/*add_rewrite_rule(
 			'(blogg|blog)/([^/]+)/?$',
 			'index.php?pagename=$matches[2]',
 			'top'
 		);*/
 
-		$desttype = '(surfcamp|kitecamp|youthcamps|ungdomslager|ungdomscamp|yogasurfcamp)';
+		$desttype = '(surfcamp|kitecamp|youthcamps|ungdomslager|ungdomscamp|yogasurfcamp|yogasurfretreat)';
 		$loccamps = '(accommodations|indkvartering|overnatting|boenden)';
 
 		add_rewrite_tag('%desttype%', $desttype);
