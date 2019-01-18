@@ -387,13 +387,13 @@ class Lapoint_Framework {
 
 		add_rewrite_rule(
 			'yogasurfretreat/levels/?$',
-			'index.php?pagename=yogasurfretreat-levels',
+			'index.php?pagename=yogasurfretreats-levels',
 			'top'
 		);
 
 		add_rewrite_rule(
 			'yogasurfretreat/destinations/?$',
-			'index.php?pagename=yogasurfretreat-destinations',
+			'index.php?pagename=yogasurfretreats-destinations',
 			'top'
 		);
 
