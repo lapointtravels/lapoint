@@ -289,6 +289,20 @@ class Camps_Manager extends Lapoint_Manager {
 						'formatting' => 'html',
 						'maxlength' => '',
 					),
+					array (
+						'key' => 'field_56f19d0e911b3',
+						'label' => 'Hide under accommodations',
+						'name' => 'hide_accommodation',
+						'type' => 'true_false',
+						'instructions' => 'If you want to hide this camp in the accommodations listing check the box below',
+						'default_value' => 0,
+						'placeholder' => '',
+						'prepend' => '',
+						'append' => '',
+						'formatting' => 'html',
+						'maxlength' => '',
+						'message' => 'Hide me',
+					),
 				),
 				'location' => array (
 					array (
@@ -338,6 +352,7 @@ class Camp extends Lapoint_PostType {
 		$this->info_list = $fields["info_list"];
 		$this->button_text = $fields["button_text"];
 		$this->box_background_image = $fields["box_background_image"];
+		$this->hide_in_accommodation_list = $fields["hide_accommodation"];
 	}
 
 	public function get_type () {
