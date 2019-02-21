@@ -30,6 +30,7 @@ endif;
 
 		<div class="camps-container">
 			<?php foreach ($camps as $camp): ?>
+				<?php if( !$camp->hide_in_accommodation_list ) : ?>
 				<article class="camp-row row" data-animated="slide-up-fade">
 
 					<div class="col-sm-6">
@@ -81,7 +82,8 @@ endif;
 					</div>
 
 				</article>
-			<?php endforeach ?>
+			<?php endif; ?>
+			<?php endforeach; ?>
 		</div>
 
 	</div>
