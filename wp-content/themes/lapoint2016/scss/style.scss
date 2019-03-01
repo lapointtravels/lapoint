@@ -991,6 +991,19 @@ iframe {
 				max-height: 420px;
 			}
 		}
+		.faq-frame {
+
+			height: 2088px;
+
+			iframe {
+				height: 100%;
+				max-height: 100%;
+				@include xxs-media-inc () {
+					height: 100%;
+					max-height: 100%;
+				}
+			}
+		}
 	}
 }
 
