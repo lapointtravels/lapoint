@@ -993,7 +993,15 @@ iframe {
 		}
 		.faq-frame {
 
-			height: 2088px;
+			height: 1928px;
+			
+			@include xs-media-inc() {
+				height: 2708px;
+			}
+
+			@include xxs-media-inc() {
+				height: 2898px;
+			}
 
 			iframe {
 				height: 100%;
