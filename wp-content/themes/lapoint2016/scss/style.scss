@@ -991,6 +991,27 @@ iframe {
 				max-height: 420px;
 			}
 		}
+		.faq-frame {
+
+			height: 1928px;
+			
+			@include xs-media-inc() {
+				height: 2708px;
+			}
+
+			@include xxs-media-inc() {
+				height: 2898px;
+			}
+
+			iframe {
+				height: 100%;
+				max-height: 100%;
+				@include xxs-media-inc () {
+					height: 100%;
+					max-height: 100%;
+				}
+			}
+		}
 	}
 }
 
