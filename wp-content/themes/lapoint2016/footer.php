@@ -56,13 +56,69 @@
 	</script>
 	<?php wp_footer(); ?>
 	<script data-main="<?php echo THEME_URL; ?>/js/app" src="<?php echo THEME_URL; ?>/js/vendor/require.js"></script>
+	
 
+	<script src="https://snippets.freshchat.com/js/freshchat-business-hours.js"></script>
+	<!-- All the below time stamps are in GMT. This is done in order to have the script work across all regions -->
+	<script>
+	  var business_hours_config = {
+	    "Sunday": {
+	      from: '02:00',
+	      to: '02:01'
+	    },
+	    "Monday": {
+	      from: '09:00',
+	      to: '15:00'
+	    },
+	    "Tuesday": {
+	      from: '09:00',
+	      to: '15:00'
+	    },
+	    "Wednesday": {
+	      from: '09:00',
+	      to: '15:00'
+	    },
+	    "Thursday": {
+	      from: '09:00',
+	      to: '15:00'
+	    },
+	    "Friday": {
+	      from: '09:00',
+	      to: '15:00'
+	    },
+	    "Saturday": {
+	      from: '02:00',
+	      to: '02:01'
+	    }
+	  };
+	</script>
+	<script>
+	  window.fcSettings = {
+	    token: "641c4bc2-4cc6-4be2-b593-544726b9598e",
+	    host: "https://wchat.freshchat.com",
+	    config: {
+	      cssNames: {
+	        //The below element is mandatory. Please do not modify this.
+	        widget: 'custom_fc_frame',
+	        //The below element is mandatory. Please do not modify this
+	        expanded: 'custom_fc_expanded'
+	      }
+	    },
+	    onInit: function() {
+	      fcBusinessHours.initBusinessHours(business_hours_config);
+	    }
+	  };
+	</script>
+
+	<script src="https://wchat.freshchat.com/js/widget.js" async></script> 
+
+	<!--
 	<script>
 	  window.fcWidget.init({
 	    token: "641c4bc2-4cc6-4be2-b593-544726b9598e",
 	    host: "https://wchat.freshchat.com"
 	  });
 	</script>
-
+	-->
 </body>
 </html>
