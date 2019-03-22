@@ -106,7 +106,7 @@ $slides = $this->get_slides();
 
 					<?php if ($slide->link) : ?>
 						</a>
-					<?php endif; ?>
+					<?php endif; ?>
 				</li>
 
 			<?php endif; ?>

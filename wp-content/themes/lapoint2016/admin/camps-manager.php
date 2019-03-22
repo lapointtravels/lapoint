@@ -9,7 +9,7 @@
 
 class Camps_Manager extends Lapoint_Manager {
 
-	public $instance_class = Camp;
+	public $instance_class = "Camp";
 	public $post_type = "camp";
 
 	public function __construct () {

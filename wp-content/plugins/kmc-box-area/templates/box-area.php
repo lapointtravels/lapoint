@@ -3,11 +3,11 @@
 
 		<?php if ($this->label) { ?>
 			<h2><?php echo $this->label; ?></h2>
-		<?php } ?>
+		<?php } ?>
 
 		<?php if ($this->post->post_content) { ?>
 			<p><?php echo $this->post->post_content; ?></p>
-		<?php } ?>
+		<?php } ?>
 
 		<div class="box-area">
 

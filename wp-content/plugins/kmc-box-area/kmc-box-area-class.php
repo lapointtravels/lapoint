@@ -52,7 +52,7 @@ class KMC_Box_Area extends Kloon_Module {
 	}
 
 	public function get_component_class () {
-		return KMC_Box_Area_Component;
+		return "KMC_Box_Area_Component";
 	}
 
 	public function get_new_module_icon () {

@@ -28,7 +28,7 @@ class KMC_Imageslider extends Kloon_Module {
 	}
 
 	public function get_component_class () {
-		return KMC_Imageslider_Component;
+		return "KMC_Imageslider_Component";
 	}
 }
 

@@ -111,9 +111,9 @@ if (!window.KloonImageSliderSizes) {
 
 					<?php if ($slide->link) : ?>
 						</a>
-					<?php endif; ?>
+					<?php endif; ?>
 				</li>
-				<?php endif; ?>
+				<?php endif; ?>
 		<?php } ?>
 	</ul>
 

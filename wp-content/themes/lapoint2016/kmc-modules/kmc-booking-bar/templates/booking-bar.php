@@ -7,7 +7,7 @@ $levels = $levels_manager->get_all();
 $default_level_set = false;
 ?>
 	
-	<?php if ($this->post->post_title) : ?>
+	<?php if ($this->post->post_title) : ?>
 		<h2 class="center"><?php
 		if ($this->post->post_title == "DEFAULT") :
 			echo __("Search and book your trip", "lapoint");
@@ -15,7 +15,7 @@ $default_level_set = false;
 			echo $this->post->post_title;
 		endif;
 		?></h2>
-	<?php endif; ?>
+	<?php endif; ?>
 
 	<div class="kmc-booking-bar booking-bar container clearfix" data-animated="true" data-auto-search="<?php echo $this->auto_search; ?>" data-book-label="<?php _e('Book', 'lapoint'); ?>">
 		<div class="row">

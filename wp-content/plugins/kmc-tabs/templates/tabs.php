@@ -1,9 +1,9 @@
 
 	<div class="dark <?php if (!$this->full_width) echo " container"; ?>">
 
-		<?php if ($this->label) : ?>
+		<?php if ($this->label) : ?>
 			<h2 class="center mbl"><?php echo $this->label; ?></h2>
-		<?php endif; ?>
+		<?php endif; ?>
 
 		<div class="tabs">
 

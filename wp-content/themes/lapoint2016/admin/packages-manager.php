@@ -9,7 +9,7 @@
 
 class Packages_Manager extends Lapoint_Manager {
 
-	public $instance_class = Package;
+	public $instance_class = "Package";
 	public $post_type = "package";
 
 
