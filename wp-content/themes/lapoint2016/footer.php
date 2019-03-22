@@ -63,32 +63,32 @@
 	<script>
 	  var business_hours_config = {
 	    "Sunday": {
-	      from: '02:00 AM',
-	      to: '02:01 AM'
+	      from: '02:00',
+	      to: '02:01'
 	    },
 	    "Monday": {
-	      from: '09:00 AM',
-	      to: '3:00 PM'
+	      from: '09:00',
+	      to: '15:00'
 	    },
 	    "Tuesday": {
-	      from: '09:00 AM',
-	      to: '3:00 PM'
+	      from: '09:00',
+	      to: '15:00'
 	    },
 	    "Wednesday": {
-	      from: '09:00 AM',
-	      to: '3:00 PM'
+	      from: '09:00',
+	      to: '15:00'
 	    },
 	    "Thursday": {
-	      from: '09:00 AM',
-	      to: '3:00 PM'
+	      from: '09:00',
+	      to: '15:00'
 	    },
 	    "Friday": {
-	      from: '09:00 AM',
-	      to: '3:00 PM'
+	      from: '09:00',
+	      to: '15:00'
 	    },
 	    "Saturday": {
-	      from: '02:00 AM',
-	      to: '02:01 AM'
+	      from: '02:00',
+	      to: '02:01'
 	    }
 	  };
 	</script>
