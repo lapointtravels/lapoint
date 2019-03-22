@@ -16,8 +16,10 @@
 
 	<!-- <script src="https://unpkg.com/current-device/umd/current-device.min.js"></script> -->
 
-	<script src="https://wchat.freshchat.com/js/widget.js"></script>
+	<!-- becuase freshchat misses to add it -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 	
+		
 	<!--[if lt IE 9]>
 		<script src="<?php echo THEME_URL; ?>/js/html5.js"></script>
 	<![endif]-->
@@ -91,7 +93,7 @@
 	</style>
 </head>
 
-<body <?php body_class(); ?>>
+<body <?php body_class(); ?>>	 
 
 	<!-- Google Tag Manager -->
 	<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-NSNVVK"
