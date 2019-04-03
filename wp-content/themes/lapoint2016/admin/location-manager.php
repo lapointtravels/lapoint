@@ -9,7 +9,7 @@
 
 class Locations_Manager extends Lapoint_Manager {
 
-	public $instance_class = Location;
+	public $instance_class = "Location";
 	public $post_type = "location";
 	public $url_struct = '%desttype%/%dest%/%postname%/%lang%';
 

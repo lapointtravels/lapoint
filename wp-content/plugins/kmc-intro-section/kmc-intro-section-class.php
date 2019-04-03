@@ -37,7 +37,7 @@ class KMC_Intro_Section extends Kloon_Module {
 	}
 
 	public function get_component_class () {
-		return KMC_Intro_Section_Component;
+		return "KMC_Intro_Section_Component";
 	}
 
 	public function get_new_module_icon () {

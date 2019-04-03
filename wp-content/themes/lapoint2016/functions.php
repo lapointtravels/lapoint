@@ -893,7 +893,7 @@ class Lapoint_Framework {
 			$query->set( 'is_single', true );
 			$query->set( 'is_posts_page', false );
 			$query->set( 'is_home', false );
-			$query->set( 'meta_key', front_page );
+			$query->set( 'meta_key', 'front_page' );
 			$query->set( 'meta_value', 1 );
 		}
 	}
@@ -1080,7 +1080,7 @@ class Lapoint_Framework {
 	}
 
 	private function assure_correct_url () {
-		$url = strtok($_SERVER[REQUEST_URI], '?');
+		$url = strtok($_SERVER["REQUEST_URI"], '?');
 		if (!is_admin() && !strpos(get_permalink($post), $url)) {
 			header("Location: " . get_permalink($post));
 			exit();

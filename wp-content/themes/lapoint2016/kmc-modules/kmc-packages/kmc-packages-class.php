@@ -36,7 +36,7 @@ class KMC_Packages extends Kloon_Module {
 	}
 
 	public function get_component_class () {
-		return KMC_Packages_Component;
+		return "KMC_Packages_Component";
 	}
 
 	public function get_new_module_icon () {

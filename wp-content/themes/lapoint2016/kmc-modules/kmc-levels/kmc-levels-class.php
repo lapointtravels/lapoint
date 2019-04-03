@@ -36,7 +36,7 @@ class KMC_Levels extends Kloon_Module {
 	}
 
 	public function get_component_class () {
-		return KMC_Levels_Component;
+		return "KMC_Levels_Component";
 	}
 
 	public function get_new_module_icon () {

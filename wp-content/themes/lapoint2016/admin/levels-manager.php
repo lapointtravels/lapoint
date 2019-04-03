@@ -9,7 +9,7 @@
 
 class Levels_Manager extends Lapoint_Manager {
 
-	public $instance_class = Level;
+	public $instance_class = "Level";
 	public $post_type = "level";
 
 

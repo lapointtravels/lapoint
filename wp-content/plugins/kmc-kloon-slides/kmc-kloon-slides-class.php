@@ -38,7 +38,7 @@ class KMC_Slides extends Kloon_Module {
 	}
 
 	public function get_component_class () {
-		return KMC_Slides_Component;
+		return "KMC_Slides_Component";
 	}
 }
 
