@@ -37,7 +37,7 @@ class KMC_Info_Box extends Kloon_Module {
 	}
 
 	public function get_component_class () {
-		return KMC_Info_Box_Component;
+		return "KMC_Info_Box_Component";
 	}
 
 	public function get_new_module_icon () {

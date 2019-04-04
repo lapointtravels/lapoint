@@ -44,7 +44,7 @@ class KMC_Tabs extends Kloon_Module {
 	}
 
 	public function get_component_class () {
-		return KMC_Tabs_Component;
+		return "KMC_Tabs_Component";
 	}
 
 	public function get_new_module_icon () {

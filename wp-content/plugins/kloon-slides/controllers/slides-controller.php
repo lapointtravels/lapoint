@@ -3,7 +3,7 @@
 class Kloon_Slides_Controller extends Kloon_Slides_Abstract_Controller {
 
 	public $post_type = "kloonslide";
-	protected $post_object = Kloon_Slides_Slide;
+	protected $post_object = "Kloon_Slides_Slide";
 
 	public function __construct () {
 		require_once(KLOON_SLIDES__DIR . "/models/slide.php");

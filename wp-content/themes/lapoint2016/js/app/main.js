@@ -125,6 +125,35 @@ define(["jquery", "./animation", "./mobile"], function($, AnimationController, M
 	}
 
 
+	// Setup dropdown menus that are created by adding sub items to the WP Menu
+	$menu_items_with_children = $(".menu-item-has-children");
+	$menu_items_with_children.each( function( index, item ){
+
+		var $menu_item = $(item);
+		var $link = $menu_item.find("a").first();
+		var txt = $link.text();
+
+		var $sub_menu = $menu_item.find( ".sub-menu" ).detach();
+
+		var $drop_wrapper = $("<div></div>").addClass("drop-wrapper").append( $("<span></span>").addClass("drop-inner").text(txt) );
+		var $dropdown = $("<div></div>").addClass("sub-menu-dropdown").append( $("<div></div>").addClass("row clearfix container").append( $sub_menu ) );
+
+		$sub_menu.addClass( "sub-menu-nav" );
+
+		//$dropdown.append( $sub_menu );
+
+		$drop_wrapper.append( $dropdown );
+
+		$link.replaceWith($drop_wrapper);
+
+
+
+
+		console.log( $link );
+		console.log( $link.text() );
+
+	});
+
 	$(".drop-inner").on("click", function (e) {
 		if (!$body.hasClass("mode-xs")) return;
 		e.preventDefault();

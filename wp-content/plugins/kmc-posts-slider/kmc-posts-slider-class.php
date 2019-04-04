@@ -37,7 +37,7 @@ class KMC_Posts_Slider extends Kloon_Module {
 	}
 
 	public function get_component_class () {
-		return KMC_Posts_Slider_Component;
+		return "KMC_Posts_Slider_Component";
 	}
 
 	public function get_new_module_icon () {
@@ -66,6 +66,5 @@ class KMC_Posts_Slider_Component extends Kloon_Component {
 	}
 
 }
-
 
 new KMC_Posts_Slider();
