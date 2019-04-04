@@ -140,17 +140,10 @@ define(["jquery", "./animation", "./mobile"], function($, AnimationController, M
 
 		$sub_menu.addClass( "sub-menu-nav" );
 
-		//$dropdown.append( $sub_menu );
-
 		$drop_wrapper.append( $dropdown );
 
 		$link.replaceWith($drop_wrapper);
 
-
-
-
-		console.log( $link );
-		console.log( $link.text() );
 
 	});
 
