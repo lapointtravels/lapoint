@@ -82,7 +82,6 @@
 
 			on_level_changed: function (e) {
 				this.update_destinations(true);
-				//this.update_camps(true);
 			},
 
 			on_camp_changed: function (e) {
@@ -175,7 +174,7 @@
 				var _this = this;
 				var destination = this.$destination.val();
 				var level = this.$level.val();
-
+							
 				if (destination) {
 					this.$camp.find("option[data-destination]").attr('disabled','disabled');
 					this.$camp.find("option[data-destination='" + destination + "']").removeAttr("disabled");
@@ -203,10 +202,18 @@
 					if (this.$camp.find("option:selected").is(":disabled")) {
 						this.$camp[0].selectedIndex = 0;
 					}
+
+					if( destination ) {
+						if( this.$camp.find("option[data-destination='" + destination + "']").length == 1 ) {
+							this.$camp[0].selectedIndex = this.$camp.find("option[data-destination='" + destination + "']")[0].index;	
+						}
+					}
 				}
+
 				this.$camp.select2("destroy").select2({
 					minimumResultsForSearch: Infinity
 				});
+
 			},
 
 			update_durations: function (set_index) {

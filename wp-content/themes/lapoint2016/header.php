@@ -14,8 +14,6 @@
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 	<?php endif; ?>
 
-	<!-- <script src="https://unpkg.com/current-device/umd/current-device.min.js"></script> -->
-
 	<!-- becuase freshchat misses to add it -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 	
@@ -23,64 +21,6 @@
 	<!--[if lt IE 9]>
 		<script src="<?php echo THEME_URL; ?>/js/html5.js"></script>
 	<![endif]-->
-
-	<?php
-	/* <link rel="shortcut icon" type="image/x-icon" href="<?php echo THEME_URL; ?>/img/favicon.ico">; */
-	/*
-	global $post;
-	if ($post && $post->ID) :
-		$rel = get_post_meta($post->ID, 'rel_canonical', true);
-	 	if ($rel) : ?>
-			<link rel="canonical" href="<?php echo $rel; ?>" />
-			<?php
-		endif;
-
-		$keywords = get_post_meta($post->ID, '_amt_keywords', true);
-		if ($keywords) : ?>
-			<meta name="keywords" content="<?php echo $keywords; ?>" />
-			<?php
-		endif;
-
-		$desc = get_post_meta($post->ID, '_amt_description', true);
-		if ($desc) : ?>
-			<meta name="description" content="<?php echo $desc; ?>" />
-			<meta property="og:description" content="<?php echo $desc; ?>" />
-			<?php
-		endif;
-
-		if( $post->post_type == "post" ) : ?>
-			<meta property="og:type" content="article" /> 
-		<?php
-		else : ?>
-			<meta property="og:type" content="website" /> 			
-		<?php
-		endif;
-
-		$title = get_post_meta($post->ID, '_amt_title', true);
-		if ($title) : ?>
-			<meta property="og:title" content="<?php echo $title; ?>" />
-			<?php
-		endif;
-
-		$thumbnail = get_post_thumbnail_id();
-		if ($thumbnail) : 
-			$thumbnail_data = wp_get_attachment_image_src($thumbnail, 'full');
-			// strip protocol. then fb debug complains about it not being a valid url
-			//$thumbnail_src = str_replace( array('http://','https://'), '//', $thumbnail_data[0] );
-			$thumbnail_src = $thumbnail_data[0];
-			?>
-			<meta property="og:image" content="<?php echo $thumbnail_src; ?>" />
-			<meta property="og:image:width" content="<?php echo $thumbnail_data[1]; ?>" />
-			<meta property="og:image:height" content="<?php echo $thumbnail_data[2]; ?>" />
-			<?php
-		endif;
-
-		?>
-			<meta property="og:url" content="<?php echo get_permalink( $post->ID ); ?>" />
-		<?php
-	endif;
-	*/
-	?>
 
 	<?php wp_head(); ?>
 
@@ -105,15 +45,11 @@
 	})(window,document,'script','dataLayer','GTM-NSNVVK');</script>
 	<!-- End Google Tag Manager -->
 
-	<?php /*
-	<div class="border: 10px solid red; padding: 100px; background-color: gold;">
-		<?php echo get_post_type(); ?>
-	</div>
-	*/ ?>
-
+	
 	<?php
 		$show_top_banner = intval( get_option( "tbb_show_banner" ), 10 );
 	?>
+	
 	<?php if( $show_top_banner ) : ?>
 		<div class="top-banner-bar">
 			<?php 
@@ -138,6 +74,8 @@
 			<span><?php echo $banner_text; ?></span>
 		</div>
 	<?php endif; ?>
+
+
 	<header class="main-header">
 		<div class="container">
 			<a class="lapoint-logo hide-text" href="<?php echo icl_get_home_url(); ?>">Lapoint</a>
