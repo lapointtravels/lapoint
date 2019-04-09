@@ -219,6 +219,7 @@ iframe {
 		}
 		@media (min-width: 768px) {
 			width: 50%;
+			&.destination-type,
 			&.destination,
 			&.level,
 			&.start-date {
@@ -255,10 +256,44 @@ iframe {
   			width: calc( 99% / 6 );
   			padding-right: 6px;
 		}
+
+
+		// Special case for the booking bar in the main menu. Here we want to show destination type as well...
+		.primary-menu & {
+
+			@media (max-width: 992px) {
+				&:nth-child(n+3) {
+					width: 50%;
+				}
+				&:last-child {
+					width: 100%;
+				}
+			}
+			@media (min-width: 768px) {
+				width: 50%;
+			}
+			@media (min-width: 992px) and (max-width: 1200px) {
+				width: 28%;
+				&:nth-child(3) {
+					margin-right: 10%;
+				}
+				&:last-child {
+					width: 16%;
+				}
+			}
+			@media (min-width: 1200px) {
+	  			width: 14.28%;
+			}
+		}
+
+
 	}
 
 	.book-choice-container.destination-type {
 		display: none;
+		.primary-menu & {
+			display: block;
+		}
 	}
 	.book-choice-container.destination {
 	}
@@ -273,8 +308,8 @@ iframe {
 	.book-choice-container.search {
 		float: right;
 		padding-right: 0;
-
 	}
+
 
 	&.open {
 		@media (max-width: 768px) {
