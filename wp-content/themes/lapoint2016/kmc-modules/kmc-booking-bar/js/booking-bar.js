@@ -17,6 +17,9 @@
 				this.totalPages = 1;
 				this.outputTables = Array();
 
+				// set to true when the destination filter is clicked and set to false when anything else is clicked
+				this.last_destination = false;
+
 				// so you can't search on the same date
 				this.lastSearch = false;
 
@@ -195,6 +198,7 @@
 				if (destination) {
 					this.$camp.find("option[data-destination]").attr('disabled','disabled');
 					this.$camp.find("option[data-destination='" + destination + "']").removeAttr("disabled");
+					this.last_destination = destination;
 
 				} else if (level) {
 					this.$camp.find("option[data-destination]").attr('disabled','disabled');
@@ -214,9 +218,12 @@
 					var destination_type = this.$destination_type.val();
 					this.$camp.find("option[data-destination-type]").attr('disabled','disabled');
 					this.$camp.find("option[data-destination-type='" + destination_type + "']").removeAttr("disabled");
-					this.$camp[0].selectedIndex = 0;
 				}
 
+				if( !destination && this.last_destination ) {
+					this.$camp[0].selectedIndex = 0;
+					this.last_destination = false;
+				}
 
 				if (set_index) {
 					if (this.$camp.find("option:selected").is(":disabled")) {
