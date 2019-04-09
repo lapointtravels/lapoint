@@ -48,7 +48,7 @@
 				});
 
 
-				this.update_destinations(false);
+				this.update_destinations(false, false);
 				this.update_levels(false);
 				this.update_camps(false);
 
@@ -69,8 +69,8 @@
 				"click .btn-book": "on_book_click"
 			},
 
-			on_destination_type_changed: function (e) {
-				this.update_destinations(true);
+			on_destination_type_changed: function (e) {				
+				this.update_destinations(true, true);
 				this.update_levels(true);
 			},
 
@@ -81,27 +81,38 @@
 			},
 
 			on_level_changed: function (e) {
-				this.update_destinations(true);
+				this.update_destinations(true, false);
 			},
 
 			on_camp_changed: function (e) {
-				this.update_destinations(true);
+				this.update_destinations(true, false);
 				this.update_levels(true);
 			},
 
 
-			update_destinations: function (set_index) {
+			update_destinations: function (set_index, set_fresh) {
 				var destination_type = this.$destination_type.val();
 				var level = this.$level.val();
 				var camp = this.$camp.val();
 
+				// if we are called from the destination_type dropdown
+				if( set_fresh ) {
+					level = "";
+					camp = "";
+					this.$destination[0].selectedIndex = 0;
+					this.$camp[0].selectedIndex = 0;
+					this.$level[0].selectedIndex = 0;
+					this.$duration[0].selectedIndex = 0;
+				}
 				
 				this.$destination.find("option[data-destination-type]").attr('disabled','disabled');
 
 				var select = "option";
+
 				if (destination_type) {
 					select = "[data-destination-type='" + destination_type + "']";
 				}
+
 				if (level) {
 					select += "[data-levels*='-" + level + "-']";
 				}
@@ -120,6 +131,11 @@
 					if (this.$destination.find("option:selected").is(":disabled")) {
 						this.$destination[0].selectedIndex = 0;
 					}
+
+					if( this.$destination.find(select).length == 1 ) {
+						this.$destination[0].selectedIndex = this.$destination.find(select)[0].index;
+					}
+
 				}
 				this.$destination.select2("destroy").select2({
 					minimumResultsForSearch: Infinity
@@ -127,6 +143,7 @@
 
 				this.update_camps(set_index);
 				this.update_durations(set_index);
+
 			},
 
 			update_levels: function (set_index) {
@@ -193,11 +210,14 @@
 						}
 					});
 
-				} else {
+				} else {					
 					var destination_type = this.$destination_type.val();
 					this.$camp.find("option[data-destination-type]").attr('disabled','disabled');
 					this.$camp.find("option[data-destination-type='" + destination_type + "']").removeAttr("disabled");
+					this.$camp[0].selectedIndex = 0;
 				}
+
+
 				if (set_index) {
 					if (this.$camp.find("option:selected").is(":disabled")) {
 						this.$camp[0].selectedIndex = 0;
@@ -242,9 +262,16 @@
 					});
 				}
 
-
-				if (destination) {
+				else if (destination) {
 					this.update_durations_for_destination(set_index);
+				} else {
+
+					// reset 
+					this.$duration.find("option.option").removeAttr("disabled");
+					this.$duration[0].selectedIndex = 0;
+					this.$duration.select2("destroy").select2({
+						minimumResultsForSearch: Infinity
+					});
 				}
 			},
 
