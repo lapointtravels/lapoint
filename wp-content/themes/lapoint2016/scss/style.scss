@@ -261,18 +261,25 @@ iframe {
 		// Special case for the booking bar in the main menu. Here we want to show destination type as well...
 		.primary-menu & {
 
+			@media (min-width: 768px) {
+				width: 50%;
+			}
 			@media (max-width: 992px) {
 				&:nth-child(n+3) {
 					width: 50%;
 				}
 				&:last-child {
 					width: 100%;
+				}				
+			}
+			@media (min-width: 768px) and (max-width: 992px) {
+				&.camp,
+				&.duration {
+					padding-right: 6px;
 				}
 			}
-			@media (min-width: 768px) {
-				width: 50%;
-			}
-			@media (min-width: 992px) and (max-width: 1200px) {
+
+			@media (min-width: 992px) { //and (max-width: 1200px) {
 				width: 28%;
 				&:nth-child(3) {
 					margin-right: 10%;
@@ -282,7 +289,7 @@ iframe {
 				}
 			}
 			@media (min-width: 1200px) {
-	  			width: 14.28%;
+	  			//width: 14.28%;
 			}
 		}
 
@@ -375,8 +382,9 @@ iframe {
 			padding-left: 20px;
 		}
 		.col2 {
-			width: 80px;
+			width: 110px;
 			text-align: center;
+			padding: 0;
 		}
 		.col3 {
 			//width: 44%;

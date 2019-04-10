@@ -28,7 +28,7 @@
 
 				var date_format = "yy-mm-dd";
 				switch (lapoint.language) {
-					case "se":
+					case "sv":
 						date_format = "yy-mm-dd";
 						break;
 					case "da":
@@ -529,6 +529,37 @@
 			
 			parse_travelize_data: function( $travelize_data )	{
 
+				var spots_left = {
+					"en" : {
+						0 : "No spots left",
+						1 : "1 spot left",
+						2 : "2 spots left",
+						3 : "3 spots left",
+						4 : "4 spots left"
+					},
+					"sv" : {
+						0 : "Inga platser kvar",
+						1 : "1 plats kvar",
+						2 : "2 platser kvar",
+						3 : "3 platser kvar",
+						4 : "4 platser kvar"
+					},
+					"nb" : {
+						0 : "Ingen plasser igjen",
+						1 : "1 plass igjen",
+						2 : "2 plasser igjen",
+						3 : "3 plasser igjen",
+						4 : "4 plasser igjen"
+					},
+					"da" : {
+						0 : "Ingen pladser igen",
+						1 : "1 plads igen",
+						2 : "2 pladser igen",
+						3 : "3 pladser igen",
+						4 : "4 pladser igen"
+					}
+				}
+				
 				// remove 
 				$travelize_data.find(".tableselector_header").remove();
 
@@ -574,12 +605,37 @@
 						
 					// change row classes
 					$row.removeClass("row").addClass("row2");
+					
+					$availabilitySpan = $row.find(".colAvailability span");
+					var available = $availabilitySpan.text();
+					var availableInt = parseInt( available, 10 );
+
+					console.log( available );
+
+					// Change output if spots left are less than 5
+					if( availableInt <= 4 ) {
+						console.log( "Few spots left", lapoint.language );			
+						console.log( spots_left[lapoint.language][availableInt] );
+						$availabilitySpan.text( spots_left[lapoint.language][availableInt] );
+					}
+
+					// No spots left
+					if( isNaN(availableInt) && available.substr(0,1) != ">" || availableInt == 0 ) {
+						console.log( "No spots left" );
+						$row.addClass("not-available");
+						$row.find(".btn").addClass("disabled");
+					}
+					//if( available == 'NaN' ) {
+					//	console.log( availableInt );
+					//}
+
 					// check availability
-					var available = $row.find(".colAvailability span").text();
+					//var available = $row.find(".colAvailability span").text();
 					if ((isNaN(available) && available.substr(0, 1) != "<"  && available.substr(0, 1) != ">") || available == "0") {
 						$row.addClass("not-available");
 						$row.find(".btn").addClass("disabled");
-					}						
+					}
+
 
 				});
 
