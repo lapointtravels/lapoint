@@ -36,12 +36,10 @@ analytics.UK = "UA-4376661-4";
 
 var heading_text = Object();
 heading_text.SE = "H&auml;r kan du enkelt boka och betala din resa med Lapoint. Fyll bara i fomul&auml;ret nedan och klicka dig vidare. F&aring;r du problem s&aring; tveka inte utan sl&aring; en signal eller maila oss s&aring; hj&auml;lper vi till.";
-
 heading_text.NO = "Her kan du enkelt bestille og betale din Lapoint reise. Fyll inn skjemaet nedenfor og klikk deg videre. Har du sp&oslash;rsm&aring;l, vennligst ikke n&oslash;l med &aring; ta kontakt p&aring; telefon eller mail, s&aring; hjelper vi deg gjerne.";
-
 heading_text.DK = "Her kan du booke og betale din rejse med Lapoint. Udfyld formularen og klik videre. Er der nogle problemer er du velkommen til at ringe eller skrive, s&aring; hj&aelig;lper vi dig.";
-
 heading_text.UK = "It's easy to book your stay at Lapoint camps. Just fill in the form below and follow the steps. If it gets tricky just send us an email or give us a call. We are always happy to help.";
+
 
 function getUrlVars() {
     var vars = {};
