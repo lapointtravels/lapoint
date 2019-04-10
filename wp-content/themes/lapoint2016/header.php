@@ -173,7 +173,7 @@
 						<div class="row">
 							<div class="book-choice-container destination-type">
 								<select class="select book-destination-type book-choice">
-									<option value="0"><?php echo __("Choose travel type", "lapoint"); ?></option>
+									<option value="0"><?php echo __("Select travel type", "lapoint"); ?></option>
 									<?php
 									foreach ($destination_types as $destination_type) :
 										if ($destination_type->booking_code) : ?>
