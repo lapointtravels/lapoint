@@ -261,9 +261,17 @@ iframe {
 		// Special case for the booking bar in the main menu. Here we want to show destination type as well...
 		.primary-menu & {
 
+			padding: 0;
+			&.destination,
+			&.duration {
+				padding-right: 6px;
+			}
+
+
 			@media (min-width: 768px) {
 				width: 50%;
 			}
+			
 			@media (max-width: 992px) {
 				&:nth-child(n+3) {
 					width: 50%;
@@ -272,8 +280,9 @@ iframe {
 					width: 100%;
 				}				
 			}
+
 			@media (min-width: 768px) and (max-width: 992px) {
-				&.camp,
+				&.destination-type,
 				&.duration {
 					padding-right: 6px;
 				}
@@ -287,6 +296,18 @@ iframe {
 				&:last-child {
 					width: 16%;
 				}
+				&.destination-type,
+				&.start-date,
+				&.destination,
+				&.camp,
+				&.duration,
+				&.level,
+				{
+					padding: 0;
+					padding-right: 6px;
+					clear: none;
+				}
+
 			}
 			@media (min-width: 1200px) {
 	  			//width: 14.28%;
