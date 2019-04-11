@@ -185,6 +185,10 @@
 								</select>
 							</div>
 
+							<div class="book-choice-container start-date">
+								<input class="book-start-date book-choice" type="text" placeholder="<?php echo __("Start date", "lapoint"); ?>">
+							</div>
+
 							<div class="book-choice-container destination">
 								<select class="select book-destination book-choice">
 									<option value=""><?php echo __("Select destination", "lapoint"); ?></option>
@@ -239,6 +243,23 @@
 								</select>
 							</div>
 
+							<div class="book-choice-container duration">
+								<select class="select book-duration book-choice">
+								<option value=""><?php _e("Duration", "lapoint"); ?></option>
+								<option class="option" value="WE"><?php _e("Weekend", "lapoint"); ?></option>
+								<option class="option" value="1"><?php _e("1 day", "lapoint"); ?></option>
+								<option class="option" value="2"><?php _e("2 days", "lapoint"); ?></option>
+								<option class="option" value="3"><?php _e("3 days", "lapoint"); ?></option>
+								<option class="option" value="4"><?php _e("4 days", "lapoint"); ?></option>
+								<option class="option" value="5"><?php _e("5 days", "lapoint"); ?></option>
+								<option class="option" value="6"><?php _e("6 days", "lapoint"); ?></option>
+
+								<option class="option" value="7"><?php _e("1 week", "lapoint"); ?></option>
+								<option class="option" value="14"><?php _e("2 weeks", "lapoint"); ?></option>
+								<option class="option" value="21"><?php _e("3 weeks", "lapoint"); ?></option>
+								</select>
+							</div>
+							
 							<div class="book-choice-container level">
 								<?php
 								$level_parents = array();
@@ -261,28 +282,7 @@
 									endforeach;
 									?>
 								</select>
-							</div>
-
-							<div class="book-choice-container duration">
-								<select class="select book-duration book-choice">
-								<option value=""><?php _e("Duration", "lapoint"); ?></option>
-								<option class="option" value="WE"><?php _e("Weekend", "lapoint"); ?></option>
-								<option class="option" value="1"><?php _e("1 day", "lapoint"); ?></option>
-								<option class="option" value="2"><?php _e("2 days", "lapoint"); ?></option>
-								<option class="option" value="3"><?php _e("3 days", "lapoint"); ?></option>
-								<option class="option" value="4"><?php _e("4 days", "lapoint"); ?></option>
-								<option class="option" value="5"><?php _e("5 days", "lapoint"); ?></option>
-								<option class="option" value="6"><?php _e("6 days", "lapoint"); ?></option>
-
-								<option class="option" value="7"><?php _e("1 week", "lapoint"); ?></option>
-								<option class="option" value="14"><?php _e("2 weeks", "lapoint"); ?></option>
-								<option class="option" value="21"><?php _e("3 weeks", "lapoint"); ?></option>
-								</select>
-							</div>
-
-							<div class="book-choice-container start-date">
-								<input class="book-start-date book-choice" type="text" placeholder="<?php echo __("Start date", "lapoint"); ?>">
-							</div>
+							</div>										
 
 							<div class="book-choice-container search">
 								<button type="button" class="btn btn-show btn-inverted pull-right"><?php echo __("Search", "lapoint"); ?></button>
