@@ -123,7 +123,7 @@ $default_level_set = false;
 
 			<div class="book-choice-container duration">
 				<select class="select book-duration book-choice">
-					<option value=""><?php _e("Duration", "lapoint"); ?></option>
+					<option value=""><?php _e("Select duration", "lapoint"); ?></option>
 					<option class="option" value="WE"><?php _e("Weekend", "lapoint"); ?></option>
 					<option class="option" value="1"><?php _e("1 day", "lapoint"); ?></option>
 					<option class="option" value="2"><?php _e("2 days", "lapoint"); ?></option>
