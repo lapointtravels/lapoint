@@ -630,7 +630,6 @@
 
 					// No spots left
 					if( isNaN(availableInt) && available.substr(0,1) != ">" || availableInt == 0 ) {
-						console.log( "No spots left" );
 						$row.addClass("not-available");
 						$row.find(".btn").addClass("disabled");
 						$availabilitySpan.text( spots_left[lapoint.language][0] );
