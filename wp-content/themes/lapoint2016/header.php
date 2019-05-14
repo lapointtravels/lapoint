@@ -170,7 +170,7 @@
 				$levels = $levels_manager->get_all();
 				$default_level_set = false;
 
-				$current_destination_code = get_current_destination_type_booking_code();
+				$current_destination_code = "";//get_current_destination_type_booking_code();
 
 				?>
 
