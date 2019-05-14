@@ -64,3 +64,37 @@ function get_wpml_home_url ($permalink) {
 	return "https://www." . $parsed["host"] . "/";
 
 }
+
+function get_current_destination_type_booking_code() {
+
+	global $post;
+
+	$meta_data = get_post_meta($post->ID);
+
+	
+	if( $post->post_type == "destination-type" ) {
+		return $meta_data["booking_code"][0];
+	}
+
+	if( $meta_data["destination_type"] ) {
+		$bc = get_post_meta( $meta_data["destination_type"][0] );
+		return $bc["booking_code"][0];
+	}
+
+	if( $meta_data["destination"] ) {
+		$destination_meta = get_post_meta( $meta_data["destination"][0] );
+
+		if( $destination_meta["destination_type"] ) {
+			$bc = get_post_meta( $destination_meta["destination_type"][0] );
+			return $bc["booking_code"][0];
+		}
+
+	}
+
+
+
+
+	// We use SC (SurfCamps) as default
+	return "SC";
+
+}

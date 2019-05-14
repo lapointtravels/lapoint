@@ -247,6 +247,12 @@
 				var _this = this;
 				var destination = this.$destination.val();
 				var level = this.$level.val();
+				var camp_id = this.$camp.val();
+				var destination_id = false;
+
+				if( camp_id && !destination ) {					
+					destination_id = this.$camp.find("option[value='" + camp_id + "']").attr( "data-destination" );
+				}
 
 				if (destination && level) {
 					$.get(ajaxlapoint.ajaxurl, {
@@ -271,6 +277,8 @@
 
 				else if (destination) {
 					this.update_durations_for_destination(set_index);
+				} else if ( destination_id ) {
+					this.update_durations_by_destination_id( set_index, destination_id );
 				} else {
 
 					// reset 
@@ -305,6 +313,35 @@
 				this.$duration.find("option.option").attr("disabled", "disabled");
 
 				var durations = this.$destination.find("option:selected").attr("data-durations");
+				durations = durations.substr(1, durations.length-2).split("--");
+
+				_.each(durations, function (duration_id) {
+					_this.$duration.find("option[value='" + duration_id + "']").removeAttr("disabled");
+				});
+
+				if (set_index) {
+					if (this.$duration.find("option:selected").is(":disabled")) {
+						this.$duration[0].selectedIndex = 0;
+					}
+				}
+				this.$duration.select2("destroy").select2({
+					minimumResultsForSearch: Infinity
+				});
+			},
+
+			update_durations_by_destination_id: function( set_index, destination_id ) {
+				var _this = this;
+				var dest = this.$destination.find( "option[value='" + destination_id + "']" );
+				
+				if( !dest.length ) {
+					// things are not configured right in the CMS if there is no destination for the camp. So just return
+					return;
+				}
+
+				this.$duration.find("option.option").attr("disabled", "disabled"); // reset all
+				
+				var durations = dest.attr("data-durations");
+
 				durations = durations.substr(1, durations.length-2).split("--");
 
 				_.each(durations, function (duration_id) {
