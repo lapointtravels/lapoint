@@ -10,6 +10,8 @@
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
+	<meta name="p:domain_verify" content="fbded96166427723588700f11739771e"/>
+
 	<?php if ( is_singular() && pings_open( get_queried_object() ) ) : ?>
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 	<?php endif; ?>
@@ -167,6 +169,9 @@
 				$camps = $camps_manager->get_all();
 				$levels = $levels_manager->get_all();
 				$default_level_set = false;
+
+				$current_destination_code = "";//get_current_destination_type_booking_code();
+
 				?>
 
 					<div class="kmc-booking-bar booking-bar container clearfix" data-animated="true">
@@ -177,7 +182,9 @@
 									<?php
 									foreach ($destination_types as $destination_type) :
 										if ($destination_type->booking_code) : ?>
-											<option value="<?php echo $destination_type->id; ?>" data-code="<?php echo $destination_type->booking_code; ?>"><?php echo $destination_type->title; ?></option>
+											<option value="<?php echo $destination_type->id; ?>" 
+												<?php if ($current_destination_code == $destination_type->booking_code) echo ' selected="selected"'; ?>
+												data-code="<?php echo $destination_type->booking_code; ?>"><?php echo $destination_type->title; ?></option>
 											<?php
 										endif;
 									endforeach;
