@@ -208,7 +208,7 @@ iframe {
 			width: 100% !important;
 		}
 
-		@media (max-width: 992px) {
+		@media (max-width: 991px) {
 			&:nth-child(n+3) {
 				width: 50%;
 			}			
@@ -272,7 +272,7 @@ iframe {
 				width: 50%;
 			}
 			
-			@media (max-width: 992px) {
+			@media (max-width: 991px) {
 				&:nth-child(n+3) {
 					width: 50%;
 				}
@@ -281,7 +281,7 @@ iframe {
 				}				
 			}
 
-			@media (min-width: 768px) and (max-width: 992px) {
+			@media (min-width: 768px) and (max-width: 991px) {
 				&.destination-type,
 				&.duration {
 					padding-right: 6px;

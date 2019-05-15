@@ -72,7 +72,7 @@
 				"click .btn-book": "on_book_click"
 			},
 
-			on_destination_type_changed: function (e) {				
+			on_destination_type_changed: function (e) {
 				this.update_destinations(true, true);
 				this.update_levels(true);
 			},
@@ -613,6 +613,21 @@
 				$travelize_data.find("tr.row").each( function(index, el) {
 					$row = $(el);
 					
+					// remove fully booked results
+					$availabilitySpan = $row.find(".colAvailability span");
+					var available = $availabilitySpan.text();
+					var availableInt = parseInt( available, 10 );
+
+					// Fully booked
+					if( isNaN(availableInt) && available.substr(0,1) != ">" || availableInt == 0 ) {
+						console.log( "removing fully booked results" );
+						$row.remove();
+						return; // skip to next row in iteration
+						//$row.addClass("not-available");
+						//$row.find(".btn").addClass("disabled");
+						//$availabilitySpan.text( spots_left[lapoint.language][0] );
+					}
+
 					$colBookPrice = $row.find(".colBookPrice");
 
 					$bookingLinkEl = $colBookPrice.find(".bookingPrice a");
@@ -654,34 +669,12 @@
 					}
 						
 					// change row classes
-					$row.removeClass("row").addClass("row2");
-					
-					$availabilitySpan = $row.find(".colAvailability span");
-					var available = $availabilitySpan.text();
-					var availableInt = parseInt( available, 10 );
+					$row.removeClass("row").addClass("row2");										
 
 					// Change output if spots left are less than 5
 					if( availableInt <= 4 ) {
 						$availabilitySpan.text( spots_left[lapoint.language][availableInt] );
 					}
-
-					// No spots left
-					if( isNaN(availableInt) && available.substr(0,1) != ">" || availableInt == 0 ) {
-						$row.addClass("not-available");
-						$row.find(".btn").addClass("disabled");
-						$availabilitySpan.text( spots_left[lapoint.language][0] );
-					}
-					//if( available == 'NaN' ) {
-					//	console.log( availableInt );
-					//}
-
-					// check availability
-					//var available = $row.find(".colAvailability span").text();
-					//if ((isNaN(available) && available.substr(0, 1) != "<"  && available.substr(0, 1) != ">") || available == "0") {
-					//	$row.addClass("not-available");
-					//	$row.find(".btn").addClass("disabled");
-					//}
-
 
 				});
 
