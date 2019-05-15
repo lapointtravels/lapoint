@@ -620,7 +620,6 @@
 
 					// Fully booked
 					if( isNaN(availableInt) && available.substr(0,1) != ">" || availableInt == 0 ) {
-						console.log( "removing fully booked results" );
 						$row.remove();
 						return; // skip to next row in iteration
 						//$row.addClass("not-available");
