@@ -20,6 +20,11 @@ class Levels_Manager extends Lapoint_Manager {
 		add_filter('package_rewrite_rules', array($this, 'add_permastruct'));
 		add_filter('post_type_link', array($this, 'custom_post_permalink'), 10, 4);
 
+		// https://blog.meetphpexperts.com/wordpress-add-menu-order-field-to-custom-post-type-in-admin/
+		//add_filter("manage_edit-level_columns", array($this, "add_order_columns"));
+		//add_action('manage_level_posts_custom_column', array($this, 'show_order_column'), 10, 2);
+		//add_filter("manage_edit-level_sortable_columns", array($this, "order_column_register_sortable"));
+
 	}
 
 
@@ -94,6 +99,27 @@ class Levels_Manager extends Lapoint_Manager {
 	    return $permalink;
 	}
 
+	# ****************************** Admin list ******************************
+	public function add_order_columns( $post_columns) {
+	  $post_columns['menu_order'] = "Order";
+	  return $post_columns;
+	}
+	public function show_order_column($name){
+	  global $post;
+	 
+	  switch ($name) {
+	    case 'menu_order':
+	      $order = $post->menu_order;
+	      echo $order;
+	      break;
+	   default:
+	      break;
+	   }
+	}
+	public function order_column_register_sortable($columns){
+	  $columns['menu_order'] = 'menu_order';
+	  return $columns;
+	}
 
 	# ****************************** Create Post Types ******************************
 	public function create_post_type () {

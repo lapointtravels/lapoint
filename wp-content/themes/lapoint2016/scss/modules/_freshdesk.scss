@@ -1,0 +1,40 @@
+#freshworks-container {
+	
+	&:before { 
+    content: "";
+    
+    position: fixed;
+
+    left: 31px;
+    bottom: 19px;
+
+    height: 75px;
+    width: 75px;
+    
+    border: none;
+    border-radius: 100%;
+    
+    background-image: url(img/icons/lapoint_help_icon.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: #e94739;    
+    
+    pointer-events: none;
+
+    z-index: 2147483001;
+	}
+
+	#launcher-frame {
+		opacity: 0;
+
+
+	}
+}
+
+.launcher-button.cwygea {
+	padding: 16px;
+	.icon {
+		display: none;
+	}
+
+}

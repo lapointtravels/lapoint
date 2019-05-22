@@ -87,24 +87,16 @@
                                     <div class="p_s_item s_t">
                                         <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.nsp-code.com" data-text="Define custom order for your post types through an easy to use javascript AJAX drag and drop interface. No theme code updates are necessarily, this plugin will take care of query update." data-count="none">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
                                     </div>
-                                    
-                                    <div class="p_s_item s_gp">
-                                        <!-- Place this tag in your head or just before your close body tag -->
-                                        <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
-
-                                        <!-- Place this tag where you want the +1 button to render -->
-                                        <div class="g-plusone" data-size="small" data-annotation="none" data-href="http://nsp-code.com/"></div>
-                                    </div>
-                                    
+                  
                                     <div class="clear"></div>
                                 </div>
                      
                             </div>
                             
-                            <p><?php _e('Did you find this plugin useful? Please support our work by purchasing the advanced version or write an article about this plugin in your blog with a link to our site', 'post-types-order') ?> <a href="http://www.nsp-code.com/" target="_blank"><strong>http://www.nsp-code.com/</strong></a>.</p>
-                            <h4><?php _e('Did you know there is available an Advanced version of this plug-in?', 'post-types-order') ?> <a target="_blank" href="http://www.nsp-code.com/premium-plugins/wordpress-plugins/advanced-post-types-order/"><?php _e('Read more', 'post-types-order') ?></a></h4>
-                            <p><?php _e('Check our', 'post-types-order') ?> <a target="_blank" href="http://wordpress.org/plugins/taxonomy-terms-order/">Category Order - Taxonomy Terms Order</a> <?php _e('plugin which allow to custom sort categories and custom taxonomies terms', 'post-types-order') ?> </p>
-                            <p><span style="color:#CC0000" class="dashicons dashicons-megaphone" alt="f488">&nbsp;</span> <?php _e('Check out', 'post-types-order') ?> <a href="https://wordpress.org/plugins/wp-hide-security-enhancer/" target="_blank"><b>WP Hide & Security Enhancer</b></a> <?php _e('the easy way to completely hide your WordPress core files, theme and plugins', 'post-types-order') ?>.</p>
+                            <p><?php esc_html_e('Did you find this plugin useful? Please support our work by purchasing the advanced version or write an article about this plugin in your blog with a link to our site', 'post-types-order') ?> <a href="http://www.nsp-code.com/" target="_blank"><strong>http://www.nsp-code.com/</strong></a>.</p>
+                            <h4><?php esc_html_e('Did you know there is available an Advanced version of this plug-in?', 'post-types-order') ?> <a target="_blank" href="http://www.nsp-code.com/premium-plugins/wordpress-plugins/advanced-post-types-order/"><?php _e('Read more', 'post-types-order') ?></a></h4>
+                            <p><?php esc_html_e('Check our', 'post-types-order') ?> <a target="_blank" href="http://wordpress.org/plugins/taxonomy-terms-order/">Category Order - Taxonomy Terms Order</a> <?php esc_html_e('plugin which allow to custom sort categories and custom taxonomies terms', 'post-types-order') ?> </p>
+                            <p><span style="color:#CC0000" class="dashicons dashicons-megaphone" alt="f488">&nbsp;</span> <?php esc_html_e('Check out', 'post-types-order') ?> <a href="https://wordpress.org/plugins/wp-hide-security-enhancer/" target="_blank"><b>WP Hide & Security Enhancer</b></a> <?php esc_html_e('the easy way to completely hide your WordPress core files, theme and plugins', 'post-types-order') ?>.</p>
                             
                             <div class="clear"></div>
                         </div>
@@ -139,7 +131,7 @@
                                     // back-compat, $excluded_terms used to be $excluded_terms with IDs separated by " and "
                                     if ( false !== strpos( $excluded_terms, ' and ' ) ) 
                                         {
-                                            _deprecated_argument( __FUNCTION__, '3.3', sprintf( __( 'Use commas instead of %s to separate excluded terms.' ), "'and'" ) );
+                                            _deprecated_argument( __FUNCTION__, '3.3', sprintf( esc_html__( 'Use commas instead of %s to separate excluded terms.' ), "'and'" ) );
                                             $excluded_terms = explode( ' and ', $excluded_terms );
                                         } 
                                     else 
@@ -218,7 +210,7 @@
                                     // back-compat, $excluded_terms used to be $excluded_terms with IDs separated by " and "
                                     if ( false !== strpos( $excluded_terms, ' and ' ) ) 
                                         {
-                                            _deprecated_argument( __FUNCTION__, '3.3', sprintf( __( 'Use commas instead of %s to separate excluded terms.' ), "'and'" ) );
+                                            _deprecated_argument( __FUNCTION__, '3.3', sprintf( esc_html__( 'Use commas instead of %s to separate excluded terms.' ), "'and'" ) );
                                             $excluded_terms = explode( ' and ', $excluded_terms );
                                         } 
                                     else 
