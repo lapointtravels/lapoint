@@ -112,6 +112,9 @@
 
 	<script src="https://wchat.freshchat.com/js/widget.js" async></script> 
 
+	<script> window.fwSettings={'widget_id':43000000061}; </script>
+	<script type='text/javascript' src='https://widget.freshworks.com/widgets/43000000061.js' async defer></script>
+
 	<!--
 	<script>
 	  window.fcWidget.init({
