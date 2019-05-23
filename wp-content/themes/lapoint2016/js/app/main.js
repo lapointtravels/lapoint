@@ -1,7 +1,6 @@
 define(["jquery", "./animation", "./mobile"], function($, AnimationController, MobileController) {
 
-	
-  
+  console.log( "MAIN.JS" );
 
 	  var $win = $(window);
 		var $body = $("body");
@@ -195,7 +194,5 @@ define(["jquery", "./animation", "./mobile"], function($, AnimationController, M
 		}
 		
 		new AnimationController();
-
-  
 
 });

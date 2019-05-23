@@ -54,7 +54,7 @@
 		
 		setGaClient();
 		
-		var require = {urlArgs: 'bust=21'};
+		var require = {urlArgs: 'bust=22'};
 	
 	</script>
 	
