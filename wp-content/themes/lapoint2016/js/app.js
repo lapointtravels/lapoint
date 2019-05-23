@@ -17,8 +17,8 @@ requirejs.config({
         app: '../app',
         TweenLite: './greensock/TweenLite.min',
         CSSPlugin: './greensock/CSSPlugin.min',
-        Select2: './select2.min'
-        // iframeResizer: './iframeResizer.min'
+        // Select2: './select2.min' // in functions.php
+        // iframeResizer: './iframeResizer.min' // in functions.php
     },
     shim: {
         "backbone": {
