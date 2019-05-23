@@ -11,7 +11,7 @@ if (typeof Backbone === 'object') {
 
 requirejs.config({
     baseUrl: theme_url + '/js/vendor',
-    urlArgs: "bust=v22",
+    urlArgs: "bust=v23",
     paths: {
         //device: './current-device.min', // we want this to load early. so we enque it in functions.php
         app: '../app',
@@ -25,13 +25,10 @@ requirejs.config({
             deps: ["underscore", "jquery"],
             exports: "Backbone"
         }
-    }
+    },
+    waitForSeconds: 30
 });
 
-
-jQuery(document).ready(function() {
-    console.log( "Jquery DOM is ready y'all. Prepare to ball." );
-    requirejs(['app/main']);
-});
+requirejs(['app/main']);
 
 //requirejs(['app/mobile']);
