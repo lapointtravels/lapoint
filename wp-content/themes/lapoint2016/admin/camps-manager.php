@@ -218,6 +218,21 @@ class Camps_Manager extends Lapoint_Manager {
 						'multiple' => 0,
 					),
 					array (
+						'key' => 'field_4975926ab8167',
+						'label' => 'Levels',
+						'name' => 'levels',
+						'type' => 'post_object',
+						'instructions' => 'Select the levels that are available for the camp',
+						'post_type' => array (
+							0 => 'level',
+						),
+						'taxonomy' => array (
+							0 => 'all',
+						),
+						'allow_null' => 1,
+						'multiple' => 1
+					),
+					array (
 						'key' => 'field_571a3408a133c',
 						'label' => 'Box image',
 						'name' => 'box_background_image',
@@ -353,6 +368,7 @@ class Camp extends Lapoint_PostType {
 		$this->button_text = $fields["button_text"];
 		$this->box_background_image = $fields["box_background_image"];
 		$this->hide_in_accommodation_list = $fields["hide_accommodation"];
+		$this->levels = $fields["levels"];
 	}
 
 	public function get_type () {

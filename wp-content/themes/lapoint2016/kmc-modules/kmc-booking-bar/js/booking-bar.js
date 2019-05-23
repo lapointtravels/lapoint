@@ -94,6 +94,10 @@
 
 
 			update_destinations: function (set_index, set_fresh) {
+
+
+				console.log( "update_destinations" );
+
 				var destination_type = this.$destination_type.val();
 				var level = this.$level.val();
 				var camp = this.$camp.val();
@@ -150,34 +154,84 @@
 			},
 
 			update_levels: function (set_index) {
+
+				console.log( "update_levels" );
+
 				var _this = this;
 				var destination_type = this.$destination_type.val();
 				var destination = this.$destination.val();
 				var camp = this.$camp.val();
 
+				// first disable all levels				
 				this.$level.find("option[data-destination-type]").attr('disabled','disabled');
+				
+				// then we figure out which levels we should show in the drop-down
 
-				if (destination) {
-					var levels = this.$destination.find("option:selected").attr("data-levels");
-					levels = levels.substr(1, levels.length-2).split("--");
+				// if both a destination and camp is selected
+				if( destination && camp ) {
+
+					var levels = this.$camp.find( "option[value='" + camp + "']" ).attr("data-levels");
+
+					// we first check if the camp has levels assigned to it
+					if( levels ) {
+						levels = levels.substr(1, levels.length-2).split("--");
+						console.log( "Levels available for camp: ", levels );
+					} 
+					// the camp does not have levels. use levels in the destination
+					else {
+						levels = this.$destination.find( "option[value='" + destination + "']" ).attr("data-levels");
+						levels = levels.substr(1, levels.length-2).split("--");
+						console.log( "Levels available for camp > destination: ", levels );
+					}
+
+					// update selectable levels
 					_.each(levels, function (level_id) {
 						_this.$level.find("option[value='" + level_id + "']").removeAttr("disabled");
 					});
-				} else if (camp) {
-					// Show camps for all destinations not disabled
-					this.$destination.find("option:not(:disabled)").each(function(index, dest_option) {
-						var $dest_option = $(dest_option);
-						if ($dest_option.attr("data-levels")) {
-							var levels = $(dest_option).attr("data-levels");
-							levels = levels.substr(1, levels.length-2).split("--");
-							_.each(levels, function (level_id) {
-								_this.$level.find("option[value='" + level_id + "']").removeAttr("disabled");
-							});
-						}
+
+				}
+
+				// destination is selected but not a camp. show levels that are set for the destination
+				else if (destination) {
+
+					var levels = this.$destination.find("option:selected").attr("data-levels");
+					levels = levels.substr(1, levels.length-2).split("--");
+					console.log( "Levels available for destination: ", levels );
+					_.each(levels, function (level_id) {
+						_this.$level.find("option[value='" + level_id + "']").removeAttr("disabled");
+					});
+				} 
+
+				// camp is selected but not a destination. 
+				else if (camp) {
+					
+					var levels = this.$camp.find( "option[value='" + camp + "']" ).attr("data-levels");
+
+					// we first check if the camp has levels assigned to it
+					if( levels ) {
+						levels = levels.substr(1, levels.length-2).split("--");
+						console.log( "Levels available for camp: ", levels );
+					} 
+
+					// if not then find the destination the camp belongs to and use its levels 
+					else {
+						var destination_id = this.$camp.find("option[value='" + camp + "']").attr( "data-destination" );
+						levels = this.$destination.find( "option[value='" + destination_id + "']" ).attr("data-levels");
+						levels = levels.substr(1, levels.length-2).split("--");
+						console.log( "Levels available for camp > destination: ", levels );
+					}
+
+					// update selectable levels
+					_.each(levels, function (level_id) {
+						_this.$level.find("option[value='" + level_id + "']").removeAttr("disabled");
 					});
 
-				} else if (destination_type) {
-					this.$level.find("option[data-destination-type='" + destination_type + "']").removeAttr("disabled");
+				} 
+
+
+				else if (destination_type) {
+					// Only destination type is selected. Activate all levels for the destination type that does not have a constraint
+					this.$level.find("option[data-destination-type='" + destination_type + "'][data-constraint='none']").removeAttr("disabled");
 				}
 
 				if (set_index) {
@@ -185,9 +239,11 @@
 						this.$level[0].selectedIndex = 0;
 					}
 				}
+
 				this.$level.select2("destroy").select2({
 					minimumResultsForSearch: Infinity
 				});
+
 			},
 
 			update_camps: function (set_index) {
