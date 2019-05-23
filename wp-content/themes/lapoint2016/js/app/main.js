@@ -1,6 +1,9 @@
 define(["jquery", "./animation", "./mobile"], function($, AnimationController, MobileController) {
+
 	var $win = $(window);
 	var $body = $("body");
+
+	console.log( $win, $body );
 	
 	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
 		$body.addClass("is-mobile");
@@ -84,7 +87,13 @@ define(["jquery", "./animation", "./mobile"], function($, AnimationController, M
 
 	// Setup the destinations menu
 	$destination_menu = $(".select-destination");
+	
+	console.log( 'destination_menu', $destination_menu );
+
 	if ($("#menu-container a[href='#destinations']").size() > 0) {
+		
+		console.log( 'destination_menu > 0' );
+
 		var $link = $("#menu-container a[href='#destinations']");
 		var txt = $link.text();
 		var $drop_wrapper = $("<div></div>").addClass("drop-wrapper").append( $("<span></span>").addClass("drop-inner").text(txt) );
@@ -95,7 +104,13 @@ define(["jquery", "./animation", "./mobile"], function($, AnimationController, M
 
 	// Setup the levels menu
 	$level_menu = $(".select-level");
+
+	console.log( 'level_menu', $level_menu );
+
 	if ($("#menu-container a[href='#levels']").size() > 0) {
+		
+		console.log( 'level_menu > 0' );
+
 		var $link = $("#menu-container a[href='#levels']");
 		var txt = $link.text();
 		var $drop_wrapper = $("<div></div>").addClass("drop-wrapper").append( $("<span></span>").addClass("drop-inner").text(txt) );
@@ -105,7 +120,13 @@ define(["jquery", "./animation", "./mobile"], function($, AnimationController, M
 
 	// Setup the booking menu
 	$main_booking = $(".main-booking");
+
+	console.log( 'main_booking', $main_booking );
+
 	if ($("#menu-container a[href='#main-booking']").size() > 0) {
+
+		console.log( 'main_booking > 0' );
+
 		var $link = $("#menu-container a[href='#main-booking']");
 		var txt = $link.text();
 
@@ -127,6 +148,9 @@ define(["jquery", "./animation", "./mobile"], function($, AnimationController, M
 
 	// Setup dropdown menus that are created by adding sub items to the WP Menu
 	$menu_items_with_children = $(".menu-item-has-children");
+
+	console.log( 'menu_items_with_children', $menu_items_with_children );
+
 	$menu_items_with_children.each( function( index, item ){
 
 		var $menu_item = $(item);
@@ -167,6 +191,7 @@ define(["jquery", "./animation", "./mobile"], function($, AnimationController, M
 
 
 	// Select the active destination type
+	console.log( 'lapoint.destination_type', lapoint.destination_type );
 	if (lapoint.destination_type) {
 		$(".secondary-menu a[href='" + lapoint.destination_type.link + "']").addClass("active");
 	}
