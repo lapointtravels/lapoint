@@ -52,7 +52,7 @@
 		}
 	}
 	setGaClient();
-	var require = {urlArgs: 'bust=20'};
+	var require = {urlArgs: 'bust=21'};
 	</script>
 	<?php wp_footer(); ?>
 	<script data-main="<?php echo THEME_URL; ?>/js/app" src="<?php echo THEME_URL; ?>/js/vendor/require.js"></script>
