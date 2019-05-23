@@ -191,8 +191,6 @@
 						_this.$level.find("option[value='" + level_id + "']").removeAttr("disabled");
 					});
 
-					console.log( "1" );
-
 				}
 
 				// destination is selected but not a camp. show levels that are set for the destination
@@ -204,8 +202,6 @@
 					_.each(levels, function (level_id) {
 						_this.$level.find("option[value='" + level_id + "']").removeAttr("disabled");
 					});
-
-					console.log( "2" );
 
 				} 
 
@@ -233,8 +229,6 @@
 						_this.$level.find("option[value='" + level_id + "']").removeAttr("disabled");
 					});
 
-					console.log( "3" );
-
 				} 
 
 
@@ -242,7 +236,6 @@
 					// Only destination type is selected. Activate all levels for the destination type that does not have a constraint
 					this.$level.find("option[data-destination-type='" + destination_type + "'][data-constraint='none']").removeAttr("disabled");
 
-					console.log( "4" );
 				}
 
 				if (set_index) {
