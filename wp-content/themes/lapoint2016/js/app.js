@@ -28,5 +28,10 @@ requirejs.config({
     }
 });
 
-requirejs(['app/main']);
+
+jQuery(document).ready(function() {
+    console.log( "Jquery DOM is ready y'all. Prepare to ball." );
+    requirejs(['app/main']);
+});
+
 //requirejs(['app/mobile']);

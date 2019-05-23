@@ -1,14 +1,7 @@
-define(["jquery", "./animation", "./mobile", "TweenLite", "CSSPlugin", "domReady"], function($, AnimationController, MobileController, TweenLite, CSSPlugin, domReady) {
+define(["jquery", "./animation", "./mobile"], function($, AnimationController, MobileController) {
 
-	// wait for dom to be loaded before revving up the javascript. we include TweenLite and CssPlugin so we now they also are loaded for video-slider.js and posts-slide.js
-
-	domReady(function () {
-    console.log( "DOM is ready y'all. Prepare to ball." );
-	  lapointSiteIsGo();
-  });
-
-
-  function lapointSiteIsGo() {
+	
+  
 
 	  var $win = $(window);
 		var $body = $("body");
@@ -203,6 +196,6 @@ define(["jquery", "./animation", "./mobile", "TweenLite", "CSSPlugin", "domReady
 		
 		new AnimationController();
 
-  }
+  
 
 });
