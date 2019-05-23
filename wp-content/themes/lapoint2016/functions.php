@@ -1109,10 +1109,10 @@ class Lapoint_Framework {
 
 		wp_enqueue_style('select2-style', THEME_URL . '/css/select2.min.css');
 
-		wp_enqueue_script('booking-bar-script', THEME_URL . '/kmc-modules/kmc-booking-bar/js/booking-bar.js', array(), 3);
 		wp_enqueue_script('select-2', THEME_URL . '/js/vendor/select2.min.js');
 		wp_enqueue_script('iframeResizer', THEME_URL . '/js/vendor/iframeResizer.min.js');
 
+		wp_enqueue_script('booking-bar-script', THEME_URL . '/kmc-modules/kmc-booking-bar/js/booking-bar.js', array('jquery'), 4);
 
 		// Load our main stylesheet.
 		wp_enqueue_style('lapoint-style', get_stylesheet_uri(), array(), $this->version);

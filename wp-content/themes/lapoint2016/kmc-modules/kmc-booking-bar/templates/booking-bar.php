@@ -87,7 +87,11 @@ $default_level_set = false;
 							endif; ?>
 							<option value="<?php echo $camp->id; ?>" data-destination="<?php echo $camp->get_destination()->id; ?>" data-destination-type="<?php echo $camp->get_type()->id; ?>" data-code="<?php echo $camp->booking_code; ?>"<?php
 							if ($this->default_camp == $camp->id) echo ' selected="selected"';
-							?>><?php echo $booking_title; ?></option>
+							?> data-levels="<?php if ($camp->levels) :
+													foreach ($camp->levels as $level) :
+														echo "-". $level->ID ."-";
+													endforeach;
+												endif; ?>"><?php echo $booking_title; ?></option>
 							<?php
 						endif;
 					endforeach;
@@ -113,7 +117,7 @@ $default_level_set = false;
 						if ($level->booking_code && !in_array($level->id, $level_parents)) : ?>
 							<option value="<?php echo $level->id; ?>" data-destination-type="<?php echo $level->get_type()->id; ?>" data-code="<?php echo $level->booking_code; ?>"<?php
 							if ($this->default_level == $level->id) { echo ' selected="selected"'; $default_level_set = true; }; 
-							?>><?php echo $level->display_label; ?></option>
+							?> data-constraint="<?php echo $level->constraint == true ? 'match' : 'none'; ?>"><?php echo $level->display_label; ?></option>
 							<?php
 						endif;
 					endforeach;

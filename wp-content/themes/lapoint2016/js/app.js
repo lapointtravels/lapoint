@@ -11,7 +11,7 @@ if (typeof Backbone === 'object') {
 
 requirejs.config({
     baseUrl: theme_url + '/js/vendor',
-    urlArgs: "bust=v19",
+    urlArgs: "bust=v20",
     paths: {
         //device: './current-device.min', // we want this to load early. so we enque it in functions.php
         app: '../app',

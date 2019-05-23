@@ -96,11 +96,12 @@
 			update_destinations: function (set_index, set_fresh) {
 
 
-				console.log( "update_destinations" );
 
 				var destination_type = this.$destination_type.val();
 				var level = this.$level.val();
 				var camp = this.$camp.val();
+
+				console.log( "update_destinations: " + destination_type  );
 
 				// if we are called from the destination_type dropdown
 				if( set_fresh ) {
@@ -155,12 +156,13 @@
 
 			update_levels: function (set_index) {
 
-				console.log( "update_levels" );
 
 				var _this = this;
 				var destination_type = this.$destination_type.val();
 				var destination = this.$destination.val();
 				var camp = this.$camp.val();
+
+				console.log( "update_levels: " + destination_type );
 
 				// first disable all levels				
 				this.$level.find("option[data-destination-type]").attr('disabled','disabled');
@@ -189,6 +191,8 @@
 						_this.$level.find("option[value='" + level_id + "']").removeAttr("disabled");
 					});
 
+					console.log( "1" );
+
 				}
 
 				// destination is selected but not a camp. show levels that are set for the destination
@@ -200,6 +204,9 @@
 					_.each(levels, function (level_id) {
 						_this.$level.find("option[value='" + level_id + "']").removeAttr("disabled");
 					});
+
+					console.log( "2" );
+
 				} 
 
 				// camp is selected but not a destination. 
@@ -226,12 +233,16 @@
 						_this.$level.find("option[value='" + level_id + "']").removeAttr("disabled");
 					});
 
+					console.log( "3" );
+
 				} 
 
 
 				else if (destination_type) {
 					// Only destination type is selected. Activate all levels for the destination type that does not have a constraint
 					this.$level.find("option[data-destination-type='" + destination_type + "'][data-constraint='none']").removeAttr("disabled");
+
+					console.log( "4" );
 				}
 
 				if (set_index) {
