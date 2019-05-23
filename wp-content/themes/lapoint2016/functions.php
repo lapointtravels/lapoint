@@ -1137,46 +1137,46 @@ class Lapoint_Framework {
 		return $admin_row_objects[$post_id];
 	}
 	public function custom_columns ($column, $post_id) {
-		var $post_type = get_post_type($post_id);
+		$post_type = get_post_type($post_id);
 
 		switch ($column){
 			case "type":
 				if ($post_type == "destination") {
-					var $destination = $this->get_admin_row_object(Destination, $post_id);
-					var $destination_type = $destination->get_type();
+					$destination = $this->get_admin_row_object(Destination, $post_id);
+					$destination_type = $destination->get_type();
 					echo $destination_type ? $destination_type->title : "-";
 				}
 				break;
 			case "destination":
 				if ($post_type == "location") {
-					var $location = $this->get_admin_row_object(Location, $post_id);
-					var $destination = $location->get_destination();
+					$location = $this->get_admin_row_object(Location, $post_id);
+					$destination = $location->get_destination();
 					echo $destination ? $destination->title : "-";
 				} else if ($post_type == "camp") {
-					var $camp = $this->get_admin_row_object(Camp, $post_id);
-					var $destination = $camp->get_destination();
+					$camp = $this->get_admin_row_object(Camp, $post_id);
+					$destination = $camp->get_destination();
 					echo $destination ? $destination->title : "-";
 				} else if ($post_type == "package") {
-					var $package = $this->get_admin_row_object(Package, $post_id);
-					var $destination = $package->get_destination();
+					$package = $this->get_admin_row_object(Package, $post_id);
+					$destination = $package->get_destination();
 					echo $destination ? $destination->title : "-";
 				}
 				break;
 			case "location":
 				if ($post_type == "camp") {
-					var $camp = $this->get_admin_row_object(Camp, $post_id);
-					var $location = $camp->get_location();
+					$camp = $this->get_admin_row_object(Camp, $post_id);
+					$location = $camp->get_location();
 					echo $location ? $location->title : "-";
 				} else if ($post_type == "package") {
-					var $package = $this->get_admin_row_object(Package, $post_id);
-					var $location = $package->get_location();
+					$package = $this->get_admin_row_object(Package, $post_id);
+					$location = $package->get_location();
 					echo $location ? $location->title : "-";
 				}
 				break;
 			case "level":
 				if ($post_type == "package") {
-					var $package = $this->get_admin_row_object(Package, $post_id);
-					var $location = $package->get_level();
+					$package = $this->get_admin_row_object(Package, $post_id);
+					$location = $package->get_level();
 					echo $location ? $location->title : "-";
 				}
 				break;
