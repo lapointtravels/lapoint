@@ -32,11 +32,9 @@ define(['jquery', 'underscore', 'backbone', 'TweenLite', 'CSSPlugin'], function(
 				}
 			});
 
-
 			var slide_count = Math.min(MAX_SLIDE_COUNT, this.TOTAL_SLIDES_COUNT);
 			this.current_slide_count = slide_count;
 			this.slide_distance = this.$slider.width() / slide_count;
-
 
 			// Show initial slides
 			this.on_resize();
@@ -47,8 +45,6 @@ define(['jquery', 'underscore', 'backbone', 'TweenLite', 'CSSPlugin'], function(
 					_this.slides[i].addClass("visible");
 				}
 			}, 100);
-
-
 
 			this.$prev_slide.on("click", function (e) {
 				e.preventDefault();
