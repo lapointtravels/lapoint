@@ -213,7 +213,7 @@ function brand_permalink($permalink, $post_id, $leavename) {
 					),
 					array (
 						'key' => 'field_5717f09ae3b8a',
-						'label' => 'levels',
+						'label' => 'Levels',
 						'name' => 'levels',
 						'type' => 'post_object',
 						'instructions' => 'Select the levels that are available for the destination',

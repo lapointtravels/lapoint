@@ -222,7 +222,7 @@ class Camps_Manager extends Lapoint_Manager {
 						'label' => 'Levels',
 						'name' => 'levels',
 						'type' => 'post_object',
-						'instructions' => 'Select the levels that are available for the camp',
+						'instructions' => 'Select the levels that are available for the camp. Select none to use the levels available for the destination.',
 						'post_type' => array (
 							0 => 'level',
 						),
