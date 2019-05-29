@@ -1,5 +1,8 @@
 define(["jquery", "./animation", "./mobile"], function($, AnimationController, MobileController) {
-	var $win = $(window);
+
+  console.log( "MAIN.JS" );
+
+  var $win = $(window);
 	var $body = $("body");
 	
 	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
@@ -80,11 +83,9 @@ define(["jquery", "./animation", "./mobile"], function($, AnimationController, M
 	});
 
 
-
-
 	// Setup the destinations menu
-	$destination_menu = $(".select-destination");
-	if ($("#menu-container a[href='#destinations']").size() > 0) {
+	$destination_menu = $(".select-destination");	
+	if ($("#menu-container a[href='#destinations']").size() > 0) {		
 		var $link = $("#menu-container a[href='#destinations']");
 		var txt = $link.text();
 		var $drop_wrapper = $("<div></div>").addClass("drop-wrapper").append( $("<span></span>").addClass("drop-inner").text(txt) );
@@ -95,7 +96,7 @@ define(["jquery", "./animation", "./mobile"], function($, AnimationController, M
 
 	// Setup the levels menu
 	$level_menu = $(".select-level");
-	if ($("#menu-container a[href='#levels']").size() > 0) {
+	if ($("#menu-container a[href='#levels']").size() > 0) {		
 		var $link = $("#menu-container a[href='#levels']");
 		var txt = $link.text();
 		var $drop_wrapper = $("<div></div>").addClass("drop-wrapper").append( $("<span></span>").addClass("drop-inner").text(txt) );
@@ -165,22 +166,10 @@ define(["jquery", "./animation", "./mobile"], function($, AnimationController, M
 	});
 
 
-
 	// Select the active destination type
 	if (lapoint.destination_type) {
 		$(".secondary-menu a[href='" + lapoint.destination_type.link + "']").addClass("active");
 	}
-
-	/*
-	if ($("select").length) {
-		requirejs(["Select2"], function(Select2) {
-			$('select').select2({
-				minimumResultsForSearch: Infinity
-			});
-		});
-	}
-	*/
-
 
 	// Enable video sliders
 	if ($(".kmc-component-video_slider").length) {
@@ -203,16 +192,6 @@ define(["jquery", "./animation", "./mobile"], function($, AnimationController, M
 			});
 		});
 	}
-	/*if ($(".kmc-booking-bar").length) {
-		requirejs(["../../kmc-modules/kmc-booking-bar/js/booking-bar"], function(BookingBar) {
-			$(".kmc-booking-bar").each(function (index, element) {
-				new BookingBar({
-					el: element
-				});
-			});
-
-		});
-	}*/
 	
 	new AnimationController();
 

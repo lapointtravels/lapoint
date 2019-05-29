@@ -218,13 +218,42 @@ class Camps_Manager extends Lapoint_Manager {
 						'multiple' => 0,
 					),
 					array (
-						'key' => 'field_571a3408a133c',
-						'label' => 'Box image',
-						'name' => 'box_background_image',
-						'type' => 'image',
-						'save_format' => 'object',
-						'preview_size' => 'thumbnail',
-						'library' => 'all',
+						'key' => 'field_34ba0618160c9',
+						'label' => 'Default search duration',
+						'name' => 'search_duration',
+						'type' => 'select',
+						'instructions' => 'Select the default duration that will be used for searching when this camp is selected in the booking bar',
+						'choices' => array (
+							'WE' => __("Weekend", "lapoint"),
+							1 => __("1 day", "lapoint"),
+							2 => __("2 days", "lapoint"),
+							3 => __("3 days", "lapoint"),
+							4 => __("4 days", "lapoint"),
+							5 => __("5 days", "lapoint"),
+							6 => __("6 days", "lapoint"),
+							7 => __("1 week", "lapoint"),
+							7 => __("1 week", "lapoint"),
+							14 => __("2 week", "lapoint"),
+							21 => __("3 week", "lapoint")
+						),
+						'default_value' => '7',
+						'allow_null' => 0,
+						'multiple' => 0,
+					),
+					array(
+						'key' => 'field_4975926ab8167',
+						'label' => 'Levels',
+						'name' => 'levels',
+						'type' => 'post_object',
+						'instructions' => 'Select the levels that are available for the camp. Select none to use the levels available for the destination.',
+						'post_type' => array (
+							0 => 'level',
+						),
+						'taxonomy' => array (
+							0 => 'all',
+						),
+						'allow_null' => 1,
+						'multiple' => 1
 					),
 					array (
 						'key' => 'field_56eacc5d3779f',
@@ -238,6 +267,15 @@ class Camps_Manager extends Lapoint_Manager {
 						'append' => '',
 						'formatting' => 'html',
 						'maxlength' => '',
+					),
+					array (
+						'key' => 'field_571a3408a133c',
+						'label' => 'Box image',
+						'name' => 'box_background_image',
+						'type' => 'image',
+						'save_format' => 'object',
+						'preview_size' => 'thumbnail',
+						'library' => 'all',
 					),
 					array (
 						'key' => 'field_572b9de2c0b0f',
@@ -348,11 +386,13 @@ class Camp extends Lapoint_PostType {
 
 		$this->booking_code = $fields["booking_code"];
 		$this->booking_label = $fields["booking_label"];
+		$this->search_duration = $fields["search_duration"];
 		$this->excerpt = $fields["excerpt"];
 		$this->info_list = $fields["info_list"];
 		$this->button_text = $fields["button_text"];
 		$this->box_background_image = $fields["box_background_image"];
 		$this->hide_in_accommodation_list = $fields["hide_accommodation"];
+		$this->levels = $fields["levels"];
 	}
 
 	public function get_type () {

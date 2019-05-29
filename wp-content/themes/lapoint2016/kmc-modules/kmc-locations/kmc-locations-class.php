@@ -36,7 +36,7 @@ class KMC_Locations extends Kloon_Module {
 	}
 
 	public function get_component_class () {
-		return KMC_Locations_Component;
+		return "KMC_Locations_Component";
 	}
 
 	public function get_new_module_icon () {

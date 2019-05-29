@@ -36,7 +36,7 @@ class KMC_Header extends Kloon_Module {
 	}
 
 	public function get_component_class () {
-		return KMC_Header_Component;
+		return "KMC_Header_Component";
 	}
 
 	public function get_new_module_icon () {
