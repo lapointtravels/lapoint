@@ -170,7 +170,8 @@
 				$levels = $levels_manager->get_all();
 				$default_level_set = false;
 
-				$current_destination_code = "";//get_current_destination_type_booking_code();
+				//$current_destination_code = get_current_destination_type_booking_code();
+				$current_destination_code = "";
 
 				?>
 
@@ -234,18 +235,23 @@
 									<?php
 									$added_camps = array();
 									foreach ($camps as $camp) :
-										if ($camp->booking_code ) : //&& !in_array($camp->booking_code, $added_camps)) :
-											//$added_camps[] = $camp->booking_code;
-
+										if ($camp->booking_code ) : 
 											$booking_title = $camp->title;
 											if ($camp->booking_label) :
 												$booking_title = $camp->booking_label;
 											endif; ?>
+
 											<option value="<?php echo $camp->id; ?>" 
 												data-destination="<?php echo $camp->get_destination()->id; ?>" 
 												data-destination-type="<?php echo $camp->get_type()->id; ?>" 
-												data-code="<?php echo $camp->booking_code; ?>"
+												data-code="<?php echo $camp->booking_code; ?>"												
+												data-levels="<?php if ($camp->levels) {
+																						foreach ($camp->levels as $level) {
+																							echo "-". $level->ID ."-";
+																						}
+																					}?>"
 												data-search-duration="<?php echo $camp->search_duration ? $camp->search_duration : 7; ?>"><?php echo $booking_title; ?></option>
+
 											<?php
 										endif;
 									endforeach;
@@ -286,7 +292,10 @@
 									<?php
 									foreach ($levels as $level) :
 										if ($level->booking_code && !in_array($level->id, $level_parents)) : ?>
-											<option value="<?php echo $level->id; ?>" data-destination-type="<?php echo $level->get_type()->id; ?>" data-code="<?php echo $level->booking_code; ?>"><?php echo $level->display_label; ?></option>
+											<option value="<?php echo $level->id; ?>" 
+												data-destination-type="<?php echo $level->get_type()->id; ?>" 
+												data-code="<?php echo $level->booking_code; ?>" 
+												data-constraint="<?php echo $level->constraint == true ? 'match' : 'none'; ?>"><?php echo $level->display_label; ?></option>
 											<?php
 										endif;
 									endforeach;

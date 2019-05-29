@@ -197,6 +197,15 @@ class Levels_Manager extends Lapoint_Manager {
 						'maxlength' => '',
 					),
 					array (
+						'key' => 'field_9974eb9354824',
+						'label' => 'Booking bar constraint',
+						'name' => 'booking_bar_constraint',
+						'type' => 'true_false',
+						'default_value' => 0,
+						'instructions' => 'The level will only show in the Booking Bar Level dropdown when a Camp and/or Destination is selected and that Camp or Destination has this level in its Levels selction',
+						'message' => ''
+					),					
+					array (
 						'key' => 'field_57133a65df7bb',
 						'label' => 'Hide in menu',
 						'name' => 'hidden_menu',
@@ -369,6 +378,8 @@ class Level extends Lapoint_PostType {
 		$this->booking_code = $fields["booking_code"];
 		$this->display_label = $fields["display_label"];
 		$this->parent_level = $fields["parent_level"];
+		$this->constraint = $fields["booking_bar_constraint"];
+		$this->hide_in_menu = $fields["hidden_menu"];
 
 		if (!$this->display_label) {
 			$this->display_label = $this->title;

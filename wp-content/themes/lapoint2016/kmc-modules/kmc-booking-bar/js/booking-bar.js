@@ -84,7 +84,7 @@
 			on_destination_changed: function (e) {
 				this.update_camps(true);
 				this.update_levels(true);
-				this.update_durations(true);
+				this.update_durations(true, false);
 				this.explicitDuration = false;
 			},
 
@@ -104,6 +104,7 @@
 			},
 
 			update_destinations: function (set_index, set_fresh) {
+
 				var destination_type = this.$destination_type.val();
 				var level = this.$level.val();
 				var camp = this.$camp.val();
@@ -155,39 +156,85 @@
 				});
 
 				this.update_camps(set_index);
-				this.update_durations(set_index);
+				this.update_durations(set_index, set_fresh);
 
 			},
 
 			update_levels: function (set_index) {
+
+
 				var _this = this;
 				var destination_type = this.$destination_type.val();
 				var destination = this.$destination.val();
 				var camp = this.$camp.val();
 
+				// first disable all levels				
 				this.$level.find("option[data-destination-type]").attr('disabled','disabled');
+				
+				// then we figure out which levels we should show in the drop-down
 
-				if (destination) {
+				// if both a destination and camp is selected
+				if( destination && camp ) {
+
+					var levels = this.$camp.find( "option[value='" + camp + "']" ).attr("data-levels");
+
+					// we first check if the camp has levels assigned to it
+					if( levels ) {
+						levels = levels.substr(1, levels.length-2).split("--");
+					} 
+					// the camp does not have levels. use levels in the destination
+					else {
+						levels = this.$destination.find( "option[value='" + destination + "']" ).attr("data-levels");
+						levels = levels.substr(1, levels.length-2).split("--");
+					}
+
+					// update selectable levels
+					_.each(levels, function (level_id) {
+						_this.$level.find("option[value='" + level_id + "']").removeAttr("disabled");
+					});
+
+				}
+
+				// destination is selected but not a camp. show levels that are set for the destination
+				else if (destination) {
+
 					var levels = this.$destination.find("option:selected").attr("data-levels");
 					levels = levels.substr(1, levels.length-2).split("--");
 					_.each(levels, function (level_id) {
 						_this.$level.find("option[value='" + level_id + "']").removeAttr("disabled");
 					});
-				} else if (camp) {
-					// Show camps for all destinations not disabled
-					this.$destination.find("option:not(:disabled)").each(function(index, dest_option) {
-						var $dest_option = $(dest_option);
-						if ($dest_option.attr("data-levels")) {
-							var levels = $(dest_option).attr("data-levels");
-							levels = levels.substr(1, levels.length-2).split("--");
-							_.each(levels, function (level_id) {
-								_this.$level.find("option[value='" + level_id + "']").removeAttr("disabled");
-							});
-						}
+
+				} 
+
+				// camp is selected but not a destination. 
+				else if (camp) {
+					
+					var levels = this.$camp.find( "option[value='" + camp + "']" ).attr("data-levels");
+
+					// we first check if the camp has levels assigned to it
+					if( levels ) {
+						levels = levels.substr(1, levels.length-2).split("--");
+					} 
+
+					// if not then find the destination the camp belongs to and use its levels 
+					else {
+						var destination_id = this.$camp.find("option[value='" + camp + "']").attr( "data-destination" );
+						levels = this.$destination.find( "option[value='" + destination_id + "']" ).attr("data-levels");
+						levels = levels.substr(1, levels.length-2).split("--");
+					}
+
+					// update selectable levels
+					_.each(levels, function (level_id) {
+						_this.$level.find("option[value='" + level_id + "']").removeAttr("disabled");
 					});
 
-				} else if (destination_type) {
-					this.$level.find("option[data-destination-type='" + destination_type + "']").removeAttr("disabled");
+				} 
+
+
+				else if (destination_type) {
+					// Only destination type is selected. Activate all levels for the destination type that does not have a constraint
+					this.$level.find("option[data-destination-type='" + destination_type + "'][data-constraint='none']").removeAttr("disabled");
+
 				}
 
 				if (set_index) {
@@ -195,9 +242,11 @@
 						this.$level[0].selectedIndex = 0;
 					}
 				}
+
 				this.$level.select2("destroy").select2({
 					minimumResultsForSearch: Infinity
 				});
+
 			},
 
 			update_camps: function (set_index) {
@@ -253,14 +302,15 @@
 
 			},
 
-			update_durations: function (set_index) {
+			update_durations: function (set_index, set_fresh) {
+
 				var _this = this;
 				var destination = this.$destination.val();
 				var level = this.$level.val();
 				var camp_id = this.$camp.val();
 				var destination_id = false;
 
-				if( camp_id && !destination ) {					
+				if( camp_id && !destination ) {
 					destination_id = this.$camp.find("option[value='" + camp_id + "']").attr( "data-destination" );
 				}
 
@@ -288,13 +338,22 @@
 				} else if ( destination_id ) {
 					this.update_durations_by_destination_id( set_index, destination_id );
 				} else {
-					// reset 
-					this.$duration.find("option.option").removeAttr("disabled");
-					this.$duration[0].selectedIndex = 0;
-					this.$duration.select2("destroy").select2({
-						minimumResultsForSearch: Infinity
-					});
-					this.explicitDuration = false;
+					
+					if( set_fresh ) {
+						this.$duration.find("option.option").removeAttr("disabled");
+						this.$duration[0].selectedIndex = 0;
+						this.explicitDuration = false;						
+						this.$duration.select2("destroy").select2({
+							minimumResultsForSearch: Infinity
+						});
+					} else if ( set_index ) {
+						if (this.$duration.find("option:selected").is(":disabled")) {
+							this.$duration[0].selectedIndex = 0;
+							this.$duration.select2("destroy").select2({
+								minimumResultsForSearch: Infinity
+							});
+						}
+					}
 				}
 			},
 

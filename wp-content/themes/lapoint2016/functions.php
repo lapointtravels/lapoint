@@ -1109,10 +1109,10 @@ class Lapoint_Framework {
 
 		wp_enqueue_style('select2-style', THEME_URL . '/css/select2.min.css');
 
-		wp_enqueue_script('booking-bar-script', THEME_URL . '/kmc-modules/kmc-booking-bar/js/booking-bar.js', array(), 3);
 		wp_enqueue_script('select-2', THEME_URL . '/js/vendor/select2.min.js');
 		wp_enqueue_script('iframeResizer', THEME_URL . '/js/vendor/iframeResizer.min.js');
 
+		wp_enqueue_script('booking-bar-script', THEME_URL . '/kmc-modules/kmc-booking-bar/js/booking-bar.js', array('jquery'), 4, true);
 
 		// Load our main stylesheet.
 		wp_enqueue_style('lapoint-style', get_stylesheet_uri(), array(), $this->version);
@@ -1142,40 +1142,40 @@ class Lapoint_Framework {
 		switch ($column){
 			case "type":
 				if ($post_type == "destination") {
-					$destination = $this->get_admin_row_object(Destination, $post_id);
+					$destination = $this->get_admin_row_object("Destination", $post_id);
 					$destination_type = $destination->get_type();
 					echo $destination_type ? $destination_type->title : "-";
 				}
 				break;
 			case "destination":
 				if ($post_type == "location") {
-					$location = $this->get_admin_row_object(Location, $post_id);
+					$location = $this->get_admin_row_object("Location", $post_id);
 					$destination = $location->get_destination();
 					echo $destination ? $destination->title : "-";
 				} else if ($post_type == "camp") {
-					$camp = $this->get_admin_row_object(Camp, $post_id);
+					$camp = $this->get_admin_row_object("Camp", $post_id);
 					$destination = $camp->get_destination();
 					echo $destination ? $destination->title : "-";
 				} else if ($post_type == "package") {
-					$package = $this->get_admin_row_object(Package, $post_id);
+					$package = $this->get_admin_row_object("Package", $post_id);
 					$destination = $package->get_destination();
 					echo $destination ? $destination->title : "-";
 				}
 				break;
 			case "location":
 				if ($post_type == "camp") {
-					$camp = $this->get_admin_row_object(Camp, $post_id);
+					$camp = $this->get_admin_row_object("Camp", $post_id);
 					$location = $camp->get_location();
 					echo $location ? $location->title : "-";
 				} else if ($post_type == "package") {
-					$package = $this->get_admin_row_object(Package, $post_id);
+					$package = $this->get_admin_row_object("Package", $post_id);
 					$location = $package->get_location();
 					echo $location ? $location->title : "-";
 				}
 				break;
 			case "level":
 				if ($post_type == "package") {
-					$package = $this->get_admin_row_object(Package, $post_id);
+					$package = $this->get_admin_row_object("Package", $post_id);
 					$location = $package->get_level();
 					echo $location ? $location->title : "-";
 				}

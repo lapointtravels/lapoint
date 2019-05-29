@@ -11,22 +11,24 @@ if (typeof Backbone === 'object') {
 
 requirejs.config({
     baseUrl: theme_url + '/js/vendor',
-    urlArgs: "bust=v19",
+    urlArgs: "bust=v23",
     paths: {
         //device: './current-device.min', // we want this to load early. so we enque it in functions.php
         app: '../app',
         TweenLite: './greensock/TweenLite.min',
         CSSPlugin: './greensock/CSSPlugin.min',
-        Select2: './select2.min'
-        // iframeResizer: './iframeResizer.min'
+        // Select2: './select2.min' // in functions.php
+        // iframeResizer: './iframeResizer.min' // in functions.php
     },
     shim: {
         "backbone": {
             deps: ["underscore", "jquery"],
             exports: "Backbone"
         }
-    }
+    },
+    waitForSeconds: 30
 });
 
 requirejs(['app/main']);
+
 //requirejs(['app/mobile']);

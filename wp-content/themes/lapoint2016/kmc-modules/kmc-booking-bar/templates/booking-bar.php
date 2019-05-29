@@ -83,13 +83,20 @@ $default_level_set = false;
 							if ($camp->booking_label) :
 								$booking_title = $camp->booking_label;
 							endif; ?>
+
 							<option value="<?php echo $camp->id; ?>" 
 								data-destination="<?php echo $camp->get_destination()->id; ?>" 
 								data-destination-type="<?php echo $camp->get_type()->id; ?>" 
-								data-code="<?php echo $camp->booking_code; ?>"
-								<?php if ($this->default_camp == $camp->id) echo ' selected="selected"';?>
-								data-search-duration="<?php echo $camp->search_duration ? $camp->search_duration : 7; ?>"><?php echo $booking_title; ?></option>
-						<?php 
+								data-code="<?php echo $camp->booking_code; ?>"								
+								data-levels="<?php if ($camp->levels) {
+															foreach ($camp->levels as $level) {
+																echo "-". $level->ID ."-";
+															}
+														} ?>"
+								data-search-duration="<?php echo $camp->search_duration ? $camp->search_duration : 7; ?>"
+								<?php if ($this->default_camp == $camp->id) echo ' selected="selected"'; ?>><?php echo $booking_title; ?></option>
+							<?php
+
 						endif;
 					endforeach;
 					?>
@@ -115,8 +122,9 @@ $default_level_set = false;
 							<option value="<?php echo $level->id; ?>" 
 								data-destination-type="<?php echo $level->get_type()->id; ?>" 
 								data-code="<?php echo $level->booking_code; ?>"
+								data-constraint="<?php echo $level->constraint == true ? 'match' : 'none'; ?>"
 								<?php if ($this->default_level == $level->id) { echo ' selected="selected"'; $default_level_set = true; }; ?>>
-								<?php echo $level->display_label; ?></option>
+								<?php echo $level->display_label; ?></option>								
 							<?php
 						endif;
 					endforeach;
