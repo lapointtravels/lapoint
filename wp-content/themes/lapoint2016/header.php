@@ -179,7 +179,7 @@
 						<div class="row">
 							<div class="book-choice-container destination-type">
 								<select class="select book-destination-type book-choice">
-									<option value="0"><?php echo __("Select travel type", "lapoint"); ?></option>
+									<option value=""><?php echo __("Select travel type", "lapoint"); ?></option>
 									<?php
 									foreach ($destination_types as $destination_type) :
 										if ($destination_type->booking_code) : ?>
@@ -203,26 +203,25 @@
 									<?php
 									foreach ($destinations as $destination) :
 										if ($destination->booking_code) : ?>
-											<option value="<?php echo $destination->id; ?>" data-code="<?php echo $destination->booking_code; ?>" data-destination-type="<?php echo $destination->get_type()->id; ?>" data-levels="<?php
-											if ($destination->levels) :
-												foreach ($destination->levels as $level) :
-													echo "-". $level->ID ."-";
-												endforeach;
-											endif;
-											?>"  data-durations="<?php
-											if ($destination->durations) :
-												foreach ($destination->durations as $duration) :
-													echo "-". $duration ."-";
-												endforeach;
-											endif;
-											?>" data-camps="<?php
-											if ($destination->get_camps()) :
-												foreach ($destination->get_camps() as $camp) :
-													echo "-". $camp->booking_code ."-";
-												endforeach;
-
-											endif;
-											?>"><?php echo $destination->title; ?></option>
+											<option value="<?php echo $destination->id; ?>" 
+												data-code="<?php echo $destination->booking_code; ?>" 
+												data-destination-type="<?php echo $destination->get_type()->id; ?>" 
+												data-levels="<?php if ($destination->levels) :
+													foreach ($destination->levels as $level) :
+														echo "-". $level->ID ."-";
+													endforeach;
+												endif; ?>"  
+												data-durations="<?php if ($destination->durations) :
+													foreach ($destination->durations as $duration) :
+														echo "-". $duration ."-";
+													endforeach;
+												endif; ?>" 
+												data-camps="<?php if ($destination->get_camps()) :
+													foreach ($destination->get_camps() as $camp) :
+														echo "-". $camp->booking_code ."-";
+													endforeach;
+												endif; ?>" 
+												data-search-duration="<?php echo $destination->search_duration ? $destination->search_duration : 7; ?>"><?php echo $destination->title; ?></option>
 											<?php
 										endif;
 									endforeach;
@@ -241,12 +240,18 @@
 											if ($camp->booking_label) :
 												$booking_title = $camp->booking_label;
 											endif; ?>
-											<option value="<?php echo $camp->id; ?>" data-destination="<?php echo $camp->get_destination()->id; ?>" data-destination-type="<?php echo $camp->get_type()->id; ?>" data-code="<?php echo $camp->booking_code; ?>"
-												data-levels="<?php if ($camp->levels) :
-													foreach ($camp->levels as $level) :
-														echo "-". $level->ID ."-";
-													endforeach;
-												endif; ?>"><?php echo $booking_title; ?></option>
+
+											<option value="<?php echo $camp->id; ?>" 
+												data-destination="<?php echo $camp->get_destination()->id; ?>" 
+												data-destination-type="<?php echo $camp->get_type()->id; ?>" 
+												data-code="<?php echo $camp->booking_code; ?>"												
+												data-levels="<?php if ($camp->levels) {
+																						foreach ($camp->levels as $level) {
+																							echo "-". $level->ID ."-";
+																						}
+																					}?>"
+												data-search-duration="<?php echo $camp->search_duration ? $camp->search_duration : 7; ?>"><?php echo $booking_title; ?></option>
+
 											<?php
 										endif;
 									endforeach;
@@ -287,7 +292,10 @@
 									<?php
 									foreach ($levels as $level) :
 										if ($level->booking_code && !in_array($level->id, $level_parents)) : ?>
-											<option value="<?php echo $level->id; ?>" data-destination-type="<?php echo $level->get_type()->id; ?>" data-code="<?php echo $level->booking_code; ?>" data-constraint="<?php echo $level->constraint == true ? 'match' : 'none'; ?>"><?php echo $level->display_label; ?></option>
+											<option value="<?php echo $level->id; ?>" 
+												data-destination-type="<?php echo $level->get_type()->id; ?>" 
+												data-code="<?php echo $level->booking_code; ?>" 
+												data-constraint="<?php echo $level->constraint == true ? 'match' : 'none'; ?>"><?php echo $level->display_label; ?></option>
 											<?php
 										endif;
 									endforeach;

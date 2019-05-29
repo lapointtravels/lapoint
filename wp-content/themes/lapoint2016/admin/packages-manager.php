@@ -247,8 +247,7 @@ class Packages_Manager extends Lapoint_Manager {
 						14 => __("2 week", "lapoint"),
 						21 => __("3 week", "lapoint")
 					),
-					'default_value' => '7
-		14',
+					'default_value' => '',
 					'allow_null' => 0,
 					'multiple' => 1,
 				),
