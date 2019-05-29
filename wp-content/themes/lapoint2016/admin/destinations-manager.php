@@ -245,10 +245,33 @@ function brand_permalink($permalink, $post_id, $leavename) {
 							14 => __("2 week", "lapoint"),
 							21 => __("3 week", "lapoint")
 						),
-						'default_value' => '7
-			14',
+						'default_value' => '7 
+																14',
 						'allow_null' => 0,
 						'multiple' => 1,
+					),
+					array (
+						'key' => 'field_44ba0669560c9',
+						'label' => 'Default search duration',
+						'name' => 'search_duration',
+						'type' => 'select',
+						'instructions' => 'Select the default duration that will be used for searching when this destination is selected in the booking bar',
+						'choices' => array (
+							'WE' => __("Weekend", "lapoint"),
+							1 => __("1 day", "lapoint"),
+							2 => __("2 days", "lapoint"),
+							3 => __("3 days", "lapoint"),
+							4 => __("4 days", "lapoint"),
+							5 => __("5 days", "lapoint"),
+							6 => __("6 days", "lapoint"),
+							7 => __("1 week", "lapoint"),
+							7 => __("1 week", "lapoint"),
+							14 => __("2 week", "lapoint"),
+							21 => __("3 week", "lapoint")
+						),
+						'default_value' => '7',
+						'allow_null' => 0,
+						'multiple' => 0,
 					),
 					array (
 						'key' => 'field_56eac53f68a72',
@@ -513,6 +536,7 @@ class Destination extends Lapoint_PostType {
 		$this->booking_code = $fields["booking_code"];
 		$this->levels = $fields["levels"];
 		$this->durations = $fields["durations"];
+		$this->search_duration = $fields["search_duration"];
 	}
 
 	public function get_type () {

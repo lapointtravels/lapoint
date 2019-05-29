@@ -41,28 +41,26 @@ $default_level_set = false;
 					<?php
 					foreach ($destinations as $destination) :
 						if ($destination->booking_code) : ?>
-							<option value="<?php echo $destination->id; ?>" data-code="<?php echo $destination->booking_code; ?>" data-destination-type="<?php echo $destination->get_type()->id; ?>"<?php
-							if ($this->default_destination == $destination->id) echo ' selected="selected"';
-							?> data-levels="<?php
-							if ($destination->levels) :
-								foreach ($destination->levels as $level) :
-									echo "-". $level->ID ."-";
-								endforeach;
-							endif;
-							?>"  data-durations="<?php
-							if ($destination->durations) :
-								foreach ($destination->durations as $duration) :
-									echo "-". $duration ."-";
-								endforeach;
-							endif;
-							?>" data-camps="<?php
-							if ($destination->get_camps()) :
-								foreach ($destination->get_camps() as $camp) :
-									echo "-". $camp->booking_code ."-";
-								endforeach;
-
-							endif;
-							?>"><?php echo $destination->title; ?></option>
+							<option value="<?php echo $destination->id; ?>" 
+								data-code="<?php echo $destination->booking_code; ?>" 
+								data-destination-type="<?php echo $destination->get_type()->id; ?>"
+								<?php if ($this->default_destination == $destination->id) echo ' selected="selected"'; ?> 
+								data-levels="<?php if ($destination->levels) :
+									foreach ($destination->levels as $level) :
+										echo "-". $level->ID ."-";
+									endforeach;
+								endif;?>"  
+								data-durations="<?php if ($destination->durations) :
+									foreach ($destination->durations as $duration) :
+										echo "-". $duration ."-";
+									endforeach;
+								endif;?>" 
+								data-camps="<?php if ($destination->get_camps()) :
+									foreach ($destination->get_camps() as $camp) :
+										echo "-". $camp->booking_code ."-";
+									endforeach;
+								endif;?>"
+								data-search-duration="<?php echo $destination->search_duration ? $destination->search_duration : 7; ?>"><?php echo $destination->title; ?></option>
 							<?php
 						endif;
 					endforeach;
@@ -85,10 +83,13 @@ $default_level_set = false;
 							if ($camp->booking_label) :
 								$booking_title = $camp->booking_label;
 							endif; ?>
-							<option value="<?php echo $camp->id; ?>" data-destination="<?php echo $camp->get_destination()->id; ?>" data-destination-type="<?php echo $camp->get_type()->id; ?>" data-code="<?php echo $camp->booking_code; ?>"<?php
-							if ($this->default_camp == $camp->id) echo ' selected="selected"';
-							?>><?php echo $booking_title; ?></option>
-							<?php
+							<option value="<?php echo $camp->id; ?>" 
+								data-destination="<?php echo $camp->get_destination()->id; ?>" 
+								data-destination-type="<?php echo $camp->get_type()->id; ?>" 
+								data-code="<?php echo $camp->booking_code; ?>"
+								<?php if ($this->default_camp == $camp->id) echo ' selected="selected"';?>
+								data-search-duration="<?php echo $camp->search_duration ? $camp->search_duration : 7; ?>"><?php echo $booking_title; ?></option>
+						<?php 
 						endif;
 					endforeach;
 					?>
@@ -111,9 +112,11 @@ $default_level_set = false;
 					<?php
 					foreach ($levels as $level) :
 						if ($level->booking_code && !in_array($level->id, $level_parents)) : ?>
-							<option value="<?php echo $level->id; ?>" data-destination-type="<?php echo $level->get_type()->id; ?>" data-code="<?php echo $level->booking_code; ?>"<?php
-							if ($this->default_level == $level->id) { echo ' selected="selected"'; $default_level_set = true; }; 
-							?>><?php echo $level->display_label; ?></option>
+							<option value="<?php echo $level->id; ?>" 
+								data-destination-type="<?php echo $level->get_type()->id; ?>" 
+								data-code="<?php echo $level->booking_code; ?>"
+								<?php if ($this->default_level == $level->id) { echo ' selected="selected"'; $default_level_set = true; }; ?>>
+								<?php echo $level->display_label; ?></option>
 							<?php
 						endif;
 					endforeach;
@@ -132,7 +135,7 @@ $default_level_set = false;
 					<option class="option" value="5"><?php _e("5 days", "lapoint"); ?></option>
 					<option class="option" value="6"><?php _e("6 days", "lapoint"); ?></option>
 					<!-- selected="selected" -->					
-					<option class="option" value="7" <?php echo $default_level_set ? '' : 'selected="selected"'; ?>><?php _e("1 week", "lapoint"); ?></option>
+					<option class="option" value="7"><?php _e("1 week", "lapoint"); ?></option>
 					<option class="option" value="14"><?php _e("2 weeks", "lapoint"); ?></option>
 					<option class="option" value="21"><?php _e("3 weeks", "lapoint"); ?></option>
 				</select>

@@ -20,8 +20,11 @@
 				// set to true when the destination filter is clicked and set to false when anything else is clicked
 				this.last_destination = false;
 
-				// so you can't search on the same date
+				// so you can't search on the same date unless somethings has been updated
 				this.lastSearch = false;
+
+				// so we know when someone has explicitly set a duration
+				this.explicitDuration = false;
 
 				this.scrollOffsetTop = 0;
 				this.closeBookingFrameButton = $("<div class='close-booking-frame'><button class='lines-button x2' type='button'><span class='lines'></span></button></div>");
@@ -50,7 +53,6 @@
 					$(this).trigger('blur');
 				});
 
-
 				this.update_destinations(false, false);
 				this.update_levels(false);
 				this.update_camps(false);
@@ -68,6 +70,7 @@
 				"change .book-destination": "on_destination_changed",
 				"change .book-camp": "on_camp_changed",
 				"change .book-level": "on_level_changed",
+				"change .book-duration": "on_duration_changed",
 				"click .btn-show": "on_show_click",
 				"click .btn-book": "on_book_click"
 			},
@@ -75,23 +78,30 @@
 			on_destination_type_changed: function (e) {
 				this.update_destinations(true, true);
 				this.update_levels(true);
+				this.explicitDuration = false;
 			},
 
 			on_destination_changed: function (e) {
 				this.update_camps(true);
 				this.update_levels(true);
 				this.update_durations(true);
+				this.explicitDuration = false;
 			},
 
 			on_level_changed: function (e) {
 				this.update_destinations(true, false);
+				this.explicitDuration = false;
 			},
 
 			on_camp_changed: function (e) {
 				this.update_destinations(true, false);
 				this.update_levels(true);
+				this.explicitDuration = false;
 			},
 
+			on_duration_changed: function (e) {				
+				this.explicitDuration = true;
+			},
 
 			update_destinations: function (set_index, set_fresh) {
 				var destination_type = this.$destination_type.val();
@@ -273,20 +283,18 @@
 						}
 
 					});
-				}
-
-				else if (destination) {
+				} else if (destination) {
 					this.update_durations_for_destination(set_index);
 				} else if ( destination_id ) {
 					this.update_durations_by_destination_id( set_index, destination_id );
 				} else {
-
 					// reset 
 					this.$duration.find("option.option").removeAttr("disabled");
 					this.$duration[0].selectedIndex = 0;
 					this.$duration.select2("destroy").select2({
 						minimumResultsForSearch: Infinity
 					});
+					this.explicitDuration = false;
 				}
 			},
 
@@ -301,6 +309,7 @@
 				if (set_index) {
 					if (this.$duration.find("option:selected").is(":disabled")) {
 						this.$duration[0].selectedIndex = 0;
+						this.explicitDuration = false;
 					}
 				}
 				this.$duration.select2("destroy").select2({
@@ -322,6 +331,7 @@
 				if (set_index) {
 					if (this.$duration.find("option:selected").is(":disabled")) {
 						this.$duration[0].selectedIndex = 0;
+						this.explicitDuration = false;
 					}
 				}
 				this.$duration.select2("destroy").select2({
@@ -351,6 +361,7 @@
 				if (set_index) {
 					if (this.$duration.find("option:selected").is(":disabled")) {
 						this.$duration[0].selectedIndex = 0;
+						this.explicitDuration = false;
 					}
 				}
 				this.$duration.select2("destroy").select2({
@@ -457,9 +468,65 @@
 
 				// if no date select set to today
 				if( !this.$start_date.val() ) {
-					this.$start_date.datepicker("setDate", new Date());					
+					this.$start_date.datepicker("setDate", new Date());						
 				} 
 
+				// Logic for auto selecting duration
+				/*
+					Action: No active selection is made before clicking Search.
+					Result: Duration is set to 1 week
+
+					Action: Only Destination Type (Select travel type) is selected before clicking Search
+					Result: Duration is set to 1 week
+
+					Action: Destination Type & Destination is selected (If the Destination only has ONE camp it is automatically selected). Search.
+					Result: Duration is set to 1 week
+					Special case: If the destination is Norway (camp is not auto selected) duration is set to 3 days
+
+					Action: Destination Type & Camp is selected. Search.
+					Action: Destination Type & Destination & Camp is selected. Search.
+					Result: Duration is set to 1 week
+					Special case: If the Camp is Hoddevik duration is set to 3 days
+
+					Action: Destination Type & Level is selected. Search.
+					Action: Destination Type & Destination & Level is selected. Search.
+					Action: Destination Type & Camp & Level is selected. Search.
+					Action: Destination Type & Destination & Camp & Level is selected. Search.
+					Result: Duration is not set
+				*/
+
+				var destination_type = this.$destination_type.val();
+				var destination = this.$destination.val();
+				var camp = this.$camp.val();
+				var level = this.$level.val();
+				var duration = this.$duration.val();
+				var searchDuration = false;				
+
+				// run auto logic unless duration has been explicitly set or a level is selected
+
+				if( !this.explicitDuration && !level ) {
+
+					if( camp ) {
+						searchDuration = this.$camp.find("option:selected").attr("data-search-duration");
+					} else if( destination ) {
+						searchDuration = this.$destination.find("option:selected").attr("data-search-duration");
+					} else {
+						searchDuration = 7;
+					}
+
+					if( searchDuration ) {
+						var durationFilter = 'option[value=' + searchDuration + ']';
+
+						this.$duration.find( durationFilter ).attr("selected", true);
+						this.$duration[0].selectedIndex = this.$duration.find( durationFilter )[0].index;
+						this.$duration.select2("destroy").select2({
+							minimumResultsForSearch: Infinity
+						});	
+					}
+
+				}
+				
+			
 				var lang = lapoint.country.substr(-2);
 				if (lang == "US") {
 					lang = "UK";
