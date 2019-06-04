@@ -1,35 +1,16 @@
-<FilesMatch ".(eot|ttf|otf|woff)">
-Header set Access-Control-Allow-Origin "*"
-</FilesMatch>
-
-RewriteEngine On
-RewriteCond %{HTTP_HOST} !^booking\.
-RewriteCond %{HTTP_HOST} !^en\.
-RewriteCond %{HTTP_HOST} !^dk\.
-RewriteCond %{HTTP_HOST} !^www\.
-RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [R=301,L]
-
-RewriteEngine On
-RewriteCond %{HTTPS} off
-# First rewrite to HTTPS:
-# Don't put www. here. If it is already there it will be included, if not
-# the subsequent rule will catch it.
-RewriteRule .* https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
-RewriteEngine On
-RewriteCond %{HTTP_HOST} !^booking\.
-RewriteCond %{HTTP_HOST} !^en\.
-RewriteCond %{HTTP_HOST} !^dk\.
-RewriteCond %{HTTP_HOST} !^www\.
-RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [R=301,L]
+Header set Content-Security-Policy: upgrade-insecure-requests
 
 RewriteEngine On
 RewriteCond %{HTTP_HOST}   !^(www\.)?lapoint\.se
-RewriteRule  .?  -  [S=281]
-RewriteRule ^booking.css/?$ https://www.lapointcamps.com/booking.css? [R=301,L]
-RewriteRule ^booking.js/?$ https://www.lapointcamps.com/booking.js? [R=301,L]
+RewriteRule  .?  -  [S=328]
+RewriteRule ^booking\.css$ https://www.lapointcamps.com/booking.css? [R=301,L]
+RewriteRule ^booking\.css/$ https://www.lapointcamps.com/booking.css? [R=301,L]
+RewriteRule ^booking\.js$ https://www.lapointcamps.com/booking.js? [R=301,L]
+RewriteRule ^booking\.js/$ https://www.lapointcamps.com/booking.js? [R=301,L]
+RewriteRule ^booking-bar\.js$ https://www.lapointcamps.com/wp-content/themes/lapoint2016/kmc-modules/kmc-booking-bar/js/booking-bar.js?ver=3? [R=301,L]
+RewriteRule ^booking-bar\.js/$ https://www.lapointcamps.com/wp-content/themes/lapoint2016/kmc-modules/kmc-booking-bar/js/booking-bar.js?ver=3? [R=301,L]
 RewriteRule ^20-off-on-all-surfcamps-in-october-and-november/?$ https://www.lapointcamps.com/blogg/20-off-on-all-surfcamps-in-october-and-november/? [R=301,L]
-RewriteRule ^5-year-old-baby-steve-roberson-big-wave-surfing/?$ https://www.lapointcamps.com/blogg/5-year-old-baby-steve-roberson-big-wave-surfing/? [R=301,L]
+RewriteRule ^l/?$ https://www.lapointcamps.com/blogg/5-year-old-baby-steve-roberson-big-wave-surfing/? [R=301,L]
 RewriteRule ^7-days-in-bali/?$ https://www.lapointcamps.com/blogg/7-days-in-bali/? [R=301,L]
 RewriteRule ^australia-video/?$ https://www.lapointcamps.com/blogg/australia-video/? [R=301,L]
 RewriteRule ^australian-surfs-dead-whale-surrounded-by-sharks/?$ https://www.lapointcamps.com/blogg/australian-surfs-dead-whale-surrounded-by-sharks/? [R=301,L]
@@ -307,10 +288,56 @@ RewriteRule ^package/surfcamp-portugal-level1/?$ https://www.lapoint.se/surfcamp
 RewriteRule ^package/surfcamp-portugal-level2/?$ https://www.lapoint.se/surfcamp/portugal/ericeira/levels/level-2-pt/? [R=301,L]
 RewriteRule ^package/surfcamp-portugal-level3/?$ https://www.lapoint.se/surfcamp/portugal/ericeira/levels/level-3-pt/? [R=301,L]
 RewriteRule ^accommodation/villa-poya-sri-lanka/?$ https://www.lapoint.se/surfcamp/sri-lanka/boenden/camp-sri-lanka/? [R=301,L]
+RewriteRule ^surfcamp/portugal/ericeira/levels/coaching-intermediate-pt/?$ https://www.lapoint.se/surfcamp/portugal/ericeira/levels/coaching-pt/? [R=301,L]
+RewriteRule ^surfcamp/portugal/ericeira/levels/coaching-advanced-pt/?$ https://www.lapoint.se/surfcamp/portugal/ericeira/levels/coaching-pt/? [R=301,L]
+RewriteRule ^surfcamp/kalifornien/?$ https://www.lapoint.se/? [R=301,L]
+RewriteRule ^surfcamp/portugal/ericeira/boenden/camp-moinho/?$ https://www.lapoint.se/surfcamp/portugal/ericeira/boenden/quinta-lizandro/? [R=301,L]
+RewriteRule ^surfcamp/sri-lanka/boenden/beach-villa/?$ https://www.lapoint.se/surfcamp/sri-lanka/boenden/camp-sri-lanka/? [R=301,L]
+RewriteRule ^surfcamp/costa-rica/boenden/camp-costa-rica/?$ https://www.lapoint.se/surfcamp/costa-rica/boenden/villabungalows/? [R=301,L]
+RewriteRule ^surfcamp/bali/indonesien-bali-gianyar/?$ https://www.lapoint.se/surfcamp/bali/? [R=301,L]
+RewriteRule ^surfcamp/bali/bali-canggu/?$ https://www.lapoint.se/surfcamp/bali/? [R=301,L]
+RewriteRule ^surfcamp/portugal/ericeira/boenden/camp-lizandro/?$ https://www.lapoint.se/surfcamp/portugal/ericeira/boenden/quinta-lizandro/? [R=301,L]
+RewriteRule ^surfcamp/portugal/alentejo/?$ https://www.lapoint.se/surfcamp/portugal/ericeira/? [R=301,L]
+RewriteRule ^surfcamp/portugal/alentejo/boenden/camp-alentejo/?$ https://www.lapoint.se/surfcamp/portugal/ericeira/boenden/quinta-lizandro/? [R=301,L]
+RewriteRule ^default.htm/?$ https://www.lapoint.se/? [R=301,L]
+RewriteRule ^destination/surfcamp-australien/?$ https://www.lapoint.se/? [R=301,L]
+RewriteRule ^destination/sverige/?$ https://www.lapoint.se/? [R=301,L]
+RewriteRule ^destinationtype/sno/?$ https://www.lapoint.se/? [R=301,L]
+RewriteRule ^kitecamp/norge-haukeli/levels/norge-vinterlager/?$ https://www.lapoint.se/kitecamp/norge-haukeli/? [R=301,L]
+RewriteRule ^kitecamp/sydafrika/levels https://www.lapoint.se/kitecamp/ [R=301,L]
+RewriteRule ^package/surfcamp-norge-roadtrip/?$ https://www.lapoint.se/surfcamp/norge/? [R=301,L]
+RewriteRule ^package/trana-med-alexandra-bring/?$ https://www.lapoint.se/gruppresor/traeningsresor/? [R=301,L]
+RewriteRule ^package/trana-med-ida-warg/?$ https://www.lapoint.se/gruppresor/traeningsresor/? [R=301,L]
+RewriteRule ^skidresor/bulgarien-bansko https://www.lapoint.se/ [R=301,L]
+RewriteRule ^skidresor/bulgarien-bansko/full-packe https://www.lapoint.se/ [R=301,L]
+RewriteRule ^skidresor/catskiing https://www.lapoint.se/ [R=301,L]
+RewriteRule ^surfcamp/bali/boenden/balangan/?$ https://www.lapoint.se/? [R=301,L]
+RewriteRule ^surfcamp/bali/boenden/balangan/?$ https://www.lapoint.se/surfcamp/bali/? [R=301,L]
+RewriteRule ^surfcamp/bali/indonesien-bali-gianyar/?$ https://www.lapoint.se/surfcamp/bali/? [R=301,L]
+RewriteRule ^surfcamp/bali/indonesien-bali-gianyar/levels/gianyar-level-1/?$ https://www.lapoint.se/surfcamp/bali/bali-canggu/levels/level-1-idc/? [R=301,L]
+RewriteRule ^surfcamp/bali/indonesien-bali-gianyar/levels/gianyar-level-2/?$ https://www.lapoint.se/surfcamp/bali/bali-canggu/levels/level-2-id/? [R=301,L]
+RewriteRule ^surfcamp/costa-rica/boenden/camp-costa-rica/?$ https://www.lapoint.se/surfcamp/costa-rica/boenden/villabungalows/? [R=301,L]
+RewriteRule ^surfcamp/indonesien-bali https://www.lapoint.se/surfcamp/bali/ [R=301,L]
+RewriteRule ^surfcamp/levels/avancerad-coaching/?$ https://www.lapoint.se/surfcamp/portugal/ericeira/levels/coaching-pt/? [R=301,L]
+RewriteRule ^surfcamp/levels/surf-camp-elite-coaching/?$ https://www.lapoint.se/surfcamp/portugal/ericeira/levels/coaching-pt/? [R=301,L]
+RewriteRule ^surfcamp/marocko-taghazout https://www.lapoint.se/surfcamp/marocko/ [R=301,L]
+RewriteRule ^surfcamp/norge-stadt https://www.lapoint.se/surfcamp/norge/ [R=301,L]
+RewriteRule ^surfcamp/norge-stadt/familjersurf https://www.lapoint.se/gruppresor/traeningsresor/ [R=301,L]
+RewriteRule ^surfcamp/norge-stadt/roadtrip-stadt https://www.lapoint.se/surfcamp/norge/ [R=301,L]
+RewriteRule ^surfcamp/norge-stadt/transport https://www.lapoint.se/surfcamp/norge/ [R=301,L]
+RewriteRule ^surfcamp/portugal/beginner https://www.lapoint.se/surfcamp/portugal/ericeira/boenden/quinta-lizandro/ [R=301,L]
+RewriteRule ^surfcamp/portugal/levels/coaching-elite-pt/?$ https://www.lapoint.se/surfcamp/portugal/ericeira/levels/coaching-pt/? [R=301,L]
+RewriteRule ^temaresor/foretag https://www.lapoint.se/gruppresor/foretagsresor/ [R=301,L]
+RewriteRule ^ungdomslager/danmark/?$ https://www.lapoint.se/ungdomslager/? [R=301,L]
+RewriteRule ^accom…/surfcamp-portugal-camplizandro/?$ https://www.lapoint.se/surfcamp/portugal/ericeira/boenden/quinta-lizandro/? [R=301,L]
+RewriteRule ^destinati…/surfcamp-portugal-ericeira/?$ https://www.lapoint.se/surfcamp/portugal/ericeira/? [R=301,L]
+
+
+
 
 RewriteEngine On
 RewriteCond %{HTTP_HOST}   !^(www\.)?lapoint\.dk
-RewriteRule  .?  -  [S=176]
+RewriteRule  .?  -  [S=203]
 RewriteRule ^5-year-old-baby-steve-roberson-big-wave-surfing/?$ https://www.lapointcamps.com/blogg/5-year-old-baby-steve-roberson-big-wave-surfing/? [R=301,L]
 RewriteRule ^7-days-in-bali/?$ https://www.lapointcamps.com/blogg/7-days-in-bali/? [R=301,L]
 RewriteRule ^arranger-arets-fedeste-surftur/?$ https://www.lapointcamps.com/blogg/arranger-arets-fedeste-surftur/? [R=301,L]
@@ -487,11 +514,42 @@ RewriteRule ^package/portugal-level-2/?$ https://www.lapoint.dk/surfcamp/portuga
 RewriteRule ^package/portugal-level-3/?$ https://www.lapoint.dk/surfcamp/portugal/portugal-ericeira/levels/level-3-pt/? [R=301,L]
 RewriteRule ^destination/denmark/?$ https://www.lapoint.dk/ungdomscamp/danmark/? [R=301,L]
 RewriteRule ^package/ungdomscamp-klitmoller/?$ https://www.lapoint.dk/ungdomscamp/danmark/? [R=301,L]
+RewriteRule ^surfcamp/portugal/portugal-ericeira/levels/coaching-intermediate-pt/?$ https://www.lapoint.dk/surfcamp/portugal/portugal-ericeira/levels/coaching-pt/? [R=301,L]
+RewriteRule ^surfcamp/portugal/portugal-ericeira/levels/coaching-advanced-pt/?$ https://www.lapoint.dk/surfcamp/portugal/portugal-ericeira/levels/coaching-pt/? [R=301,L]
+RewriteRule ^surfcamp/californien/?$ https://www.lapoint.dk/? [R=301,L]
+RewriteRule ^surfcamp/portugal/portugal-ericeira/indkvartering/camp-moinho/?$ https://www.lapoint.dk/surfcamp/portugal/portugal-ericeira/indkvartering/quinta-lizandro/? [R=301,L]
+RewriteRule ^surfcamp/sri-lanka/indkvartering/beach-villa/?$ https://www.lapoint.dk/surfcamp/sri-lanka/indkvartering/garden-villa/? [R=301,L]
+RewriteRule ^surfcamp/costa-rica/indkvartering/camp-costa-rica/?$ https://www.lapoint.dk/surfcamp/costa-rica/indkvartering/villa-bungalows/? [R=301,L]
+RewriteRule ^surfcamp/bali/indonesien-bali-gianyar/?$ https://www.lapoint.dk/surfcamp/bali/? [R=301,L]
+RewriteRule ^surfcamp/bali/bali-canggu/?$ https://www.lapoint.dk/surfcamp/bali/? [R=301,L]
+RewriteRule ^surfcamp/portugal/portugal-ericeira/indkvartering/camp-lizandro/?$ https://www.lapoint.dk/surfcamp/portugal/portugal-ericeira/indkvartering/quinta-lizandro/? [R=301,L]
+RewriteRule ^surfcamp/portugal/portugal-alentejo/?$ https://www.lapoint.dk/surfcamp/portugal/portugal-ericeira/? [R=301,L]
+RewriteRule ^surfcamp/portugal/portugal-alentejo/indkvartering/camp-alentejo/?$ https://www.lapoint.dk/surfcamp/portugal/portugal-ericeira/indkvartering/quinta-lizandro/? [R=301,L]
+RewriteRule ^destination/surf-camp-noosa-australien/?$ https://www.lapoint.dk/surfcamp/? [R=301,L]
+RewriteRule ^destination/surf-camper-norge-stavanger/?$ https://www.lapoint.dk/surfcamp/? [R=301,L]
+RewriteRule ^kitecamp/sydafrika/levels https://www.lapoint.dk/kitecamp/ [R=301,L]
+RewriteRule ^package/surfcamp-australien-level-1-2/?$ https://www.lapoint.dk/surfcamp/? [R=301,L]
+RewriteRule ^package/surfcamp-australien-level-1-2/?$ https://www.lapoint.dk/surfcamp/? [R=301,L]
+RewriteRule ^surfcamp/bali/bali-balangan/?$ https://www.lapoint.dk/surfcamp/bali/? [R=301,L]
+RewriteRule ^surfcamp/bali/indkvartering/camp-balangan/?$ https://www.lapoint.dk/surfcamp/bali/bali-canggu/indkvartering/bali-canggu/? [R=301,L]
+RewriteRule ^surfcamp/bali/indonesien-bali-gianyar/levels https://www.lapoint.dk/surfcamp/bali/ [R=301,L]
+RewriteRule ^surfcamp/californien/levels https://www.lapoint.dk/surfcamp/ [R=301,L]
+RewriteRule ^surfcamp/levels/?$ https://www.lapoint.dk/surfcamp/? [R=301,L]
+RewriteRule ^surfcamp/levels/advanced-coaching/?$ https://www.lapoint.dk/surfcamp/levels/surf-coaching/? [R=301,L]
+RewriteRule ^surfcamp/levels/coaching/?$ https://www.lapoint.dk/surfcamp/levels/surf-coaching/? [R=301,L]
+RewriteRule ^surfcamp/levels/intermediate-coaching/?$ https://www.lapoint.dk/surfcamp/levels/surf-coaching/? [R=301,L]
+RewriteRule ^surfcamp/levels/surf-camp-elite-coaching/?$ https://www.lapoint.dk/surfcamp/levels/surf-coaching/? [R=301,L]
+RewriteRule ^surfcamp/portugal/levels/coaching-elite-pt/?$ https://www.lapoint.dk/surfcamp/levels/surf-coaching/? [R=301,L]
+RewriteRule ^surfcamp/portugal/levels/level-1-pt/?$ https://www.lapoint.dk/surfcamp/portugal/portugal-ericeira/levels/level-1-pt/? [R=301,L]
+
+
+
+
 
 
 RewriteEngine On
 RewriteCond %{HTTP_HOST}   !^(www\.)?lapoint\.no
-RewriteRule  .?  -  [S=345]
+RewriteRule  .?  -  [S=386]
 RewriteRule ^12-nov-big-waves-hawaii-jaws-maui/?$ https://www.lapointcamps.com/blogg/12-nov-big-waves-hawaii-jaws-maui/? [R=301,L]
 RewriteRule ^20-off-on-all-surfcamps-in-october-and-november/?$ https://www.lapointcamps.com/blogg/20-off-on-all-surfcamps-in-october-and-november/? [R=301,L]
 RewriteRule ^5-year-old-baby-steve-roberson-big-wave-surfing/?$ https://www.lapointcamps.com/blogg/5-year-old-baby-steve-roberson-big-wave-surfing/? [R=301,L]
@@ -837,6 +895,49 @@ RewriteRule ^package/surfcamp-portugal-level2/?$ https://www.lapoint.no/surfcamp
 RewriteRule ^package/surfcamp-portugal-level3/?$ https://www.lapoint.no/surfcamp/portugal/portugal-ericeira/levels/level-3-pt/? [R=301,L]
 RewriteRule ^accommodation/surfcamp-portugal-camplizandro/?$ https://www.lapoint.no/surfcamp/portugal/portugal-ericeira/overnatting/camp-lizandro/? [R=301,L]
 RewriteRule ^accommodation/camp-moinho-2/?$ https://www.lapoint.no/surfcamp/portugal/portugal-ericeira/overnatting/camp-moinho/? [R=301,L]
+RewriteRule ^surfcamp/portugal/portugal-ericeira/levels/coaching-intermediate-pt/?$ https://www.lapoint.no/surfcamp/portugal/portugal-ericeira/levels/portugal-ericeira-coaching/? [R=301,L]
+RewriteRule ^surfcamp/portugal/portugal-ericeira/levels/coaching-advanced-pt/?$ https://www.lapoint.no/surfcamp/portugal/portugal-ericeira/levels/portugal-ericeira-coaching/? [R=301,L]
+RewriteRule ^surfcamp/california/?$ https://www.lapoint.no/? [R=301,L]
+RewriteRule ^surfcamp/portugal/portugal-ericeira/overnatting/camp-moinho/?$ https://www.lapoint.no/surfcamp/portugal/portugal-ericeira/overnatting/quinta-lizandro/? [R=301,L]
+RewriteRule ^surfcamp/sri-lanka/overnatting/beach-villa/?$ https://www.lapoint.no/surfcamp/sri-lanka/overnatting/garden-villa/? [R=301,L]
+RewriteRule ^surfcamp/costa-rica/overnatting/camp-costa-rica/?$ https://www.lapoint.no/surfcamp/costa-rica/overnatting/villa-bungalows/? [R=301,L]
+RewriteRule ^surfcamp/bali/indonesia-bali-gianyar/?$ https://www.lapoint.no/surfcamp/bali/? [R=301,L]
+RewriteRule ^surfcamp/bali/bali-canggu-2/?$ https://www.lapoint.no/surfcamp/bali/? [R=301,L]
+RewriteRule ^surfcamp/portugal/portugal-ericeira/overnatting/camp-lizandro/?$ https://www.lapoint.no/surfcamp/portugal/portugal-ericeira/overnatting/quinta-lizandro/? [R=301,L]
+RewriteRule ^surfcamp/portugal/portugal-alentejo/?$ https://www.lapoint.no/surfcamp/portugal/portugal-ericeira/? [R=301,L]
+RewriteRule ^surfcamp/portugal/portugal-alentejo/overnatting/camp-alentejo/?$ https://www.lapoint.no/surfcamp/portugal/portugal-ericeira/overnatting/quinta-lizandro/? [R=301,L]
+RewriteRule ^images/morfeoshow/galleri_surf-3800/big/Utsiktfraballkongentilsurfcampen.jpg https://www.lapoint.no/surfcamp/portugal/portugal-ericeira/overnatting/quinta-lizandro/ [R=301,L]
+RewriteRule ^accommodation/surfcamp-portugal-camplizandro/?$ https://www.lapoint.no/surfcamp/portugal/portugal-ericeira/overnatting/quinta-lizandro/? [R=301,L]
+RewriteRule ^blog/annijor-blogg-vinneren-er/?$ https://www.lapoint.no/blogg/? [R=301,L]
+RewriteRule ^blog/blogg-konkurranse-vinneren-er/?$ https://www.lapoint.no/blogg/? [R=301,L]
+RewriteRule ^blog/kristina-andersen-vinneren-er/?$ https://www.lapoint.no/blogg/? [R=301,L]
+RewriteRule ^blog/vinneren-er/?$ https://www.lapoint.no/blogg/? [R=301,L]
+RewriteRule ^destinati…/surfcamp-marokko-taghazout/?$ https://www.lapoint.no/surfcamp/marokko/? [R=301,L]
+RewriteRule ^destination/australia-2/?$ https://www.lapoint.no/surfcamp/? [R=301,L]
+RewriteRule ^destination/surfcamp-costarica-santateresa/?$ https://www.lapoint.no/surfcamp/costa-rica/? [R=301,L]
+RewriteRule ^destination/surfcamp-stadt-hoddevik https://www.lapoint.no/surfcamp/norge/ [R=301,L]
+RewriteRule ^kitecamp/norge-haukeli/?$ https://www.lapoint.no/kitecamp/norge-haukeliseter/? [R=301,L]
+RewriteRule ^kitecamp/norge-haukeli/levels/jentecamp/?$ https://www.lapoint.no/kitecamp/norge-haukeliseter/? [R=301,L]
+RewriteRule ^kitecamp/norge-haukeliseter/levels/progression-camp/?$ https://www.lapoint.no/kitecamp/norge-haukeliseter/? [R=301,L]
+RewriteRule ^main/?$ https://www.lapoint.no/surfcamp/? [R=301,L]
+RewriteRule ^om-uss/?$ https://www.lapoint.no/om-oss/? [R=301,L]
+RewriteRule ^package/shapeup-boot-camp-treningsferie/?$ https://www.lapoint.no/gruppeturer/treningsturer/? [R=301,L]
+RewriteRule ^package/surfcamp-bali-level1/?$ https://www.lapoint.no/surfcamp/bali/bali-canggu-2/levels/level-1-idc/? [R=301,L]
+RewriteRule ^package/surfcamp-portugal-ungdomsleir/?$ https://www.lapoint.no/ungdomscamp/? [R=301,L]
+RewriteRule ^package/surfsommerleir/?$ https://www.lapoint.no/ungdomscamp/? [R=301,L]
+RewriteRule ^student https://www.lapoint.no/gruppeturer/ [R=301,L]
+RewriteRule ^surfcamp/bali/indonesia-bali-gianyar https://www.lapoint.no/surfcamp/bali/ [R=301,L]
+RewriteRule ^surfcamp/california/levels https://www.lapoint.no/surfcamp/ [R=301,L]
+RewriteRule ^surfcamp/levels/advanced-coaching/?$ https://www.lapoint.no/surfcamp/levels/surf-coaching/? [R=301,L]
+RewriteRule ^surfcamp/levels/coaching/?$ https://www.lapoint.no/surfcamp/levels/surf-coaching/? [R=301,L]
+RewriteRule ^surfcamp/levels/intermediate-coaching/?$ https://www.lapoint.no/surfcamp/levels/surf-coaching/? [R=301,L]
+RewriteRule ^surfcamp/levels/surf-camp-elite-coaching/?$ https://www.lapoint.no/surfcamp/levels/surf-coaching/? [R=301,L]
+RewriteRule ^surfcamp/portugal/portugal-ericeira/levels/coaching-elite-pt/?$ https://www.lapoint.no/surfcamp/portugal/portugal-ericeira/levels/portugal-ericeira-coaching/? [R=301,L]
+RewriteRule ^surfcamp/portugal/portugal-ericeira/levels/coaching-intermediate-pt/?$ https://www.lapoint.no/surfcamp/portugal/portugal-ericeira/levels/portugal-ericeira-coaching/? [R=301,L]
+RewriteRule ^surfcamp/sri-lanka/overnatting/beach-villa/?$ https://www.lapoint.no/surfcamp/sri-lanka/overnatting/garden-villa/? [R=301,L]
+RewriteRule ^ungdomsleir https://www.lapoint.no/ungdomscamp/ [R=301,L]
+
+
 
 
 
@@ -1407,6 +1508,22 @@ RewriteRule ^da/surfcamps/portugal/alentejo/?$ https://www.lapoint.dk/surfcamp/p
 RewriteRule ^surfcamps/indonesien/(.*)$ https://www.lapointcamps.com/surfcamp/bali/$1 [R=301,L]
 RewriteRule ^surfcamps/(.*)$ https://www.lapointcamps.com/surfcamp/$1 [R=301,L]
 
+RewriteRule ^surfcamp/portugal/ericeira/levels/coaching-intermediate-pt/?$ https://www.lapointcamps.com/surfcamp/portugal/ericeira/levels/coaching-pt/? [R=301,L]
+RewriteRule ^surfcamp/portugal/ericeira/levels/coaching-advanced-pt/?$ https://www.lapointcamps.com/surfcamp/portugal/ericeira/levels/coaching-pt/? [R=301,L]
+
+RewriteRule ^surfcamp/california/?$ https://www.lapointcamps.com/? [R=301,L]
+
+RewriteRule ^surfcamp/portugal/ericeira/accommodations/camp-moinho/?$ https://www.lapointcamps.com/surfcamp/portugal/ericeira/accommodations/quinta-lizandro/? [R=301,L]
+
+RewriteRule ^surfcamp/sri-lanka/accommodations/beach-villa/?$ https://www.lapointcamps.com/surfcamp/sri-lanka/accommodations/garden-villa/? [R=301,L]
+RewriteRule ^surfcamp/costa-rica/accommodations/camp-costa-rica/?$ https://www.lapointcamps.com/surfcamp/costa-rica/accommodations/villabungalows/? [R=301,L]
+RewriteRule ^surfcamp/bali/indonesia-gianyar/?$ https://www.lapointcamps.com/surfcamp/bali/? [R=301,L]
+RewriteRule ^surfcamp/bali/bali-canggu/?$ https://www.lapointcamps.com/surfcamp/bali/? [R=301,L]
+RewriteRule ^surfcamp/portugal/portugal-alentejo/accommodations/camp-alentejo/?$ https://www.lapointcamps.com/surfcamp/portugal/ericeira/accommodations/quinta-lizandro/? [R=301,L]
+RewriteRule ^surfcamp/portugal/ericeira/accommodations/camp-lizandro/?$ https://www.lapointcamps.com/surfcamp/portugal/ericeira/accommodations/quinta-lizandro/? [R=301,L]
+
+
+# BEGIN WordPress
 <IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteBase /
@@ -1415,3 +1532,4 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /index.php [L]
 </IfModule>
+# END WordPress
