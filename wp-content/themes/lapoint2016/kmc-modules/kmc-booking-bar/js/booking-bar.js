@@ -443,6 +443,9 @@
 
 				// scroll back last recorded position
 				$(document).scrollTop( _this.scrollOffsetTop );	
+
+				// remove class
+				$(document.body).removeClass("booking-frame-open");
 			},
 
 			on_book_click: function( e ) {
@@ -516,7 +519,10 @@
 						$(".drop-wrapper").parent().removeClass("open");
 						$main_booking.removeClass("open");
 						$main_booking.slideUp();
-					}					
+					}		
+
+					// add class for hiding freshdesk icons
+					$(document.body).addClass("booking-frame-open");
 
 				}
 			},

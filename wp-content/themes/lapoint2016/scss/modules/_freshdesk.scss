@@ -8,8 +8,8 @@
 }
 
 #freshworks-container {
-	
-	&:before { 
+  
+  &:before { 
         content: "";
         
         position: fixed;
@@ -37,19 +37,27 @@
         z-index: 2147483001;
 
         animation: showHelpIcon linear 0.66s;
-	}
+  }
 
-	#launcher-frame {
-		opacity: 0;
+  #launcher-frame {
+    opacity: 0;
 
 
-	}
+  }
 }
 
 .launcher-button.cwygea {
-	padding: 16px;
-	.icon {
-		display: none;
-	}
+  padding: 16px;
+  .icon {
+    display: none;
+  }
 
+}
+
+.booking-frame-open {
+    #fc_frame,
+    #freshworks-container {
+        //display: none;
+        //visibility: hidden!important;
+    }
 }
