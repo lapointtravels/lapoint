@@ -119,9 +119,10 @@
 					this.$duration[0].selectedIndex = 0;
 				}
 				
+				// disable all
 				this.$destination.find("option[data-destination-type]").attr('disabled','disabled');
 
-				var select = "option";
+				var select = false;
 
 				if (destination_type) {
 					select = "[data-destination-type='" + destination_type + "']";
@@ -137,9 +138,11 @@
 					var camp_code = this.$camp.find("option:selected").attr("data-code");
 					select += "[data-camps*='-" + camp_code + "-']";
 				}
-				*/
+				*/				
 
-				this.$destination.find(select).removeAttr("disabled");
+				if( select ) {					
+					this.$destination.find(select).removeAttr("disabled");
+				}
 
 				if (set_index) {
 					if (this.$destination.find("option:selected").is(":disabled")) {
@@ -151,6 +154,7 @@
 					}
 
 				}
+				
 				this.$destination.select2("destroy").select2({
 					minimumResultsForSearch: Infinity
 				});
