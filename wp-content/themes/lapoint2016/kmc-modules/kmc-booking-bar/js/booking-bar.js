@@ -138,12 +138,11 @@
 					var camp_code = this.$camp.find("option:selected").attr("data-code");
 					select += "[data-camps*='-" + camp_code + "-']";
 				}
-				*/
+				*/				
 
-				console.log( select )
-
-				if( select )
-				this.$destination.find(select).removeAttr("disabled");
+				if( select ) {					
+					this.$destination.find(select).removeAttr("disabled");
+				}
 
 				if (set_index) {
 					if (this.$destination.find("option:selected").is(":disabled")) {
