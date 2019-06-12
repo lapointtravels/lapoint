@@ -5,6 +5,24 @@ $destinations = $destinations_manager->get_all();
 $camps = $camps_manager->get_all();
 $levels = $levels_manager->get_all();
 $default_level_set = false;
+
+$default_duration = "7";
+
+// we pick default search duration from default_camp if there is one otherwise from default_destination and fallback to 1 week
+if( $this->default_camp ) {
+	foreach ($camps as $camp) {
+		if ($this->default_camp == $camp->id) {
+			$default_duration = $camp->search_duration ? $camp->search_duration : "7";
+		}
+	}
+} else if( $this->default_destination ) {
+	foreach ($destinations as $destination) {
+		if ($this->default_destination == $destination->id) {
+			$default_duration = $destination->search_duration ? $destination->search_duration : "7";
+		}
+	}
+}
+
 ?>
 	
 	<?php if ($this->post->post_title) : ?>
@@ -135,17 +153,17 @@ $default_level_set = false;
 			<div class="book-choice-container duration">
 				<select class="select book-duration book-choice">
 					<option value=""><?php _e("Select duration", "lapoint"); ?></option>
-					<option class="option" value="WE"><?php _e("Weekend", "lapoint"); ?></option>
-					<option class="option" value="1"><?php _e("1 day", "lapoint"); ?></option>
-					<option class="option" value="2"><?php _e("2 days", "lapoint"); ?></option>
-					<option class="option" value="3"><?php _e("3 days", "lapoint"); ?></option>
-					<option class="option" value="4"><?php _e("4 days", "lapoint"); ?></option>
-					<option class="option" value="5"><?php _e("5 days", "lapoint"); ?></option>
-					<option class="option" value="6"><?php _e("6 days", "lapoint"); ?></option>
+					<option class="option" value="WE" <?php echo $default_duration == "WE" ? "selected='selected'" : ""; ?>><?php _e("Weekend", "lapoint"); ?></option>
+					<option class="option" value="1" <?php echo $default_duration == "1" ? "selected='selected'" : ""; ?>><?php _e("1 day", "lapoint"); ?></option>
+					<option class="option" value="2" <?php echo $default_duration == "2" ? "selected='selected'" : ""; ?>><?php _e("2 days", "lapoint"); ?></option>
+					<option class="option" value="3" <?php echo $default_duration == "3" ? "selected='selected'" : ""; ?>><?php _e("3 days", "lapoint"); ?></option>
+					<option class="option" value="4" <?php echo $default_duration == "4" ? "selected='selected'" : ""; ?>><?php _e("4 days", "lapoint"); ?></option>
+					<option class="option" value="5" <?php echo $default_duration == "5" ? "selected='selected'" : ""; ?>><?php _e("5 days", "lapoint"); ?></option>
+					<option class="option" value="6" <?php echo $default_duration == "6" ? "selected='selected'" : ""; ?>><?php _e("6 days", "lapoint"); ?></option>
 					<!-- selected="selected" -->					
-					<option class="option" value="7"><?php _e("1 week", "lapoint"); ?></option>
-					<option class="option" value="14"><?php _e("2 weeks", "lapoint"); ?></option>
-					<option class="option" value="21"><?php _e("3 weeks", "lapoint"); ?></option>
+					<option class="option" value="7" <?php echo $default_duration == "7" ? "selected='selected'" : ""; ?>><?php _e("1 week", "lapoint"); ?></option>
+					<option class="option" value="14" <?php echo $default_duration == "14" ? "selected='selected'" : ""; ?>><?php _e("2 weeks", "lapoint"); ?></option>
+					<option class="option" value="21" <?php echo $default_duration == "21" ? "selected='selected'" : ""; ?>><?php _e("3 weeks", "lapoint"); ?></option>
 				</select>
 			</div>
 
