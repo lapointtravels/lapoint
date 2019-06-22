@@ -1268,21 +1268,39 @@ class Lapoint_Framework {
 	}
 
 	public function ajax_fetch_packages () {
-		if (isset($_GET["destination"]) && isset($_GET["level"])) {
+		// if we know destination, camp & level 
+		if (isset($_GET["destination"]) && isset($_GET["camp"]) && isset($_GET["level"])) {
 			$destination_id = $_GET["destination"];
+			$camp_id = $_GET["camp"];
 			$level_id = $_GET["level"];
 
 			global $destinations_manager;
 			$destination = $destinations_manager->get($destination_id);
 
+			if( $camp_id ) {
+				global $camps_manager;
+				$location_id = $camps_manager->get( $camp_id )->_fields["location"]->ID;
+
+				$this->json_response(array(
+					'status' => 200,
+					'package' => $destination->get_package_for_location_and_level($location_id, $level_id)
+				));
+
+				exit;
+			}
+
 			$this->json_response(array(
 				'status' => 200,
 				'package' => $destination->get_package_for_level($level_id)
 			));
+
+			exit;
+
 		} else {
 			$this->json_response(array(
 				'status' => 200
 			));
+			exit;
 		}
 	}
 

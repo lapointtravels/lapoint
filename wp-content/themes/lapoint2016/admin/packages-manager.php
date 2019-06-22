@@ -389,6 +389,10 @@ class Packages_Manager extends Lapoint_Manager {
 	public function get_by_destination_and_level ($destination, $level) {
 		return $this->get_all_by_meta_keys("destination", $destination, "level", $level);
 	}
+
+	public function get_by_destination_location_and_level ($destination, $location, $level) {
+		return $this->get_all_by_triple_meta_keys("destination", $destination, "location", $location, "level", $level);
+	}
 }
 
 

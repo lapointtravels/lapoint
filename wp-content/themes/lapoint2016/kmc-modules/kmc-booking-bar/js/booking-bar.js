@@ -323,7 +323,8 @@
 						action: 'fetch_packages',
 						postNonce: ajaxlapoint.postNonce,
 						destination: destination,
-						level: level
+						level: level,
+						camp: camp_id
 					}, function (response) {
 
 						if (response && response.status == 200){
