@@ -101,6 +101,22 @@ class Lapoint_Manager {
 		return $this->as_objects($posts);
 	}
 
+	public function get_all_by_triple_meta_keys ($key1, $value1, $key2, $value2, $key3, $value3) {
+		global $wpdb;
+		$posts = $wpdb->get_results(sprintf("
+			SELECT wp.ID, wp.post_title
+			FROM %s AS wp
+			INNER JOIN %s as wpml ON wp.ID=wpml.element_id
+			INNER JOIN %s AS wpmeta1 ON wpmeta1.post_id=wp.ID AND wpmeta1.meta_key='%s' AND wpmeta1.meta_value='%d'
+			INNER JOIN %s AS wpmeta2 ON wpmeta2.post_id=wp.ID AND wpmeta2.meta_key='%s' AND wpmeta2.meta_value='%d'
+			INNER JOIN %s AS wpmeta3 ON wpmeta3.post_id=wp.ID AND wpmeta3.meta_key='%s' AND wpmeta3.meta_value='%d'
+			WHERE wp.post_type='%s' AND wp.post_status='publish' AND wpml.language_code='%s' ORDER BY wp.menu_order",
+			$wpdb->posts, $wpdb->prefix . "icl_translations", $wpdb->postmeta, $key1, $value1, $wpdb->postmeta, $key2, $value2, $wpdb->postmeta, $key3, $value3, $this->post_type, ICL_LANGUAGE_CODE)
+		);
+		
+		return $this->as_objects($posts);
+	}
+
 	public function get_all_by_meta_key_without_meta ($key, $value, $exclude_meta) {
 		global $wpdb;
 		$posts = $wpdb->get_results(sprintf("

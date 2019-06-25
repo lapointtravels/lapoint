@@ -550,9 +550,28 @@ class Destination extends Lapoint_PostType {
 		return $this->_type;
 	}
 
+
 	public function get_package_for_level ($level) {
 		global $packages_manager;
+		// several packages can be returned and they all match. but how to chose which one to return?
+		// as of now this is only used to update the durations in the booking bar.
+		// so in case several packages are found return false and use the duration set by the destination
 		$packages = $packages_manager->get_by_destination_and_level($this->id, $level);
+
+		if (count($packages) == 1) {
+			return $packages[0];
+		} else {
+			return false;
+		}
+	}
+
+	public function get_package_for_location_and_level ($location, $level) {
+		global $packages_manager;
+
+		// several packages can be returned and they all match. but how to chose which one to return?
+		// if there are several packages found then return the first one (order by wp.menu_order)
+		$packages = $packages_manager->get_by_destination_location_and_level($this->id, $location, $level);
+		//return json_encode( array( 'camp' => $camp, 'level' => $level, 'query' => $packages ));
 		if (count($packages) > 0) {
 			return $packages[0];
 		} else {
