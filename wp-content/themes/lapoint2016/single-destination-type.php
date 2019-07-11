@@ -41,5 +41,15 @@ get_header(); ?>
 		?>
 
 	</div>
-
+	<script>
+		if( window.fbq ) {
+			fbq('track','ViewContent');
+		} else {
+			setTimeout(function(){
+				if( window.fbq ) {
+					fbq('track','ViewContent');				
+				}
+			}, 1000)
+		}
+	</script>
 <?php get_footer(); ?>

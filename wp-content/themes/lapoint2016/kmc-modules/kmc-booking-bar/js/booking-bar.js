@@ -456,6 +456,10 @@
 			on_book_click: function( e ) {
 				var _this = this;
 				e.preventDefault();
+				
+				if( window.fbq ) {
+					fbq('track', 'AddToCart');
+				}
 
 				// close any open booking frame before opening a new one. if using the booking module at the bottom of the page pressing book, then scrolling all the way
 				// up and do a search from the main menu (prices) then pressing book we have two frames..
@@ -620,6 +624,10 @@
 					}
 				}
 
+				if( window.fbq ) {
+					fbq('track', 'Search');
+				}
+				
 				var lbl_book = this.$el.closest(".kmc-booking-bar");
 				this.$el.addClass("open").addClass("loading");
 				this.$el.removeClass("has-results no-more-later first last");

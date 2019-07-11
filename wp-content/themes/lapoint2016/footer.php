@@ -111,6 +111,15 @@
 	    },
 	    onInit: function() {
 	      fcBusinessHours.initBusinessHours(business_hours_config);
+
+	      if (typeof(fbq) === "function") {
+	        window.fcWidget.on("widget:loaded", function(resp) {
+	          window.fcWidget.on("widget:opened", function(resp) {
+	            fbq('track', 'Contact');
+	          });	          
+	        });
+	      }
+
 	    }
 	  };
 	</script>
