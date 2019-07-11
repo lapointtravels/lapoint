@@ -35,6 +35,10 @@ if( $this->default_camp ) {
 		?></h2>
 	<?php endif; ?>
 
+	<?php if ($this->show_description) : ?>
+		<p class="center description"><?php echo __("Please note that we show the first available option after the date you selected", "lapoint"); ?></p>
+	<?php endif; ?>
+
 	<div class="kmc-booking-bar booking-bar container clearfix" data-animated="true" data-auto-search="<?php echo $this->auto_search; ?>" data-book-label="<?php _e('Book', 'lapoint'); ?>">
 		<div class="row">
 			

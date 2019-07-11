@@ -65,6 +65,7 @@ class KMC_Booking_Bar_Component extends Kloon_Component {
 		$this->default_camp = $meta_data["default_camp"][0];
 		$this->default_level = $meta_data["default_level"][0];
 		$this->auto_search = $meta_data["auto_search"][0] == "1";
+		$this->show_description = $meta_data["show_description"] ? $meta_data["show_description"][0] : 1 ;
 	}
 
 	public function update ($data, $is_revision=false) {
@@ -75,6 +76,7 @@ class KMC_Booking_Bar_Component extends Kloon_Component {
 		update_post_meta($this->id, 'default_camp', $data->default_camp);
 		update_post_meta($this->id, 'default_level', $data->default_level);
 		update_post_meta($this->id, 'auto_search', $data->auto_search);
+		update_post_meta($this->id, 'show_description', $data->show_description);
 	}
 
 	public function render () {
