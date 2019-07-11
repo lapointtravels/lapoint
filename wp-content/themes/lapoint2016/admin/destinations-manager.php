@@ -86,7 +86,7 @@ class Destinations_Manager {
 		        $permalink = user_trailingslashit($permalink, 'single');	        	
 	        }
 	        
-	        // echo " --> " . $permalink. "!!!!!!<br>";
+	        //echo " --> " . $permalink. "!!!!!!<br>";
 	    }
 
 	    return $permalink;

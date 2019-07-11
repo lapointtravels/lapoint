@@ -13,7 +13,7 @@ define(["jquery", "./animation", "./mobile"], function($, AnimationController, M
 		$("body").toggleClass("menu-open");
 	});
 
-
+	
 	function assign_bootstrap_mode () {
 		width = $win.width();
 		var size = "";
