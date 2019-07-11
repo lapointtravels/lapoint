@@ -17,7 +17,7 @@ endif;
 
 function get_wpml_home_url ($permalink) {
 	
-	// if WPML is running in mode to add language as query parameter. This would be true for local dev and staging
+	// if WPML is running in mode to add language as query parameter. This would be true for staging and maybe local
 	if( wpml_get_setting_filter(false, "language_negotiation_type") == "3" ) {
 		// $parsed_url = parse_url( $permalink ); 
 		// second time around this funciton is called ( yeah wp filters ) the permalink does not have a protocol 
@@ -61,6 +61,7 @@ function get_wpml_home_url ($permalink) {
 
 	$parsed = parse_url( $permalink );
 
+	return "http://" . $parsed["host"] . "/";
 	return "https://www." . $parsed["host"] . "/";
 
 }

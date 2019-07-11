@@ -24,7 +24,7 @@ var all_levels = <?php echo json_encode($levels); ?>;
 					<li>
 						<label for="background-color">Title:</label>
 						<input type="text" class="form-control post-title" value="<%= post.post_title %>" placeholder="Title">
-					</li>
+					</li>					
 					<li>
 						<label for="default-destination-type">Default destination type:</label>
 						<select id="default-destination-type" data-update="default_destination_type" class="form-control">
@@ -73,6 +73,13 @@ var all_levels = <?php echo json_encode($levels); ?>;
 						<select id="auto-search" data-update="auto_search" class="form-control">
 							<option value="0" <% if (!auto_search) print(' selected="selected"') %>>No</option>
 							<option value="1" <% if (auto_search == 1) print(' selected="selected"') %>>Yes</option>
+						</select>
+					</li>
+					<li>
+						<label for="show-description">Show description:</label>
+						<select id="show-description" data-update="show_description" class="form-control">
+							<option value="0" <% if (!show_description) print(' selected="selected"') %>>No</option>
+							<option value="1" <% if (show_description == 1) print(' selected="selected"') %>>Yes</option>
 						</select>
 					</li>
 				</ul>

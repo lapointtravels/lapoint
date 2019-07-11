@@ -989,6 +989,25 @@ iframe {
 		}
 	}
 
+	.kmc-component-booking-bar {
+		h2 {
+			line-height: 1.1;
+		}
+		.description {
+			text-transform: uppercase;
+	    margin-top: -34px;
+	    margin-bottom: 12px;
+	    font-size: 13px;
+	    font-weight: 600;
+	    letter-spacing: 0.4px;
+
+	    @include xs-media-inc() {
+		    margin-top: -32px;
+		    font-size: 10px;
+		    line-height: 15px;
+	    }
+		}
+	}
 
 	.kmc-component {
 		padding-top: $kmc_default_vertical_padding_top;
