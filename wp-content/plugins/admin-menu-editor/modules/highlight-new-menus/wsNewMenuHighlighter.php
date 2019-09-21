@@ -36,6 +36,8 @@ class wsNewMenuHighlighter {
 		'plugins.php'                       => true,
 		'post-new.php'                      => true,
 		'profile.php'                       => true,
+		'privacy.php'                       => true,
+		'site-health.php'                   => true,
 		'theme-editor.php'                  => true,
 		'themes.php'                        => true,
 		'tools.php'                         => true,
@@ -50,6 +52,8 @@ class wsNewMenuHighlighter {
 		'sites.php'                         => true,
 		'theme-install.php'                 => true,
 		'upgrade.php'                       => true,
+		//Hidden ACF menu. It's used to show the "Welcome to Advanced Custom Fields" page.
+		'edit.php?post_type=acf-field-group&page=acf-settings-info' => true,
 	);
 
 	private $menusWithNewSubmenus = array();

@@ -91,6 +91,9 @@ class WPEPHPCompat {
 		'*/give/*'                                        => '7.0', // https://github.com/wpengine/phpcompat/issues/148
 		'*/woocommerce-pdf-invoices-packing-slips/*'      => '7.0', // https://github.com/wpengine/phpcompat/issues/160
 		'*/iwp-client/*'                                  => '7.0', // https://wordpress.org/support/topic/iwp-client-and-php-7-compatibility/
+		'*/health-check/*'                                => '7.2', // https://github.com/wpengine/phpcompat/issues/179
+		'*/genesis/*'                                     => '7.2', // https://github.com/wpengine/phpcompat/issues/127
+		'*/wpmudev-updates/*'                             => '7.3', // https://github.com/wpengine/phpcompat/issues/178
 	);
 
 	/**
