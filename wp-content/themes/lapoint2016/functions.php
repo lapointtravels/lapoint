@@ -64,7 +64,7 @@ class Lapoint_Framework {
 		add_action('wp_enqueue_scripts', array($this, 'lapoint_scripts'));
 		add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_scripts'));
 
-		add_action('acf/register_fields', array($this, 'register_acf_fields'));
+		add_action('acf/include_fields', array($this, 'register_acf_fields'));
 		add_action('kcm/register_modules', array($this, 'register_kcm_modules'));
 
 		//add_filter('show_admin_bar', '__return_false');

@@ -17,7 +17,7 @@ class Packages_Manager extends Lapoint_Manager {
 		parent::__construct();
 
 		add_action('init', array($this, 'create_post_type'));
-		add_action('acf/register_fields', array($this, 'register_acf_fields'));
+		add_action('acf/include_fields', array($this, 'register_acf_fields'));
 
 		add_filter("manage_package_posts_columns", array($this, "change_columns"), 20);
 		add_filter("manage_edit-package_sortable_columns", array($this, "sortable_columns"));

@@ -15,7 +15,7 @@ class Levels_Manager extends Lapoint_Manager {
 
 	public function __construct () {
 		add_action('init', array($this, 'create_post_type'));
-		add_action('acf/register_fields', array($this, 'register_acf_fields'));
+		add_action('acf/include_fields', array($this, 'register_acf_fields'));
 
 		add_filter('package_rewrite_rules', array($this, 'add_permastruct'));
 		add_filter('post_type_link', array($this, 'custom_post_permalink'), 10, 4);
