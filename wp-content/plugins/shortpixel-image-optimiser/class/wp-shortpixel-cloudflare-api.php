@@ -105,7 +105,7 @@ class ShortPixelCloudFlareApi {
             if ( ! empty( $image_url_for_purge ) ) {
                 $prepare_request_info['files'] = $image_url_for_purge;
                 // Encode the data into JSON before send
-                $dispatch_purge_info = wp_json_encode( $prepare_request_info );
+                $dispatch_purge_info = function_exists('wp_json_encode') ? wp_json_encode( $prepare_request_info ) : json_encode( $prepare_request_info );
                 // Set headers for remote API to authenticate for the request
                 $dispatch_header = array(
                     'X-Auth-Email: ' . $cloudflare_auth_email,
@@ -142,6 +142,8 @@ class ShortPixelCloudFlareApi {
      * @return array|mixed|object - Request response as decoded JSON
      */
     private function delete_url_cache_request_action( $request_url = '', $parameters_as_json = '', $request_headers = array() ) {
+        if(!function_exists('curl_init')) return false;
+
         $curl_connection = curl_init();
         curl_setopt( $curl_connection, CURLOPT_URL, $request_url );
         curl_setopt( $curl_connection, CURLOPT_CUSTOMREQUEST, "DELETE" );

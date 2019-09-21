@@ -1,15 +1,16 @@
 <?php
+use ShortPixel\ShortPixelLogger\ShortPixelLogger as Log;
 
 class ShortPixelMetaFacade {
     const MEDIA_LIBRARY_TYPE = 1;
     const CUSTOM_TYPE = 2;
-    
+
     private $ID;
     private $type;
     private $meta;
     private $spMetaDao;
     private $rawMeta;
-    
+
     public function __construct($ID) {
         if(strpos($ID, 'C-') === 0) {
             $this->ID = substr($ID, 2);
@@ -17,14 +18,14 @@ class ShortPixelMetaFacade {
         } else {
             $this->ID = $ID;
             $this->type = self::MEDIA_LIBRARY_TYPE;
-        }        
+        }
         $this->spMetaDao = new ShortPixelCustomMetaDao(new WpShortPixelDb());
     }
-    
+
     public static function getNewFromRow($item) {
-        return new ShortPixelMetaFacade("C-" . $item->id); 
+        return new ShortPixelMetaFacade("C-" . $item->id);
     }
-    
+
     function setRawMeta($rawMeta) {
         if($this->type == self::MEDIA_LIBRARY_TYPE) {
             $this->rawMeta = $rawMeta;
@@ -40,11 +41,11 @@ class ShortPixelMetaFacade {
                 $rawMeta = $this->sanitizeMeta(wp_get_attachment_metadata($this->ID));
                 $this->meta = self::rawMetaToMeta($this->ID, $rawMeta);
                 $this->rawMeta = $rawMeta;
-            }        
+            }
         }
         return $this->meta;
     }
-    
+
     private static function rawMetaToMeta($ID, $rawMeta) {
         $path = get_attached_file($ID);
         return new ShortPixelMeta(array(
@@ -55,7 +56,7 @@ class ShortPixelMetaFacade {
                     "thumbs" => (isset($rawMeta["sizes"]) ? $rawMeta["sizes"] : array()),
                     "message" =>(isset($rawMeta["ShortPixelImprovement"]) ? $rawMeta["ShortPixelImprovement"] : null),
                     "png2jpg" => (isset($rawMeta["ShortPixelPng2Jpg"]) ? $rawMeta["ShortPixelPng2Jpg"] : false),
-                    "compressionType" =>(isset($rawMeta["ShortPixel"]["type"]) 
+                    "compressionType" =>(isset($rawMeta["ShortPixel"]["type"])
                             ? ($rawMeta["ShortPixel"]["type"] == 'glossy' ? 2 : ($rawMeta["ShortPixel"]["type"] == "lossy" ? 1 : 0) )
                             : null),
                     "thumbsOpt" =>(isset($rawMeta["ShortPixel"]["thumbsOpt"]) ? $rawMeta["ShortPixel"]["thumbsOpt"] : null),
@@ -66,12 +67,12 @@ class ShortPixelMetaFacade {
                     "thumbsTodo" =>(isset($rawMeta["ShortPixel"]["thumbsTodo"]) ? $rawMeta["ShortPixel"]["thumbsTodo"] : false),
                     "tsOptimized" => (isset($rawMeta["ShortPixel"]["date"]) ? $rawMeta["ShortPixel"]["date"] : false),
                     "backup" => !isset($rawMeta['ShortPixel']['NoBackup']),
-                    "status" => (!isset($rawMeta["ShortPixel"]) ? 0 
-                                 : (isset($rawMeta["ShortPixelImprovement"]) && is_numeric($rawMeta["ShortPixelImprovement"]) 
-                                   && !(   $rawMeta['ShortPixelImprovement'] == 0 
-                                        && (   isset($rawMeta['ShortPixel']['WaitingProcessing']) 
-                                            || isset($rawMeta['ShortPixel']['date']) && $rawMeta['ShortPixel']['date'] == '1970-01-01')) ? 2 
-                                    : (isset($rawMeta["ShortPixel"]["WaitingProcessing"]) ? 1 
+                    "status" => (!isset($rawMeta["ShortPixel"]) ? 0
+                                 : (isset($rawMeta["ShortPixelImprovement"]) && is_numeric($rawMeta["ShortPixelImprovement"])
+                                   && !(   $rawMeta['ShortPixelImprovement'] == 0
+                                        && (   isset($rawMeta['ShortPixel']['WaitingProcessing'])
+                                            || isset($rawMeta['ShortPixel']['date']) && $rawMeta['ShortPixel']['date'] == '1970-01-01')) ? 2
+                                    : (isset($rawMeta["ShortPixel"]["WaitingProcessing"]) ? 1
                                        : (isset($rawMeta["ShortPixel"]['ErrCode']) ? $rawMeta["ShortPixel"]['ErrCode'] : -500)))),
                     "retries" =>(isset($rawMeta["ShortPixel"]["Retries"]) ? $rawMeta["ShortPixel"]["Retries"] : 0),
                 ));
@@ -83,18 +84,25 @@ class ShortPixelMetaFacade {
             return $this->meta;
         } else {
             return wp_get_attachment_url($this->ID);
-        }        
+        }
     }
-    
-    function sanitizeMeta($rawMeta){
+
+    static function sanitizeMeta($rawMeta, $createSPArray = true){
         if(!is_array($rawMeta)) {
-            if($rawMeta == '') { return array('ShortPixel' => array()); }
-            else { return array("previous_meta" => $rawMeta, 'ShortPixel' => array()); }
+            if($rawMeta == '') { return $createSPArray ? array('ShortPixel' => array()) : array(); }
+            else {
+                $meta = @unserialize($rawMeta);
+                if(is_array($meta)) {
+                    return $meta;
+                }
+                return array("previous_meta" => $rawMeta, 'ShortPixel' => array());
+            }
         }
         return $rawMeta;
     }
-    
-    function updateMeta($newMeta = null, $replaceThumbs = false) {
+
+    // @todo Find out the use of this function. Doesn't update_meta unless it's WPML.
+    public function updateMeta($newMeta = null, $replaceThumbs = false) {
         if($newMeta) {
             $this->meta = $newMeta;
         }
@@ -106,12 +114,13 @@ class ShortPixelMetaFacade {
         }
         elseif($this->type == ShortPixelMetaFacade::MEDIA_LIBRARY_TYPE) {
             $duplicates = ShortPixelMetaFacade::getWPMLDuplicates($this->ID);
+            Log::addDebug('Update Meta Duplicates Query', array($duplicates));
             foreach($duplicates as $_ID) {
                 $rawMeta = $this->sanitizeMeta(wp_get_attachment_metadata($_ID));
 
                 if(isset($rawMeta['sizes']) && is_array($rawMeta['sizes'])) {
                     if($replaceThumbs) {
-                        $rawMeta['sizes'] = $this->meta->getThumbs();                    
+                        $rawMeta['sizes'] = $this->meta->getThumbs();
                     } else {
                         //use this instead of array_merge because we don't want to duplicate numeric keys
                         foreach($this->meta->getThumbs() as $key => $val) {
@@ -127,7 +136,7 @@ class ShortPixelMetaFacade {
                 } else {
                     $rawMeta['ShortPixel']['type'] = ShortPixelAPI::getCompressionTypeName($this->meta->getCompressionType());
                 }
-                
+
                 if(null === $this->meta->getKeepExif()) {
                     unset($rawMeta['ShortPixel']['exifKept']);
                 } else {
@@ -139,7 +148,7 @@ class ShortPixelMetaFacade {
                 } else {
                     $rawMeta['ShortPixel']['date'] = date("Y-m-d H:i:s", strtotime($this->meta->getTsOptimized()));
                 }
-                
+
                 //thumbs were processed if settings or if they were explicitely requested
                 if(null === $this->meta->getThumbsOpt()) {
                     unset($rawMeta['ShortPixel']['thumbsOpt']);
@@ -162,7 +171,7 @@ class ShortPixelMetaFacade {
                 } else {
                     unset($rawMeta['ShortPixel']['thumbsMissing']);
                 }
-                
+
                 if(null === $this->meta->getRetinasOpt()) {
                     unset($rawMeta['ShortPixel']['retinasOpt']);
                 } else {
@@ -191,14 +200,28 @@ class ShortPixelMetaFacade {
                 if($this->meta->getStatus() >= 0) {
                     unset($rawMeta['ShortPixel']['ErrCode']);
                 }
-                
-                wp_update_attachment_metadata($this->ID, $rawMeta);
-                $this->rawMeta = $rawMeta;
-            }
-        }        
+
+                update_post_meta($_ID, '_wp_attachment_metadata', $rawMeta);
+                //wp_update_attachment_metadata($_ID, $rawMeta);
+                //status and optimization percent in the same time, for sorting purposes :)
+                $status = $this->meta->getStatus();
+                if($status == 2) {
+                    $status += 0.01 * intval($rawMeta['ShortPixelImprovement']);
+                }
+                update_post_meta($_ID, '_shortpixel_status', number_format($status, 4));
+
+                if($_ID == $this->ID) {
+                    $this->rawMeta = $rawMeta;
+                }
+            } // duplicates loop
+        }
     }
-    
-    function cleanupMeta($fakeOptPending = false) {
+
+
+    /** Clean meta set by Shortpixel
+    * This function only hits with images that were optimized, pending or have an error state.
+    */
+    public function cleanupMeta($fakeOptPending = false) {
         if($this->type == ShortPixelMetaFacade::MEDIA_LIBRARY_TYPE) {
             if(!isset($this->rawMeta)) {
                 $rawMeta = $this->sanitizeMeta(wp_get_attachment_metadata($this->getId()));
@@ -216,12 +239,40 @@ class ShortPixelMetaFacade {
                 unset($rawMeta['ShortPixel']);
                 unset($rawMeta['ShortPixelPng2Jpg']);
             }
+
+            $this->removeSPFoundMeta();
             unset($this->meta);
-            wp_update_attachment_metadata($this->ID, $rawMeta);
+            update_post_meta($this->ID, '_wp_attachment_metadata', $rawMeta);
+            //wp_update_attachment_metadata($this->ID, $rawMeta);
             $this->rawMeta = $rawMeta;
         } else {
             throw new Exception("Not implemented 1");
         }
+    }
+
+    // remove SPFoudnMeta from image. Dirty. @todo <--
+    function removeSPFoundMeta()
+    {
+      if($this->type == ShortPixelMetaFacade::MEDIA_LIBRARY_TYPE) {
+          if(!isset($this->rawMeta)) {
+              $rawMeta = $this->sanitizeMeta(wp_get_attachment_metadata($this->getId()));
+          } else {
+              $rawMeta = $this->rawMeta;
+          }
+          if (isset($rawMeta['sizes'])) // search for custom sizes set by SP.
+          {
+            foreach($rawMeta['sizes'] as $size => $data)
+            {
+                if (strpos($size, ShortPixelMeta::FOUND_THUMB_PREFIX) !== false)
+                {
+                  unset($rawMeta['sizes'][$size]);
+                  Log::addDebug('Unset sp-found- size' . $size);
+                }
+            }
+          }
+          $this->rawMeta = $rawMeta;
+          update_post_meta($this->ID, '_wp_attachment_metadata', $rawMeta);
+      }
     }
 
     function deleteMeta() {
@@ -229,8 +280,9 @@ class ShortPixelMetaFacade {
             throw new Exception("Not implemented 1");
         } else {
             unset($this->rawMeta['ShortPixel']);
-            wp_update_attachment_metadata($this->ID, $this->rawMeta);
-        }        
+            update_post_meta($this->ID, '_wp_attachment_metadata', $this->rawMeta);
+            //wp_update_attachment_metadata($this->ID, $this->rawMeta);
+        }
     }
 
     function deleteAllSPMeta() {
@@ -241,7 +293,8 @@ class ShortPixelMetaFacade {
             unset($this->rawMeta['ShortPixel']);
             unset($this->rawMeta['ShortPixelPng2Jpg']);
             unset($this->meta);
-            wp_update_attachment_metadata($this->ID, $this->rawMeta);
+            update_post_meta($this->ID, '_wp_attachment_metadata', $this->rawMeta);
+            //wp_update_attachment_metadata($this->ID, $this->rawMeta);
         }
     }
 
@@ -252,10 +305,10 @@ class ShortPixelMetaFacade {
             if(!isset($this->rawMeta['ShortPixel'])) {$this->rawMeta['ShortPixel'] = array();}
             $this->rawMeta['ShortPixel']['Retries'] = isset($this->rawMeta['ShortPixel']['Retries']) ? $this->rawMeta['ShortPixel']['Retries'] + $count : $count;
             $this->meta->setRetries($this->rawMeta['ShortPixel']['Retries']);
-        }        
+        }
         $this->setError($errorCode, $errorMessage);
     }
-    
+
     function setWaitingProcessing($status = true) {
         if($status) {
             $this->meta->setStatus(1);
@@ -264,15 +317,19 @@ class ShortPixelMetaFacade {
             $this->updateMeta();
         } else {
             if($status) {
+                if(!isset($this->rawMeta['ShortPixel']['WaitingProcessing']) || !$this->rawMeta['ShortPixel']['WaitingProcessing']) {
+                    self::optimizationStarted($this->getId());
+                }
                 $this->rawMeta['ShortPixel']['WaitingProcessing'] = true;
                 unset($this->rawMeta['ShortPixel']['ErrCode']);
             } else {
                 unset($this->rawMeta['ShortPixel']['WaitingProcessing']);
             }
-            wp_update_attachment_metadata($this->ID, $this->rawMeta);
-        }        
+            update_post_meta($this->ID, '_wp_attachment_metadata', $this->rawMeta);
+            //wp_update_attachment_metadata($this->ID, $this->rawMeta);
+        }
     }
-    
+
     function setError($errorCode, $errorMessage) {
         $this->meta->setMessage(__('Error','shortpixel-image-optimiser') . ': <i>' . $errorMessage . '</i>');
         $this->meta->setStatus($errorCode);
@@ -286,10 +343,11 @@ class ShortPixelMetaFacade {
             $this->rawMeta['ShortPixelImprovement'] = $this->meta->getMessage();
             $this->rawMeta['ShortPixel']['ErrCode'] = $errorCode;
             unset($this->rawMeta['ShortPixel']['WaitingProcessing']);
-            wp_update_attachment_metadata($this->ID, $this->rawMeta);
-        }        
+            update_post_meta($this->ID, '_wp_attachment_metadata', $this->rawMeta);
+            //wp_update_attachment_metadata($this->ID, $this->rawMeta);
+        }
     }
-    
+
     function setMessage($message) {
         $this->meta->setMessage($message);
         $this->meta->setStatus(-1);
@@ -298,49 +356,83 @@ class ShortPixelMetaFacade {
         } else {
             $this->rawMeta['ShortPixelImprovement'] = $this->meta->getMessage();
             unset($this->rawMeta['ShortPixel']['WaitingProcessing']);
-            wp_update_attachment_metadata($this->ID, $this->rawMeta);
+            update_post_meta($this->ID, '_wp_attachment_metadata', $this->rawMeta);
+            //wp_update_attachment_metadata($this->ID, $this->rawMeta);
         }
     }
-    
+
     public static function getHomeUrl() {
         //trim is because we found a site set up with a tab, like this: https://modernpeasantcooking.com\t
         return trailingslashit((function_exists("is_multisite") && is_multisite()) ? trim(network_site_url("/")) : trim(home_url()));
     }
-    
+
     //this is in test
     public static function getHomeUrl2() {
         return trailingslashit(ShortPixelTools::commonPrefix(self::getHomeUrl(), content_url()));
     }
-    
+
+    /**
+     * @param $id
+     * @return false|string
+     * @throws Exception
+     */
     public static function safeGetAttachmentUrl($id) {
-        $attURL = wp_get_attachment_url($id);        
+        $attURL = wp_get_attachment_url($id);
         if(!$attURL || !strlen($attURL)) {
-            throw new Exception("Post metadata is corrupt (No attachment URL)", ShortPixelAPI::ERR_POSTMETA_CORRUPT);
+            throw new Exception("Post metadata is corrupt (No attachment URL for $id)", ShortPixelAPI::ERR_POSTMETA_CORRUPT);
         }
         if ( !parse_url($attURL, PHP_URL_SCHEME) ) {//no absolute URLs used -> we implement a hack
-           return self::getHomeUrl() . $attURL;//get the file URL 
+           return self::getHomeUrl() . ltrim($attURL,'/');//get the file URL
         }
         else {
             return $attURL;//get the file URL
         }
     }
-    
+
     public function getURLsAndPATHs($processThumbnails, $onlyThumbs = false, $addRetina = true, $excludeSizes = array(), $includeOptimized = false) {
         $sizesMissing = array();
-        
+        $fs = new \ShortPixel\FileSystemController();
+
         if($this->type == self::CUSTOM_TYPE) {
             $meta = $this->getMeta();
 
             //fix for situations where site_url is lala.com/en and home_url is lala.com - if using the site_url will get a duplicated /en in the URL
             $homeUrl = self::getHomeUrl();
             $urlList[] = self::replaceHomePath($meta->getPath(), $homeUrl);
-                        
+
             $filePaths[] = $meta->getPath();
         } else {
             $path = get_attached_file($this->ID);//get the full file PATH
-            $mainExists = file_exists($path);
-            $url = self::safeGetAttachmentUrl($this->ID);
+            $fsFile = $fs->getFile($path);
+            $mainExists = apply_filters('shortpixel_image_exists', file_exists($path), $path, $this->ID);
+            $predownload_url = $url = self::safeGetAttachmentUrl($this->ID);
             $urlList = array(); $filePaths = array();
+
+            Log::addDebug('attached file path: ' . $path );
+
+            if(!$mainExists) {
+                //try and download the image from the URL (images present only on CDN)
+                $downloadTimeout = max(SHORTPIXEL_MAX_EXECUTION_TIME - 10, 15);
+                //$tempOriginal = download_url($url, $downloadTimeout);
+                $args_for_get = array(
+                  'stream' => true,
+                  'filename' => $path,
+                );
+                Log::addDebug('Downloading main file ' . $url );
+                $response = wp_remote_get( $url, $args_for_get );
+                if(is_wp_error( $response )) {
+                  Log::addError('Download Mailfile failed', array($response->get_error_messages()));
+                }
+                elseif ($fsFile->exists())
+                {
+                    $mainExists = true;
+                    $fsUrl = $fs->pathToUrl($fsFile);
+                    if ($fsUrl !== false)
+                        $url = $fsUrl; // more secure way of getting url
+
+                    Log::addDebug('FSFILE TO URL -' . $fsUrl);
+                }
+            }
 
             if($mainExists) {
                 $urlList[] = $url;
@@ -349,23 +441,25 @@ class ShortPixelMetaFacade {
                     $this->addRetina($path, $url, $filePaths, $urlList);
                 }
             }
-            
+
+            Log::addDebug('Main file turnout - ', array($url, $path));
+
             $meta = $this->getMeta();
             $sizes = $meta->getThumbs();
 
             //it is NOT a PDF file and thumbs are processable
-            if (  /*  strtolower(substr($path,strrpos($path, ".")+1)) != "pdf" 
-                 &&*/ ($processThumbnails || $onlyThumbs) 
+            if (  /*  strtolower(substr($path,strrpos($path, ".")+1)) != "pdf"
+                 &&*/ ($processThumbnails || $onlyThumbs)
                  && count($sizes))
             {
-                $uploadDir = wp_upload_dir();
-                $Tmp = explode("/", $uploadDir['basedir']);
+                $Tmp = explode("/", SHORTPIXEL_UPLOADS_BASE);
                 $TmpCount = count($Tmp);
                 $StichString = $Tmp[$TmpCount-2] . "/" . $Tmp[$TmpCount-1];
-                
+
                 $count = 1;
                 foreach( $sizes as $thumbnailName => $thumbnailInfo ) {
 
+                    // Reasons for skipping the thumb.
                     if(!isset($thumbnailInfo['file'])) { //cases when $thumbnailInfo is NULL
                         continue;
                     }
@@ -381,23 +475,79 @@ class ShortPixelMetaFacade {
                     if(strpos($thumbnailName, ShortPixelMeta::WEBP_THUMB_PREFIX) === 0) {
                         continue;
                     }
-                    
+
                     if(!$includeOptimized && in_array($thumbnailInfo['file'], $meta->getThumbsOptList())) {
                         continue;
                     }
-                    
+
                     if($count >= SHORTPIXEL_MAX_THUMBS) break;
-                    $count++;                
-                    
+                    $count++;
+
                     $origPath = $tPath = str_replace(ShortPixelAPI::MB_basename($path), $thumbnailInfo['file'], $path);
-                    if ( !file_exists($tPath) ) {
-                        $tPath = $uploadDir['basedir'] . substr($tPath, strpos($tPath, $StichString) + strlen($StichString));
+                    $origFile = $fs->getFile($origPath);
+
+                    if ($origFile->getExtension() == 'webp') // never include any webp extension.
+                      continue;
+
+                    $file_exists = apply_filters('shortpixel_image_exists', file_exists($origPath), $origPath, $this->ID);
+                    $tUrl = str_replace(ShortPixelAPI::MB_basename($predownload_url), $thumbnailInfo['file'], $predownload_url);
+
+                    // Working on low-key replacement for path handling via FileSystemController.
+                    // This specific fix is related to the possibility of URLs' in metadata
+                    if ( !$file_exists && !file_exists($tPath) )
+                    {
+                        $file = $fs->getFile($thumbnailInfo['file']);
+
+                        if ($file->exists())
+                        {
+                          $tPath = $file->getFullPath();
+                          $fsUrl = $fs->pathToUrl($file);
+                          if ($fsUrl !== false)
+                            $tUrl = $fsUrl; // more secure way of getting url
+                        }
                     }
-                    if ( !file_exists($tPath) ) {
-                        $tPath = trailingslashit($uploadDir['basedir']) . $origPath;
+
+                    if ( !$file_exists && !file_exists($tPath) ) {
+                        $tPath = SHORTPIXEL_UPLOADS_BASE . substr($origPath, strpos($origPath, $StichString) + strlen($StichString));
                     }
-                    if (file_exists($tPath)) {
-                        $tUrl = str_replace(ShortPixelAPI::MB_basename($url), $thumbnailInfo['file'], $url);
+
+                    if ( !$file_exists && !file_exists($tPath) ) {
+                        $tPath = trailingslashit(SHORTPIXEL_UPLOADS_BASE) . $origPath;
+                    }
+
+                    if ( !$file_exists && !file_exists($tPath) ) {
+                        //try and download the image from the URL (images present only on CDN)
+                      //  Log::addDebug('URLs and Paths - File didnt exists, trying to download', array($tUrl, $origPath));
+                      //  $tempThumb = download_url($tUrl, $downloadTimeout);
+                        $args_for_get = array(
+                          'stream' => true,
+                          'filename' => $origFile->getFullPath(),
+                          'timeout' => max(SHORTPIXEL_MAX_EXECUTION_TIME - 10, 15),
+                        );
+
+                        $response = wp_remote_get( $tUrl, $args_for_get );
+                        Log::addDebug('Thumb not found, trying to download: ' . $tUrl);
+
+                        if (is_wp_error($response))
+                        {
+                          Log::addError('Download Thumbnail failed', array($response->get_error_messages()));
+                        }
+                        elseif($origFile->exists())
+                        {
+                            $tPath = $origFile->getFullPath(); // download succesfull
+                            $fsUrl = $fs->pathToUrl($origFile);
+                            if ($fsUrl !== false) // this tranlation to domain url will not always hold to sendToProcessing when dealing w/ CDN and such.
+                              $tUrl = $fsUrl; // more secure way of getting url
+                            else {
+                              Log::addError('Download - Could not tranlate to URL', array($fsUrl, $tPath, $origFile));
+                            }
+                        }
+
+                        Log::addDebug('New TPath after download', array($tUrl, $tPath, $origPath, filesize($tPath)));
+                    }
+
+                    if ($file_exists || file_exists($tPath)) {
+                        if(in_array($tUrl, $urlList)) continue;
                         $urlList[] = $tUrl;
                         $filePaths[] = $tPath;
                         if($addRetina) {
@@ -405,33 +555,34 @@ class ShortPixelMetaFacade {
                         }
                     }
                     else {
+                        Log::addInfo('Missing Thumbnail :' . $tPath);
                         $sizesMissing[$thumbnailName] = ShortPixelAPI::MB_basename($tPath);
                     }
                 }
             }
             if(!count($sizes)) {
-                WPShortPixel::log("getURLsAndPATHs: no meta sizes for ID " . $this->ID . " : " . json_encode($this->rawMeta));
+                Log::addInfo("getURLsAndPATHs: no meta sizes for ID " . $this->ID . " : " . json_encode($this->rawMeta));
             }
-            
-            if($onlyThumbs && $mainExists && count($urlList) > 1) { //remove the main image
+
+            if($onlyThumbs && $mainExists && count($urlList) >= 1) { //remove the main image
                 array_shift($urlList);
                 array_shift($filePaths);
-            }            
+            }
         }
-        
+
+
         //convert the + which are replaced with spaces by wp_remote_post
         array_walk($urlList, array( &$this, 'replacePlusChar') );
 
         $filePaths = ShortPixelAPI::CheckAndFixImagePaths($filePaths);//check for images to make sure they exist on disk
 
-        //die(var_dump(array("URLs" => $urlList, "PATHs" => $filePaths)));
         return array("URLs" => $urlList, "PATHs" => $filePaths, "sizesMissing" => $sizesMissing);
     }
-    
+
     protected function replacePlusChar(&$url) {
         $url = str_replace("+", "%2B", $url);
     }
-    
+
     protected function addRetina($path, $url, &$fileList, &$urlList) {
         $ext = pathinfo($path, PATHINFO_EXTENSION);
         $retinaPath = substr($path, 0, strlen($path) - 1 - strlen($ext)) . "@2x." . $ext;
@@ -443,22 +594,44 @@ class ShortPixelMetaFacade {
 
     public static function isRetina($path) {
         $baseName = pathinfo(ShortPixelAPI::MB_basename($path), PATHINFO_FILENAME);
-        return strpos($baseName, "@2x") == strlen($baseName) - 3;
+        return (substr($baseName, -3) === '@2x');
     }
-    
+
+    // @todo Not clear what this function does.
     public static function getWPMLDuplicates( $id ) {
         global $wpdb;
-        
+
         $parentId = get_post_meta ($id, '_icl_lang_duplicate_of', true );
         if($parentId) $id = $parentId;
-        
+
         $mainFile = get_attached_file($id);
 
         $duplicates = $wpdb->get_col( $wpdb->prepare( "
             SELECT pm.post_id FROM {$wpdb->postmeta} pm
-            WHERE pm.meta_value = %s AND pm.meta_key = '_icl_lang_duplicate_of' 
+            WHERE pm.meta_value = %s AND pm.meta_key = '_icl_lang_duplicate_of'
         ", $id ) );
-        
+
+        //Polylang
+        $moreDuplicates = $wpdb->get_results( $wpdb->prepare( "
+            SELECT p.ID, p.guid FROM {$wpdb->posts} p
+            INNER JOIN {$wpdb->posts} pbase ON p.guid = pbase.guid
+         WHERE pbase.ID = %s
+        ", $id ) );
+        //MySQL is doing a CASE INSENSITIVE join on p.guid!! so double check the results.
+        $guid = false;
+        foreach($moreDuplicates as $duplicate) {
+            if($duplicate->ID == $id) {
+                $guid = $duplicate->guid;
+            }
+        }
+        foreach($moreDuplicates as $duplicate) {
+            if($duplicate->guid == $guid) {
+                $duplicates[] = $duplicate->ID;
+            }
+        }
+
+        $duplicates = array_unique($duplicates);
+
         if(!in_array($id, $duplicates)) $duplicates[] = $id;
 
         $transTable = $wpdb->get_results("SELECT COUNT(1) hasTransTable FROM information_schema.tables WHERE table_schema='{$wpdb->dbname}' AND table_name='{$wpdb->prefix}icl_translations'");
@@ -475,7 +648,7 @@ class ShortPixelMetaFacade {
         }
         return array_unique($duplicates);
     }
-    
+
     public static function pathToWebPath($path) {
         //$upl = wp_upload_dir();
         //return str_replace($upl["basedir"], $upl["baseurl"], $path);
@@ -489,11 +662,11 @@ class ShortPixelMetaFacade {
         $path = implode('/', $pathParts);
         return self::filenameToRootRelative($path);
     }
-    
+
     public static function filenameToRootRelative($path) {
         return self::replaceHomePath($path, "");
     }
-    
+
     private static function replaceHomePath($path, $with) {
         if(strpos($path, get_home_path()) === 0) {
             return str_replace(get_home_path(), $with, $path);
@@ -501,7 +674,7 @@ class ShortPixelMetaFacade {
             return str_replace(trailingslashit(realpath(get_home_path())), $with, $path);
         }
     }
-    
+
     public function getWebpSizeMeta($path) {
         $meta = $this->getMeta();
         $thumbs = $meta->getThumbs(); $thumbs = is_array($thumbs) ? $thumbs : array();
@@ -518,7 +691,7 @@ class ShortPixelMetaFacade {
                 return false;
             }
             $size = getimagesize($path);
-            return array('key' => ShortPixelMeta::WEBP_THUMB_PREFIX . 'main', 
+            return array('key' => ShortPixelMeta::WEBP_THUMB_PREFIX . 'main',
                 'val' => array( // it's a file that has no corresponding thumb so it's the WEBP for the main file
                     'file' => pathinfo(ShortPixelAPI::MB_basename($path), PATHINFO_FILENAME) . '.webp',
                     'width' => $size[0],
@@ -535,30 +708,30 @@ class ShortPixelMetaFacade {
         $resultQuery = $wpdb->get_results($queryMax);
         return $resultQuery[0]->QueryID;
     }
-    
+
     public static function getMinMediaId() {
         global  $wpdb;
         $queryMax = "SELECT min(post_id) as QueryID FROM " . $wpdb->prefix . "postmeta";
         $resultQuery = $wpdb->get_results($queryMax);
         return $resultQuery[0]->QueryID;
     }
-    
+
     public static function isCustomQueuedId($id) {
         return substr($id, 0, 2) == "C-";
     }
-    
+
     public static function stripQueuedIdType($id) {
         return intval(substr($id, 2));
     }
-    
+
     public function getQueuedId() {
         return self::queuedId($this->type, $this->ID);
     }
-    
+
     public static function queuedId($type, $id) {
         return ($type == self::CUSTOM_TYPE ? "C-" : "") . $id;
     }
-    
+
     function getId() {
         return $this->ID;
     }
@@ -574,11 +747,11 @@ class ShortPixelMetaFacade {
     function setType($type) {
         $this->type = $type;
     }
-    
+
     function getRawMeta() {
         return $this->rawMeta;
     }
-    
+
     /**
      * return subdir for that particular attached file - if it's media library then last 3 path items, otherwise substract the uploads path
      * Has trailing directory separator (/)
@@ -605,17 +778,32 @@ class ShortPixelMetaFacade {
      */
     static public function returnSubDir($file)
     {
-        $hp = wp_normalize_path(get_home_path());
+
+        // Experimental FS handling for relativePath. Should be able to cope with more exceptions.  See Unit Tests
+        $fs = new ShortPixel\FileSystemController();
+        $directory = $fs->getDirectory($file);
+        if ($relpath = $directory->getRelativePath())
+          return $relpath;
+
+
+        $homePath = get_home_path();
+        if($homePath == '/') {
+            $homePath = ABSPATH;
+        }
+        $hp = wp_normalize_path($homePath);
         $file = wp_normalize_path($file);
-        $sp__uploads = wp_upload_dir();
+
+
+      //  $sp__uploads = wp_upload_dir();
+
         if(strstr($file, $hp)) {
             $path = str_replace( $hp, "", $file);
         } elseif( strstr($file, dirname( WP_CONTENT_DIR ))) { //in some situations the content dir is not inside the root, check this also (ex. single.shortpixel.com)
             $path = str_replace( trailingslashit(dirname( WP_CONTENT_DIR )), "", $file);
         } elseif( (strstr(realpath($file), realpath($hp)))) {
             $path = str_replace( realpath($hp), "", realpath($file));
-        } elseif( strstr($file, trailingslashit(dirname(dirname( $sp__uploads['basedir'] )))) ) {
-            $path = str_replace( trailingslashit(dirname(dirname( $sp__uploads['basedir'] ))), "", $file);
+        } elseif( strstr($file, trailingslashit(dirname(dirname( SHORTPIXEL_UPLOADS_BASE )))) ) {
+            $path = str_replace( trailingslashit(dirname(dirname( SHORTPIXEL_UPLOADS_BASE ))), "", $file);
         } else {
             $path = (substr($file, 1));
         }
@@ -624,18 +812,18 @@ class ShortPixelMetaFacade {
         return implode('/', $pathArr) . '/';
     }
 
-    public static function isMediaSubfolder($path) {
+    public static function isMediaSubfolder($path, $orParent = true) {
         $uploadDir = wp_upload_dir();
-        $uploadBase = $uploadDir["basedir"];
+        $uploadBase = SHORTPIXEL_UPLOADS_BASE;
         $uploadPath = $uploadDir["path"];
         //contains the current media upload path
-        if(ShortPixelFolder::checkFolderIsSubfolder($uploadPath, $path)) {
+        if($orParent && ShortPixelFolder::checkFolderIsSubfolder($uploadPath, $path)) {
             return true;
         }
         //contains one of the year subfolders of the media library
         if(strpos($path, $uploadPath) == 0) {
             $pathArr = explode('/', str_replace($uploadBase . '/', "", $path));
-            if(   count($pathArr) >= 1 
+            if(   count($pathArr) >= 1
                && is_numeric($pathArr[0]) && $pathArr[0] > 1900 && $pathArr[0] < 2100 //contains the year subfolder
                && (   count($pathArr) == 1 //if there is another subfolder then it's the month subfolder
                    || (is_numeric($pathArr[1]) && $pathArr[1] > 0 && $pathArr[1] < 13) )) {
@@ -644,11 +832,14 @@ class ShortPixelMetaFacade {
         }
         return false;
     }
-    
-    public function doActions() {
+
+    public function optimizationSucceeded() {
         if($this->getType() == self::MEDIA_LIBRARY_TYPE) {
             do_action( 'shortpixel_image_optimised', $this->getId() );
         }
+    }
 
+    public static function optimizationStarted($id) {
+        do_action( 'shortpixel_start_image_optimisation', $id );
     }
 }
