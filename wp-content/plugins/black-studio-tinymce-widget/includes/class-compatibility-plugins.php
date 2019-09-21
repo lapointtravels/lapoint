@@ -350,6 +350,7 @@ if ( ! class_exists( 'Black_Studio_TinyMCE_Compatibility_Plugins' ) ) {
 		 * @since 2.0.0
 		 */
 		public function wp_page_widget_enqueue_script() {
+			if ( ! bstw()->admin()->enabled() ) return;
 			$main_script = apply_filters( 'black-studio-tinymce-widget-script', 'black-studio-tinymce-widget' );
 			$compat_script = 'wp-page-widget';
 			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
@@ -521,7 +522,11 @@ if ( ! class_exists( 'Black_Studio_TinyMCE_Compatibility_Plugins' ) ) {
 		 * @since 2.5.0
 		 */
 		public function elementor() {
-			if ( is_admin() && isset( $_GET['action'] ) && 'elementor' == $_GET['action'] ) {
+			if (
+				is_admin() &&
+				isset( $_REQUEST['action'] ) &&
+				in_array( $_REQUEST['action'], array( 'elementor', 'elementor_ajax' ) )
+			) {
 				add_filter( 'black_studio_tinymce_enable', '__return_false', 100 );
 				add_action( 'widgets_init', array( $this, 'elementor_unregister_widget' ), 20 );
 			}
