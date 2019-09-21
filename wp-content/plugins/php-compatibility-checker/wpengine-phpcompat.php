@@ -10,7 +10,7 @@
  * Plugin URI:  https://wpengine.com
  * Description: Make sure your plugins and themes are compatible with newer PHP versions.
  * Author:      WP Engine
- * Version:     1.4.5
+ * Version:     1.5.0
  * Author URI:  https://wpengine.com
  * Text Domain: php-compatibility-checker
  */
@@ -75,6 +75,9 @@ class WPEngine_PHPCompat {
 	public static function init() {
 		$instance = self::instance();
 
+		// Load textdomain.
+		add_action( 'init', array( $instance, 'load_textdomain' ) );
+
 		// Build our tools page.
 		add_action( 'admin_menu', array( $instance, 'create_menu' ) );
 
@@ -106,11 +109,16 @@ class WPEngine_PHPCompat {
 	 * @return array Associative array of available PHP versions.
 	 */
 	function get_phpversions() {
+
 		$versions = array(
 			'PHP 7.2' => '7.2',
 			'PHP 7.1' => '7.1',
 			'PHP 7.0' => '7.0',
 		);
+
+		if ( version_compare( phpversion(), '5.3', '>=' ) ) {
+			$versions = array( 'PHP 7.3' => '7.3' ) + $versions;
+		}
 
 		$old_versions = array( '5.6', '5.5', '5.4', '5.3' );
 
@@ -194,12 +202,14 @@ class WPEngine_PHPCompat {
 
 			$active_job = false;
 
-			$jobs = get_posts( array(
-				'posts_per_page' => -1,
-				'post_type'      => 'wpephpcompat_jobs',
-				'orderby'        => 'title',
-				'order'          => 'ASC',
-			) );
+			$jobs = get_posts(
+				array(
+					'posts_per_page' => -1,
+					'post_type'      => 'wpephpcompat_jobs',
+					'orderby'        => 'title',
+					'order'          => 'ASC',
+				)
+			);
 
 			if ( 0 < count( $jobs ) ) {
 				$active_job = $jobs[0]->post_title;
@@ -261,6 +271,19 @@ class WPEngine_PHPCompat {
 
 		// Build our URL.
 		$url = add_query_arg( $query, admin_url( 'admin-ajax.php' ) );
+
+		/**
+		 * Modify the URL used to fork a request.
+		 *
+		 * When running in a Docker container the url used to access the site internally
+		 * can be different from the external url. For example internally the port
+		 * is 80, and externally it's 8081.
+		 *
+		 * @since 1.4.6
+		 *
+		 * @param string $url The url used to make the fork request.
+		 */
+		$url = apply_filters( 'phpcompat_fork_url', $url );
 		// POST.
 		wp_remote_post( esc_url_raw( $url ), $args );
 	}
@@ -287,14 +310,28 @@ class WPEngine_PHPCompat {
 	 * @since 1.0.0
 	 */
 	public function create_job_queue() {
-		register_post_type( 'wpephpcompat_jobs', array(
-			'labels'      => array(
-				'name'          => __( 'Jobs', 'php-compatibility-checker' ),
-				'singular_name' => __( 'Job', 'php-compatibility-checker' ),
-			),
-			'public'      => false,
-			'has_archive' => false,
-		) );
+		register_post_type(
+			'wpephpcompat_jobs',
+			array(
+				'labels'      => array(
+					'name'          => __( 'Jobs', 'php-compatibility-checker' ),
+					'singular_name' => __( 'Job', 'php-compatibility-checker' ),
+				),
+				'public'      => false,
+				'has_archive' => false,
+			)
+		);
+	}
+
+	/**
+	 * Loads textdomain for WP < 4.6 translation support.
+	 *
+	 * @since 1.4.7
+	 *
+	 * @action admin_init
+	 */
+	public function load_textdomain() {
+		load_plugin_textdomain( 'php-compatibility-checker' );
 	}
 
 	/**
