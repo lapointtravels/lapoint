@@ -18,11 +18,15 @@ class WPSEO_Admin_Gutenberg_Compatibility_Notification implements WPSEO_WordPres
 	private $notification_id = 'wpseo-outdated-gutenberg-plugin';
 
 	/**
+	 * Instance of gutenberg compatibility checker.
+	 *
 	 * @var WPSEO_Gutenberg_Compatibility
 	 */
 	private $compatibility_checker;
 
 	/**
+	 * Instance of Yoast Notification Center.
+	 *
 	 * @var Yoast_Notification_Center
 	 */
 	private $notification_center;
@@ -68,7 +72,7 @@ class WPSEO_Admin_Gutenberg_Compatibility_Notification implements WPSEO_WordPres
 		$level = $this->compatibility_checker->is_below_minimum() ? Yoast_Notification::ERROR : Yoast_Notification::WARNING;
 
 		$message = sprintf(
-		/* translators: %1$s expands to Yoast SEO, %2$s expands to the installed version, %3$s expands to Gutenberg */
+			/* translators: %1$s expands to Yoast SEO, %2$s expands to the installed version, %3$s expands to Gutenberg */
 			__( '%1$s detected you are using version %2$s of %3$s, please update to the latest version to prevent compatibility issues.', 'wordpress-seo' ),
 			'Yoast SEO',
 			$this->compatibility_checker->get_installed_version(),
@@ -78,8 +82,8 @@ class WPSEO_Admin_Gutenberg_Compatibility_Notification implements WPSEO_WordPres
 		$notification = new Yoast_Notification(
 			$message,
 			array(
-				'id'   => $this->notification_id,
-				'type' => $level,
+				'id'       => $this->notification_id,
+				'type'     => $level,
 				'priority' => 1,
 			)
 		);
