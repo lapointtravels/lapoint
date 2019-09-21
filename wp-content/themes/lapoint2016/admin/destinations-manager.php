@@ -10,8 +10,10 @@
 class Destinations_Manager {
 
 	public function __construct () {
+
 		add_action('init', array($this, 'create_post_type'));
-		add_action('acf/register_fields', array($this, 'register_acf_fields'));
+		
+		add_action('acf/include_fields', array($this, 'register_acf_fields'));
 
 		add_filter("manage_destination_posts_columns", array($this, "change_columns"), 20);
 		//add_action("manage_posts_custom_column", array($this, "custom_columns"), 10, 2);
@@ -191,6 +193,8 @@ function brand_permalink($permalink, $post_id, $leavename) {
 
 	# ****************************** Setup ACF ******************************
 	public function register_acf_fields () {
+
+
 		if (function_exists("register_field_group")) {
 			register_field_group(array (
 				'id' => 'acf_destination',

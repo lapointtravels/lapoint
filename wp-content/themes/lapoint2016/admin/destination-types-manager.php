@@ -12,7 +12,7 @@ class Destinations_Types_Manager {
 	public function __construct () {
 		add_action('init', array($this, 'create_post_type'));
 
-		add_action('acf/register_fields', array($this, 'register_acf_fields'));
+		add_action('acf/include_fields', array($this, 'register_acf_fields'));
 
 		//add_filter( 'post_type_link', array($this, 'custom_remove_cpt_slug'), 10, 3 );
 		//add_action( 'pre_get_posts', array($this, 'custom_parse_request_tricksy') );
